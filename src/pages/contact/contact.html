@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar>
     <ion-title>
       Contact
@@ -12,6 +12,21 @@
     <ion-item>
       <ion-icon name="ionic" item-start></ion-icon>
       @ionicframework
+    </ion-item>
+  </ion-list>
+</ion-content> -->
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Contact
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list inset>
+    <ion-item *ngFor="let user of users">
+      <h2>{{user.username}}</h2>
+      <p>{{user.password}}</p>
     </ion-item>
   </ion-list>
 </ion-content>
