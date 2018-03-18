@@ -29,6 +29,7 @@ export class ContactPage {
     this.restServiceProvider.getMap()
       .then(data => {
         this.map = JSON.stringify(data);
+        console.log(this.map);
       });
   }
 }
