@@ -14,6 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RestServiceProvider } from '../providers/rest-service/rest-service';
+import { GeographicalMapServiceProvider } from '../providers/geographical-map-service/geographical-map-service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestServiceProvider
+    RestServiceProvider, 
+    GeographicalMapServiceProvider
   ]
 })
 export class AppModule {}

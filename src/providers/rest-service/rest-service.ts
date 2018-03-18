@@ -28,28 +28,26 @@ export class RestServiceProvider {
 
   addUser(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl+'/users', JSON.stringify(data),{
-        headers: new HttpHeaders().set('Access-Control-Allow-Origin', '*')
-      }
+      this.http.post(this.apiUrl+'/users', JSON.stringify(data)
         )
         .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
         });
-    });
-
-    // this.http.post(this.apiUrl+'/users', JSON.stringify(data), {
-    //   headers: new HttpHeaders().set('Authorization', 'my-auth-token'),
-    //   params: new HttpParams().set('id', '3'),
-    // })
-    // .subscribe(res => {
-    //   resolve(res);
-    // }, (err) => {
-    //   reject(err);
-    // });
+    }); 
   }
  
   
+  getMap() {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl+'/maps').subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
 
 }
