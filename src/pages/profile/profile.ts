@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
 
 /**
  * Generated class for the ProfilePage page.
@@ -28,7 +29,9 @@ export class ProfilePage {
     this.restServiceProvider.getMap()
       .then(data => {
         this.map = JSON.stringify(data);
+        //this.map = data;
         console.log(this.map);
+        //console.log(this.map.address);
       });
   }
 
