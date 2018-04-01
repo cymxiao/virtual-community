@@ -35,7 +35,7 @@ export class RestServiceProvider {
     //     "Content-Type": "application/x-www-form-urlencoded", 
     //     "Accept": "application/json"
     // });
-    //const headers:any = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    const headers:any = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
     // const headers :any = {
     //   headers: new HttpHeaders({
@@ -46,7 +46,10 @@ export class RestServiceProvider {
     //   'Content-Type':  'application/json'
     // });
 
-      this.http.post(this.apiUrl+'/users', JSON.stringify(data)   )
+    //const requestHeaders :any = new HttpHeaders().set('Content-Type' ,  'application/json');
+
+
+      this.http.post(this.apiUrl+'/users', JSON.stringify(data) ,  headers  )
       //{headers: new HttpHeaders().set('Accept', 'application/json' )}
       // .set('Content-Type','application/json')
       // .set('haha','haha2') 
