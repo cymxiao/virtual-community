@@ -28,8 +28,29 @@ export class RestServiceProvider {
 
   addUser(data) {
     return new Promise((resolve, reject) => {
-      console.log(data);
-      this.http.post(this.apiUrl+'/users', JSON.stringify(data))
+      // let header = new HttpHeaders();
+      // let other_header :any  = header.append('Content-Type', 'application/x-www-form-urlencoded');//.append('Accept', 'application/json').append('Content-Type','application/json');
+
+    //   var headers :any  = new HttpHeaders({
+    //     "Content-Type": "application/x-www-form-urlencoded", 
+    //     "Accept": "application/json"
+    // });
+    //const headers:any = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+    // const headers :any = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type':  'application/json'
+    //   })};
+
+    // const headers :any  =  new HttpHeaders({
+    //   'Content-Type':  'application/json'
+    // });
+
+      this.http.post(this.apiUrl+'/users', JSON.stringify(data)   )
+      //{headers: new HttpHeaders().set('Accept', 'application/json' )}
+      // .set('Content-Type','application/json')
+      // .set('haha','haha2') 
+     
         .subscribe(res => {
           resolve(res);
         }, (err) => {
