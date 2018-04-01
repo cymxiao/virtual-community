@@ -306,7 +306,7 @@
       }
     }
     .toolbar-title {
-      img {
+      imgs {
         vertical-align: sub;
         border-radius: 10%;
       }
@@ -318,7 +318,7 @@
     background-color: #fff;
     &::after {
       content: "";
-      background: url("../assets/img/bg.jpg") no-repeat;
+      background: url("../assets/imgs/bg.jpg") no-repeat;
       background-size: cover;
       top: 0;
       left: 0;
@@ -342,7 +342,7 @@
           height: 60px;
           margin: 20px auto 0;
           border-radius: 10%;
-          background: url("../assets/img/ionic3-ico.png") no-repeat;
+          background: url("../assets/imgs/ionic3-ico.png") no-repeat;
           background-size: 100%;
         }
   
@@ -384,7 +384,7 @@
       display: inline-block;
       border-radius: 50%;
       box-shadow: inset 0 0 10rem rgba(0,0,0,.25), 0 0 4rem rgba(255,255,255,.45);
-      img {
+      imgs {
         border-radius: 50%;
       }
     }

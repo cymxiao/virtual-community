@@ -28,8 +28,8 @@ export class RestServiceProvider {
 
   addUser(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl+'/users', JSON.stringify(data)
-        )
+      console.log(data);
+      this.http.post(this.apiUrl+'/users', JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {

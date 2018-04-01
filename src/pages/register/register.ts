@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs'; 
 import { LoginPage } from "../login/login";
+
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**
  * Generated class for the RegisterPage page.
  *
@@ -16,8 +19,12 @@ import { LoginPage } from "../login/login";
   templateUrl: 'register.html',
 })
 export class RegisterPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  //registerForm;
+  user : any ;
+  phone : string; 
+  pwd: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public service : RestServiceProvider) {
+    this.user = { phone : '', pwd: '' };
   }
 
   ionViewDidLoad() {
@@ -25,7 +32,17 @@ export class RegisterPage {
   }
 
   register() {
-    this.navCtrl.setRoot(TabsPage);
+    console.log(this.pwd);
+    this.service.addUser(
+      {
+        username: this.phone,
+        password: this.pwd
+      }
+    ).then( x => { 
+      this.navCtrl.setRoot(TabsPage);
+    }).catch( e => {
+      console.log(e);
+    });
   }
   // go to login page
   login() {
