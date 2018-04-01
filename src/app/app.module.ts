@@ -16,6 +16,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { RestServiceProvider } from '../providers/rest-service/rest-service';
 import { GeographicalMapServiceProvider } from '../providers/geographical-map-service/geographical-map-service';
+import { LoginPageModule } from '../pages/login/login.module';
+import { RegisterPageModule } from '../pages/register/register.module';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +32,8 @@ import { GeographicalMapServiceProvider } from '../providers/geographical-map-se
   imports: [
     BrowserModule,
     HttpClientModule,
+    LoginPageModule,
+    RegisterPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
