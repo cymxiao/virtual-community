@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**
  * Generated class for the LoginPage page.
  *
@@ -17,12 +18,15 @@ import { RegisterPage } from "../register/register";
 })
 export class LoginPage {
 
-  templateForm: any;
+  loginForm: any;
   isLogin : string = "login";
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public user : any ;
+  constructor(public navCtrl: NavController, public navParams: NavParams ,public service : RestServiceProvider ) {
+    this.user = { phone : '', pwd: '' };
   }
 
   ionViewDidLoad() {
+    //this.user = { phone : '', pwd: '' };
     console.log('ionViewDidLoad LoginPage');
   }
 
@@ -33,7 +37,21 @@ export class LoginPage {
 
       // login and go to home page
   login() {
-    this.navCtrl.setRoot(TabsPage);
+    this.service.loginUser({
+      username: this.user.phone,
+      password: this.user.pwd
+    }).then( usr => {
+      if(usr){
+      this.navCtrl.setRoot(TabsPage);
+      }
+      else{
+        console.log('wrong username or password');
+      }
+    }).catch( x => {
+      console.log(x);
+    })
+
+    
   }
 
   forgotPass()

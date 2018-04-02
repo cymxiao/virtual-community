@@ -38,52 +38,66 @@
 
 
         <!-- Register form -->
-        <form class="list-form" [formGroup]="signupform">
+        <form class="list-form" #myForm="ngForm">
             <!-- #templateForm="ngForm" -->
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
                     手机号码
                 </ion-label>
-                <!-- [ngModelOptions]="{standalone: true}"  -->
+                <!-- [ngModelOptions]="{standalone: true}"  pattern="^\d{3}$" -->
                 <!-- <mbsc-input name="username" [(ngModel)]="username" #user="ngModel" [error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"></mbsc-input> -->
-                <ion-input type="number" [(ngModel)]="phone" formControlName="phone" [class.error1]="!signupform.controls.phone.valid "></ion-input>
+                <ion-input type="number" minlength="11" maxlength="11"  name="fieldPhone" required  [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" #fieldPhone="ngModel" ></ion-input>
                 <!--  && signupform.controls.phone.dirty -->
             </ion-item>
-            <ion-item no-lines *ngIf="( signupform.get('phone').hasError('minlength') || signupform.get('phone').hasError('maxlength') ||signupform.get('phone').hasError('pattern') ||signupform.get('phone').hasError('required') ) && signupform.get('phone').touched">
-                <div class="error" *ngIf="signupform.get('phone').hasError('required') && signupform.get('phone').touched">
-                    Please input your phone
+             <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
+                <div class="text-danger" *ngIf="fieldPhone.errors.required">
+                    请输入手机号码
                 </div>
-                <div class="error" *ngIf="signupform.get('phone').hasError('minlength') && signupform.get('phone').touched">
-                    Minimum 4 characters
+                <!-- <div class="text-danger" *ngIf="fieldPhone.errors.pattern">
+                    请确认输入11位手机号码
+                </div> -->
+                <div class="text-danger" *ngIf="fieldPhone.errors.minlength || fieldPhone.errors.maxlength">
+                    请确认输入11位手机号码
                 </div>
-                <div class="error" *ngIf="signupform.get('phone').hasError('maxlength') && signupform.get('phone').touched">
-                    Maximum 30 characters
-                </div>
-                <div class="error" *ngIf="signupform.get('phone').hasError('pattern') && signupform.get('phone').touched">
-                    Just use alphabet character
-                </div>
-            </ion-item>
+                
+            </ion-item>  
 
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="eye" item-start class="text-primary"></ion-icon>
                     验证码
                 </ion-label>
-                <ion-input type="text" aria-required="true"></ion-input>
+                <ion-input type="number" minlength="4" maxlength="4" name="verifycode" required  [(ngModel)]="verifycode" [ngModelOptions]="{standalone: true}" #fieldverifycode="ngModel" ></ion-input>
             </ion-item>
+            <ion-item no-lines *ngIf="fieldverifycode.invalid && (fieldverifycode.dirty || fieldverifycode.touched)">
+                <div class="text-danger" *ngIf="fieldverifycode.errors.required">
+                    请输入验证码
+                </div> 
+                <div class="text-danger" *ngIf="fieldverifycode.errors.minlength || fieldverifycode.errors.maxlength">
+                    请确认输入4位手机验证码
+                </div> 
+            </ion-item> 
 
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="lock" item-start class="text-primary"></ion-icon>
                     密码
                 </ion-label>
-                <ion-input type="password" [(ngModel)]="pwd" [ngModelOptions]="{standalone: true}" aria-required="true"></ion-input>
+                <ion-input type="password" [(ngModel)]="pwd" minlength="6" required  [ngModelOptions]="{standalone: true}" #fieldpwd="ngModel" ></ion-input>
             </ion-item>
+            <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
+                <div class="text-danger" *ngIf="fieldpwd.errors.required">
+                    请输入密码
+                </div> 
+                <div class="text-danger" *ngIf="fieldpwd.errors.minlength">
+                    请输入至少6位密码
+                </div> 
+            </ion-item> 
         </form>
 
         <div margin-top>
-            <button ion-button block color="secondary" tappable (click)="register()">
+            <button ion-button block color="secondary" tappable [disabled]="!myForm.form.valid" (click)="register()">
                 <ion-icon name="create"></ion-icon>
                 &nbsp;&nbsp;注册
       </button>

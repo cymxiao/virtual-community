@@ -1,4 +1,4 @@
-import { HttpClient , HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders , HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /*
@@ -18,7 +18,7 @@ export class RestServiceProvider {
 
   getUsers() {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/users').subscribe(data => {
+      this.http.get(this.apiUrl + '/users').subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -28,44 +28,36 @@ export class RestServiceProvider {
 
   addUser(data) {
     return new Promise((resolve, reject) => {
-      // let header = new HttpHeaders();
-      // let other_header :any  = header.append('Content-Type', 'application/x-www-form-urlencoded');//.append('Accept', 'application/json').append('Content-Type','application/json');
 
-    //   var headers :any  = new HttpHeaders({
-    //     "Content-Type": "application/x-www-form-urlencoded", 
-    //     "Accept": "application/json"
-    // });
-    const headers:any = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-
-    // const headers :any = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type':  'application/json'
-    //   })};
-
-    // const headers :any  =  new HttpHeaders({
-    //   'Content-Type':  'application/json'
-    // });
-
-    //const requestHeaders :any = new HttpHeaders().set('Content-Type' ,  'application/json');
-
-
-      this.http.post(this.apiUrl+'/users', JSON.stringify(data) ,  headers  )
-      //{headers: new HttpHeaders().set('Accept', 'application/json' )}
-      // .set('Content-Type','application/json')
-      // .set('haha','haha2') 
-     
-        .subscribe(res => {
+      const headers: any = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+      this.http.post(this.apiUrl + '/users', JSON.stringify(data), headers)
+      .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
         });
-    }); 
+    });
   }
- 
-  
+
+  loginUser(data) {
+    // const requestBody : any = {
+    //   username: data.username,
+    //   password: data.password
+    // };
+    const params = new HttpParams().append("username",data.username).append("password",data.password);
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/userlogin', {params : params } ).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+
   getMap() {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/maps').subscribe(data => {
+      this.http.get(this.apiUrl + '/maps').subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
