@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { TabsPage } from '../tabs/tabs'; 
+import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from "../login/login";
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
@@ -21,14 +21,22 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 export class RegisterPage {
   //registerForm;
   user : any ;
-  phone : string; 
+  phone : string;
   pwd: string;
+  isLogin : string = "register";
+   signupform: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams,  public service : RestServiceProvider) {
     this.user = { phone : '', pwd: '' };
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+      this.signupform = new FormGroup({
+        phone: new FormControl('', [Validators.required, Validators.pattern('\d{11}'), Validators.minLength(11), Validators.maxLength(11)]),
+        pwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
+      code: new FormControl('', [Validators.required, Validators.pattern('\d{4}'), Validators.minLength(4), Validators.maxLength(6)]),
+
+    });
   }
 
   register() {
@@ -38,7 +46,7 @@ export class RegisterPage {
         username: this.phone,
         password: this.pwd
       }
-    ).then( x => { 
+    ).then( x => {
       this.navCtrl.setRoot(TabsPage);
     }).catch( e => {
       console.log(e);

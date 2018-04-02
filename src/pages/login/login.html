@@ -6,81 +6,95 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>登陆</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
+
 <!-- -->
 <ion-content padding class="animated fadeIn login auth-page">
-  <div class="login-content">
+    <div class="login-content">
 
-    <!-- Logo -->
-    <div padding-horizontal text-center class="animated fadeInDown">
-      <div class="logo"></div>
-      <h2 ion-text class="text-primary">
-        <strong>Ionic 3</strong> Start Theme
-      </h2>
-    </div>
+        <!-- Logo -->
+        <div padding-horizontal text-center class="animated fadeInDown">
+            <div class="logo"></div>
+            <h2 ion-text class="text-primary">
+                <strong></strong> Demo App
+            </h2>
+        </div>
 
-    <!-- Login form -->
-    <form class="list-form">
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
-          手机号码
-        </ion-label>
-        <ion-input type="email"></ion-input>
-      </ion-item>
+        <div padding>
+            <ion-segment [(ngModel)]="isLogin">
+                <ion-segment-button value="login" (click)="login()" class="primary-bg">
+                    登陆
+                </ion-segment-button>
+                <ion-segment-button value="register" (click)="register()" class="third-bg">
+                    新用户注册
+                </ion-segment-button>
+            </ion-segment>
+        </div>
 
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-          密码
-        </ion-label>
-        <ion-input type="password"></ion-input>
-      </ion-item>
-    </form>
+        <!-- Login form -->
+        <form class="list-form" novalidate #templateForm="ngForm">
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
+                    手机号码
+                </ion-label>
+                <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
+                <ion-input type="number" required></ion-input>
+            </ion-item>
 
-    <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p>
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+                    密码
+                </ion-label>
+                <ion-input type="password"></ion-input>
+            </ion-item>
+        </form>
 
-    <div>
-      <button ion-button icon-start block color="dark" tappable (click)="login()">
+        <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>忘记密码?</strong></p>
+
+        <div>
+            <!-- color="dark" -->
+            <button ion-button icon-start block color="secondary" tappable (click)="login()">
         <ion-icon name="log-in"></ion-icon>
         登陆
       </button>
 
-      <p text-center ion-text color="secondary">Or Sign in with:</p>
+            <p text-center ion-text color="primary">第三方账号登陆:</p>
 
-      <ion-grid>
-        <ion-row>
-          <ion-col col-4>
-            <button ion-button icon-only block class="btn-facebook">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <button ion-button icon-only block class="btn-facebook">
               <ion-icon name="logo-facebook"></ion-icon>
             </button>
-          </ion-col>
-          <ion-col col-4>
-            <button ion-button icon-only block class="btn-twitter">
+                    </ion-col>
+                    <ion-col col-4>
+                        <button ion-button icon-only block class="btn-twitter">
               <ion-icon name="logo-twitter"></ion-icon>
             </button>
-          </ion-col>
-          <ion-col col-4>
-            <button ion-button icon-only block class="btn-gplus">
+                    </ion-col>
+                    <ion-col col-4>
+                        <button ion-button icon-only block class="btn-gplus">
               <ion-icon name="logo-googleplus"></ion-icon>
             </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </div>
+
+
+        <!-- Other links -->
+        <!-- <div text-center margin-top>
+            <span ion-text color="secondary" tappable (click)="register()">New here? <strong>Sign up</strong></span>
+        </div> -->
 
     </div>
-
-
-    <!-- Other links -->
-    <div text-center margin-top>
-      <span ion-text color="secondary" tappable (click)="register()">New here? <strong>Sign up</strong></span>
-    </div>
-
-  </div>
 </ion-content>

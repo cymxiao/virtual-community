@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { TabsPage } from '../tabs/tabs'; 
+import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
 /**
  * Generated class for the LoginPage page.
@@ -17,6 +17,8 @@ import { RegisterPage } from "../register/register";
 })
 export class LoginPage {
 
+  templateForm: any;
+  isLogin : string = "login";
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -32,6 +34,11 @@ export class LoginPage {
       // login and go to home page
   login() {
     this.navCtrl.setRoot(TabsPage);
+  }
+
+  forgotPass()
+  {
+
   }
 
 }
