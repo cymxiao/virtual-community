@@ -23,20 +23,22 @@ export class RegisterPage {
   user : any ;
   phone : string;
   pwd: string;
+  verifycode: string;
   isLogin : string = "register";
-   signupform: FormGroup;
+  myForm:any;
+  // signupform: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams,  public service : RestServiceProvider) {
     this.user = { phone : '', pwd: '' };
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
-      this.signupform = new FormGroup({
-        phone: new FormControl('', [Validators.required, Validators.pattern('\d{11}'), Validators.minLength(11), Validators.maxLength(11)]),
-        pwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
-      code: new FormControl('', [Validators.required, Validators.pattern('\d{4}'), Validators.minLength(4), Validators.maxLength(6)]),
+    //   this.signupform = new FormGroup({
+    //     phone: new FormControl('', [Validators.required, Validators.pattern('\d{11}'), Validators.minLength(11), Validators.maxLength(11)]),
+    //     pwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
+    //   code: new FormControl('', [Validators.required, Validators.pattern('\d{4}'), Validators.minLength(4), Validators.maxLength(6)]),
 
-    });
+    // });
   }
 
   register() {

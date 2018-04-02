@@ -17,12 +17,15 @@ import { RegisterPage } from "../register/register";
 })
 export class LoginPage {
 
-  templateForm: any;
+  loginForm: any;
   isLogin : string = "login";
+  public user : any ;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.user = { phone : '', pwd: '' };
   }
 
   ionViewDidLoad() {
+    //this.user = { phone : '', pwd: '' };
     console.log('ionViewDidLoad LoginPage');
   }
 

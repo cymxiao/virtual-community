@@ -12,7 +12,7 @@ import { RegisterPage } from "../pages/register/register";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = RegisterPage;
+  rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen ){ //,auth:Auth) {
     platform.ready().then(() => {
