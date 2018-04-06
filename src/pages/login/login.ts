@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NgForm } from '@angular/forms'
 
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
@@ -18,7 +19,7 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 })
 export class LoginPage {
 
-  loginForm: any;
+  @ViewChild('loginForm') form: NgForm;
   isLogin : string = "login";
   public user : any ;
   constructor(public navCtrl: NavController, public navParams: NavParams ,public service : RestServiceProvider ) {

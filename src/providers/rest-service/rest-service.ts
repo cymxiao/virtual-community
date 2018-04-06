@@ -29,8 +29,8 @@ export class RestServiceProvider {
   addUser(data) {
     return new Promise((resolve, reject) => {
 
-      const headers: any = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-      this.http.post(this.apiUrl + '/users', JSON.stringify(data), headers)
+      //const cheaders: any = new HttpHeaders().append('Content-Type', 'application/json');
+      this.http.post(this.apiUrl + '/users',  JSON.stringify( data)  )
       .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -40,10 +40,7 @@ export class RestServiceProvider {
   }
 
   loginUser(data) {
-    // const requestBody : any = {
-    //   username: data.username,
-    //   password: data.password
-    // };
+    
     const params = new HttpParams().append("username",data.username).append("password",data.password);
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/userlogin', {params : params } ).subscribe(data => {

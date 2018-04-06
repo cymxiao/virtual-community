@@ -45,15 +45,16 @@
                     手机号码
                 </ion-label>
                 <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
-                <ion-input type="number" minlength="11" maxlength="11"  name="fieldPhone" required  [(ngModel)]="user.phone" [ngModelOptions]="{standalone: true}" #fieldPhone="ngModel" ></ion-input>
+                <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" required [(ngModel)]="user.phone" [ngModelOptions]="{standalone: true}"
+                    #fieldPhone="ngModel"></ion-input>
             </ion-item>
             <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
                 <div class="text-danger" *ngIf="fieldPhone.errors.required">
                     请输入手机号码
-                </div> 
+                </div>
                 <div class="text-danger" *ngIf="fieldPhone.errors.minlength || fieldPhone.errors.maxlength">
                     请确认输入11位手机号码
-                </div> 
+                </div>
             </ion-item>
 
             <ion-item>
@@ -61,26 +62,28 @@
                     <ion-icon name="lock" item-start class="text-primary"></ion-icon>
                     密码
                 </ion-label>
-                <ion-input type="password" [(ngModel)]="user.pwd" minlength="6" required  [ngModelOptions]="{standalone: true}" #fieldpwd="ngModel" ></ion-input>
+                <ion-input type="password" [(ngModel)]="user.pwd" minlength="6" required [ngModelOptions]="{standalone: true}" #fieldpwd="ngModel"></ion-input>
             </ion-item>
             <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
                 <div class="text-danger" *ngIf="fieldpwd.errors.required">
                     请输入密码
-                </div> 
+                </div>
                 <div class="text-danger" *ngIf="fieldpwd.errors.minlength">
                     请输入至少6位密码
-                </div> 
-            </ion-item> 
+                </div>
+            </ion-item>
         </form>
 
-        <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>忘记密码?</strong></p>
+        <p text-right ion-text color="secondary" tappable (click)="forgotPass()">
+            <strong>忘记密码?</strong>
+        </p>
 
         <div>
-            <!-- color="dark" -->
+ 
             <button ion-button icon-start block color="secondary" tappable [disabled]="!loginForm.form.valid" (click)="login()">
-        <ion-icon name="log-in"></ion-icon>
-        登陆
-      </button>
+                <ion-icon name="log-in"></ion-icon>
+                登陆
+            </button>
 
             <p text-center ion-text color="primary">第三方账号登陆:</p>
 
@@ -88,18 +91,18 @@
                 <ion-row>
                     <ion-col col-4>
                         <button ion-button icon-only block class="btn-facebook">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </button>
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </button>
                     </ion-col>
                     <ion-col col-4>
                         <button ion-button icon-only block class="btn-twitter">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </button>
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </button>
                     </ion-col>
                     <ion-col col-4>
                         <button ion-button icon-only block class="btn-gplus">
-              <ion-icon name="logo-googleplus"></ion-icon>
-            </button>
+                            <ion-icon name="logo-googleplus"></ion-icon>
+                        </button>
                     </ion-col>
                 </ion-row>
             </ion-grid>
