@@ -38,19 +38,19 @@
         </div>
 
         <!-- Login form -->
-        <form class="list-form" novalidate #loginForm="ngForm">
+        <form class="list-form" novalidate  #loginForm="ngForm">
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
                     手机号码
                 </ion-label>
                 <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
-                <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" required [(ngModel)]="user.phone" [ngModelOptions]="{standalone: true}"
+                <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" required [(ngModel)]="user.phone" 
                     #fieldPhone="ngModel"></ion-input>
             </ion-item>
             <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
                 <div class="text-danger" *ngIf="fieldPhone.errors.required">
-                    请输入手机号码
+                    请输入手机号码 
                 </div>
                 <div class="text-danger" *ngIf="fieldPhone.errors.minlength || fieldPhone.errors.maxlength">
                     请确认输入11位手机号码
@@ -62,7 +62,8 @@
                     <ion-icon name="lock" item-start class="text-primary"></ion-icon>
                     密码
                 </ion-label>
-                <ion-input type="password" [(ngModel)]="user.pwd" minlength="6" required [ngModelOptions]="{standalone: true}" #fieldpwd="ngModel"></ion-input>
+                <!-- [ngModelOptions]="{standalone: true}" -->
+                <ion-input type="password" [(ngModel)]="user.pwd"   name="fieldpwd" minlength="6" required  #fieldpwd="ngModel"></ion-input>
             </ion-item>
             <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
                 <div class="text-danger" *ngIf="fieldpwd.errors.required">
@@ -72,15 +73,15 @@
                     请输入至少6位密码
                 </div>
             </ion-item>
-        </form>
+       
 
         <p text-right ion-text color="secondary" tappable (click)="forgotPass()">
             <strong>忘记密码?</strong>
         </p>
 
         <div>
- 
-            <button ion-button icon-start block color="secondary" tappable [disabled]="!loginForm.form.valid" (click)="login()">
+              
+            <button ion-button icon-start block color="secondary" tappable [disabled]=" !loginForm.form.valid" (click)="login()">
                 <ion-icon name="log-in"></ion-icon>
                 登陆
             </button>
@@ -108,7 +109,7 @@
             </ion-grid>
 
         </div>
-
+        </form>
 
         <!-- Other links -->
         <!-- <div text-center margin-top>
