@@ -1,11 +1,65 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title >
-      About
+      我要共享闲置车位。
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <form class="list-form" novalidate  #leisureParkForm="ngForm">
+    <ion-item>
+        <ion-label floating>
+            <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
+            开始时间
+        </ion-label>
+        <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
+        <ion-input type="number"  [(ngModel)]="leisurePark.startTime"  minlength="11" maxlength="11" name="fieldPhone" required  [ngModelOptions]="{standalone: true}"
+            #fieldPhone="ngModel"></ion-input>
+    </ion-item>
+    <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
+        <div class="text-danger" *ngIf="fieldPhone.errors.required">
+            请输入开始时间
+        </div>
+        
+    </ion-item>
 
+    <ion-item>
+        <ion-label floating>
+            <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+            结束时间
+        </ion-label>
+        <ion-input type="password"  minlength="6" required [ngModelOptions]="{standalone: true}"  [(ngModel)]="leisurePark.endTime"  #fieldpwd="ngModel"></ion-input>
+    </ion-item>
+    <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
+        <div class="text-danger" *ngIf="fieldpwd.errors.required">
+            请输入结束时间
+        </div>
+        
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>
+          <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+          车位列表
+      </ion-label>
+      <ion-input type="password"   minlength="6" required [ngModelOptions]="{standalone: true}" [(ngModel)]="leisurePark.carport_ID" #fieldpwd="ngModel"></ion-input>
+  </ion-item>
+  <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
+      <div class="text-danger" *ngIf="fieldpwd.errors.required">
+          请输入结束时间
+      </div>
+      
+  </ion-item>
+
+ 
+<div>
+    <!-- {{loginForm.form.valid}} -->
+    <button ion-button icon-start block color="secondary" tappable [disabled]="fieldPhone.invalid || fieldpwd.invalid " (click)="login()">
+        <ion-icon name="log-in"></ion-icon>
+        提交
+    </button> 
+
+</div>
+</form>
 </ion-content>

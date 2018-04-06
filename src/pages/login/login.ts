@@ -1,6 +1,6 @@
-import { Component , ViewChild } from '@angular/core';
+import { Component ,ViewChild  } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { NgForm } from '@angular/forms'
+//import { NgForm , Validator, AsyncValidator } from '@angular/forms'
 
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
@@ -19,7 +19,8 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 })
 export class LoginPage {
 
-  @ViewChild('loginForm') form: NgForm;
+  //@ViewChild('loginForm') lform: NgForm;
+  //loginForm : any;
   isLogin : string = "login";
   public user : any ;
   constructor(public navCtrl: NavController, public navParams: NavParams ,public service : RestServiceProvider ) {
@@ -28,6 +29,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     //this.user = { phone : '', pwd: '' };
+    //console.log(this.lform.form.valid);
     console.log('ionViewDidLoad LoginPage');
   }
 

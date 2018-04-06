@@ -38,7 +38,7 @@
         </div>
 
         <!-- Login form -->
-        <form class="list-form" novalidate #loginForm="ngForm">
+        <form class="list-form" novalidate  #loginForm="ngForm">
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
@@ -50,7 +50,7 @@
             </ion-item>
             <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
                 <div class="text-danger" *ngIf="fieldPhone.errors.required">
-                    请输入手机号码
+                    请输入手机号码 
                 </div>
                 <div class="text-danger" *ngIf="fieldPhone.errors.minlength || fieldPhone.errors.maxlength">
                     请确认输入11位手机号码
@@ -72,15 +72,15 @@
                     请输入至少6位密码
                 </div>
             </ion-item>
-        </form>
+       
 
         <p text-right ion-text color="secondary" tappable (click)="forgotPass()">
             <strong>忘记密码?</strong>
         </p>
 
         <div>
- 
-            <button ion-button icon-start block color="secondary" tappable [disabled]="!loginForm.form.valid" (click)="login()">
+             {{loginForm.form.valid}}
+            <button ion-button icon-start block color="secondary" tappable [disabled]="fieldPhone.invalid || fieldpwd.invalid " (click)="login()">
                 <ion-icon name="log-in"></ion-icon>
                 登陆
             </button>
@@ -108,7 +108,7 @@
             </ion-grid>
 
         </div>
-
+        </form>
 
         <!-- Other links -->
         <!-- <div text-center margin-top>
