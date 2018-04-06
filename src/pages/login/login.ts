@@ -29,6 +29,9 @@ export class LoginPage {
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad LoginPage');
+    if(localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username ){
+      this.navCtrl.setRoot(TabsPage);
+    }
   }
 
   // go to register page
@@ -41,8 +44,7 @@ export class LoginPage {
     this.service.loginUser({
       username: this.user.phone,
       password: this.user.pwd
-    }).then(usr => {
-      console.dir('usr');
+    }).then(usr => { 
       if (usr) {
         localStorage.setItem('user', JSON.stringify(usr));
         this.navCtrl.setRoot(TabsPage);

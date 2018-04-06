@@ -10,7 +10,16 @@ export class AboutPage {
 
   leisurePark : ILeisurePark;
   constructor(public navCtrl: NavController) {
-
+    this.leisurePark ={
+      _id: '',
+      id:'',
+      __v:'',
+      startTime: null,
+      endTime: null,
+      status: '',
+      carport_ID: '',
+      applied_UserID: ''
+    }
   }
 
 }

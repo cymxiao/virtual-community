@@ -15,16 +15,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RestServiceProvider } from '../providers/rest-service/rest-service';
-import { GeographicalMapServiceProvider } from '../providers/geographical-map-service/geographical-map-service';
+//import { GeographicalMapServiceProvider } from '../providers/geographical-map-service/geographical-map-service';
 import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
+import { ContactPageModule } from '../pages/contact/contact.module';
+import { TestPageModule } from '../pages/test/test.module';
 
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    AboutPage, 
     HomePage,
     ProfilePage,
     TabsPage
@@ -34,13 +36,14 @@ import { RegisterPageModule } from '../pages/register/register.module';
     HttpClientModule,
     LoginPageModule,
     RegisterPageModule,
+    ContactPageModule,
+    TestPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    AboutPage, 
     HomePage,
     ProfilePage,
     TabsPage
@@ -49,8 +52,9 @@ import { RegisterPageModule } from '../pages/register/register.module';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestServiceProvider, 
-    GeographicalMapServiceProvider
+    RestServiceProvider,
+    Geolocation
+    //GeographicalMapServiceProvider
   ]
 })
 export class AppModule {}

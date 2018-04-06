@@ -17,7 +17,7 @@ export class HomePage {
   getCurrentUserName()
   {
     this.user = JSON.parse(localStorage.getItem('user'));
-    console.dir(this.user);
+ 
   }
 
 }
