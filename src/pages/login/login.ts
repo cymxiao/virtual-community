@@ -1,6 +1,6 @@
-import { Component ,ViewChild  } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { NgForm , Validator, AsyncValidator } from '@angular/forms'
+
 
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
@@ -19,46 +19,43 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 })
 export class LoginPage {
 
-  //@ViewChild('loginForm') lform: NgForm;
-  //loginForm : any;
-  isLogin : string = "login";
-  public user : any ;
-  constructor(public navCtrl: NavController, public navParams: NavParams ,public service : RestServiceProvider ) {
-    this.user = { phone : '', pwd: '' };
+
+  isLogin: string = "login";
+  public user: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public service: RestServiceProvider) {
+    this.user = { phone: '', pwd: '' };
   }
 
   ionViewDidLoad() {
-    //this.user = { phone : '', pwd: '' };
-    //console.log(this.lform.form.valid);
+
     console.log('ionViewDidLoad LoginPage');
   }
 
-    // go to register page
-    register() {
-      this.navCtrl.setRoot(RegisterPage);
-    }
+  // go to register page
+  register() {
+    this.navCtrl.setRoot(RegisterPage);
+  }
 
-      // login and go to home page
+  // login and go to home page
   login() {
     this.service.loginUser({
       username: this.user.phone,
       password: this.user.pwd
-    }).then( usr => {
-      if(usr){
-      this.navCtrl.setRoot(TabsPage);
+    }).then(usr => {
+      console.dir('usr');
+      if (usr) {
+        localStorage.setItem('user', JSON.stringify(usr));
+        this.navCtrl.setRoot(TabsPage);
       }
-      else{
+      else {
         console.log('wrong username or password');
       }
-    }).catch( x => {
+    }).catch(x => {
       console.log(x);
     })
-
-    
   }
 
-  forgotPass()
-  {
+  forgotPass() {
 
   }
 

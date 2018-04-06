@@ -10,7 +10,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RestServiceProvider {
 
-  apiUrl = 'http://localhost:3000';
+  //apiUrl = 'http://localhost:3000';
+  apiUrl = 'http://192.168.0.110:3000';
   constructor(public http: HttpClient) {
     //this.http.post('',null);
     console.log('Hello RestServiceProvider Provider');
@@ -46,7 +47,7 @@ export class RestServiceProvider {
       this.http.get(this.apiUrl + '/userlogin', {params : params } ).subscribe(data => {
         resolve(data);
       }, err => {
-        console.log(err);
+        console.log('login error' + err.message);
       });
     });
   }

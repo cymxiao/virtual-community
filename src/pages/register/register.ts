@@ -43,7 +43,8 @@ export class RegisterPage {
         username: this.phone,
         password: this.pwd
       }
-    ).then( x => {
+    ).then( usr => {
+      localStorage.setItem('user', JSON.stringify(usr));
       this.navCtrl.setRoot(TabsPage);
     }).catch( e => {
       console.log(e);
