@@ -13,12 +13,13 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-input ></ion-input>
-  dsafasdf
-  {{map}} 
+<ion-content padding *ngIf="user">
+  <ion-item>
+    <ion-label floating>
+      <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
+      手机号码
+    </ion-label>
+    <ion-input type="number" name="username" [(ngModel)]="user.username" disabled="true"> </ion-input>
+    <!-- <div >{{this.user.username}}</div>  -->
+  </ion-item>
 </ion-content>
-
-
- 
- 

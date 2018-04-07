@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
-
+//import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+ 
+import { IUser } from '../../model/user';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -16,23 +16,38 @@ import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
 })
 export class ProfilePage {
 
-  map: any;
-  constructor(public navCtrl: NavController, private restServiceProvider: RestServiceProvider) {
-    this.getMap();
+  //map: any;
+  user : IUser;
+  constructor(public navCtrl: NavController){//, public restServiceProvider: RestServiceProvider) {
+    //this.getMap();
+
+   this.getCurrentUserName();
+    
   }
 
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad ProfilePage');
   // }
 
-  getMap() {
-    this.restServiceProvider.getMap()
-      .then(data => {
-        this.map = JSON.stringify(data);
-        //this.map = data;
-        console.log(this.map);
-        //console.log(this.map.address);
-      });
+
+  getCurrentUserName()
+  {
+    this.user = JSON.parse(localStorage.getItem('user')); 
+    if(this.user){
+    console.log('username on profile page is:'  + this.user.username);
+    } else {
+      console.log('user is empty' );
+    }
   }
+
+  // getMap() {
+  //   this.restServiceProvider.getMap()
+  //     .then(data => {
+  //       this.map = JSON.stringify(data);
+  //       //this.map = data;
+  //       console.log(this.map);
+  //       //console.log(this.map.address);
+  //     });
+  // }
 
 }
