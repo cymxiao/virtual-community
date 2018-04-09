@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpParams } from '@angular/common/http';
 import { AppSettings } from '../../settings/app-settings';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -10,21 +10,33 @@ export class AutoCompleteServiceProvider implements AutoCompleteService {
     apiUrl = AppSettings.API_SERVICES_URL;
     labelAttribute = "name";
     constructor(public http: HttpClient) {
-
-        console.log('cccc called.');
+ 
     }
 
+
+    // getResults(keyword) {
+
+    //     console.log('getResults called');
+    //     return this.http.get(this.apiUrl + '/community')//.subscribe(x => {})
+    //         .map(
+    //             result => {
+                
+    //                 return result.json()
+    //                     .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()))
+    //             });
+    // }
 
     getResults(keyword) {
-
-        console.log('getResults called');
-        return this.http.get(this.apiUrl + '/community')
-            .map(
-                result => {
-                    console.log(result.toString());
-                    return JSON.parse(result.toString())
-                        .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()))
-                });
-    }
+    
+        const params = new HttpParams().append("name",keyword.name);
+        console.log('keyword is ' + keyword);
+        return new Promise(resolve => {
+          this.http.get(this.apiUrl + '/findcommunity', {params : params } ).subscribe(data => {
+            resolve(data);
+          }, err => {
+            console.log('login error' + err.message);
+          });
+        });
+      }
 
 }

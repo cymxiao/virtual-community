@@ -20,9 +20,10 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
 import { TestPageModule } from '../pages/test/test.module';
+import { LeisureParkPageModule } from '../pages/leisure-park/leisure-park.module';
 
 import { Geolocation } from '@ionic-native/geolocation';
-import { AutoCompleteModule } from 'ionic2-auto-complete';
+//import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 @NgModule({
   declarations: [
@@ -35,11 +36,12 @@ import { AutoCompleteModule } from 'ionic2-auto-complete';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AutoCompleteModule,
+    //AutoCompleteModule,
     LoginPageModule,
     RegisterPageModule,
     ContactPageModule,
     TestPageModule,
+    LeisureParkPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

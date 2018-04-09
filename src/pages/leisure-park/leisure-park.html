@@ -9,9 +9,7 @@
 <ion-content padding>
   <form class="list-form" novalidate  #leisureParkForm="ngForm">
 
- 
-
-       
+        <ion-auto-complete [dataProvider]="autoService" ></ion-auto-complete>
  
 <!-- 
             <div class="autocomplete">
