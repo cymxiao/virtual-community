@@ -16,6 +16,9 @@
 // App Shared Imports
 // --------------------------------------------------
 // global styles
+
+
+
 .primary-bg {
     background-color: color($colors, primary) !important;
 }
@@ -546,3 +549,5 @@ $segment-button-ios-text-color: #fff;
 .segment-md .segment-button {
     color: $segment-button-ios-text-color;
 }
+
+@import "../../node_modules/ionic2-auto-complete/auto-complete";

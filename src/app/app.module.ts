@@ -15,13 +15,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RestServiceProvider } from '../providers/rest-service/rest-service';
-//import { GeographicalMapServiceProvider } from '../providers/geographical-map-service/geographical-map-service';
+import { AutoCompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
 import { TestPageModule } from '../pages/test/test.module';
 
 import { Geolocation } from '@ionic-native/geolocation';
+import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { Geolocation } from '@ionic-native/geolocation';
   imports: [
     BrowserModule,
     HttpClientModule,
+    AutoCompleteModule,
     LoginPageModule,
     RegisterPageModule,
     ContactPageModule,
@@ -53,6 +55,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestServiceProvider,
+    AutoCompleteServiceProvider,
     Geolocation
     //GeographicalMapServiceProvider
   ]

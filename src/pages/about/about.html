@@ -1,13 +1,37 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title >
-      我要共享闲置车位。
+      我要共享车位
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <form class="list-form" novalidate  #leisureParkForm="ngForm">
+
+        <ion-auto-complete [dataProvider]="autoService" ></ion-auto-complete>
+
+       
+        
+ 
+<!-- 
+            <div class="autocomplete">
+                    <ion-searchbar
+                        [(ngModel)]="searchText"
+                        (ionFocus)="addFocus()"
+                        (ionInput)="search()"
+                        (ionBlur)="removeFocus()"
+                        debounce=500>
+                    </ion-searchbar>
+                    <ion-list>
+                        <ion-item *ngFor="let res of refRicerca" (click)="addNote(res)">
+                            {{res}}
+                        </ion-item>
+                    </ion-list>
+                </div> -->
+
+ 
+
     <ion-item>
         <ion-label floating>
             <ion-icon name="time" item-start class="text-primary"></ion-icon>
@@ -62,6 +86,6 @@
         提交
     </button> 
 
-</div>
+</div> 
 </form>
 </ion-content>

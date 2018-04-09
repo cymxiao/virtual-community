@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController , AlertController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { ILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 
 @Component({
   selector: 'page-about',
@@ -9,13 +11,16 @@ import { IUser } from '../../model/user';
 })
 export class AboutPage {
 
-  leisurePark : ILeisurePark;
-  currentUser : IUser;
-  constructor(public navCtrl: NavController , private alertCtrl: AlertController) {
-    this.leisurePark ={
+  leisurePark: ILeisurePark;
+  currentUser: IUser;
+  showCommunity: boolean;
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController,
+    public service: RestServiceProvider,
+    public autoService: AutoCompleteServiceProvider) {
+    this.leisurePark = {
       _id: '',
-      id:'',
-      __v:'',
+      id: '',
+      __v: '',
       startTime: null,
       endTime: null,
       status: '',
@@ -23,9 +28,13 @@ export class AboutPage {
       applied_UserID: ''
     }
     this.currentUser = JSON.parse(localStorage.getItem('user'));
-    if(this.currentUser && !this.currentUser.community_ID){
-      this.showPrompt(); 
+    if (this.currentUser && !this.currentUser.community_ID) {
+      //this.showPrompt();
+      this.showCommunity = true;
+      this.autoService.getResults('金');
     }
+    
+    
   }
 
   showPrompt() {
@@ -33,10 +42,10 @@ export class AboutPage {
       title: '小区',
       message: "请输入你所在的小区名称及地址",
       inputs: [
-        { 
+        {
           type: 'radio',
           name: 'title',
-          placeholder: 'Title' ,
+          placeholder: 'Title',
         },
       ],
       buttons: [
