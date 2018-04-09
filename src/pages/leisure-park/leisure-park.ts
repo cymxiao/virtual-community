@@ -4,6 +4,8 @@ import { ILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
+
+import {ICommunity} from '../../model/community';
 /**
  * Generated class for the LeisureParkPage page.
  *
@@ -22,7 +24,8 @@ export class LeisureParkPage {
   leisurePark: ILeisurePark;
   currentUser: IUser;
   showCommunity: boolean;
-  test: string;
+  searchText: string;
+  coms : any ;
   constructor(public navCtrl: NavController, private alertCtrl: AlertController,
     public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
@@ -48,11 +51,20 @@ export class LeisureParkPage {
       //this.showPrompt();
       this.showCommunity = true;
       
-      //this.autoService.getResults('金');
+     
       
     }
   }
 
+  searchTextChagne(ev: any)
+  {
+ 
+    this.autoService.getResults(ev.target.value).then( x => {
+       //this.coms = JSON.stringify(x);
+       console.dir(x);
+    });
+    
+  }
   showPrompt() {
     let prompt = this.alertCtrl.create({
       title: '小区',

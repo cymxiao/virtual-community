@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import {AutoCompleteService} from 'ionic2-auto-complete';
 
 @Injectable()
-export class AutoCompleteServiceProvider implements AutoCompleteService {
+export class AutoCompleteServiceProvider {// implements AutoCompleteService {
 
     apiUrl = AppSettings.API_SERVICES_URL;
-    labelAttribute = "name";
+    //labelAttribute = "name";
     constructor(public http: HttpClient) {
  
     }
@@ -26,17 +26,17 @@ export class AutoCompleteServiceProvider implements AutoCompleteService {
     //             });
     // }
 
-    getResults(keyword) {
-    
-        const params = new HttpParams().append("name",keyword.name);
-        console.log('keyword is ' + keyword);
-        return new Promise(resolve => {
-          this.http.get(this.apiUrl + '/findcommunity', {params : params } ).subscribe(data => {
-            resolve(data);
-          }, err => {
-            console.log('login error' + err.message);
-          });
-        });
-      }
+  getResults(keyword) {
+
+    const params = new HttpParams().append("name", keyword);
+    console.log(keyword);
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/findcommunity', { params: params }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('login error' + err.message);
+      });
+    });
+  }
 
 }

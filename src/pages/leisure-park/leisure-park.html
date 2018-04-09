@@ -9,23 +9,20 @@
 <ion-content padding>
   <form class="list-form" novalidate  #leisureParkForm="ngForm">
 
-        <ion-auto-complete [dataProvider]="autoService" ></ion-auto-complete>
+        <!-- <ion-auto-complete [dataProvider]="autoService" ></ion-auto-complete> -->
  
-<!-- 
+        <!-- (ionFocus)="addFocus()"
+        (ionInput)="search()"
+        (ionBlur)="removeFocus()" -->
             <div class="autocomplete">
-                    <ion-searchbar
-                        [(ngModel)]="searchText"
-                        (ionFocus)="addFocus()"
-                        (ionInput)="search()"
-                        (ionBlur)="removeFocus()"
-                        debounce=500>
+                    <ion-searchbar (ionInput)="searchTextChagne($event)">
                     </ion-searchbar>
-                    <ion-list>
-                        <ion-item *ngFor="let res of refRicerca" (click)="addNote(res)">
-                            {{res}}
+                    <!-- <ion-list>
+                        <ion-item *ngFor="let com of coms" >
+                            {{com}}
                         </ion-item>
-                    </ion-list>
-                </div> -->
+                    </ion-list> -->
+                </div>
 
  
 
