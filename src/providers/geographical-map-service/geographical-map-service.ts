@@ -1,6 +1,6 @@
-import { HttpClient ,HttpHeaders , HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
+import { HttpClient , HttpHeaders ,HttpEvent, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+//import {Observable} from "rxjs";
 //import { Headers, Http , RequestOptions } from '@angular/http';
 /*
   Generated class for the GeographicalMapServiceProvider provider.
