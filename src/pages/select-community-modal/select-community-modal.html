@@ -1,0 +1,30 @@
+<!--
+  Generated template for the SelectCommunityModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>小区设置</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item>
+        <ion-searchbar (ionInput)="searchTextChagne($event)" name="searchQuery" [(ngModel)]="searchQuery">
+        </ion-searchbar>
+        <ion-list *ngIf="!hideList">
+            <ion-item *ngFor="let com of coms" (click)="addItem(com)">
+                {{com.name}}
+            </ion-item>
+        </ion-list>
+    </ion-item>
+    <button ion-button icon-start block color="primary" tappable   (click)="save()">
+        <ion-icon name="save"></ion-icon>
+        保存
+    </button>
+</ion-content>

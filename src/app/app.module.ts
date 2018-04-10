@@ -21,7 +21,8 @@ import { RegisterPageModule } from '../pages/register/register.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
 import { TestPageModule } from '../pages/test/test.module';
 import { LeisureParkPageModule } from '../pages/leisure-park/leisure-park.module';
-
+import { SelectCommunityModalPageModule } from '../pages/select-community-modal/select-community-modal.module';
+//import { SelectCommunityModalPage } from '../pages/select-community-modal/select-community-modal';
 import { Geolocation } from '@ionic-native/geolocation';
 //import { AutoCompleteModule } from 'ionic2-auto-complete';
 
@@ -31,6 +32,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     AboutPage, 
     HomePage,
     ProfilePage,
+    //SelectCommunityModalPage,
     TabsPage
   ],
   imports: [
@@ -42,6 +44,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     ContactPageModule,
     TestPageModule,
     LeisureParkPageModule,
+    SelectCommunityModalPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -50,6 +53,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     AboutPage, 
     HomePage,
     ProfilePage,
+    //SelectCommunityModalPage,
     TabsPage
   ],
   providers: [

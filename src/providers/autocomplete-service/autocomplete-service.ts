@@ -2,7 +2,6 @@ import { HttpClient , HttpParams } from '@angular/common/http';
 import { AppSettings } from '../../settings/app-settings';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {AutoCompleteService} from 'ionic2-auto-complete';
 
 @Injectable()
 export class AutoCompleteServiceProvider {// implements AutoCompleteService {
