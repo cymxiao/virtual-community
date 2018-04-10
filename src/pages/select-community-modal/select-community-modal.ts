@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ViewController } from 'ionic-angular';
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { AppSettings } from '../../settings/app-settings';
+
 /**
  * Generated class for the SelectCommunityModalPage page.
  *
@@ -18,8 +21,10 @@ export class SelectCommunityModalPage {
   searchQuery: string = '';
   selectedComunityID: string;
   hideList : boolean  ;
+  user: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
+    public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
   }
 
@@ -48,8 +53,19 @@ export class SelectCommunityModalPage {
 
   save()
   {
-    //update profile
-    this.dismiss();
+    this.user = AppSettings.getCurrentUser();
+    if(this.user._id){
+      const udpateContent = {
+        community_ID: this.selectedComunityID 
+      }
+      this.service.updateUser(this.user._id, udpateContent).then(usr => {
+        if( usr){
+          //update profile
+          this.dismiss();
+        }
+      })
+    } 
+    
   }
 
   dismiss() { 

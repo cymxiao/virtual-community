@@ -53,6 +53,17 @@ export class RestServiceProvider {
     });
   }
 
+  updateUser(userId, data) { 
+    //const params = new HttpParams().append("userId",userId);
+    return new Promise(resolve => {
+      this.http.put(this.apiUrl + '/users/' + userId, JSON.stringify( data) ).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('update user error' + err.message);
+      });
+    });
+  }
+
 
   getMap() {
     return new Promise(resolve => {
