@@ -106,14 +106,14 @@ export class TestPage {
 
 
   addInfoWindow(point, address){
-    const content = '<div style="margin:0;line-height:20px;padding:2px;">' + 
-                    + address +
-                  '</div>';
+    // const content = '<div >' + 
+    //                 + address +
+    //               '</div>';
 
                   //创建检索信息窗口对象
     let searchInfoWindow = null;
-    searchInfoWindow = new BMapLib.SearchInfoWindow(this.map, content, {
-        title  : "百度大厦",      //标题
+    searchInfoWindow = new BMapLib.SearchInfoWindow(this.map, address, {
+        title  : address,      //标题
         width  : 290,             //宽度
         height : 105,              //高度
         panel  : "panel",         //检索结果面板
