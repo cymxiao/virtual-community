@@ -8,32 +8,7 @@
 
 <ion-content padding>
   <form class="list-form" novalidate  #leisureParkForm="ngForm">
-
-        <!-- <ion-auto-complete [dataProvider]="autoService" ></ion-auto-complete> -->
  
-        <!-- (ionFocus)="addFocus()"
-        (ionInput)="search()"
-        (ionBlur)="removeFocus()" -->
-        <ion-item>
-            <ion-searchbar (ionInput)="searchTextChagne($event)" name="searchQuery" [(ngModel)]="searchQuery">
-            </ion-searchbar>
-            <ion-list *ngIf="!hideList">
-                <ion-item *ngFor="let com of coms"   (click)="addItem(com)" >
-                    {{com.name}}
-                </ion-item>
-            </ion-list>
-        </ion-item>
-<!-- 
- <ion-item>   
-        <ion-searchbar (ionInput)="getItems($event)" name="searchQuery" [(ngModel)]="searchQuery"></ion-searchbar> 
-        <ion-list *ngIf="!hideList">
-          <ion-item *ngFor="let item of items"  (click)="addItem(item)">
-            {{ item }}
-          </ion-item>
-        </ion-list>
- </ion-item> -->
-
-
     <ion-item>
         <ion-label floating>
             <ion-icon name="time" item-start class="text-primary"></ion-icon>
