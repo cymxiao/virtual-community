@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare var BMap;
+declare var BMapLib;
 /**
  * Generated class for the TestPage page.
  *
@@ -77,7 +78,7 @@ export class TestPage {
 
   bdGEO() {
     //let add = this.adds[this.index];
- this.adds.forEach(add => {this.geocodeSearch(add);});
+    this.adds.forEach(add => {this.geocodeSearch(add);});
     
     //this.index++;
   }
@@ -98,8 +99,37 @@ export class TestPage {
 
   callBackEvent(point ,add){ 
       if (point) { 
-        this.addMarker(point, new BMap.Label( add , { offset: new BMap.Size(20, -10) }));
+        //this.addMarker(point, new BMap.Label( add , { offset: new BMap.Size(20, -10) }));
+        this.addInfoWindow(point, add);
       }
+  }
+
+
+  addInfoWindow(point, address){
+    const content = '<div style="margin:0;line-height:20px;padding:2px;">' + 
+                    + address +
+                  '</div>';
+
+                  //创建检索信息窗口对象
+    let searchInfoWindow = null;
+    searchInfoWindow = new BMapLib.SearchInfoWindow(this.map, content, {
+        title  : "百度大厦",      //标题
+        width  : 290,             //宽度
+        height : 105,              //高度
+        panel  : "panel",         //检索结果面板
+        enableAutoPan : true,     //自动平移
+        searchTypes   :[
+          BMAPLIB_TAB_SEARCH,   //周边检索
+          BMAPLIB_TAB_TO_HERE,  //到这里去
+          BMAPLIB_TAB_FROM_HERE //从这里出发
+        ]
+      });
+      let marker = new BMap.Marker(point); //创建marker对象
+      //marker.enableDragging(); //marker可拖拽
+      marker.addEventListener("click", function(e){
+        searchInfoWindow.open(marker);
+      })
+      this.map.addOverlay(marker); //在地图中添加marker
   }
 
   getLocation() {
