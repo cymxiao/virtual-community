@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
@@ -26,7 +26,13 @@ export class LeisureParkPage {
   showCommunity: boolean;
   searchText: string;
   coms : any ;
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController,
+
+
+  searchQuery: string = '';
+  items: string[];
+  hideList : boolean  ;
+
+  constructor(public navCtrl: NavController,  
     public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
     this.leisurePark = {
@@ -39,8 +45,7 @@ export class LeisureParkPage {
       carport_ID: '',
       applied_UserID: ''
     }
-    
-    
+
     
   }
 
@@ -48,50 +53,63 @@ export class LeisureParkPage {
     console.log('ionViewDidLoad LeisureParkPage');
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     if (this.currentUser && !this.currentUser.community_ID) {
-      //this.showPrompt();
+ 
       this.showCommunity = true;
       
-     
-      
+    
+       
+      //this.initializeItems();
     }
   }
 
   searchTextChagne(ev: any)
   {
- 
+    this.hideList = false;
     this.autoService.getResults(ev.target.value).then( x => {
-       //this.coms = JSON.stringify(x);
-       console.dir(x);
+       this.coms = x;
+       this.coms.forEach(element => {
+         JSON.stringify(element);
+       });
+       
+      // console.dir(x);
     });
     
   }
-  showPrompt() {
-    let prompt = this.alertCtrl.create({
-      title: '小区',
-      message: "请输入你所在的小区名称及地址",
-      inputs: [
-        {
-          type: 'radio',
-          name: 'title',
-          placeholder: 'Title',
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            console.log('Saved clicked');
-          }
-        }
-      ]
-    });
-    prompt.present();
+    
+  // initializeItems() {
+  //   this.items = [
+  //     'Amsterdam',
+  //     'Bogota',
+  //     'Boot'
+  //   ];
+  // }
+
+  
+  // addItem(item:any){
+  //   this.hideList = true;
+  //   //console.dir(item);
+  //   this.searchQuery =  item.toString();
+  // }
+
+  addItem(item:any){
+    this.hideList = true;
+    console.dir(item);
+    this.searchQuery =  item.name;
   }
+
+  // getItems(ev: any) {
+  //   // Reset items back to all of the items
+  //   this.initializeItems();
+
+  //   // set val to the value of the searchbar
+  //   let val = ev.target.value;
+  //   this.hideList = false;
+  //   // if the value is an empty string don't filter the items
+  //   if (val && val.trim() != '') {
+  //     this.items = this.items.filter((item) => {
+  //       return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+  //     })
+  //   } 
+  // }
 
 }
