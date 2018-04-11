@@ -21,8 +21,8 @@ export class ProfilePage {
   constructor(public navCtrl: NavController){//, public restServiceProvider: RestServiceProvider) {
     //this.getMap();
 
-   this.getCurrentUserName();
-    
+    this.getCurrentUserName();
+   //localStorage.clear();
   }
 
   // ionViewDidLoad() {

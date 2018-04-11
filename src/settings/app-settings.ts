@@ -4,4 +4,12 @@ export class AppSettings{
     public static getCurrentUser(){
         return JSON.parse(localStorage.getItem('user'));
     }
+
+    public static getCurrentCommunity(){
+        return JSON.parse(localStorage.getItem('community'));
+    }
+
+    public static getCurrentCarport(){
+        return JSON.parse(localStorage.getItem('carport'));
+    }
 }
