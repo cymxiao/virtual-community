@@ -8,7 +8,6 @@ import { ICommunity } from '../../model/community';
 import { ICarport } from '../../model/carport';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
 import { AppSettings } from '../../settings/app-settings';
-import { ThrowStmt } from '@angular/compiler';
 /**
  * Generated class for the LeisureParkPage page.
  *

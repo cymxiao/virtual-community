@@ -114,6 +114,7 @@ export class RestServiceProvider {
       });
     });
   }
+ 
 
   getCarportListByOwnerId(ownerId) { 
     return new Promise(resolve => {
