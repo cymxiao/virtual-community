@@ -104,8 +104,6 @@ export class RestServiceProvider {
   }
 
   getCommunity(comId) {
-    
-    const params = new HttpParams().append("comId",comId);
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/community/' + comId ).subscribe(data => {
         resolve(data);
