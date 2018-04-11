@@ -70,8 +70,60 @@ export class RestServiceProvider {
       });
     });
   }
+  
+  addCarport(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/carport',  JSON.stringify( data)  )
+      .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 
+  addLeisurePark(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/leisurePark',  JSON.stringify( data)  )
+      .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 
+  getCommunity(comId) {
+    
+    const params = new HttpParams().append("comId",comId);
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/community/' + comId ).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('login error' + err.message);
+      });
+    });
+  }
+
+  getCarport(carportId) { 
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/carport/' + carportId ).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('login error' + err.message);
+      });
+    });
+  }
+
+  getCarportListByOwnerId(ownerId) { 
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/searchcarport/' + ownerId ).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('login error' + err.message);
+      });
+    });
+  }
   getMap() {
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/maps').subscribe(data => {

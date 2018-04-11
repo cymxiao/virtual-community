@@ -11,23 +11,14 @@ import { AutoCompleteServiceProvider } from '../../providers/autocomplete-servic
 })
 export class AboutPage {
 
-  leisurePark: ILeisurePark;
+  //leisurePark: ILeisurePark;
   currentUser: IUser;
   showCommunity: boolean;
   test: string;
   constructor(public navCtrl: NavController, private alertCtrl: AlertController,
     public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
-    this.leisurePark = {
-      _id: '',
-      id: '',
-      __v: '',
-      startTime: null,
-      endTime: null,
-      status: '',
-      carport_ID: '',
-      applied_UserID: ''
-    }
+ 
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     if (this.currentUser && !this.currentUser.community_ID) {
       //this.showPrompt();

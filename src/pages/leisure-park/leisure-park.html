@@ -1,68 +1,101 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title >
-      我要共享车位
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>
+            我要共享车位
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form class="list-form" novalidate  #leisureParkForm="ngForm">
- 
-    <ion-item>
-        <ion-label floating>
-            <ion-icon name="time" item-start class="text-primary"></ion-icon>
-            开始时间
-        </ion-label> 
-        <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
-        <ion-datetime   displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="leisurePark.startTime"  name="fieldPhone" required 
-            #fieldPhone="ngModel"></ion-datetime>
-    </ion-item>
-    <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
-        <div class="text-danger" *ngIf="fieldPhone.errors.required">
-            请选择开始时间
+    <form class="list-form" novalidate #leisureParkForm="ngForm">
+        <ion-card>
+
+            <ion-card-header>
+
+            </ion-card-header>
+
+            <ion-card-content>
+                <ion-label>
+                    小区名称： {{currentCommunity.name}}
+                </ion-label>
+
+                <ion-label>
+                    小区地址：{{currentCommunity.address}}
+                </ion-label>
+                <ion-label>
+                    车位编号：{{currentCarport.parkingNumber}}
+                </ion-label>
+            </ion-card-content>
+
+        </ion-card>
+        <ion-item>
+            <ion-label floating>
+                <ion-icon name="time" item-start class="text-primary"></ion-icon>
+                开始时间
+            </ion-label>
+            <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="leisurePark.startTime" name="fieldPhone" required #fieldPhone="ngModel"></ion-datetime>
+        </ion-item>
+        <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
+            <div class="text-danger" *ngIf="fieldPhone.errors.required">
+                请选择开始时间
+            </div>
+
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>
+                <ion-icon name="timer" item-start class="text-primary"></ion-icon>
+                结束时间
+            </ion-label>
+            <ion-datetime required displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="leisurePark.endTime" #fieldpwd="ngModel" name="fieldpwd"></ion-datetime>
+        </ion-item>
+        <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
+            <div class="text-danger" *ngIf="fieldpwd.errors.required">
+                请选择结束时间
+            </div>
+
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>
+                <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
+                价格
+            </ion-label>
+            <ion-input type="number" name="fieldPhone" required [(ngModel)]="leisurePark.price" #fieldPhone="ngModel"></ion-input>
+        </ion-item>
+        <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
+            <div class="text-danger" *ngIf="fieldPhone.errors.required">
+                请输入价格信息
+            </div>
+
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>
+                <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
+                价格单位
+            </ion-label>
+            <ion-select name="pu" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover"> 
+                <!-- okText="Okay" cancelText="Dismiss" -->
+                <ion-option value="hour">小时</ion-option>
+                <ion-option value="day">天</ion-option>
+                <ion-option value="month">月</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item no-lines *ngIf="priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
+            <div class="text-danger" *ngIf="priceUnit.errors.required">
+                请选择价格单位
+            </div>
+        </ion-item>
+
+        <div>
+            <!-- {{loginForm.form.valid}} -->
+            <button ion-button icon-start block color="secondary" tappable [disabled]="!leisureParkForm.form.valid" (click)="saveLeisurePark()">
+                <ion-icon name="log-in"></ion-icon>
+                提交
+            </button>
+
         </div>
-        
-    </ion-item>
-
-    <ion-item>
-        <ion-label floating>
-            <ion-icon name="timer" item-start class="text-primary"></ion-icon>
-            结束时间
-        </ion-label>
-        <ion-datetime    required  displayFormat="MMM DD, YYYY HH:mm" 
-         [(ngModel)]="leisurePark.endTime"  #fieldpwd="ngModel" name="fieldpwd"></ion-datetime>
-    </ion-item>
-    <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
-        <div class="text-danger" *ngIf="fieldpwd.errors.required">
-            请选择结束时间
-        </div>
-        
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>
-          <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-          车位列表
-      </ion-label>
-      <ion-input type="password"   minlength="6" required  name="fieldcarport" [(ngModel)]="leisurePark.carport_ID"
-       #fieldcarport="ngModel"></ion-input>
-  </ion-item>
-  <ion-item no-lines *ngIf="fieldcarport.invalid && (fieldcarport.dirty || fieldcarport.touched)">
-      <div class="text-danger" *ngIf="fieldcarport.errors.required">
-          请输入您的车位号码或选择车位
-      </div>
-      
-  </ion-item>
-
- 
-<div>
-    <!-- {{loginForm.form.valid}} -->
-    <button ion-button icon-start block color="secondary" tappable [disabled]="fieldPhone.invalid || fieldpwd.invalid " (click)="login()">
-        <ion-icon name="log-in"></ion-icon>
-        提交
-    </button> 
-
-</div> 
-</form>
+    </form>
 </ion-content>
