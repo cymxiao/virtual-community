@@ -125,6 +125,8 @@ export class LeisureParkPage {
       if (lp) {
         //this.showAlert();
         this.showAddContent = false;
+        //Todo: how to refresh current page.
+        this.navCtrl.push(LeisureParkPage);
       }
     });
   }
