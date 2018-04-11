@@ -8,7 +8,6 @@ import { ICommunity } from '../../model/community';
 import { ICarport } from '../../model/carport';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
 import { AppSettings } from '../../settings/app-settings';
-import { ThrowStmt } from '@angular/compiler';
 /**
  * Generated class for the LeisureParkPage page.
  *
@@ -28,7 +27,8 @@ export class LeisureParkPage {
   currentUser: IUser;
   currentCommunity: ICommunity;
   currentCarport: ICarport;
-  showCommunity: boolean;
+  showAddContent: boolean;
+  myLeisureParks : ILeisurePark[];
 
   constructor(public navCtrl: NavController,
     public service: RestServiceProvider,
@@ -87,7 +87,7 @@ export class LeisureParkPage {
 
       if (!AppSettings.getCurrentCarport()) {
         this.service.getCarportListByOwnerId(this.currentUser._id).then((carp: any) => {
-          console.dir(carp);
+          //console.dir(carp);
           //Amin: Todo: temp solution 
           if (carp) {
             let carport = null;
@@ -100,13 +100,19 @@ export class LeisureParkPage {
         });
       } else {
         this.currentCarport = AppSettings.getCurrentCarport();
-      }
+      } 
     }
+    this.getLeisureParkforOwner();
   }
 
   presentModal() {
     let modal = this.modalCtrl.create(SelectCommunityModalPage);
     modal.present();
+  }
+
+  addButtonClick()
+  {
+    this.showAddContent = true;
   }
 
   saveLeisurePark() {
@@ -117,7 +123,17 @@ export class LeisureParkPage {
     delete this.leisurePark.status;
     this.service.addLeisurePark(this.leisurePark).then((lp: any) => {
       if (lp) {
-        this.showAlert();
+        //this.showAlert();
+        this.showAddContent = false;
+      }
+    });
+  }
+
+
+  getLeisureParkforOwner() {  
+    this.service.getLeisureParkforOwner(this.currentUser._id).then((lpark: any) => {
+      if (lpark) {
+         this.myLeisureParks = lpark;
       }
     });
   }

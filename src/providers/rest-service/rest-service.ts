@@ -93,6 +93,16 @@ export class RestServiceProvider {
     });
   }
 
+  getLeisureParkforOwner(ownerId) {  
+    return new Promise(resolve => { 
+      this.http.get(this.apiUrl + '/getleisurePark/' + ownerId ).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('login error' + err.message);
+      });
+    });
+  }
+
   getCommunity(comId) {
     
     const params = new HttpParams().append("comId",comId);
@@ -114,6 +124,7 @@ export class RestServiceProvider {
       });
     });
   }
+ 
 
   getCarportListByOwnerId(ownerId) { 
     return new Promise(resolve => {
