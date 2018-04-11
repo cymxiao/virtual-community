@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders , HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders , HttpParams , HttpRequest,HttpHandler, HttpInterceptor,HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { AppSettings } from '../../settings/app-settings';
 /*
   Generated class for the RestServiceProvider provider.
@@ -55,8 +56,14 @@ export class RestServiceProvider {
 
   updateUser(userId, data) { 
     //const params = new HttpParams().append("userId",userId);
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type':  'application/json'  
+    //   })
+    // };
+
     return new Promise(resolve => {
-      this.http.put(this.apiUrl + '/users/' + userId, JSON.stringify( data) ).subscribe(data => {
+      this.http.post(this.apiUrl + '/users/' + userId, JSON.stringify( data)).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('update user error' + err.message);
@@ -76,4 +83,17 @@ export class RestServiceProvider {
   }
 
 
+}
+
+@Injectable()
+export class CustomInterceptor implements HttpInterceptor { 
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (!req.headers.has('Content-Type')) {
+            req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+        }
+
+        req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+        console.log(JSON.stringify(req.headers));
+        return next.handle(req);
+    }
 }
