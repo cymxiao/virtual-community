@@ -70,6 +70,16 @@ export class RestServiceProvider {
       });
     });
   }
+
+  getUser(username) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/users/' + username).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
   
   addCarport(data) {
     return new Promise((resolve, reject) => {

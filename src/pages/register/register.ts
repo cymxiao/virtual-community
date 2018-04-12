@@ -20,35 +20,66 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 })
 export class RegisterPage {
   //registerForm;
-  user : any ;
-  phone : string;
+  user: any;
+  phone: string;
   pwd: string;
   verifycode: string;
-  isLogin : string = "register";
-  myForm:any;
- 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public service : RestServiceProvider) {
-    this.user = { phone : '', pwd: '' };
+  isLogin: string = "register";
+  myForm: any;
+  showDuplicateUserNameError: boolean = false;
+  blured: boolean = false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiService: RestServiceProvider) {
+    this.user = { phone: '', pwd: '' };
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
-     
+
   }
 
   register() {
     //console.log(this.pwd);
-    this.service.addUser(
+    this.apiService.addUser(
       {
         username: this.phone,
         password: this.pwd
       }
-    ).then( usr => {
-      localStorage.setItem('user', JSON.stringify(usr));
-      this.navCtrl.setRoot(TabsPage);
-    }).catch( e => {
+    ).then((usr: any) => {
+      if (usr) {
+        //console.dir(usr);
+        if (usr.duplicateUsername === true) {
+          this.showDuplicateUserNameError = true;
+          //console.log(this.showDuplicateUserNameError);
+        } else {
+          localStorage.setItem('user', JSON.stringify(usr));
+          this.navCtrl.setRoot(TabsPage);
+        }
+      }
+    }).catch(e => {
       console.log(e);
     });
+  }
+
+  changeText()
+  {
+    console.log(this.showDuplicateUserNameError);
+    if(this.showDuplicateUserNameError)
+    {
+      this.showDuplicateUserNameError = false;
+    }
+  }
+
+  on_username_Blur(item)
+  {
+    this.blured = true; 
+    this.apiService.getUser(item.target.value).then( duplicateUser => {
+      console.dir(duplicateUser);
+      if(duplicateUser){
+        this.showDuplicateUserNameError = true;
+      }
+    })
+
   }
   // go to login page
   login() {

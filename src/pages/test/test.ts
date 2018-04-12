@@ -4,6 +4,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { IStatisticCarport } from '../../model/visual-statistic-carport';
+
+import { HomePage } from '../../pages/home/home';
+
 declare var BMap;
 declare var BMapLib;
 /**
@@ -110,7 +113,8 @@ export class TestPage {
 
   addInfoWindow(point, address, community_name , sharedCarportNumber){
     const content = '<div >'   + address + '</div>' +
-                    '<div > 空闲车位数量：'   + sharedCarportNumber + '</div>';
+                    '<div > 空闲车位数量：'   + sharedCarportNumber + '</div>' +
+                    '<div> <a href="checkDetail()">查看详情</a> </div>';
 
                   //创建检索信息窗口对象
     let searchInfoWindow = null;
@@ -148,6 +152,7 @@ export class TestPage {
           this.map.addOverlay(marker);
         }
       })
+      this.map.centerAndZoom(locationPoint, 13);
       console.log('GPS定位：您的位置是 ' + resp.coords.longitude + ',' + resp.coords.latitude);
     })
   }
@@ -165,6 +170,11 @@ export class TestPage {
       });
       //console.dir(this.adds);
     });
+  }
+
+  checkDetail()
+  {
+    this.navCtrl.push(HomePage);
   }
 
 }

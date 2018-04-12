@@ -85,7 +85,8 @@
                 <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
                 价格单位
             </ion-label>
-            <ion-select name="pu" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover"> 
+            <!--  okText="确定" cancelText="取消"-->
+            <ion-select name="pu" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover" > 
                 <!-- okText="Okay" cancelText="Dismiss" -->
                 <ion-option value="hour">小时</ion-option>
                 <ion-option value="day">天</ion-option>
