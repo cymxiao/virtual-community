@@ -22,7 +22,7 @@ export class ProfilePage {
     //this.getMap();
 
     this.getCurrentUserName();
-   //localStorage.clear();
+    localStorage.clear();
   }
 
   // ionViewDidLoad() {

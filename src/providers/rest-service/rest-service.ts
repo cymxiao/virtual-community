@@ -98,7 +98,7 @@ export class RestServiceProvider {
       this.http.get(this.apiUrl + '/getleisurePark/' + ownerId ).subscribe(data => {
         resolve(data);
       }, err => {
-        console.log('login error' + err.message);
+        console.log('getLeisureParkforOwner error' + err.message);
       });
     });
   }
@@ -108,7 +108,7 @@ export class RestServiceProvider {
       this.http.get(this.apiUrl + '/community/' + comId ).subscribe(data => {
         resolve(data);
       }, err => {
-        console.log('login error' + err.message);
+        console.log('getCommunity error' + err.message);
       });
     });
   }
@@ -118,7 +118,7 @@ export class RestServiceProvider {
       this.http.get(this.apiUrl + '/carport/' + carportId ).subscribe(data => {
         resolve(data);
       }, err => {
-        console.log('login error' + err.message);
+        console.log('getCarport error' + err.message);
       });
     });
   }
@@ -129,10 +129,21 @@ export class RestServiceProvider {
       this.http.get(this.apiUrl + '/searchcarport/' + ownerId ).subscribe(data => {
         resolve(data);
       }, err => {
-        console.log('login error' + err.message);
+        console.log('getCarportListByOwnerId error' + err.message);
       });
     });
   }
+
+  getStatisticOfCarport() { 
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/groupleisurePark' ).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('getStatisticOfCarport error' + err.message);
+      });
+    });
+  }
+
   getMap() {
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/maps').subscribe(data => {

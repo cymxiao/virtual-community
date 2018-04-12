@@ -1,5 +1,5 @@
 export class AppSettings{
-    public static API_SERVICES_URL = "http://localhost:3000";
+    public static API_SERVICES_URL = "http://192.168.1.4:3000";
 
     public static getCurrentUser(){
         return JSON.parse(localStorage.getItem('user'));
@@ -13,3 +13,14 @@ export class AppSettings{
         return JSON.parse(localStorage.getItem('carport'));
     }
 }
+
+
+
+export enum LeisureParkStatus {
+    // pending = '待审核',
+    // active ='可申请',
+    // invalid = '无效', 
+    pending = 'pending' ,
+    active  = 'active',
+    invalid  = 'invalid', 
+  }

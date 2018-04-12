@@ -2,6 +2,8 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { IStatisticCarport } from '../../model/visual-statistic-carport';
 declare var BMap;
 declare var BMapLib;
 /**
@@ -22,16 +24,20 @@ export class TestPage {
   myGeo: any;
   index = 0;
   myIcon: any;
+
+  avaiableComs: IStatisticCarport[];
+  adds :string [] = [];
   //myGeo = new BMap.Geocoder();
-  adds = [
-    "松江区沪亭北路1080弄",
-    "松江区涞坊路333号",
-    "松江区涞坊路599号"
-  ];
+  // adds = [
+  //   "松江区沪亭北路1080弄",
+  //   "松江区涞坊路333号",
+  //   "松江区涞坊路599号"
+  // ];
  
   @ViewChild('map') map_container: ElementRef;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public APIService: RestServiceProvider,private geolocation: Geolocation) {
 
     this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(30, 30));
 
@@ -56,8 +62,9 @@ export class TestPage {
     this.map.enableScrollWheelZoom(true);
     this.myGeo = new BMap.Geocoder();
 
+    this.getStatisticOfCarport();
 
-    this.bdGEO();
+    //this.bdGEO();
     this.getLocation();
     //this.addMark();
   }
@@ -76,19 +83,15 @@ export class TestPage {
 
   }
 
-  bdGEO() {
-    //let add = this.adds[this.index];
-    this.adds.forEach(add => {this.geocodeSearch(add);});
-    
-    //this.index++;
-  }
-  geocodeSearch(add) {
-    if (this.index < this.adds.length) {
-      //setTimeout(window.bdGEO,400);
-      setTimeout(this, 400);
-    }
-    
-    this.myGeo.getPoint(add, x => {this.callBackEvent(x, add);} , "上海市");
+  // bdGEO() {
+  //   console.dir(this.adds);
+  //   if (this.adds) {
+  //     this.adds.forEach(add => { this.geocodeSearch(add); });
+  //   }
+  //   //this.index++;
+  // }
+  geocodeSearch(add, comName , sharedCarportNumber) { 
+    this.myGeo.getPoint(add, x => {this.callBackEvent(x, add, comName, sharedCarportNumber);} , "上海市");
   }
   // 编写自定义函数,创建标注
   addMarker(point, label) { 
@@ -97,23 +100,22 @@ export class TestPage {
     marker.setLabel(label);
   }
 
-  callBackEvent(point ,add){ 
+  callBackEvent(point ,add, comName , sharedCarportNumber){ 
       if (point) { 
         //this.addMarker(point, new BMap.Label( add , { offset: new BMap.Size(20, -10) }));
-        this.addInfoWindow(point, add);
+        this.addInfoWindow(point, add,comName, sharedCarportNumber);
       }
   }
 
 
-  addInfoWindow(point, address){
-    // const content = '<div >' + 
-    //                 + address +
-    //               '</div>';
+  addInfoWindow(point, address, community_name , sharedCarportNumber){
+    const content = '<div >'   + address + '</div>' +
+                    '<div > 空闲车位数量：'   + sharedCarportNumber + '</div>';
 
                   //创建检索信息窗口对象
     let searchInfoWindow = null;
-    searchInfoWindow = new BMapLib.SearchInfoWindow(this.map, address, {
-        title  : address,      //标题
+    searchInfoWindow = new BMapLib.SearchInfoWindow(this.map, content, {
+        title  : community_name,      //标题
         width  : 290,             //宽度
         height : 105,              //高度
         panel  : "panel",         //检索结果面板
@@ -148,6 +150,21 @@ export class TestPage {
       })
       console.log('GPS定位：您的位置是 ' + resp.coords.longitude + ',' + resp.coords.latitude);
     })
+  }
+
+  getStatisticOfCarport() {
+    //let addtmp;
+    this.APIService.getStatisticOfCarport().then((x: any) => {
+      this.avaiableComs = x;  
+      x.forEach(  c => {
+        if(c.community_info && c.community_info.length > 0){
+          //addtmp = c.community_info[0].address;
+        this.adds.push(c.community_info[0].address);
+        this.geocodeSearch(c.community_info[0].address, c.community_info[0].name, c.count);
+        }
+      });
+      //console.dir(this.adds);
+    });
   }
 
 }
