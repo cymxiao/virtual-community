@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { ILeisurePark } from '../../model/leisurePark';
+import { ILeisurePark , IUILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
@@ -28,7 +28,7 @@ export class LeisureParkPage {
   currentCommunity: ICommunity;
   currentCarport: ICarport;
   showAddContent: boolean;
-  myLeisureParks : ILeisurePark[];
+  myLeisureParks : IUILeisurePark[];
 
   constructor(public navCtrl: NavController,
     public service: RestServiceProvider,
@@ -40,6 +40,7 @@ export class LeisureParkPage {
       endTime: null,
       status: '',
       carport_ID: '',
+      //carport: null,
       applied_UserID: '',
       shared_UserID: '',
       price: '',
@@ -121,7 +122,14 @@ export class LeisureParkPage {
     delete this.leisurePark.applied_UserID;
     //delete this.leisurePark._id;
     delete this.leisurePark.status;
-    this.service.addLeisurePark(this.leisurePark).then((lp: any) => {
+    this.service.addLeisurePark(this.leisurePark
+      // {shared_UserID:this.currentUser._id,
+      // carport_ID:this.currentCarport._id,
+      // startTime:this.leisurePark.startTime,
+      // endTime: this.leisurePark.endTime,
+      // price: this.leisurePark.price,
+      // priceUnit:this.leisurePark.priceUnit}
+    ).then((lp: any) => {
       if (lp) {
         //this.showAlert();
         this.showAddContent = false;
@@ -135,7 +143,9 @@ export class LeisureParkPage {
   getLeisureParkforOwner() {  
     this.service.getLeisureParkforOwner(this.currentUser._id).then((lpark: any) => {
       if (lpark) {
-         this.myLeisureParks = lpark;
+        //lpark.parkingNumber = this.currentCarport.parkingNumber;
+        //console.dir(lpark);
+         this.myLeisureParks = lpark; 
       }
     });
   }
