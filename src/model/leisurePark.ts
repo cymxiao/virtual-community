@@ -6,11 +6,12 @@ export interface ILeisurePark  {
     endTime: Date;
     status: string;
     carport_ID: string; 
+    community_ID:string;
     applied_UserID: string;
     shared_UserID:string;
     price: string;
     priceUnit:string;
-
+    timestamp : Date;
   }
 
 
@@ -19,10 +20,12 @@ export interface ILeisurePark  {
     startTime: Date;
     endTime: Date;
     status: string;
+    statusDisplayText: string;
     carport_ID: ICarport; 
-    //carport: ICarport;
+    community_ID:string;
     applied_UserID: string;
     shared_UserID:string;
     price: string;
     priceUnit:string; 
+    timestamp: Date;
   }

@@ -43,7 +43,7 @@
                 开始时间
             </ion-label>
             <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
-            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="leisurePark.startTime" name="fieldPhone" required #fieldPhone="ngModel"></ion-datetime>
+            <ion-datetime displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime" name="fieldPhone" required #fieldPhone="ngModel"></ion-datetime>
         </ion-item>
         <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
             <div class="text-danger" *ngIf="fieldPhone.errors.required">
@@ -57,7 +57,7 @@
                 <ion-icon name="timer" item-start class="text-primary"></ion-icon>
                 结束时间
             </ion-label>
-            <ion-datetime required displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="leisurePark.endTime" #fieldpwd="ngModel" name="fieldpwd"></ion-datetime>
+            <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.endTime" #fieldpwd="ngModel" name="fieldpwd"></ion-datetime>
         </ion-item>
         <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
             <div class="text-danger" *ngIf="fieldpwd.errors.required">
@@ -121,13 +121,13 @@
 
             <ion-card-content>
                 <ion-label>
-                    开始时间： {{lp.startTime}}
+                    开始时间： {{lp.startTime | date:'MM-dd-yyyy hh:mm'}}
                 </ion-label> 
                 <ion-label>
-                    结束时间：{{lp.endTime}}
+                    结束时间：{{lp.endTime | date:'MM-dd-yyyy hh:mm'}}
                 </ion-label>
                 <ion-label>
-                    状态：{{lp.status}}
+                    状态：{{lp.statusDisplayText}}
                 </ion-label>
                 <ion-label>
                     车位：{{lp.carport_ID.parkingNumber}}

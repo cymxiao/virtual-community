@@ -13,3 +13,14 @@ export class AppSettings{
         return JSON.parse(localStorage.getItem('carport'));
     }
 }
+
+
+
+export enum LeisureParkStatus {
+    // pending = '待审核',
+    // active ='可申请',
+    // invalid = '无效', 
+    pending = 'pending' ,
+    active  = 'active',
+    invalid  = 'invalid', 
+  }

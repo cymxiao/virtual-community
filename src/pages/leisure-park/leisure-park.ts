@@ -7,7 +7,7 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { ICommunity } from '../../model/community';
 import { ICarport } from '../../model/carport';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
-import { AppSettings } from '../../settings/app-settings';
+import { AppSettings, LeisureParkStatus } from '../../settings/app-settings';
 /**
  * Generated class for the LeisureParkPage page.
  *
@@ -40,10 +40,11 @@ export class LeisureParkPage {
       endTime: null,
       status: '',
       carport_ID: '',
-      //carport: null,
+      community_ID: '',
       applied_UserID: '',
       shared_UserID: '',
       price: '',
+      timestamp: null,
       priceUnit: ''
     }
 
@@ -119,17 +120,13 @@ export class LeisureParkPage {
   saveLeisurePark() {
     this.leisurePark.shared_UserID = this.currentUser._id;
     this.leisurePark.carport_ID = this.currentCarport._id;
+    this.leisurePark.community_ID = this.currentCommunity._id;
     delete this.leisurePark.applied_UserID;
+    //the timestamp should be delete, otherwise it would save null to db.
+    delete this.leisurePark.timestamp;
     //delete this.leisurePark._id;
     delete this.leisurePark.status;
-    this.service.addLeisurePark(this.leisurePark
-      // {shared_UserID:this.currentUser._id,
-      // carport_ID:this.currentCarport._id,
-      // startTime:this.leisurePark.startTime,
-      // endTime: this.leisurePark.endTime,
-      // price: this.leisurePark.price,
-      // priceUnit:this.leisurePark.priceUnit}
-    ).then((lp: any) => {
+    this.service.addLeisurePark(this.leisurePark).then((lp: any) => {
       if (lp) {
         //this.showAlert();
         this.showAddContent = false;
@@ -140,12 +137,28 @@ export class LeisureParkPage {
   }
 
 
-  getLeisureParkforOwner() {  
+  getLeisureParkforOwner() {
     this.service.getLeisureParkforOwner(this.currentUser._id).then((lpark: any) => {
       if (lpark) {
-        //lpark.parkingNumber = this.currentCarport.parkingNumber;
-        //console.dir(lpark);
-         this.myLeisureParks = lpark; 
+        this.myLeisureParks = lpark;
+        this.myLeisureParks.forEach(x => {
+          //status is an array
+          if (x.status && x.status.length === 1) {
+            if (x.status[0] === 'active') {
+              x.statusDisplayText = '可申请';
+            } else if (x.status[0] === 'pending') {
+              x.statusDisplayText = '待审核';
+            } else {
+              x.statusDisplayText = '已失效';
+            }
+          }
+        })
+        //  .map( x => 
+        //   {
+        //     x.stauts = this.getStatusDisplayText(x.status);
+        //     return x;
+        //   });
+        //this.myLeisureParks.map( x = ) 
       }
     });
   }
@@ -158,5 +171,16 @@ export class LeisureParkPage {
     });
     alert.present();
   }
+
+  // getStatusDisplayText( value ){
+  //   //console.log(value );
+  //   if( value[0]=== LeisureParkStatus.pending){
+  //     return ['待审核'];
+  //   }else if( value[0]===  LeisureParkStatus.active){
+  //     return ['可申请'];
+  //   }else{
+  //     return ['无效'];
+  //   }
+  // }
 
 }
