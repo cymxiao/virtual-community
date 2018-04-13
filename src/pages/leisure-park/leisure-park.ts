@@ -31,6 +31,7 @@ export class LeisureParkPage {
   myLeisureParks : IUILeisurePark[];
 
   constructor(public navCtrl: NavController,
+    public params: NavParams,
     public service: RestServiceProvider,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController) {
@@ -68,24 +69,26 @@ export class LeisureParkPage {
       owner_user_ID: ''
     }
 
-
+    //console.log('get param : ' + this.params.get('reload'));
   }
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad LeisureParkPage');
     this.currentUser = AppSettings.getCurrentUser();
+    //console.dir(this.currentUser);
+    //this.presentModal();
     if (this.currentUser && !this.currentUser.community_ID) {
       this.presentModal();
     } else {
-      if (!AppSettings.getCurrentCommunity()) {
-        this.service.getCommunity(this.currentUser.community_ID).then((com: any) => {
-          //console.log(com);
-          this.currentCommunity = com;
-          localStorage.setItem('community', JSON.stringify(com));
-        });
-      } else {
-        this.currentCommunity = AppSettings.getCurrentCommunity();
-      }
+      // if (!AppSettings.getCurrentCommunity()) {
+      //   this.service.getCommunity(this.currentUser.community_ID).then((com: any) => {
+      //     //console.log(com);
+      //     this.currentCommunity = com;
+      //     localStorage.setItem('community', JSON.stringify(com));
+      //   });
+      // } else {
+      //   this.currentCommunity = AppSettings.getCurrentCommunity();
+      // }
 
       if (!AppSettings.getCurrentCarport()) {
         this.service.getCarportListByOwnerId(this.currentUser._id).then((carp: any) => {
@@ -106,6 +109,11 @@ export class LeisureParkPage {
     }
     this.getLeisureParkforOwner();
   }
+
+  // ionViewWillEnter()
+  // {
+  //   console.log('get param : ' + this.params.get('reload'));
+  // }
 
   presentModal() {
     let modal = this.modalCtrl.create(SelectCommunityModalPage);

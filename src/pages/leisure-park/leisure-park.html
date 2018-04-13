@@ -25,11 +25,11 @@
 
             <ion-card-content>
                 <ion-label>
-                    小区名称： {{currentCommunity.name}}
+                    小区名称： {{currentUser.community_ID.name}}
                 </ion-label>
 
                 <ion-label>
-                    小区地址：{{currentCommunity.address}}
+                    小区地址：{{currentUser.community_ID.address}}
                 </ion-label>
                 <ion-label>
                     车位编号：{{currentCarport.parkingNumber}}
@@ -43,7 +43,8 @@
                 开始时间
             </ion-label>
             <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
-            <ion-datetime displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime" name="fieldPhone" required #fieldPhone="ngModel"></ion-datetime>
+            <ion-datetime displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime"
+             name="fieldPhone" required #fieldPhone="ngModel" cancelText ="取消" doneText="确定"></ion-datetime>
         </ion-item>
         <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
             <div class="text-danger" *ngIf="fieldPhone.errors.required">
@@ -57,7 +58,8 @@
                 <ion-icon name="timer" item-start class="text-primary"></ion-icon>
                 结束时间
             </ion-label>
-            <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.endTime" #fieldpwd="ngModel" name="fieldpwd"></ion-datetime>
+            <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.endTime" 
+            #fieldpwd="ngModel" name="fieldpwd" cancelText ="取消" doneText="确定"></ion-datetime>
         </ion-item>
         <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
             <div class="text-danger" *ngIf="fieldpwd.errors.required">
