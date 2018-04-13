@@ -485,9 +485,11 @@ ion-icon[ng-reflect-disabled="true"] {
 .ios {
     ion-list ion-item,
     .list-hotels .hotel-bg {
-        pointer-events: none;
+        pointer-events : inherit;
+        //!IMP origin is none, if it's none, it would prevent to trigger click event.
+        //pointer-events : none;
     }
-}
+} 
 
 // google
 .google-map {

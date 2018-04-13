@@ -24,8 +24,9 @@
                     请输入您所在的小区名称
                 </div>
             </ion-item>
-            <ion-list *ngIf="!hideList">
-                <ion-item *ngFor="let com of coms" (click)="addItem(com)">
+            <ion-list *ngIf="!hideList" > 
+                <ion-item *ngFor="let com of coms"  (click)="addItem(com)">
+                    <!--tap-->
                     {{com.name}}
                 </ion-item>
             </ion-list>
@@ -41,7 +42,7 @@
         <ion-item no-lines *ngIf="fieldcarport.invalid && (fieldcarport.dirty || fieldcarport.touched)">
             <div class="text-danger" *ngIf="fieldcarport.errors.required">
                 请输入您的车位号
-            </div> 
+            </div>
         </ion-item>
 
         <button ion-button icon-start block color="primary" tappable (click)="save()" [disabled]="communityModalForm.form.invalid ">
