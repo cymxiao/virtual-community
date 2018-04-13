@@ -71,7 +71,9 @@ export class SelectCommunityModalPage {
               
               localStorage.setItem('user', JSON.stringify(usr)); 
               //update profile
-              this.dismiss();
+              //console.dir(this.navCtrl);
+              //this.navCtrl.getPrevious().ionViewDidLoad();
+              this.dismiss({"refresh": "true"});
             }
           });
         }
@@ -80,8 +82,8 @@ export class SelectCommunityModalPage {
 
   }
 
-  dismiss() {
-    let data = { 'communityid': this.selectedComunityID };
+  dismiss(data) {
+    //let data = { 'communityid': this.selectedComunityID };
     this.viewCtrl.dismiss(data);
   }
 }

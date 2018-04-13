@@ -9,6 +9,8 @@ import { HomePage } from '../../pages/home/home';
 
 declare var BMap;
 declare var BMapLib;
+
+declare var BMAPLIB_TAB_TO_HERE;
 /**
  * Generated class for the TestPage page.
  *
@@ -127,7 +129,7 @@ export class TestPage {
         enableAutoPan : true,     //自动平移
         searchTypes   :[
           // BMAPLIB_TAB_SEARCH,   //周边检索
-          // BMAPLIB_TAB_TO_HERE,  //到这里去
+           BMAPLIB_TAB_TO_HERE,  //到这里去
           // BMAPLIB_TAB_FROM_HERE //从这里出发
         ]
       });

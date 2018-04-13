@@ -124,16 +124,18 @@
 
             <ion-card-content>
                 <ion-label>
-                    开始时间： {{lp.startTime | date:'MM-dd-yyyy hh:mm'}}
+                    开始时间：  {{lp.startTime }} 
+                         <!-- Todo: Amin !IMP. Ionic timezone setup. | date:'MM-DD-YYYY HH:mm'}} -->
                 </ion-label> 
                 <ion-label>
-                    结束时间：{{lp.endTime | date:'MM-dd-yyyy hh:mm'}}
+                    结束时间：  {{lp.endTime }} 
+                    <!-- date:'MM-dd-yyyy HH:mm'}} -->
                 </ion-label>
                 <ion-label>
-                    状态：{{lp.statusDisplayText}}
+                    状态：      {{lp.statusDisplayText}}
                 </ion-label>
                 <ion-label>
-                    车位：{{lp.carport_ID.parkingNumber}}
+                    车位：      {{lp.carport_ID.parkingNumber}}
                 </ion-label>
             </ion-card-content>
 

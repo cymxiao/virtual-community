@@ -72,24 +72,11 @@ export class LeisureParkPage {
     //console.log('get param : ' + this.params.get('reload'));
   }
 
-  ionViewDidLoad() {
-    //console.log('ionViewDidLoad LeisureParkPage');
-    this.currentUser = AppSettings.getCurrentUser();
-    //console.dir(this.currentUser);
-    //this.presentModal();
-    if (this.currentUser && !this.currentUser.community_ID) {
+  ionViewDidLoad() { 
+    this.currentUser = AppSettings.getCurrentUser(); 
+    if (this.currentUser && !this.currentUser.community_ID) {  
       this.presentModal();
-    } else {
-      // if (!AppSettings.getCurrentCommunity()) {
-      //   this.service.getCommunity(this.currentUser.community_ID).then((com: any) => {
-      //     //console.log(com);
-      //     this.currentCommunity = com;
-      //     localStorage.setItem('community', JSON.stringify(com));
-      //   });
-      // } else {
-      //   this.currentCommunity = AppSettings.getCurrentCommunity();
-      // }
-
+    } else {  
       if (!AppSettings.getCurrentCarport()) {
         this.service.getCarportListByOwnerId(this.currentUser._id).then((carp: any) => {
           //console.dir(carp);
@@ -110,14 +97,19 @@ export class LeisureParkPage {
     this.getLeisureParkforOwner();
   }
 
-  // ionViewWillEnter()
-  // {
-  //   console.log('get param : ' + this.params.get('reload'));
-  // }
+    // ionViewWillEnter()
+    // {
+    //   //console.log('get param : ' + this.params.get('reload'));
+    //   //this.navCtrl. refresh();
+    // }
 
   presentModal() {
-    let modal = this.modalCtrl.create(SelectCommunityModalPage);
-    modal.present();
+    const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
+    selectcommodal.onDidDismiss(data => {
+      console.log(data);
+      this.refresh();
+    });
+    selectcommodal.present();
   }
 
   addButtonClick()
@@ -128,7 +120,11 @@ export class LeisureParkPage {
   saveLeisurePark() {
     this.leisurePark.shared_UserID = this.currentUser._id;
     this.leisurePark.carport_ID = this.currentCarport._id;
-    this.leisurePark.community_ID = this.currentCommunity._id;
+    this.leisurePark.community_ID = this.currentUser.community_ID._id;
+    if(!this.leisurePark.community_ID){
+      console.log('saveLeisurePark' + 'delete empty community_ID');
+      delete this.leisurePark.community_ID;
+    }
     delete this.leisurePark.applied_UserID;
     //the timestamp should be delete, otherwise it would save null to db.
     delete this.leisurePark.timestamp;
@@ -139,7 +135,8 @@ export class LeisureParkPage {
         //this.showAlert();
         this.showAddContent = false;
         //Todo: how to refresh current page.
-        this.navCtrl.push(LeisureParkPage);
+        //this.navCtrl.push(LeisureParkPage);
+        this.refresh();
       }
     });
   }
@@ -150,6 +147,7 @@ export class LeisureParkPage {
       if (lpark) {
         this.myLeisureParks = lpark;
         this.myLeisureParks.forEach(x => {
+          //x.startTime = new Date(x.startTime.toLocaleString("MM-DD-YYYY HH:mm"));
           //status is an array
           if (x.status && x.status.length === 1) {
             if (x.status[0] === 'active') {
@@ -160,35 +158,23 @@ export class LeisureParkPage {
               x.statusDisplayText = '已失效';
             }
           }
-        })
-        //  .map( x => 
-        //   {
-        //     x.stauts = this.getStatusDisplayText(x.status);
-        //     return x;
-        //   });
-        //this.myLeisureParks.map( x = ) 
+        }) 
       }
     });
   }
 
-  showAlert() {
-    let alert = this.alertCtrl.create({
-      title: '发布成功!',
-      subTitle: '你已经成功发布共享车位',
-      buttons: ['确定']
-    });
-    alert.present();
-  }
-
-  // getStatusDisplayText( value ){
-  //   //console.log(value );
-  //   if( value[0]=== LeisureParkStatus.pending){
-  //     return ['待审核'];
-  //   }else if( value[0]===  LeisureParkStatus.active){
-  //     return ['可申请'];
-  //   }else{
-  //     return ['无效'];
-  //   }
+  // showAlert() {
+  //   let alert = this.alertCtrl.create({
+  //     title: '发布成功!',
+  //     subTitle: '你已经成功发布共享车位',
+  //     buttons: ['确定']
+  //   });
+  //   alert.present();
   // }
+
+  refresh(){
+    //location.reload();
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
 
 }

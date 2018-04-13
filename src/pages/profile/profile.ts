@@ -23,6 +23,7 @@ export class ProfilePage {
 
     this.getCurrentUserName();
     localStorage.clear();
+    location.reload();
   }
 
   // ionViewDidLoad() {
