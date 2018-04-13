@@ -64,7 +64,8 @@ export class TestPage {
     this.map.centerAndZoom('上海', 13);
     this.map.enableScrollWheelZoom(true);
     this.myGeo = new BMap.Geocoder();
-
+    var geolocationControl = new BMap.GeolocationControl(); 
+    this.map.addControl(geolocationControl);
     this.getStatisticOfCarport();
 
     //this.bdGEO();
@@ -170,6 +171,13 @@ export class TestPage {
       });
       //console.dir(this.adds);
     });
+  }
+
+  addLocaltion()
+  {
+    var geolocationControl = new BMap.GeolocationControl();
+    
+    this.map.addControl(geolocationControl);
   }
 
   checkDetail()
