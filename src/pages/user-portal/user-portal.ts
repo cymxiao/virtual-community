@@ -17,7 +17,9 @@ import { ProfilePage } from '../profile/profile';
 })
 export class UserPortalPage {
 
+  rootPage : any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.rootPage = ProfilePage;
   }
 
   ionViewDidLoad() {

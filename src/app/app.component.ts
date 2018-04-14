@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component ,ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 //import { Auth } from '@ionic/cloud-angular';
@@ -7,12 +7,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs'; 
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from "../pages/register/register";
+import { MyOrdersPage } from '../pages/myorders/myorders';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = LoginPage;
+  @ViewChild(Nav) nav: Nav;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen ){ //,auth:Auth) {
     platform.ready().then(() => {
@@ -28,5 +30,18 @@ export class MyApp {
       //   this.rootPage = LoginPage;
       // }
     });
+  }
+
+
+  myOrders()
+  {
+    //this.navCtrl.push(MyOrdersPage);
+    this.nav.setRoot(MyOrdersPage);
+  }
+
+  logout()
+  {
+    localStorage.clear();
+    location.reload();
   }
 }

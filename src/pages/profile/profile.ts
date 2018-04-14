@@ -24,12 +24,18 @@ export class ProfilePage {
     public menu: MenuController){//, public restServiceProvider: RestServiceProvider) {
     //this.getMap();
     this.activeMenu = 'menuPortal';
+    console.log(this.activeMenu);
     this.menu.enable(true, 'menuPortal');
     this.getCurrentUserName();
   
   }
 
-  
+  ionViewDidLoad() {
+    // this.activeMenu = 'menuPortal';
+    // console.log(this.activeMenu);
+    // this.menu.enable(true, 'menuPortal');
+  }
+
 
   getCurrentUserName()
   {
