@@ -29,6 +29,9 @@ export class RegisterPage {
   showDuplicateUserNameError: boolean = false;
   blured: boolean = false;
 
+  usernameBlur: boolean;
+  passwordBlur: boolean;
+  verifyCodeBlur: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiService: RestServiceProvider) {
     this.user = { phone: '', pwd: '' };
   }
@@ -62,28 +65,37 @@ export class RegisterPage {
   }
 
   changeText()
-  {
-    console.log(this.showDuplicateUserNameError);
+  { 
     if(this.showDuplicateUserNameError)
     {
       this.showDuplicateUserNameError = false;
     }
   }
 
-  on_username_Blur(item)
-  {
-    this.blured = true; 
-    this.apiService.getUser(item.target.value).then( duplicateUser => {
-      console.dir(duplicateUser);
-      if(duplicateUser){
-        this.showDuplicateUserNameError = true;
-      }
-    })
-
+  on_username_Blur(item) {
+    this.usernameBlur = true;
+    //console.log(item.target.value);
+    if (item.target.value) {
+      this.apiService.getUser(item.target.value).then(duplicateUser => {
+        //console.log(duplicateUser);
+        if (duplicateUser) {
+          this.showDuplicateUserNameError = true;
+        }
+      });
+    }
   }
   // go to login page
   login() {
     this.navCtrl.setRoot(LoginPage);
   }
+
+  on_passwordBlur(target){
+    this.passwordBlur = true;
+  }
+
+  on_verifyCodeBlur(target){
+    this.verifyCodeBlur = true;
+  }
+
 
 }

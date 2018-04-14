@@ -54,7 +54,7 @@
                 <div class="text-danger" *ngIf="fieldPhone.errors.required">
                     请输入手机号码
                 </div> 
-                <div class="text-danger" *ngIf="fieldPhone.errors.minlength || fieldPhone.errors.maxlength">
+                <div class="text-danger" *ngIf="usernameBlur && (fieldPhone.errors.minlength || fieldPhone.errors.maxlength)">
                     请确认输入11位手机号码
                 </div>  
             </div> 
@@ -65,16 +65,17 @@
 
             <ion-item>
                 <ion-label floating>
-                    <ion-icon name="eye" item-start class="text-primary"></ion-icon>
+                    <ion-icon name="code-download" item-start class="text-primary"></ion-icon>
                     验证码
                 </ion-label>
-                <ion-input type="number" minlength="4" maxlength="4" name="verifycode" required  [(ngModel)]="verifycode"   #fieldverifycode="ngModel" ></ion-input>
+                <ion-input type="number" minlength="4" maxlength="4" name="verifycode" required  [(ngModel)]="verifycode"
+                   #fieldverifycode="ngModel" (blur) ="on_verifyCodeBlur($event)" ></ion-input>
             </ion-item>
             <div  *ngIf="fieldverifycode.invalid && (fieldverifycode.dirty || fieldverifycode.touched)">
                 <div class="text-danger" *ngIf="fieldverifycode.errors.required">
                     请输入验证码
                 </div> 
-                <div class="text-danger" *ngIf="fieldverifycode.errors.minlength || fieldverifycode.errors.maxlength">
+                <div class="text-danger" *ngIf="verifyCodeBlur && (fieldverifycode.errors.minlength || fieldverifycode.errors.maxlength)">
                     请确认输入4位手机验证码
                 </div> 
             </div> 
@@ -84,16 +85,17 @@
                     <ion-icon name="lock" item-start class="text-primary"></ion-icon>
                     密码
                 </ion-label>
-                <ion-input type="password" [(ngModel)]="pwd" minlength="6" required name="fieldpwd" #fieldpwd="ngModel" ></ion-input>
+                <ion-input type="password" [(ngModel)]="pwd" minlength="6" required name="fieldpwd" #fieldpwd="ngModel" 
+                (blur) ="on_passwordBlur($event)"></ion-input>
             </ion-item>
-            <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
+            <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
                 <div class="text-danger" *ngIf="fieldpwd.errors.required">
                     请输入密码
                 </div> 
-                <div class="text-danger" *ngIf="fieldpwd.errors.minlength">
+                <div class="text-danger" *ngIf="passwordBlur && fieldpwd.errors.minlength">
                     请输入至少6位密码
                 </div> 
-            </ion-item> 
+            </div> 
         </form>
 
         <div margin-top>

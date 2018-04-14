@@ -22,6 +22,8 @@ export class LoginPage {
 
   isLogin: string = "login";
   public user: any;
+  usernameBlur: boolean;
+  passwordBlur: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, public service: RestServiceProvider) {
     this.user = { phone: '', pwd: '' };
   }
@@ -60,5 +62,15 @@ export class LoginPage {
   forgotPass() {
 
   }
+
+  on_usernameBlur(target){
+    console.log('username on blur');
+    this.usernameBlur = true;
+  }
+
+  on_passwordBlur(target){
+    this.passwordBlur = true;
+  }
+
 
 }
