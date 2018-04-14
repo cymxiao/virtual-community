@@ -136,6 +136,16 @@ export class RestServiceProvider {
     });
   }
 
+  getLeisureParkforApplier(applierId) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/getleisureParkforApplier/' + applierId).subscribe(data => { 
+        resolve(data);
+      }, err => {
+        console.log('getLeisureParkforOwner error' + err.message);
+      });
+    });
+  }
+
   getCommunity(comId) {
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/community/' + comId).subscribe(data => {

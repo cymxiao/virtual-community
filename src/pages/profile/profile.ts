@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { MyOrdersPage } from '../myorders/myorders';
+
  
 import { IUser } from '../../model/user';
 /**
@@ -22,8 +23,7 @@ export class ProfilePage {
     //this.getMap();
 
     this.getCurrentUserName();
-    localStorage.clear();
-    location.reload();
+  
   }
 
   // ionViewDidLoad() {
@@ -41,14 +41,16 @@ export class ProfilePage {
     }
   }
 
-  // getMap() {
-  //   this.restServiceProvider.getMap()
-  //     .then(data => {
-  //       this.map = JSON.stringify(data);
-  //       //this.map = data;
-  //       console.log(this.map);
-  //       //console.log(this.map.address);
-  //     });
-  // }
+  myOrders()
+  {
+    this.navCtrl.push(MyOrdersPage);
+  }
+
+  logout()
+  {
+    localStorage.clear();
+    location.reload();
+  }
+
 
 }

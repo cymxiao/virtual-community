@@ -23,6 +23,7 @@ import { TestPageModule } from '../pages/test/test.module';
 import { LeisureParkPageModule } from '../pages/leisure-park/leisure-park.module';
 import { SelectCommunityModalPageModule } from '../pages/select-community-modal/select-community-modal.module';
 import { LookupLeisureParkPageModule } from '../pages/lookup-leisure-park/lookup-leisure-park.module';
+import { MyordersPageModule } from '../pages/myorders/myorders.module';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
@@ -43,6 +44,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     LeisureParkPageModule,
     SelectCommunityModalPageModule,
     LookupLeisureParkPageModule,
+    MyordersPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
