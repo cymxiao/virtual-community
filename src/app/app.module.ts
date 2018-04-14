@@ -24,14 +24,15 @@ import { LeisureParkPageModule } from '../pages/leisure-park/leisure-park.module
 import { SelectCommunityModalPageModule } from '../pages/select-community-modal/select-community-modal.module';
 import { LookupLeisureParkPageModule } from '../pages/lookup-leisure-park/lookup-leisure-park.module';
 import { MyordersPageModule } from '../pages/myorders/myorders.module';
+import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
+import { ProfilePageModule } from '../pages/profile/profile.module';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage, 
-    HomePage,
-    ProfilePage,
+    HomePage, 
     TabsPage
   ],
   imports: [
@@ -45,14 +46,15 @@ import { Geolocation } from '@ionic-native/geolocation';
     SelectCommunityModalPageModule,
     LookupLeisureParkPageModule,
     MyordersPageModule,
+    UserPortalPageModule,
+    ProfilePageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     AboutPage, 
-    HomePage,
-    ProfilePage,
+    HomePage, 
     //SelectCommunityModalPage,
     TabsPage
   ],

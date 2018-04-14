@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams , MenuController } from 'ionic-angular';
 import { MyOrdersPage } from '../myorders/myorders';
 
  
@@ -10,7 +10,7 @@ import { IUser } from '../../model/user';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+@IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -19,17 +19,17 @@ export class ProfilePage {
 
   //map: any;
   user : IUser;
-  constructor(public navCtrl: NavController){//, public restServiceProvider: RestServiceProvider) {
+  activeMenu: string;
+  constructor(public navCtrl: NavController,
+    public menu: MenuController){//, public restServiceProvider: RestServiceProvider) {
     //this.getMap();
-
+    this.activeMenu = 'menuPortal';
+    this.menu.enable(true, 'menuPortal');
     this.getCurrentUserName();
   
   }
 
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad ProfilePage');
-  // }
-
+  
 
   getCurrentUserName()
   {
