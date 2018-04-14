@@ -40,7 +40,8 @@ export class LookupLeisureParkPage {
   apply(lpId){
     console.log('lpId: ' + lpId);
     const updateBody = {
-      status : 'applied'
+      status : 'applied',
+      applied_UserID: this.currentUser._id
     };
     this.apiService.updateleisurePark(lpId,updateBody).then(lp => {
       if(lp){
@@ -66,6 +67,8 @@ export class LookupLeisureParkPage {
               x.statusDisplayText = '待审核';
             } else if (x.status[0] === 'applied') {
               x.statusDisplayText = '已申请';
+            } else if (x.status[0] === 'paid') {
+              x.statusDisplayText = '已支付';
             } else {
               x.statusDisplayText = '已失效';
             }

@@ -12,7 +12,7 @@
   <form class="list-form" novalidate #communityModalForm="ngForm">
     <ion-item>
         <ion-searchbar (ionInput)="searchTextChagne($event)" name="searchQuery" [(ngModel)]="searchQuery" #fieldsearch="ngModel"
-            required>
+            required placeholder="请输入您想停车的小区名称" >
         </ion-searchbar>
         <ion-item no-lines *ngIf="fieldsearch.invalid && (fieldsearch.dirty || fieldsearch.touched)">
             <div class="text-danger" *ngIf="fieldsearch.errors.required">

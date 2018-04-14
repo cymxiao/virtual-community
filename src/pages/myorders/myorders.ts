@@ -51,7 +51,7 @@ export class MyOrdersPage {
             } else if (x.status[0] === 'applied') {
               x.statusDisplayText = '已申请';
             } else if (x.status[0] === 'paid') {
-              x.statusDisplayText = '已申请';
+              x.statusDisplayText = '已支付';
             } else {
               x.statusDisplayText = '已失效';
             }
