@@ -117,7 +117,7 @@ export class TestPage {
   addInfoWindow(point, address, community_name , sharedCarportNumber){
     const content = '<div >'   + address + '</div>' +
                     '<div > 空闲车位数量：'   + sharedCarportNumber + '</div>' +
-                    '<div> <a href="checkDetail()">查看详情</a> </div>';
+                    '<div>  <a href="#">查看详情</a> </div>';
 
                   //创建检索信息窗口对象
     let searchInfoWindow = null;

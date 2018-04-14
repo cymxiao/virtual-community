@@ -30,7 +30,7 @@ export class SelectCommunityModalPage {
     public autoService: AutoCompleteServiceProvider) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() { 
     console.log('ionViewDidLoad SelectCommunityModalPage');
   }
 

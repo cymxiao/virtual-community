@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders , HttpParams , HttpRequest,HttpHandler, HttpInterceptor,HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpHandler, HttpInterceptor, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AppSettings } from '../../settings/app-settings';
@@ -33,8 +33,8 @@ export class RestServiceProvider {
     return new Promise((resolve, reject) => {
 
       //const cheaders: any = new HttpHeaders().append('Content-Type', 'application/json');
-      this.http.post(this.apiUrl + '/users',  JSON.stringify( data)  )
-      .subscribe(res => {
+      this.http.post(this.apiUrl + '/users', JSON.stringify(data))
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -43,10 +43,10 @@ export class RestServiceProvider {
   }
 
   loginUser(data) {
-    
-    const params = new HttpParams().append("username",data.username).append("password",data.password);
+
+    const params = new HttpParams().append("username", data.username).append("password", data.password);
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/userlogin', {params : params } ).subscribe(data => {
+      this.http.get(this.apiUrl + '/userlogin', { params: params }).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('login error' + err.message);
@@ -54,7 +54,7 @@ export class RestServiceProvider {
     });
   }
 
-  updateUser(userId, data) { 
+  updateUser(userId, data) {
     //const params = new HttpParams().append("userId",userId);
     // const httpOptions = {
     //   headers: new HttpHeaders({
@@ -63,13 +63,25 @@ export class RestServiceProvider {
     // };
 
     return new Promise(resolve => {
-      this.http.post(this.apiUrl + '/users/' + userId, JSON.stringify( data)).subscribe(data => {
+      this.http.post(this.apiUrl + '/users/' + userId, JSON.stringify(data)).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('update user error' + err.message);
       });
     });
   }
+
+
+  updateleisurePark(leisureParkId, data) {  
+    return new Promise(resolve => {
+      this.http.post(this.apiUrl + '/leisurePark/' + leisureParkId, JSON.stringify(data)).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('update leisurePark error' + err.message);
+      });
+    });
+  };
+
 
   getUser(username) {
     return new Promise(resolve => {
@@ -80,11 +92,11 @@ export class RestServiceProvider {
       });
     });
   }
-  
+
   addCarport(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + '/carport',  JSON.stringify( data)  )
-      .subscribe(res => {
+      this.http.post(this.apiUrl + '/carport', JSON.stringify(data))
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -94,8 +106,8 @@ export class RestServiceProvider {
 
   addLeisurePark(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + '/leisurePark',  JSON.stringify( data)  )
-      .subscribe(res => {
+      this.http.post(this.apiUrl + '/leisurePark', JSON.stringify(data))
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -103,9 +115,9 @@ export class RestServiceProvider {
     });
   }
 
-  getLeisureParkforOwner(ownerId) {  
-    return new Promise(resolve => { 
-      this.http.get(this.apiUrl + '/getleisurePark/' + ownerId ).subscribe(data => {
+  getLeisureParkforOwner(ownerId) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/getleisurePark/' + ownerId).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('getLeisureParkforOwner error' + err.message);
@@ -113,9 +125,20 @@ export class RestServiceProvider {
     });
   }
 
+
+  getLeisureParkbyCommunity(comId, ownerId) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/getleisureParkbyCom/' + comId + '/' + ownerId).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('getLeisureParkbyCommunity error' + err.message);
+      });
+    });
+  }
+
   getCommunity(comId) {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/community/' + comId ).subscribe(data => {
+      this.http.get(this.apiUrl + '/community/' + comId).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('getCommunity error' + err.message);
@@ -123,20 +146,20 @@ export class RestServiceProvider {
     });
   }
 
-  getCarport(carportId) { 
+  getCarport(carportId) {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/carport/' + carportId ).subscribe(data => {
+      this.http.get(this.apiUrl + '/carport/' + carportId).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('getCarport error' + err.message);
       });
     });
   }
- 
 
-  getCarportListByOwnerId(ownerId) { 
+
+  getCarportListByOwnerId(ownerId) {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/searchcarport/' + ownerId ).subscribe(data => {
+      this.http.get(this.apiUrl + '/searchcarport/' + ownerId).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('getCarportListByOwnerId error' + err.message);
@@ -144,9 +167,9 @@ export class RestServiceProvider {
     });
   }
 
-  getStatisticOfCarport() { 
+  getStatisticOfCarport() {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/groupleisurePark' ).subscribe(data => {
+      this.http.get(this.apiUrl + '/groupleisurePark').subscribe(data => {
         resolve(data);
       }, err => {
         console.log('getStatisticOfCarport error' + err.message);
@@ -168,14 +191,14 @@ export class RestServiceProvider {
 }
 
 @Injectable()
-export class CustomInterceptor implements HttpInterceptor { 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (!req.headers.has('Content-Type')) {
-            req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
-        }
-
-        req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
-        console.log(JSON.stringify(req.headers));
-        return next.handle(req);
+export class CustomInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (!req.headers.has('Content-Type')) {
+      req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
     }
+
+    req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+    console.log(JSON.stringify(req.headers));
+    return next.handle(req);
+  }
 }
