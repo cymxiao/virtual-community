@@ -12,6 +12,30 @@ export class AppSettings{
     public static getCurrentCarport(){
         return JSON.parse(localStorage.getItem('carport'));
     }
+
+    public static getDisplayText(input: any, dict: any) {
+        if (input && input.length > 0 && dict.filter(pu => { return pu.value === input[0] })
+          && dict.filter(pu => { return pu.value === input[0] }).length > 0) {
+          return dict.filter(pu => { return pu.value === input[0] })[0].text;
+        }
+      }
+
+      
+    public static priceUnitDict = [
+        { text: '小时', value: 'hour' },
+        { text: '次', value: 'day' },
+        { text: '月', value: 'month' }, 
+      ];
+
+
+    public static leisureParkStatusDict = [
+        { text: '可申请', value: 'active' },
+        { text: '已申请', value: 'applied' },
+        { text: '已支付', value: 'paid' }, 
+        { text: '等待支付', value: 'pendingOnPay' }, 
+        { text: '已过期', value: 'timeout' }, 
+        { text: '无效', value: 'invalid' },
+      ];
 }
 
 
@@ -24,3 +48,5 @@ export enum LeisureParkStatus {
     active  = 'active',
     invalid  = 'invalid', 
   }
+
+

@@ -23,21 +23,19 @@
 
         <ion-card-content>
             <ion-label>
-                开始时间： {{lp.startTime }}
-                <!-- Todo: Amin !IMP. Ionic timezone setup. | date:'MM-DD-YYYY HH:mm'}} -->
+                开始时间：  {{lp.startTime |date:'yyyy年MM月dd日, HH:mm' }}  
+            </ion-label> 
+            <ion-label>
+                结束时间：  {{lp.endTime |date:'yyyy年MM月dd日, HH:mm' }}  
             </ion-label>
             <ion-label>
-                结束时间： {{lp.endTime }}
-                <!-- date:'MM-dd-yyyy HH:mm'}} -->
+                状态：      {{lp.statusDisplayText}}
             </ion-label>
             <ion-label>
-                状态： {{lp.statusDisplayText}}
+                车位编号：  {{lp.carport_ID.parkingNumber}}
             </ion-label>
             <ion-label>
-                车位： {{lp.carport_ID.parkingNumber}}
-            </ion-label>
-            <ion-label>
-                价格： {{lp.price }} / {{lp.priceUnit}}
+                价格：     {{lp.price }} / {{lp.priceUnitDisplayText}}
             </ion-label>
         </ion-card-content>
 

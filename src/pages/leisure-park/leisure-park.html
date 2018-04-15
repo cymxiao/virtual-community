@@ -113,10 +113,10 @@
                 价格单位
             </ion-label>
             <!--  okText="确定" cancelText="取消"-->
-            <ion-select name="pu" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover" > 
+            <ion-select name="priceUnit" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover" > 
                 <!-- okText="Okay" cancelText="Dismiss" -->
                 <ion-option value="hour">小时</ion-option>
-                <ion-option value="day">次</ion-option>
+                <ion-option value="day" selected="true" >次</ion-option>
                 <ion-option value="month">月</ion-option>
             </ion-select>
         </ion-item>
@@ -157,11 +157,14 @@
                     <!-- date:'MM-dd-yyyy HH:mm'}} -->
                 </ion-label>
                 <ion-label>
-                    状态：      {{lp.statusDisplayText}}
+                       状态：   {{lp.statusDisplayText}}
                 </ion-label>
                 <ion-label>
-                    车位：      {{lp.carport_ID.parkingNumber}}
+                    车位编号：   {{lp.carport_ID.parkingNumber}}
                 </ion-label>
+                <ion-label>
+                      价格：    {{lp.price }} / {{lp.priceUnitDisplayText}}
+                  </ion-label>
             </ion-card-content>
 
         </ion-card>   

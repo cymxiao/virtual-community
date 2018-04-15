@@ -41,21 +41,8 @@ export class MyOrdersPage {
       if (lpark && lpark.length>0) {
         this.appliedLeisureParks = lpark;
         this.appliedLeisureParks.forEach(x => {
-          //x.startTime = new Date(x.startTime.toLocaleString("MM-DD-YYYY HH:mm"));
-          //status is an array
-          if (x.status && x.status.length === 1) {
-            if (x.status[0] === 'active') {
-              x.statusDisplayText = '可申请';
-            } else if (x.status[0] === 'pending') {
-              x.statusDisplayText = '待审核';
-            } else if (x.status[0] === 'applied') {
-              x.statusDisplayText = '已申请';
-            } else if (x.status[0] === 'paid') {
-              x.statusDisplayText = '已支付';
-            } else {
-              x.statusDisplayText = '已失效';
-            }
-          }
+          x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
+          x.statusDisplayText = AppSettings.getDisplayText( x.status , AppSettings.leisureParkStatusDict); 
         }) 
       }
     });
