@@ -9,9 +9,13 @@
 <ion-content padding>
     <div>
             <!-- {{loginForm.form.valid}} -->
-            <button ion-button icon-start block color="secondary" tappable  (click)="addButtonClick()">
+            <button  *ngIf="!showAddContent" ion-button icon-start block color="secondary" tappable  (click)="addButtonClick()">
                 <ion-icon name="add-circle"></ion-icon>
                 我要共享车位
+            </button>
+            <button *ngIf="showAddContent" ion-button icon-start block color="secondary" tappable  (click)="cancelButtonClick()">
+                <ion-icon name="close-circle"></ion-icon>
+                取消
             </button>
 
     </div>
@@ -112,7 +116,7 @@
             <ion-select name="pu" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover" > 
                 <!-- okText="Okay" cancelText="Dismiss" -->
                 <ion-option value="hour">小时</ion-option>
-                <ion-option value="day">天</ion-option>
+                <ion-option value="day">次</ion-option>
                 <ion-option value="month">月</ion-option>
             </ion-select>
         </ion-item>
@@ -145,11 +149,11 @@
 
             <ion-card-content>
                 <ion-label>
-                    开始时间：  {{lp.startTime | date:'MM-dd-yyyy HH:mm' }} 
+                    开始时间：  {{lp.startTime |date:'yyyy年MM月dd日, HH:mm' }} 
                          <!-- Todo: Amin !IMP. Ionic timezone setup. | date:'MM-DD-YYYY HH:mm' | amDateFormat:'lll'}} -->
                 </ion-label> 
                 <ion-label>
-                    结束时间：  {{lp.endTime | date:'MM-dd-yyyy HH:mm' }} 
+                    结束时间：  {{lp.endTime |date:'yyyy年MM月dd日, HH:mm' }} 
                     <!-- date:'MM-dd-yyyy HH:mm'}} -->
                 </ion-label>
                 <ion-label>

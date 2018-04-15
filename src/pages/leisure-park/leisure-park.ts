@@ -123,18 +123,25 @@ export class LeisureParkPage {
   }
 
   addButtonClick()
-  {
-    
-    this.leisurePark.endTime = moment().add(16,'hours').toISOString();
+  { 
     this.leisurePark.startTime = moment().add(8,'hours').toISOString();
-    console.log(this.leisurePark.startTime);
+    this.leisurePark.endTime = moment().add(16,'hours').toISOString(); 
     this.showAddContent = true; 
+  }
+
+  cancelButtonClick()
+  { 
+    this.showAddContent = false; 
   }
 
   saveLeisurePark() {
     this.leisurePark.shared_UserID = this.currentUser._id;
     this.leisurePark.carport_ID = this.currentCarport._id;
-    this.leisurePark.community_ID = this.currentUser.community_ID._id;
+    this.leisurePark.community_ID = this.currentUser.community_ID._id; 
+   
+    this.leisurePark.startTime = moment(this.leisurePark.startTime).add(-8,'hours').toISOString();
+    this.leisurePark.endTime = moment(this.leisurePark.endTime).add(-8,'hours').toISOString();
+
     if(!this.leisurePark.community_ID){
       console.log('saveLeisurePark' + 'delete empty community_ID');
       delete this.leisurePark.community_ID;
@@ -161,7 +168,7 @@ export class LeisureParkPage {
       if (lpark) {
         this.myLeisureParks = lpark;
         this.myLeisureParks.forEach(x => {
-          //x.startTime = x.startTime.format('lll');
+          //x.startTime = moment(x.startTime).format('YYYY-MM-DD HH:mm');
 
           //x.startTime = new Date(x.startTime.toLocaleString("MM-DD-YYYY HH:mm"));
           //status is an array
@@ -183,14 +190,7 @@ export class LeisureParkPage {
     });
   }
 
-  // showAlert() {
-  //   let alert = this.alertCtrl.create({
-  //     title: '发布成功!',
-  //     subTitle: '你已经成功发布共享车位',
-  //     buttons: ['确定']
-  //   });
-  //   alert.present();
-  // }
+  
 
   refresh(){
     //location.reload();
