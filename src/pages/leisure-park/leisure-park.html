@@ -15,6 +15,11 @@
             </button>
 
     </div>
+    <!-- <ion-item>
+        <ion-label>Simple TimePicker</ion-label>
+        <ion-multi-picker item-content cancelText ="取消" doneText="确定" type="date" ></ion-multi-picker>
+    </ion-item> -->
+
     <div *ngIf="showAddContent">
     <form class="list-form" novalidate #leisureParkForm="ngForm">
         <ion-card>
@@ -37,21 +42,38 @@
             </ion-card-content>
 
         </ion-card>
+         
+       
+<!-- 
+        <ion-item>
+            <ion-label floating>
+                <ion-icon name="time" item-start class="text-primary"></ion-icon>
+                开始时间
+            </ion-label> 
+            <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
+            <!-- <ion-datetime displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime"
+             name="fieldPhone" required #fieldPhone="ngModel" cancelText ="取消" doneText="确定"></ion-datetime> 
+        </ion-item>
+        <div *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
+            <div class="text-danger" *ngIf="fieldPhone.errors.required">
+                请选择开始时间
+            </div>
+
+        </div> -->  
+
         <ion-item>
             <ion-label floating>
                 <ion-icon name="time" item-start class="text-primary"></ion-icon>
                 开始时间
             </ion-label>
-            <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
-            <ion-datetime displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime"
-             name="fieldPhone" required #fieldPhone="ngModel" cancelText ="取消" doneText="确定"></ion-datetime>
+            <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime" 
+            #fieldStartTime="ngModel" name="fieldStartTime" cancelText ="取消" doneText="确定"></ion-datetime>
         </ion-item>
-        <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
-            <div class="text-danger" *ngIf="fieldPhone.errors.required">
+        <div *ngIf="fieldStartTime.invalid && (fieldStartTime.dirty || fieldStartTime.touched)">
+            <div class="text-danger" *ngIf="fieldStartTime.errors.required">
                 请选择开始时间
-            </div>
-
-        </ion-item>
+            </div> 
+        </div>
 
         <ion-item>
             <ion-label floating>
@@ -61,12 +83,11 @@
             <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.endTime" 
             #fieldpwd="ngModel" name="fieldpwd" cancelText ="取消" doneText="确定"></ion-datetime>
         </ion-item>
-        <ion-item no-lines *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
+        <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
             <div class="text-danger" *ngIf="fieldpwd.errors.required">
                 请选择结束时间
-            </div>
-
-        </ion-item>
+            </div> 
+        </div>
 
         <ion-item>
             <ion-label floating>
@@ -124,11 +145,11 @@
 
             <ion-card-content>
                 <ion-label>
-                    开始时间：  {{lp.startTime }} 
-                         <!-- Todo: Amin !IMP. Ionic timezone setup. | date:'MM-DD-YYYY HH:mm'}} -->
+                    开始时间：  {{lp.startTime | date:'MM-dd-yyyy HH:mm' }} 
+                         <!-- Todo: Amin !IMP. Ionic timezone setup. | date:'MM-DD-YYYY HH:mm' | amDateFormat:'lll'}} -->
                 </ion-label> 
                 <ion-label>
-                    结束时间：  {{lp.endTime }} 
+                    结束时间：  {{lp.endTime | date:'MM-dd-yyyy HH:mm' }} 
                     <!-- date:'MM-dd-yyyy HH:mm'}} -->
                 </ion-label>
                 <ion-label>

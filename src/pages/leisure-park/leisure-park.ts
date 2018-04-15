@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { ILeisurePark , IUILeisurePark } from '../../model/leisurePark';
-import { IUser } from '../../model/user';
-import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import * as moment from 'moment';
+//import  * as mz from 'moment-timezone';
 
+import { ILeisurePark , IUILeisurePark } from '../../model/leisurePark';
+import { IUser } from '../../model/user'; 
 import { ICommunity } from '../../model/community';
 import { ICarport } from '../../model/carport';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
 import { AppSettings, LeisureParkStatus } from '../../settings/app-settings';
+
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+
 /**
  * Generated class for the LeisureParkPage page.
  *
@@ -29,16 +33,17 @@ export class LeisureParkPage {
   currentCarport: ICarport;
   showAddContent: boolean;
   myLeisureParks : IUILeisurePark[];
-
+  //moment: Moment = new Mome;
   constructor(public navCtrl: NavController,
     public params: NavParams,
     public service: RestServiceProvider,
+    //public monent: Moment,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController) {
     this.leisurePark = { 
       id: '', 
-      startTime: null,
-      endTime: null,
+      startTime: '',
+      endTime: '',
       status: '',
       carport_ID: '',
       community_ID: '',
@@ -73,6 +78,11 @@ export class LeisureParkPage {
   }
 
   ionViewDidLoad() { 
+    //console.log(moment().format());
+    //console.log(mz.timezone.name);
+    //console.log( new Date().toISOString());
+    //console.log(this.moment.toLocaleString());
+    
     this.currentUser = AppSettings.getCurrentUser(); 
     if (this.currentUser && !this.currentUser.community_ID) {  
       this.presentModal();
@@ -114,7 +124,11 @@ export class LeisureParkPage {
 
   addButtonClick()
   {
-    this.showAddContent = true;
+    
+    this.leisurePark.endTime = moment().add(16,'hours').toISOString();
+    this.leisurePark.startTime = moment().add(8,'hours').toISOString();
+    console.log(this.leisurePark.startTime);
+    this.showAddContent = true; 
   }
 
   saveLeisurePark() {
@@ -147,6 +161,8 @@ export class LeisureParkPage {
       if (lpark) {
         this.myLeisureParks = lpark;
         this.myLeisureParks.forEach(x => {
+          //x.startTime = x.startTime.format('lll');
+
           //x.startTime = new Date(x.startTime.toLocaleString("MM-DD-YYYY HH:mm"));
           //status is an array
           if (x.status && x.status.length === 1) {
