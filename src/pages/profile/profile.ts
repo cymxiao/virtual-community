@@ -4,6 +4,7 @@ import { MyOrdersPage } from '../myorders/myorders';
 
  
 import { IUser } from '../../model/user';
+import { AppSettings } from '../../settings/app-settings';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -19,13 +20,10 @@ export class ProfilePage {
 
   //map: any;
   user : IUser;
-  activeMenu: string;
+ 
   constructor(public navCtrl: NavController,
-    public menu: MenuController){//, public restServiceProvider: RestServiceProvider) {
-    //this.getMap();
-    this.activeMenu = 'menuPortal';
-    console.log(this.activeMenu);
-    this.menu.enable(true, 'menuPortal');
+    public menu: MenuController){  
+ 
     this.getCurrentUserName();
   
   }
@@ -39,24 +37,8 @@ export class ProfilePage {
 
   getCurrentUserName()
   {
-    this.user = JSON.parse(localStorage.getItem('user')); 
-    if(this.user){
-    console.log('username on profile page is:'  + this.user.username);
-    } else {
-      console.log('user is empty' );
-    }
+    this.user = AppSettings.getCurrentUser(); 
   }
-
-  myOrders()
-  {
-    this.navCtrl.push(MyOrdersPage);
-  }
-
-  logout()
-  {
-    localStorage.clear();
-    location.reload();
-  }
-
+  
 
 }

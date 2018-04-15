@@ -32,12 +32,7 @@ export class TestPage {
 
   avaiableComs: IStatisticCarport[];
   adds :string [] = [];
-  //myGeo = new BMap.Geocoder();
-  // adds = [
-  //   "松江区沪亭北路1080弄",
-  //   "松江区涞坊路333号",
-  //   "松江区涞坊路599号"
-  // ];
+ 
  
   @ViewChild('map') map_container: ElementRef;
 
@@ -116,8 +111,8 @@ export class TestPage {
 
   addInfoWindow(point, address, community_name , sharedCarportNumber){
     const content = '<div >'   + address + '</div>' +
-                    '<div > 空闲车位数量：'   + sharedCarportNumber + '</div>' +
-                    '<div>  <a href="#">查看详情</a> </div>';
+                    '<div > 空闲车位数量：'   + sharedCarportNumber + '</div>';
+                    //+ '<div>  <a href="#">查看详情</a> </div>';
 
                   //创建检索信息窗口对象
     let searchInfoWindow = null;
@@ -129,7 +124,7 @@ export class TestPage {
         enableAutoPan : true,     //自动平移
         searchTypes   :[
           // BMAPLIB_TAB_SEARCH,   //周边检索
-           BMAPLIB_TAB_TO_HERE,  //到这里去
+          // BMAPLIB_TAB_TO_HERE,  //到这里去
           // BMAPLIB_TAB_FROM_HERE //从这里出发
         ]
       });

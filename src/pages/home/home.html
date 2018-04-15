@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Home</ion-title>
+    <ion-title>首页</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
+  <h2>欢迎</h2>
   <p>
     您好，{{this.user.username}}
   </p>
@@ -26,9 +26,9 @@
             </ion-item>
         </ion-list>
     </ion-item>
-    <button ion-button icon-start block color="primary" tappable (click)="searchClicked()" [disabled]="communityModalForm.form.invalid ">
+    <button ion-button icon-start block round color="primary" tappable (click)="searchClicked()" [disabled]="communityModalForm.form.invalid ">
       <ion-icon name="search"></ion-icon>
-      查询
+      搜索
   </button>
   </form>
 </ion-content>
