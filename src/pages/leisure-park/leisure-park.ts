@@ -133,7 +133,10 @@ export class LeisureParkPage {
   addButtonClick() {
     //Amin: IMP.  +8 display as local timezone .
     this.leisurePark.startTime = this.getGoodTime().add(8, 'hours').toISOString();
-    this.leisurePark.endTime = this.getGoodTime().add(16, 'hours').toISOString();
+    //Amin: IMP. I can't direct use add(8, 'hours'), otherwise when validate endTime, 
+    //it would prompt the endTime can't be convet to ISO string, due moment issue.
+    this.leisurePark.endTime = this.getGoodTime().add(1, 'days').add(-8,'hours').toISOString();
+    //this.leisurePark.endTime = this.getGoodTime().add(8, 'hours').toISOString();
     this.showAddContent = true;
   }
 
@@ -213,7 +216,8 @@ export class LeisureParkPage {
     if (item && item._text) {
       this.service.checkEndTime(this.currentUser.community_ID._id,this.currentUser._id
         //Todo:Amin, what's diff for endtime, due to checkStartTime didn't call this.savedISOTime method
-        ,this.currentCarport._id, item._text ).then( (wrongEndTime) => { 
+        //It's may be dirty data in database. I should remove all dirty data in db.
+        ,this.currentCarport._id, item._text).then( (wrongEndTime) => { 
         if (wrongEndTime) {
           this.wrongEndTime = true;
         }
@@ -237,13 +241,5 @@ export class LeisureParkPage {
     //location.reload();
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
-
-  savedISOTime(localTime)
-  {
-    // console.log(localTime);
-    // console.log(moment(localTime));
-    // console.log(moment(localTime).toISOString());
-    return moment(localTime).add(8,'hours').toISOString();
-  }
-
+  
 }
