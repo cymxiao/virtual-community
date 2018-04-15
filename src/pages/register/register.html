@@ -47,7 +47,7 @@
                 </ion-label>
                 
                 <ion-input type="number" minlength="11" maxlength="11"  name="fieldPhone" required  [(ngModel)]="phone" 
-                 #fieldPhone="ngModel" (ionChange)="changeText()" (blur) = "on_username_Blur($event)"></ion-input>
+                 #fieldPhone="ngModel" (ionChange)="changeText()" (ionBlur) = "on_username_Blur($event)"></ion-input>
                  
             </ion-item>
              <div *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
@@ -69,7 +69,7 @@
                     验证码
                 </ion-label>
                 <ion-input type="number" minlength="4" maxlength="4" name="verifycode" required  [(ngModel)]="verifycode"
-                   #fieldverifycode="ngModel" (blur) ="on_verifyCodeBlur($event)" ></ion-input>
+                   #fieldverifycode="ngModel" (ionBlur) ="on_verifyCodeBlur($event)" ></ion-input>
             </ion-item>
             <div  *ngIf="fieldverifycode.invalid && (fieldverifycode.dirty || fieldverifycode.touched)">
                 <div class="text-danger" *ngIf="fieldverifycode.errors.required">

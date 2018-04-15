@@ -70,14 +70,19 @@
                 <ion-icon name="time" item-start class="text-primary"></ion-icon>
                 开始时间
             </ion-label>
-            <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime" 
-            #fieldStartTime="ngModel" name="fieldStartTime" cancelText ="取消" doneText="确定"></ion-datetime>
+            <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime"  
+            (ionBlur) = "on_startTime_Blur($event)" (ionChange)="changeText(true)"
+            #fieldStartTime="ngModel" name="fieldStartTime" [min]="minDate" cancelText ="取消" doneText="确定"></ion-datetime>
+            <!--Amin:IMP. #fieldphone in v1 dupliate with price field, that result empty default value for the startTime date field.-->
         </ion-item>
         <div *ngIf="fieldStartTime.invalid && (fieldStartTime.dirty || fieldStartTime.touched)">
             <div class="text-danger" *ngIf="fieldStartTime.errors.required">
                 请选择开始时间
             </div> 
         </div>
+        <div class="text-danger-padding" *ngIf="wrongStartTime">
+            开始时间无效，请检查是否与现有共享车位发布记录所覆盖。
+        </div> 
 
         <ion-item>
             <ion-label floating>
@@ -85,13 +90,17 @@
                 结束时间
             </ion-label>
             <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.endTime" 
-            #fieldpwd="ngModel" name="fieldpwd" cancelText ="取消" doneText="确定"></ion-datetime>
+            (ionBlur) = "on_endTime_Blur($event)" (ionChange)="changeText(false)"
+            #fieldpwd="ngModel" name="fieldpwd" [min]="minDateforEndTime" cancelText ="取消" doneText="确定"></ion-datetime>
         </ion-item>
         <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
             <div class="text-danger" *ngIf="fieldpwd.errors.required">
                 请选择结束时间
             </div> 
         </div>
+        <div class="text-danger-padding" *ngIf="wrongEndTime">
+            结束·时间无效，请检查是否与现有共享车位发布记录所覆盖。
+        </div> 
 
         <ion-item>
             <ion-label floating>

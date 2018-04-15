@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController }
 import * as moment from 'moment';
 //import  * as mz from 'moment-timezone';
 
-import { ILeisurePark , IUILeisurePark } from '../../model/leisurePark';
-import { IUser } from '../../model/user'; 
+import { ILeisurePark, IUILeisurePark } from '../../model/leisurePark';
+import { IUser } from '../../model/user';
 import { ICommunity } from '../../model/community';
 import { ICarport } from '../../model/carport';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
@@ -32,7 +32,13 @@ export class LeisureParkPage {
   currentCommunity: ICommunity;
   currentCarport: ICarport;
   showAddContent: boolean;
-  myLeisureParks : IUILeisurePark[];
+  myLeisureParks: IUILeisurePark[];
+
+  wrongStartTime: boolean = false;
+  wrongEndTime:boolean = false;
+
+  minDate: string;
+  minDateforEndTime: string;
   //moment: Moment = new Mome;
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -40,8 +46,8 @@ export class LeisureParkPage {
     //public monent: Moment,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController) {
-    this.leisurePark = { 
-      id: '', 
+    this.leisurePark = {
+      id: '',
       startTime: '',
       endTime: '',
       status: '',
@@ -77,16 +83,18 @@ export class LeisureParkPage {
     //console.log('get param : ' + this.params.get('reload'));
   }
 
-  ionViewDidLoad() { 
+  ionViewDidLoad() {
     //console.log(moment().format());
     //console.log(mz.timezone.name);
     //console.log( new Date().toISOString());
     //console.log(this.moment.toLocaleString());
-    
-    this.currentUser = AppSettings.getCurrentUser(); 
-    if (this.currentUser && !this.currentUser.community_ID) {  
+    //this.minDate =  new Date().toISOString();
+    this.minDate = this.getGoodTime().add(8, 'hours').toISOString();
+    this.minDateforEndTime =this.getGoodTime().add(12, 'hours').toISOString();
+    this.currentUser = AppSettings.getCurrentUser();
+    if (this.currentUser && !this.currentUser.community_ID) {
       this.presentModal();
-    } else {  
+    } else {
       if (!AppSettings.getCurrentCarport()) {
         this.service.getCarportListByOwnerId(this.currentUser._id).then((carp: any) => {
           //console.dir(carp);
@@ -102,16 +110,16 @@ export class LeisureParkPage {
         });
       } else {
         this.currentCarport = AppSettings.getCurrentCarport();
-      } 
+      }
     }
     this.getLeisureParkforOwner();
   }
 
-    // ionViewWillEnter()
-    // {
-    //   //console.log('get param : ' + this.params.get('reload'));
-    //   //this.navCtrl. refresh();
-    // }
+  // ionViewWillEnter()
+  // {
+  //   //console.log('get param : ' + this.params.get('reload'));
+  //   //this.navCtrl. refresh();
+  // }
 
   presentModal() {
     const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
@@ -122,27 +130,37 @@ export class LeisureParkPage {
     selectcommodal.present();
   }
 
-  addButtonClick()
-  { 
-    this.leisurePark.startTime = moment().add(8,'hours').toISOString();
-    this.leisurePark.endTime = moment().add(16,'hours').toISOString(); 
-    this.showAddContent = true; 
+  addButtonClick() {
+    //Amin: IMP.  +8 display as local timezone .
+    this.leisurePark.startTime = this.getGoodTime().add(8, 'hours').toISOString();
+    this.leisurePark.endTime = this.getGoodTime().add(16, 'hours').toISOString();
+    this.showAddContent = true;
   }
 
-  cancelButtonClick()
-  { 
-    this.showAddContent = false; 
+  getGoodTime() {
+    let time = moment();
+    if (moment().minute() < 30) {
+      time.minute(30).second(0);
+    } else {
+      time.add(1, 'hours').minute(0).second(0);
+    }
+    return time;
+  }
+
+  cancelButtonClick() {
+    this.showAddContent = false;
   }
 
   saveLeisurePark() {
     this.leisurePark.shared_UserID = this.currentUser._id;
     this.leisurePark.carport_ID = this.currentCarport._id;
-    this.leisurePark.community_ID = this.currentUser.community_ID._id; 
-   
-    this.leisurePark.startTime = moment(this.leisurePark.startTime).add(-8,'hours').toISOString();
-    this.leisurePark.endTime = moment(this.leisurePark.endTime).add(-8,'hours').toISOString();
+    this.leisurePark.community_ID = this.currentUser.community_ID._id;
 
-    if(!this.leisurePark.community_ID){
+    //Amin: IMP. -8, Save as ISO date
+    this.leisurePark.startTime = moment(this.leisurePark.startTime).add(-8, 'hours').toISOString();
+    this.leisurePark.endTime = moment(this.leisurePark.endTime).add(-8, 'hours').toISOString();
+
+    if (!this.leisurePark.community_ID) {
       console.log('saveLeisurePark' + 'delete empty community_ID');
       delete this.leisurePark.community_ID;
     }
@@ -167,18 +185,65 @@ export class LeisureParkPage {
     this.service.getLeisureParkforOwner(this.currentUser._id).then((lpark: any) => {
       if (lpark) {
         this.myLeisureParks = lpark;
-        this.myLeisureParks.forEach(x => { 
-           x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
-           x.statusDisplayText = AppSettings.getDisplayText( x.status , AppSettings.leisureParkStatusDict); 
-        }) 
+        this.myLeisureParks.forEach(x => {
+          x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
+          x.statusDisplayText = AppSettings.getDisplayText(x.status, AppSettings.leisureParkStatusDict);
+        })
       }
     });
   }
-  
 
-  refresh(){
+
+  on_startTime_Blur(item) {
+    //console.log(item);
+    console.log(item._text);
+    if (item && item._text) {
+      this.service.checkStartTime(this.currentUser.community_ID._id,this.currentUser._id
+        ,this.currentCarport._id, item._text).then( (wrongTime) => {
+        //console.log(duplicateUser);
+        if (wrongTime) {
+          this.wrongStartTime = true;
+        }
+      });
+    }
+  }
+
+  on_endTime_Blur(item) { 
+    console.log(item._text);
+    if (item && item._text) {
+      this.service.checkEndTime(this.currentUser.community_ID._id,this.currentUser._id
+        //Todo:Amin, what's diff for endtime, due to checkStartTime didn't call this.savedISOTime method
+        ,this.currentCarport._id, item._text ).then( (wrongEndTime) => { 
+        if (wrongEndTime) {
+          this.wrongEndTime = true;
+        }
+      });
+    }
+  }
+
+  changeText(isStartTime) {
+    if (isStartTime) {
+      if (this.wrongStartTime) {
+        this.wrongStartTime = false;
+      }
+    } else {
+      if (this.wrongEndTime) {
+        this.wrongEndTime = false;
+      }
+    }
+  }
+
+  refresh() {
     //location.reload();
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+
+  savedISOTime(localTime)
+  {
+    // console.log(localTime);
+    // console.log(moment(localTime));
+    // console.log(moment(localTime).toISOString());
+    return moment(localTime).add(8,'hours').toISOString();
   }
 
 }

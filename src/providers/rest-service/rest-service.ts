@@ -187,6 +187,29 @@ export class RestServiceProvider {
     });
   }
 
+  checkStartTime(comId,ownerId,cpId,startTime){
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/checkStartTime/' + comId + '/' + ownerId + '/' + cpId + '/' + startTime).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  checkEndTime(comId,ownerId,cpId,endTime){
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/checkEndTime/' + comId + '/' + ownerId + '/' + cpId + '/' + endTime).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+ 
+
+
   getMap() {
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/maps').subscribe(data => {

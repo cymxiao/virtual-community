@@ -73,6 +73,11 @@
     color: color($colors, danger);
 }
 
+.text-danger-padding {
+    color: color($colors, danger);
+    padding: 0 1rem; 
+}
+
 .text-green {
     color: #68C91F;
 }
