@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpHandler, HttpInterceptor, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpRequest, HttpHandler, HttpInterceptor, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AppSettings } from '../../settings/app-settings';
@@ -13,8 +13,9 @@ export class RestServiceProvider {
 
   //apiUrl = 'http://localhost:3000';
   //apiUrl = 'http://192.168.0.110:3000';
-  apiUrl = AppSettings.API_SERVICES_URL;
+  apiUrl;
   constructor(public http: HttpClient) {
+    this.apiUrl = AppSettings.getAPIServiceURL();
     //this.http.post('',null);
     console.log('Hello RestServiceProvider Provider');
   }

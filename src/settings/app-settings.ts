@@ -1,5 +1,23 @@
+import { ENV } from '@app/env';
+
+
+
 export class AppSettings{
-    public static API_SERVICES_URL = "http://192.168.1.4:3000";
+    //public static API_SERVICES_URL = "http://192.168.1.4:3000";
+
+
+    public static getAPIServiceURL() {
+        //static svcURL = '';
+        if (ENV.mode === 'Production') {
+            return "http://localhost:3000";
+        } else if (ENV.mode === 'Development') {
+            return "http://192.168.1.4:3000";
+        } else if (ENV.mode === 'Office') {
+            return "http://localhost:3000";
+        } else {
+            return "http://localhost:3000";
+        }
+    }
 
     public static getCurrentUser(){
         return JSON.parse(localStorage.getItem('user'));

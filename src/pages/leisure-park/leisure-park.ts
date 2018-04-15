@@ -36,6 +36,7 @@ export class LeisureParkPage {
 
   wrongStartTime: boolean = false;
   wrongEndTime:boolean = false;
+  endTimeshouldGreaterThanStart :boolean = false;
 
   minDate: string;
   minDateforEndTime: string;
@@ -164,7 +165,7 @@ export class LeisureParkPage {
     this.leisurePark.endTime = moment(this.leisurePark.endTime).add(-8, 'hours').toISOString();
 
     if (!this.leisurePark.community_ID) {
-      console.log('saveLeisurePark' + 'delete empty community_ID');
+      //console.log('saveLeisurePark' + 'delete empty community_ID');
       delete this.leisurePark.community_ID;
     }
     delete this.leisurePark.applied_UserID;
@@ -199,10 +200,11 @@ export class LeisureParkPage {
 
   on_startTime_Blur(item) {
     //console.log(item);
-    console.log(item._text);
+    //console.log(item._text);
     if (item && item._text) {
       this.service.checkStartTime(this.currentUser.community_ID._id,this.currentUser._id
-        ,this.currentCarport._id, item._text).then( (wrongTime) => {
+        //IMP:comment. add minute for boudary condition.
+        ,this.currentCarport._id, moment(item._text).add(1, 'minutes').toISOString()).then( (wrongTime) => {
         //console.log(duplicateUser);
         if (wrongTime) {
           this.wrongStartTime = true;
@@ -211,12 +213,18 @@ export class LeisureParkPage {
     }
   }
 
-  on_endTime_Blur(item) { 
-    console.log(item._text);
+  on_endTime_Blur(item) {  
     if (item && item._text) {
+      const begin  = new Date(this.leisurePark.startTime);
+      const end = new Date(this.leisurePark.endTime);
+      if(end <= begin){
+        this.endTimeshouldGreaterThanStart= true;
+      }
+
       this.service.checkEndTime(this.currentUser.community_ID._id,this.currentUser._id
         //Todo:Amin, what's diff for endtime, due to checkStartTime didn't call this.savedISOTime method
         //It's may be dirty data in database. I should remove all dirty data in db.
+        //Todo: do we boundary condition here?
         ,this.currentCarport._id, item._text).then( (wrongEndTime) => { 
         if (wrongEndTime) {
           this.wrongEndTime = true;
@@ -226,13 +234,14 @@ export class LeisureParkPage {
   }
 
   changeText(isStartTime) {
+    this.endTimeshouldGreaterThanStart=false;
     if (isStartTime) {
       if (this.wrongStartTime) {
         this.wrongStartTime = false;
       }
     } else {
       if (this.wrongEndTime) {
-        this.wrongEndTime = false;
+        this.wrongEndTime = false; 
       }
     }
   }

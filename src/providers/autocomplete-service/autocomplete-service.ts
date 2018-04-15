@@ -1,15 +1,14 @@
 import { HttpClient , HttpParams } from '@angular/common/http';
 import { AppSettings } from '../../settings/app-settings';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class AutoCompleteServiceProvider {// implements AutoCompleteService {
 
-    apiUrl = AppSettings.API_SERVICES_URL;
+    apiUrl ;
     //labelAttribute = "name";
     constructor(public http: HttpClient) {
- 
+      this.apiUrl = AppSettings.getAPIServiceURL();
     }
 
 
