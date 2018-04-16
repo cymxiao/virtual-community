@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SMS } from '@ionic-native/sms';
 
 import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from "../login/login";
@@ -31,13 +32,15 @@ export class RegisterPage {
   usernameBlur: boolean;
   passwordBlur: boolean;
   verifyCodeBlur: boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiService: RestServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+     public apiService: RestServiceProvider,
+     private sms: SMS) {
     this.user = { phone: '', pwd: '' };
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
-
+    console.log('send message');
+    //this.sms.send('13816873730', 'Hello world!');
   }
 
   register() {

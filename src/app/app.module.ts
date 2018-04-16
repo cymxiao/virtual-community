@@ -25,6 +25,7 @@ import { MyordersPageModule } from '../pages/myorders/myorders.module';
 import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { Geolocation } from '@ionic-native/geolocation';
+import { SMS } from '@ionic-native/sms';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestServiceProvider,
     AutoCompleteServiceProvider,
+    SMS,
     Geolocation
     //GeographicalMapServiceProvider
   ]
