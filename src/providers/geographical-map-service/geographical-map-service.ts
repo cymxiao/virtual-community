@@ -1,4 +1,4 @@
-import { HttpClient , HttpHeaders ,HttpEvent, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import {Observable} from "rxjs";
 //import { Headers, Http , RequestOptions } from '@angular/http';
@@ -16,7 +16,7 @@ import { Injectable } from '@angular/core';
 export class GeographicalMapServiceProvider {// implements HttpInterceptor {
 
 
-  apiUrl = 'http://api.map.baidu.com/location/ip?ak=BwpRyGZipdkOdgRx8Z27Ynlp';
+  apiUrl = '';
 
   constructor(public http: HttpClient){ //, public _http: Http) {
     console.log('Hello GeographicalMapServiceProvider Provider');
@@ -44,7 +44,7 @@ export class GeographicalMapServiceProvider {// implements HttpInterceptor {
     
     // const _headers = new HttpHeaders();
     // const headers : any = _headers.append('Access-Control-Allow-Origin', '*');
-    const headers : any = new HttpHeaders({'Access-Control-Allow-Origin':'*'});
+    //const headers : any = new HttpHeaders({'Access-Control-Allow-Origin':'*'});
     // let headers :any = new HttpHeaders(
     //   {'abc':'22',
     //   'abc2':'111',

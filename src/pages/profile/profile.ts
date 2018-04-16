@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams , MenuController } from 'ionic-angular';
-import { MyOrdersPage } from '../myorders/myorders';
+import { IonicPage, NavController, MenuController } from 'ionic-angular';
 
- 
 import { IUser } from '../../model/user';
 import { AppSettings } from '../../settings/app-settings';
 /**

@@ -8,7 +8,7 @@ import { IUser } from '../../model/user';
 import { ICommunity } from '../../model/community';
 import { ICarport } from '../../model/carport';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
-import { AppSettings, LeisureParkStatus } from '../../settings/app-settings';
+import { AppSettings } from '../../settings/app-settings';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 

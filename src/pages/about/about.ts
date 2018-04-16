@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
-import { ILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';

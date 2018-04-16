@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ILeisurePark , IUILeisurePark } from '../../model/leisurePark';
+import { IUILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
 import { AppSettings } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';

@@ -2,11 +2,8 @@ import { Component ,ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-//import { Auth } from '@ionic/cloud-angular';
 
-import { TabsPage } from '../pages/tabs/tabs'; 
 import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from "../pages/register/register";
 import { MyOrdersPage } from '../pages/myorders/myorders';
 
 @Component({

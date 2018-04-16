@@ -10,7 +10,7 @@ import { HomePage } from '../../pages/home/home';
 declare var BMap;
 declare var BMapLib;
 
-declare var BMAPLIB_TAB_TO_HERE;
+//declare var BMAPLIB_TAB_TO_HERE;
 /**
  * Generated class for the TestPage page.
  *
