@@ -44,5 +44,6 @@ export interface ILeisurePark  {
     price: string;
     priceUnit:string; 
     priceUnitDisplayText: string;
+    avaibleHours: number;
     timestamp: Date;
   }

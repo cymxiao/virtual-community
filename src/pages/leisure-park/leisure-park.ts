@@ -204,7 +204,7 @@ export class LeisureParkPage {
     if (item && item._text) {
       this.service.checkStartTime(this.currentUser.community_ID._id,this.currentUser._id
         //IMP:comment. add minute for boudary condition.
-        ,this.currentCarport._id, moment(item._text).add(1, 'minutes').toISOString()).then( (wrongTime) => {
+        ,this.currentCarport._id, moment(item._text).add(-1, 'minutes').toISOString()).then( (wrongTime) => {
         //console.log(duplicateUser);
         if (wrongTime) {
           this.wrongStartTime = true;

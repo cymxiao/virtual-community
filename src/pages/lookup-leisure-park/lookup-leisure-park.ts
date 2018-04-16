@@ -6,6 +6,7 @@ import { IUser } from '../../model/user';
 import { AppSettings } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
+import * as moment from 'moment';
 /**
  * Generated class for the LookupLeisureParkPage page.
  *
@@ -60,9 +61,18 @@ export class LookupLeisureParkPage {
         this.sharedLeisureParks.forEach(x => {
           x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
           x.statusDisplayText = AppSettings.getDisplayText( x.status , AppSettings.leisureParkStatusDict); 
+          x.avaibleHours = this.getHoursNumber(x.endTime);
         }) 
       }
     });
   }  
+
+  getHoursNumber(inputISODate)
+  {
+    var a = moment(inputISODate);
+    var b = moment(); 
+    //console.log(a.format() + '|||||||' + b.format());
+    return a.diff(b, 'hours') // 1
+  }
   
 }
