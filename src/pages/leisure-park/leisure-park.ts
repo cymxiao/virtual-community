@@ -37,7 +37,7 @@ export class LeisureParkPage {
   wrongStartTime: boolean = false;
   wrongEndTime:boolean = false;
   endTimeshouldGreaterThanStart :boolean = false;
-
+  fourHoursError: boolean;
   minDate: string;
   minDateforEndTime: string;
   //moment: Moment = new Mome;
@@ -213,28 +213,32 @@ export class LeisureParkPage {
     }
   }
 
-  on_endTime_Blur(item) {  
+  on_endTime_Blur(item) {
     if (item && item._text) {
-      const begin  = new Date(this.leisurePark.startTime);
+      const begin = new Date(this.leisurePark.startTime);
       const end = new Date(this.leisurePark.endTime);
-      if(end <= begin){
-        this.endTimeshouldGreaterThanStart= true;
+      //console.log('hours :' + moment(end).diff(moment(begin), 'hours') );
+      if (end <= begin) {
+        this.endTimeshouldGreaterThanStart = true;
+      } else if (moment(end).diff(moment(begin), 'minutes') < 4*60) {
+        this.fourHoursError = true;
+      } else {
+        this.service.checkEndTime(this.currentUser.community_ID._id, this.currentUser._id
+          //Todo:Amin, what's diff for endtime, due to checkStartTime didn't call this.savedISOTime method
+          //It's may be dirty data in database. I should remove all dirty data in db.
+          //Todo: do we boundary condition here?
+          , this.currentCarport._id, item._text).then((wrongEndTime) => {
+            if (wrongEndTime) {
+              this.wrongEndTime = true;
+            }
+          });
       }
-
-      this.service.checkEndTime(this.currentUser.community_ID._id,this.currentUser._id
-        //Todo:Amin, what's diff for endtime, due to checkStartTime didn't call this.savedISOTime method
-        //It's may be dirty data in database. I should remove all dirty data in db.
-        //Todo: do we boundary condition here?
-        ,this.currentCarport._id, item._text).then( (wrongEndTime) => { 
-        if (wrongEndTime) {
-          this.wrongEndTime = true;
-        }
-      });
     }
   }
 
   changeText(isStartTime) {
     this.endTimeshouldGreaterThanStart=false;
+    this.fourHoursError=false;
     if (isStartTime) {
       if (this.wrongStartTime) {
         this.wrongStartTime = false;

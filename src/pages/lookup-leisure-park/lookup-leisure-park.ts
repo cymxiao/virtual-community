@@ -61,18 +61,18 @@ export class LookupLeisureParkPage {
         this.sharedLeisureParks.forEach(x => {
           x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
           x.statusDisplayText = AppSettings.getDisplayText( x.status , AppSettings.leisureParkStatusDict); 
-          x.avaibleHours = this.getHoursNumber(x.endTime);
+          x.avaibleHours = this.getHoursNumber(x.startTime,x.endTime);
         }) 
       }
     });
   }  
 
-  getHoursNumber(inputISODate)
+  getHoursNumber(startTime,endTime )
   {
-    var a = moment(inputISODate);
-    var b = moment(); 
+    var a = moment(endTime);
+    var b = moment() > moment(startTime) ? moment() : moment(startTime); 
     //console.log(a.format() + '|||||||' + b.format());
-    return a.diff(b, 'hours') // 1
+    return a.diff(b, 'hours'); // 1
   }
   
 }
