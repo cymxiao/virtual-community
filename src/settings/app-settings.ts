@@ -11,7 +11,7 @@ export class AppSettings{
         if (ENV.mode === 'Production') {
             return "http://localhost:3000";
         } else if (ENV.mode === 'Development') {
-            return "http://192.168.1.4:3000";
+            return "http://localhost:3000";
         } else if (ENV.mode === 'Office') {
             return "http://localhost:3000";
         } else {
