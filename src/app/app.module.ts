@@ -26,6 +26,7 @@ import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SMS } from '@ionic-native/sms';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { SMS } from '@ionic-native/sms';
     RestServiceProvider,
     AutoCompleteServiceProvider,
     SMS,
+    LocalNotifications,
     Geolocation
     //GeographicalMapServiceProvider
   ]

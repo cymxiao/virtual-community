@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams ,Platform} from 'ionic-angular';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { IUILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
@@ -28,8 +29,28 @@ export class LookupLeisureParkPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
+    private localNotifications: LocalNotifications, public alertCtrl: AlertController,
+    public plt: Platform,
     public apiService: RestServiceProvider) {
-      this.inputComId = navParams.get('comId');
+    this.inputComId = navParams.get('comId');
+    this.plt.ready().then(x => {
+      // console.dir(this.plt);
+      // console.log();  //output dom
+          // console.log();
+      if (!this.plt.is('core')) {
+        this.localNotifications.on('click').subscribe(notification => {
+          console.log('click');
+
+          let json = JSON.parse(notification.data);
+
+          let alert = alertCtrl.create({
+            title: notification.title,
+            subTitle: json.mydata
+          });
+          alert.present();
+        });
+      }
+    });
   }
 
   ionViewDidLoad() {
@@ -50,6 +71,15 @@ export class LookupLeisureParkPage {
       }
     });
   }
+
+  scheduleNotification() {
+    this.localNotifications.schedule({
+      id: 1,
+      title: '注意',
+      text: '您的共享车位已被申请',
+      data: { mydata: 'My hidden message this is' }
+    });
+  }  
 
   getLeisureParkbyCommunity() {
     if(!this.inputComId){
