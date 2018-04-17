@@ -103,6 +103,9 @@
         </div> 
         <div class="text-danger-padding" *ngIf="endTimeshouldGreaterThanStart">
             结束时间应晚于开始时间。
+        </div>
+        <div class="text-danger-padding" *ngIf="fourHoursError">
+            结束时间至少是开始时间的4个小时之后。
         </div> 
 
         <ion-item>
