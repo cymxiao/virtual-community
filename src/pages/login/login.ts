@@ -24,6 +24,7 @@ export class LoginPage {
   public user: any;
   usernameBlur: boolean;
   passwordBlur: boolean;
+  wrongUsrorPwd: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public service: RestServiceProvider) {
     this.user = { phone: '', pwd: '' };
   }
@@ -52,6 +53,7 @@ export class LoginPage {
         this.navCtrl.setRoot(TabsPage);
       }
       else {
+        this.wrongUsrorPwd = true;
         console.log('wrong username or password');
       }
     }).catch(x => {

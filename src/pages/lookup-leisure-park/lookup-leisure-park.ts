@@ -8,6 +8,8 @@ import { AppSettings } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
 import * as moment from 'moment';
+
+import { ENV } from '@app/env';
 /**
  * Generated class for the LookupLeisureParkPage page.
  *
@@ -25,6 +27,7 @@ export class LookupLeisureParkPage {
   sharedLeisureParks : IUILeisurePark[];
   currentUser: IUser;
   inputComId: string;
+  canApply: boolean = true ;
 
 
 
@@ -32,6 +35,7 @@ export class LookupLeisureParkPage {
     private localNotifications: LocalNotifications, public alertCtrl: AlertController,
     public plt: Platform,
     public apiService: RestServiceProvider) {
+    //  console.log(LeisureParkStatus.pending);
     this.inputComId = navParams.get('comId');
     this.plt.ready().then(x => {
       // console.dir(this.plt);
@@ -59,17 +63,33 @@ export class LookupLeisureParkPage {
     this.getLeisureParkbyCommunity();
   }
 
-  apply(lpId){
-    console.log('lpId: ' + lpId);
+  apply(leiPk) {
+    console.log('lpId: ' + leiPk._id);
     const updateBody = {
-      status : 'applied',
+      status: 'applied',
       applied_UserID: this.currentUser._id
     };
-    this.apiService.updateleisurePark(lpId,updateBody).then(lp => {
-      if(lp){
-        console.log(lp);
-      }
-    });
+    if (ENV.mode !== 'test') {
+      this.apiService.getLeisureParkforApplier(this.currentUser._id).then((lpk: any) => {
+        if (lpk && lpk.length > 0) {
+          console.dir(lpk);
+          lpk.forEach(x => {  
+            if (x && x.status && x.status.length>0 && x.status[0] === 'applied') {
+              this.canApply = false; 
+            }
+          })
+          if (this.canApply) {
+            this.apiService.updateleisurePark(leiPk._id, updateBody).then(lp => {
+              if (lp) {
+                this.refresh();
+              }
+            });
+          } else {
+            this.presentAlert();
+          }
+        }
+      });
+    }
   }
 
   scheduleNotification() {
@@ -103,6 +123,27 @@ export class LookupLeisureParkPage {
     var b = moment() > moment(startTime) ? moment() : moment(startTime); 
     //console.log(a.format() + '|||||||' + b.format());
     return a.diff(b, 'hours'); // 1
+  }
+
+
+  refresh() {
+    //location.reload();
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: '不可申请',
+      subTitle: '您有状态为已申请未支付的订单，请先支付或取消该订单',
+      buttons: [  {
+        text: '关闭',
+        role: 'cancel',
+        handler: () => {
+          //console.log('Cancel clicked');
+        }
+      }]
+    });
+    alert.present();
   }
   
 }

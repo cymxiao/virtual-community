@@ -74,7 +74,9 @@
                     请输入至少6位密码
                 </div>
             </div>
-       
+            <div class="text-danger" *ngIf="wrongUsrorPwd">
+                用户名或者密码错误
+            </div>
 
         <p text-right ion-text color="secondary" tappable (click)="forgotPass()">
             <strong>忘记密码?</strong>
