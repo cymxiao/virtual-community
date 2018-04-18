@@ -2,8 +2,13 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
-import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+
 import { IStatisticCarport } from '../../model/visual-statistic-carport';
+import { IUser} from '../../model/user';
+
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
+import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
 
 import { HomePage } from '../../pages/home/home';
 
@@ -33,12 +38,18 @@ export class TestPage {
   avaiableComs: IStatisticCarport[];
   adds :string [] = [];
  
- 
+  user : IUser;
+  selectedComId: string;
+  //selectedComName: string;
+  searchQuery: string = '';
+  coms: any;
+  hideList: boolean;
+
   @ViewChild('map') map_container: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public APIService: RestServiceProvider,private geolocation: Geolocation) {
-
+    public APIService: RestServiceProvider,private geolocation: Geolocation,
+    public autoService: AutoCompleteServiceProvider) { 
     this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(30, 30));
 
   }
@@ -181,5 +192,47 @@ export class TestPage {
   {
     this.navCtrl.push(HomePage);
   }
+
+
+  searchClicked(){
+    // push another page onto the navigation stack
+    // causing the nav controller to transition to the new page
+    // optional data can also be passed to the pushed page.
+    this.navCtrl.push(LookupLeisureParkPage, {
+      comId: this.selectedComId,
+      comName: this.searchQuery
+    });
+  }
+
+  searchTextChagne(ev: any) {
+    this.hideList = false;
+    this.autoService.getResults(ev.target.value).then(x => {
+      this.coms = x;
+      this.coms.forEach(element => {
+        JSON.stringify(element);
+      });
+    }); 
+  }
+
+  addItem(item: any) {
+    this.hideList = true; 
+    this.searchQuery = item.name;
+    this.selectedComId = item._id;
+    this.navCtrl.push(LookupLeisureParkPage, {
+      comId: this.selectedComId,
+      comName: this.searchQuery
+    });
+  }
+
+  // on_searchbar_blur(item) {
+    
+  //   //console.log(item.target.value);
+  //   if (item.name) {
+  //     //this.addItem()
+  //     this.navCtrl.push(LookupLeisureParkPage, { 
+  //       comName: item.target.value
+  //     });
+  //   }
+  // }
 
 }

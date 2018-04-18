@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -31,8 +29,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage, 
-    HomePage, 
+    // AboutPage, 
+    // HomePage, 
     TabsPage
   ],
   imports: [
@@ -53,8 +51,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage, 
-    HomePage, 
+    //AboutPage, 
+    //HomePage, 
     //SelectCommunityModalPage,
     TabsPage
   ],
