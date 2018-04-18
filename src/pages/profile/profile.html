@@ -12,6 +12,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
       <ion-title> 
+        我的资料
       </ion-title>
  
   </ion-navbar>
@@ -28,6 +29,22 @@
     <ion-input type="number" name="username" [(ngModel)]="user.username" disabled="true"> </ion-input>
     <!-- <div >{{this.user.username}}</div>  -->
   </ion-item>
-
+  <ion-item>
+      <ion-label floating>
+        <ion-icon name="flag" item-start class="text-primary"></ion-icon>
+        所在小区
+      </ion-label>
+      <ion-input type="text" name="community" [(ngModel)]="user.community_ID.name" disabled="true"> </ion-input>
+    
+    </ion-item>
+    <ion-item>
+        <ion-label floating>
+          <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
+          车位编号
+        </ion-label>
+        <ion-input type="text" name="carport" [(ngModel)]="currentCarport.parkingNumber" disabled="true"> </ion-input>
+      
+      </ion-item>
+  
  
 </ion-content>

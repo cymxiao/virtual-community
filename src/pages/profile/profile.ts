@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, MenuController } from 'ionic-angular';
 
 import { IUser } from '../../model/user';
+import { ICarport } from '../../model/carport';
 import { AppSettings } from '../../settings/app-settings';
 /**
  * Generated class for the ProfilePage page.
@@ -18,11 +19,11 @@ export class ProfilePage {
 
   //map: any;
   user : IUser;
- 
+  currentCarport: ICarport;
   constructor(public navCtrl: NavController,
     public menu: MenuController){  
  
-    this.getCurrentUserName();
+    this.init();
   
   }
 
@@ -33,9 +34,10 @@ export class ProfilePage {
   }
 
 
-  getCurrentUserName()
+  init()
   {
     this.user = AppSettings.getCurrentUser(); 
+    this.currentCarport = AppSettings.getCurrentCarport();
   }
   
 

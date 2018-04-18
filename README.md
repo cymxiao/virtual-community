@@ -11,6 +11,9 @@ npm install --save @ionic-native/local-notifications
 
 Run
 ionic serve
+ionic serve --environment=dev 
 or Run with cordova in brower
 ionic cordova platform add browser
 ionic cordova run browser
+
+

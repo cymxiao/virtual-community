@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
 import { MyOrdersPage } from '../pages/myorders/myorders';
+import { ProfilePage } from '../pages/profile/profile';
 
 @Component({
   templateUrl: 'app.html'
@@ -32,9 +33,14 @@ export class MyApp {
 
   myOrders()
   {
-    //this.navCtrl.push(MyOrdersPage);
     this.nav.setRoot(MyOrdersPage);
   }
+
+  myProfile()
+  {
+    this.nav.setRoot(ProfilePage);
+  }
+
 
   logout()
   {
