@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { IUILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
 import { AppSettings } from '../../settings/app-settings';
+import { TabsPage } from '../tabs/tabs';
+
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
 /**
@@ -47,4 +49,9 @@ export class MyOrdersPage {
       }
     });
   }  
+
+  goBackHome()
+  {
+    this.navCtrl.setRoot(TabsPage);
+  }
 }

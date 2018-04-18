@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { MyOrdersPage } from '../pages/myorders/myorders';
 import { ProfilePage } from '../pages/profile/profile';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
@@ -41,6 +42,10 @@ export class MyApp {
     this.nav.setRoot(ProfilePage);
   }
 
+  goBackHome()
+  {
+    this.nav.setRoot(TabsPage);
+  }
 
   logout()
   {

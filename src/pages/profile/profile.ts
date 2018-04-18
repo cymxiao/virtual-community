@@ -4,6 +4,7 @@ import { IonicPage, NavController, MenuController } from 'ionic-angular';
 import { IUser } from '../../model/user';
 import { ICarport } from '../../model/carport';
 import { AppSettings } from '../../settings/app-settings';
+import { TabsPage } from '../tabs/tabs';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -40,5 +41,9 @@ export class ProfilePage {
     this.currentCarport = AppSettings.getCurrentCarport();
   }
   
-
+  
+  goBackHome()
+  {
+    this.navCtrl.setRoot(TabsPage);
+  }
 }
