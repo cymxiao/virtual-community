@@ -113,14 +113,20 @@
                 <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
                 价格
             </ion-label>
-            <ion-input type="number" name="fieldPhone" required [(ngModel)]="leisurePark.price" #fieldPhone="ngModel"></ion-input>
+            <ion-input type="number" name="fieldPrice" min="0" max="500" required 
+            [(ngModel)]="leisurePark.price" #fieldPrice="ngModel" (ionBlur)="on_price_Blur($event)"></ion-input>
         </ion-item>
-        <ion-item no-lines *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
-            <div class="text-danger" *ngIf="fieldPhone.errors.required">
+        <ion-item no-lines *ngIf="fieldPrice.invalid && (fieldPrice.dirty || fieldPrice.touched)">
+            <div class="text-danger" *ngIf="fieldPrice.errors.required">
                 请输入价格信息
-            </div>
-
+            </div> 
         </ion-item>
+        <!-- <div class="text-danger-padding" *ngIf="fieldPrice.errors.min || fieldPrice.errors.max">
+                价格应当介于0-500之间
+            </div>   -->
+        <div class="text-danger-padding" *ngIf="wrongPrice">
+                价格应当介于0-500之间
+            </div> 
 
         <ion-item>
             <ion-label floating>
@@ -143,7 +149,7 @@
 
         <div>
             <!-- {{loginForm.form.valid}} -->
-            <button ion-button icon-start block color="secondary" tappable [disabled]="!leisureParkForm.form.valid" (click)="saveLeisurePark()">
+            <button ion-button icon-start block color="secondary" tappable [disabled]="!leisureParkForm.form.valid || failedForValidation" (click)="saveLeisurePark()">
                 <ion-icon name="checkbox"></ion-icon>
                 提交
             </button>

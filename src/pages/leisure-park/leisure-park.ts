@@ -36,6 +36,10 @@ export class LeisureParkPage {
 
   wrongStartTime: boolean = false;
   wrongEndTime:boolean = false;
+  wrongPrice: boolean = false;
+
+  failedForValidation : boolean;
+  
   endTimeshouldGreaterThanStart :boolean = false;
   fourHoursError: boolean;
   minDate: string;
@@ -47,6 +51,7 @@ export class LeisureParkPage {
     //public monent: Moment,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController) {
+    //this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
     this.leisurePark = {
       id: '',
       startTime: '',
@@ -208,9 +213,24 @@ export class LeisureParkPage {
         //console.log(duplicateUser);
         if (wrongTime) {
           this.wrongStartTime = true;
+          this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
         }
       });
     }
+  }
+
+  on_price_Blur(item) {
+    console.log(item.value);
+    if (item && item.value) {
+       if( Number(item.value) < 0 || Number(item.value) > 500){
+         this.wrongPrice = true;
+         
+       } else {
+        this.wrongPrice = false;
+       }
+       
+    }
+    this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
   }
 
   on_endTime_Blur(item) {
@@ -230,6 +250,7 @@ export class LeisureParkPage {
           , this.currentCarport._id, item._text).then((wrongEndTime) => {
             if (wrongEndTime) {
               this.wrongEndTime = true;
+              this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
             }
           });
       }
