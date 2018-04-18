@@ -86,7 +86,7 @@
                     密码
                 </ion-label>
                 <ion-input type="password" [(ngModel)]="pwd" minlength="6" required name="fieldpwd" #fieldpwd="ngModel" 
-                (blur) ="on_passwordBlur($event)"></ion-input>
+                (ionBlur) ="on_passwordBlur($event)"></ion-input>
             </ion-item>
             <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
                 <div class="text-danger" *ngIf="fieldpwd.errors.required">

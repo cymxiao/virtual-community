@@ -46,7 +46,7 @@
                 </ion-label>
                 <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
                 <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" required [(ngModel)]="user.phone" 
-                    #fieldPhone="ngModel" (blur) = "on_usernameBlur($event)"></ion-input>
+                    #fieldPhone="ngModel" (ionBlur) = "on_usernameBlur($event)"></ion-input>
             </ion-item>
             <div *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
                 <div class="text-danger" *ngIf="fieldPhone.errors.required">
@@ -64,7 +64,7 @@
                 </ion-label>
                 <!-- [ngModelOptions]="{standalone: true}" -->
                 <ion-input type="password" [(ngModel)]="user.pwd" name="fieldpwd" minlength="6" required 
-                (blur) = "on_passwordBlur($event)" #fieldpwd="ngModel"></ion-input>
+                (ionBlur) = "on_passwordBlur($event)" #fieldpwd="ngModel"></ion-input>
             </ion-item>
             <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
                 <div class="text-danger" *ngIf="fieldpwd.errors.required">
