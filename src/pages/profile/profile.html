@@ -34,16 +34,16 @@
         <ion-icon name="flag" item-start class="text-primary"></ion-icon>
         所在小区
       </ion-label>
-      <ion-input type="text" name="community" [(ngModel)]="user.community_ID.name" disabled="true"> </ion-input>
-    
+      <ion-input type="text" name="community" disabled="true"> </ion-input>
+      <!-- [(ngModel)]="user.community_ID.name" -->
     </ion-item>
     <ion-item>
         <ion-label floating>
           <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
           车位编号
         </ion-label>
-        <ion-input type="text" name="carport" [(ngModel)]="currentCarport.parkingNumber" disabled="true"> </ion-input>
-      
+        <ion-input type="text" name="carport"  disabled="true"> </ion-input>
+        <!-- [(ngModel)]="currentCarport.parkingNumber" -->
       </ion-item>
   
       <button class="pull-right" ion-button icon-end color="primary" tappable (click)="goBackHome()" >

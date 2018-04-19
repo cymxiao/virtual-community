@@ -220,7 +220,7 @@ export class LeisureParkPage {
   }
 
   on_price_Blur(item) {
-    console.log(item.value);
+    //console.log(item.value);
     if (item && item.value) {
        if( Number(item.value) < 0 || Number(item.value) > 500){
          this.wrongPrice = true;

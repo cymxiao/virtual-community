@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+//import { AppSettings } from '../../settings/app-settings';
 /**
  * Generated class for the LoginPage page.
  *
@@ -29,12 +30,11 @@ export class LoginPage {
     this.user = { phone: '', pwd: '' };
   }
 
-  ionViewDidLoad() {
-
-    console.log('ionViewDidLoad LoginPage');
+  ionViewDidLoad() {  
     if(localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username ){
       this.navCtrl.setRoot(TabsPage);
     }
+    
   }
 
   // go to register page
@@ -66,7 +66,7 @@ export class LoginPage {
   }
 
   on_usernameBlur(target){
-    console.log('username on blur');
+    //console.log('username on blur');
     this.usernameBlur = true;
   }
 

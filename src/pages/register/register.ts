@@ -6,6 +6,10 @@ import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from "../login/login";
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+//import { AppSettings } from '../../settings/app-settings';
+
+
+
 /**
  * Generated class for the RegisterPage page.
  *
@@ -45,6 +49,8 @@ export class RegisterPage {
 
   register() {
     //console.log(this.pwd);
+    // const encryptPwd = AppSettings.Encrypt(this.pwd);
+    // console.log(AppSettings.Decrypt(encryptPwd));
     this.apiService.addUser(
       {
         username: this.phone,
@@ -76,9 +82,10 @@ export class RegisterPage {
 
   on_username_Blur(item) {
     this.usernameBlur = true;
+    //console.log(item);
     //console.log(item.target.value);
-    if (item.target.value) {
-      this.apiService.getUser(item.target.value).then(duplicateUser => {
+    if (item.value) {
+      this.apiService.getUser(item.value).then(duplicateUser => {
         //console.log(duplicateUser);
         if (duplicateUser) {
           this.showDuplicateUserNameError = true;
