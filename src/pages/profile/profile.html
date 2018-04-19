@@ -27,23 +27,23 @@
       手机号码
     </ion-label>
     <ion-input type="number" name="username" [(ngModel)]="user.username" disabled="true"> </ion-input>
-    <!-- <div >{{this.user.username}}</div>  -->
+   
   </ion-item>
   <ion-item>
       <ion-label floating>
         <ion-icon name="flag" item-start class="text-primary"></ion-icon>
         所在小区
       </ion-label>
-      <ion-input type="text" name="community" disabled="true"> </ion-input>
-      <!-- [(ngModel)]="user.community_ID.name" -->
+      <ion-input type="text" name="community" disabled="true" [(ngModel)]="user.community_ID.name"> </ion-input>
+ 
     </ion-item>
     <ion-item>
         <ion-label floating>
           <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
           车位编号
         </ion-label>
-        <ion-input type="text" name="carport"  disabled="true"> </ion-input>
-        <!-- [(ngModel)]="currentCarport.parkingNumber" -->
+        <ion-input type="text" name="carport"  disabled="true" [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
+  
       </ion-item>
   
       <button class="pull-right" ion-button icon-end color="primary" tappable (click)="goBackHome()" >
