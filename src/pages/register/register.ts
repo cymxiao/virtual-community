@@ -6,7 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from "../login/login";
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-//import { AppSettings } from '../../settings/app-settings';
+import { AppSettings } from '../../settings/app-settings';
 
 
 
@@ -54,7 +54,7 @@ export class RegisterPage {
     this.apiService.addUser(
       {
         username: this.phone,
-        password: this.pwd
+        password: AppSettings.Encrypt(this.pwd)
       }
     ).then((usr: any) => {
       if (usr) {

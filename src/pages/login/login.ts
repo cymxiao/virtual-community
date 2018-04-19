@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-//import { AppSettings } from '../../settings/app-settings';
+import { AppSettings } from '../../settings/app-settings';
 /**
  * Generated class for the LoginPage page.
  *
@@ -31,10 +31,13 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {  
+    console.log(AppSettings.Encrypt('111111'));
+ 
     if(localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username ){
       this.navCtrl.setRoot(TabsPage);
     }
-    
+    console.log(AppSettings.Encrypt('111111'));
+    console.log('decypt : ' + AppSettings.Decrypt(AppSettings.Encrypt('111111')));
   }
 
   // go to register page
@@ -46,7 +49,7 @@ export class LoginPage {
   login() {
     this.service.loginUser({
       username: this.user.phone,
-      password: this.user.pwd
+      password: AppSettings.Encrypt(this.user.pwd)
     }).then(usr => { 
       if (usr) {
         localStorage.setItem('user', JSON.stringify(usr));
