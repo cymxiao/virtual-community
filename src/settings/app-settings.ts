@@ -1,9 +1,10 @@
 import { ENV } from '@app/env';
-
+import CryptoJS from 'crypto-js';
+import CryptoBrowserify from 'crypto-browserify';
 
 
 export class AppSettings{
-    //public static API_SERVICES_URL = "http://192.168.1.4:3000";
+    public static ENCRYPTION_KEY = "ApP2018!";
 
 
     public static getAPIServiceURL() {
@@ -36,6 +37,14 @@ export class AppSettings{
           && dict.filter(pu => { return pu.value === input[0] }).length > 0) {
           return dict.filter(pu => { return pu.value === input[0] })[0].text;
         }
+      }
+
+      public static Encrypt(source){
+        return CryptoJS.AES.encrypt(source, AppSettings.ENCRYPTION_KEY).toString();
+      }
+
+      public static Decrypt(source){
+        return CryptoJS.AES.decrypt(source, AppSettings.ENCRYPTION_KEY).toString(CryptoJS.enc.Utf8);
       }
 
       
