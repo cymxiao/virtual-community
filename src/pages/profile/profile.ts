@@ -35,6 +35,8 @@ export class ProfilePage {
     
   }
 
+ 
+
   presentModal() {
     //console.log('presentModal');
     const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
@@ -44,11 +46,6 @@ export class ProfilePage {
     });
     selectcommodal.present();
   }
-
-  navTo() {
-    this.navCtrl.push(SelectCommunityModalPage);
-  }
-
 
 
   init() {
