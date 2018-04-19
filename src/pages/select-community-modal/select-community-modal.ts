@@ -70,6 +70,7 @@ export class SelectCommunityModalPage {
             if (cp) {
               
               localStorage.setItem('user', JSON.stringify(usr)); 
+              localStorage.setItem('carport', JSON.stringify(cp)); 
               //update profile
               //console.dir(this.navCtrl);
               //this.navCtrl.getPrevious().ionViewDidLoad();
