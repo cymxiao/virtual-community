@@ -33,7 +33,7 @@
             </ion-list>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="showCarportList">
             <ion-label floating>
                 <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
                 车位绑定
@@ -45,6 +45,11 @@
             </ion-select>
 
         </ion-item>
+        <ion-item no-lines *ngIf="showCarportList && fieldcarport.invalid && (fieldcarport.dirty || fieldcarport.touched)">
+                <div class="text-danger" *ngIf="fieldcarport.errors.required">
+                    请输入您的车位号
+                </div>
+            </ion-item>
         <ion-item>
             <button  ion-button icon-end color="primary" tappable (click)="btnAdd()">
                 <ion-icon name="add-circle"></ion-icon>
@@ -69,11 +74,7 @@
         </ion-item> -->
 
 
-        <ion-item no-lines *ngIf="fieldcarport.invalid && (fieldcarport.dirty || fieldcarport.touched)">
-            <div class="text-danger" *ngIf="fieldcarport.errors.required">
-                请输入您的车位号
-            </div>
-        </ion-item>
+       
 
         <button ion-button icon-start block color="primary" tappable (click)="save()" [disabled]="communityModalForm.form.invalid ">
             <ion-icon name="checkbox"></ion-icon>

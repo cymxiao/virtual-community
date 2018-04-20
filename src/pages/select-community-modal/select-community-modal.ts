@@ -40,7 +40,7 @@ export class SelectCommunityModalPage{ // extends BasePage {
   currentCarport: ICarport;
 
   addMode: boolean;
-
+  showCarportList:boolean;
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
@@ -121,6 +121,9 @@ export class SelectCommunityModalPage{ // extends BasePage {
       //Amin: Todo: temp solution 
       if (carp) {
         this.carportArray = carp;
+        if(carp.length>0){
+          this.showCarportList = true;
+        }
       }
     });
   }
