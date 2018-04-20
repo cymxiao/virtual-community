@@ -54,7 +54,7 @@
                     &nbsp;&nbsp;取消
             </button> 
             <button *ngIf="addMode" ion-button icon-end color="primary" tappable (click)="btnSaveCarport()">
-                    <ion-icon name="save"></ion-icon>
+                    <ion-icon name="done-all"></ion-icon>
                     &nbsp;&nbsp;保存车位
             </button> 
         </ion-item>
@@ -74,7 +74,7 @@
         </ion-item>
 
         <button ion-button icon-start block color="primary" tappable (click)="save()" [disabled]="communityModalForm.form.invalid ">
-            <ion-icon name="save"></ion-icon>
+            <ion-icon name="checkbox"></ion-icon>
             保存设置
         </button>
     </form>

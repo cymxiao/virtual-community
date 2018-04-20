@@ -28,7 +28,7 @@ export class SelectCommunityModalPage {
   pathdescription: string;
   carportArray: ICarport[];
   newCarport:string;
-  //selectedCarport: ICarport;
+  currentCarport: ICarport;
 
   addMode: boolean;
 
@@ -46,9 +46,14 @@ export class SelectCommunityModalPage {
 
   initComponents() {
     this.user = AppSettings.getCurrentUser();
-    console.log(this.user);
+    //console.log(this.user);
     if (this.user.community_ID && this.user.community_ID._id) {
       this.searchQuery = this.user.community_ID.name;
+    }
+
+    this.currentCarport = AppSettings.getCurrentCarport();
+    if(this.currentCarport && this.currentCarport._id){
+      this.currentCarportId = this.currentCarport._id;
     }
   }
 
@@ -88,9 +93,8 @@ export class SelectCommunityModalPage {
 
               localStorage.setItem('user', JSON.stringify(usr));
               localStorage.setItem('carport', JSON.stringify(cp));
-              //update profile
-          
-              this.dismiss({ "refresh": "true" });
+              //update profile 
+              //this.dismiss({ "refresh": "true" });
             }
           });
         }
