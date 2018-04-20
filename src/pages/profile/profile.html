@@ -42,8 +42,8 @@
           <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
           车位编号
         </ion-label>
-        <ion-input type="text" name="carport"  disabled="true" > </ion-input>
-        <!--  [(ngModel)]="currentCarport.parkingNumber" -->
+        <ion-input type="text" name="carport"  disabled="true"  [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
+ 
       </ion-item>
   
       <button class="pull-right" ion-button icon-end color="primary" tappable (click)="goBackHome()" >

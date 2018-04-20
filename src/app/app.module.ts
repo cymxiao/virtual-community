@@ -16,6 +16,7 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
 import { TestPageModule } from '../pages/test/test.module';
+import { CarportPageModule } from '../pages/carport/carport.module';
 import { LeisureParkPageModule } from '../pages/leisure-park/leisure-park.module';
 import { SelectCommunityModalPageModule } from '../pages/select-community-modal/select-community-modal.module';
 import { LookupLeisureParkPageModule } from '../pages/lookup-leisure-park/lookup-leisure-park.module';
@@ -46,6 +47,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     MyordersPageModule,
     UserPortalPageModule,
     ProfilePageModule,
+    CarportPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

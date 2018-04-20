@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 import { ICarport } from 'model/carport';
+import { CarportPage } from '../carport/carport';
 
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
@@ -43,6 +44,7 @@ export class SelectCommunityModalPage{ // extends BasePage {
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
+    public modalCtrl: ModalController,
     public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
      // super();
@@ -124,38 +126,36 @@ export class SelectCommunityModalPage{ // extends BasePage {
   }
 
   btnAdd() {
-    this.addMode = true;
+    //this.addMode = true;
+    this.presentCarportModal();
   }
 
   btnCancelAdd() {
     this.addMode = false;
   }
 
-  btnSaveCarport() {
-    if (this.user && this.newCarport) { 
-      //add a carport
-      const carport = {
-        parkingNumber: this.newCarport,
-        route: this.pathdescription,
-        owner_user_ID: this.user._id
-      }
-      this.service.addCarport(carport).then((cp: any) => { 
-        if(cp && cp._id){
-          this.addMode = false;
-          //refresh carport selector
-          this.getCarportList();
-        }
-      });
-    }
+  presentCarportModal() {
+    let cpModal = this.modalCtrl.create(CarportPage, { userId: 8675309 });
+    cpModal.onDidDismiss(data => {
+      console.log(data);
+      this.refresh();
+    });
+    cpModal.present();
   }
+ 
+
+  
 
 
-  selectoptionclick($event){
-    console.log($event);
-  }
+ 
   dismiss(data) {
-    //let data = { 'communityid': this.selectedComunityID };
+  
     this.viewCtrl.dismiss(data);
+  }
+
+  refresh() {
+ 
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
  
   goBackHome()

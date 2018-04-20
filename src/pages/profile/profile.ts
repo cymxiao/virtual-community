@@ -29,10 +29,9 @@ export class ProfilePage {
 
   ionViewDidLoad() {
     this.user = AppSettings.getCurrentUser();
-    this.currentCarport = AppSettings.getCurrentCarport();
+    this.currentCarport = AppSettings.getCurrentCarport(); 
     this.initVariables();
-    this.init();
-    //console.log(this.currentCarport); 
+    this.init(); 
   }
 
 
