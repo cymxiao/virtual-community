@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+
+import { TabsPage } from '../tabs/tabs';
+import { ICarport } from 'model/carport';
+
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+
+import { BasePage } from '../../base/basePage';
 import { AppSettings } from '../../settings/app-settings';
-import { ICarport } from 'model/carport';
+
+
+
 
 /**
  * Generated class for the SelectCommunityModalPage page.
@@ -17,7 +25,7 @@ import { ICarport } from 'model/carport';
   selector: 'page-select-community-modal',
   templateUrl: 'select-community-modal.html',
 })
-export class SelectCommunityModalPage {
+export class SelectCommunityModalPage{ // extends BasePage {
   coms: any;
   searchQuery: string = '';
   selectedComunityID: string;
@@ -32,10 +40,12 @@ export class SelectCommunityModalPage {
 
   addMode: boolean;
 
+ 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
+     // super();
   }
 
   ionViewDidLoad() {
@@ -146,5 +156,10 @@ export class SelectCommunityModalPage {
   dismiss(data) {
     //let data = { 'communityid': this.selectedComunityID };
     this.viewCtrl.dismiss(data);
+  }
+ 
+  goBackHome()
+  {
+    this.navCtrl.setRoot(TabsPage);
   }
 }
