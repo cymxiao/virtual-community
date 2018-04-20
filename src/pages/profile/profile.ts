@@ -90,19 +90,21 @@ export class ProfilePage {
         address: ''
       };
     }
-    console.log(this.currentCarport);
+    // console.log('1' + this.currentCarport);
+    // console.log(!this.currentCarport );
     if (!this.currentCarport || !this.currentCarport.parkingNumber) {
       this.currentCarport = {
         _id: '',
         id: '',
         __v: '',
         parkingNumber: '',
+        isCurrent:false,
         type: '',
         route: '',
         owner_user_ID: ''
       };
     }
-    console.dir( this.currentCarport);
+    //console.dir( this.currentCarport);
   }
 
 }

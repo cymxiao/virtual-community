@@ -83,6 +83,18 @@ export class RestServiceProvider {
     });
   };
 
+  
+  updateCarport(carportId, data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/carport/' + carportId, JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
 
   getUser(username) {
     return new Promise(resolve => {

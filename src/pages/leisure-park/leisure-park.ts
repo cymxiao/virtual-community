@@ -81,6 +81,7 @@ export class LeisureParkPage {
       id: '',
       __v: '',
       parkingNumber: '',
+      isCurrent: false,
       type: '',
       route: '',
       owner_user_ID: ''

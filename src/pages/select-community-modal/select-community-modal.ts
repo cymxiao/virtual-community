@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { AppSettings } from '../../settings/app-settings';
+import { ICarport } from 'model/carport';
 
 /**
  * Generated class for the SelectCommunityModalPage page.
@@ -23,22 +24,30 @@ export class SelectCommunityModalPage {
   hideList: boolean;
   user: any;
   parkingNumber: string;
+  currentCarportId: string;
   pathdescription: string;
+  carportArray: ICarport[];
+  newCarport:string;
+  //selectedCarport: ICarport;
+
+  addMode: boolean;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
   }
 
-  ionViewDidLoad() { 
+  ionViewDidLoad() {
     //console.log('ionViewDidLoad SelectCommunityModalPage');
     this.initComponents();
+    this.getCarportList();
   }
 
-  initComponents(){
+  initComponents() {
     this.user = AppSettings.getCurrentUser();
-    if (this.user.community_ID && this.user.community_ID._id)
-    {
+    console.log(this.user);
+    if (this.user.community_ID && this.user.community_ID._id) {
       this.searchQuery = this.user.community_ID.name;
     }
   }
@@ -62,28 +71,26 @@ export class SelectCommunityModalPage {
   }
 
   save() {
-    
+
+    //console.log(this.selectedCarport);
     if (this.user._id) {
       const udpateContent = {
         community_ID: this.selectedComunityID
       }
       this.service.updateUser(this.user._id, udpateContent).then(usr => {
-        if (usr) {
+        if (usr && this.currentCarportId) {
           //add a carport
           const carport = {
-            parkingNumber: this.parkingNumber,
-            route: this.pathdescription,
-            owner_user_ID: this.user._id
+            isCurrent: true 
           }
-          this.service.addCarport(carport).then((cp :any) => {
+          this.service.updateCarport(this.currentCarportId, carport).then((cp: any) => {
             if (cp) {
-              
-              localStorage.setItem('user', JSON.stringify(usr)); 
-              localStorage.setItem('carport', JSON.stringify(cp)); 
+
+              localStorage.setItem('user', JSON.stringify(usr));
+              localStorage.setItem('carport', JSON.stringify(cp));
               //update profile
-              //console.dir(this.navCtrl);
-              //this.navCtrl.getPrevious().ionViewDidLoad();
-              this.dismiss({"refresh": "true"});
+          
+              this.dismiss({ "refresh": "true" });
             }
           });
         }
@@ -92,6 +99,46 @@ export class SelectCommunityModalPage {
 
   }
 
+  getCarportList() {
+    this.service.getCarportListByOwnerId(this.user._id).then((carp: any) => {
+      //console.dir(carp);
+      //Amin: Todo: temp solution 
+      if (carp) {
+        this.carportArray = carp;
+      }
+    });
+  }
+
+  btnAdd() {
+    this.addMode = true;
+  }
+
+  btnCancelAdd() {
+    this.addMode = false;
+  }
+
+  btnSaveCarport() {
+    if (this.user && this.newCarport) { 
+      //add a carport
+      const carport = {
+        parkingNumber: this.newCarport,
+        route: this.pathdescription,
+        owner_user_ID: this.user._id
+      }
+      this.service.addCarport(carport).then((cp: any) => { 
+        if(cp && cp._id){
+          this.addMode = false;
+          //refresh carport selector
+          this.getCarportList();
+        }
+      });
+    }
+  }
+
+
+  selectoptionclick($event){
+    console.log($event);
+  }
   dismiss(data) {
     //let data = { 'communityid': this.selectedComunityID };
     this.viewCtrl.dismiss(data);

@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>小区设置</ion-title>
+        <ion-title>小区及车位设置</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -24,8 +24,8 @@
                     请输入您所在的小区名称
                 </div>
             </ion-item>
-            <ion-list *ngIf="!hideList" > 
-                <ion-item *ngFor="let com of coms"  (click)="addItem(com)">
+            <ion-list *ngIf="!hideList">
+                <ion-item *ngFor="let com of coms" (click)="addItem(com)">
                     <!--tap-->
                     {{com.name}}
                 </ion-item>
@@ -37,8 +37,36 @@
                 <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
                 车位绑定
             </ion-label>
-            <ion-input type="text" required name="fieldcarport" [(ngModel)]="parkingNumber" #fieldcarport="ngModel"></ion-input>
+            <!-- <ion-input type="text" required name="fieldcarport" [(ngModel)]="parkingNumber" #fieldcarport="ngModel"></ion-input> -->
+
+            <ion-select [(ngModel)]="currentCarportId" #fieldcarport="ngModel" required name="fieldcarport"  interface="popover" multiple="false" >
+                <ion-option *ngFor="let cp of carportArray" [value]="cp._id"  (click)="selectoptionclick(cp)" >{{cp.parkingNumber}}</ion-option>
+            </ion-select>
+
         </ion-item>
+        <ion-item> 
+            <button  *ngIf="!addMode" ion-button icon-end color="primary" tappable (click)="btnAdd()">
+                    <ion-icon name="add-circle"></ion-icon>
+                    &nbsp;&nbsp;新增车位
+            </button> 
+            <button *ngIf="addMode" ion-button icon-end color="primary" tappable (click)="btnCancelAdd()">
+                    <ion-icon name="close-circle"></ion-icon>
+                    &nbsp;&nbsp;取消
+            </button> 
+            <button *ngIf="addMode" ion-button icon-end color="primary" tappable (click)="btnSaveCarport()">
+                    <ion-icon name="save"></ion-icon>
+                    &nbsp;&nbsp;保存车位
+            </button> 
+        </ion-item>
+        <ion-item *ngIf="addMode">
+            <ion-label floating>
+                <ion-icon name="add-circle" item-start class="text-primary"></ion-icon>
+                新增车位
+            </ion-label>
+            <ion-input type="text" name="fieldNewCarport" [(ngModel)]="newCarport" #fieldNewCarport="ngModel"></ion-input>
+        </ion-item>
+ 
+
         <ion-item no-lines *ngIf="fieldcarport.invalid && (fieldcarport.dirty || fieldcarport.touched)">
             <div class="text-danger" *ngIf="fieldcarport.errors.required">
                 请输入您的车位号
@@ -47,7 +75,7 @@
 
         <button ion-button icon-start block color="primary" tappable (click)="save()" [disabled]="communityModalForm.form.invalid ">
             <ion-icon name="save"></ion-icon>
-            保存
+            保存设置
         </button>
     </form>
 </ion-content>

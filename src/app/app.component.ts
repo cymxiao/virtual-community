@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
+import { SelectCommunityModalPage } from '../pages/select-community-modal/select-community-modal';
 import { MyOrdersPage } from '../pages/myorders/myorders';
 import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -31,6 +32,10 @@ export class MyApp {
     });
   }
 
+  myCarports()
+  {
+    this.nav.setRoot(SelectCommunityModalPage);
+  }
 
   myOrders()
   {
