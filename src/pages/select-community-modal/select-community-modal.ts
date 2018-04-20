@@ -31,7 +31,16 @@ export class SelectCommunityModalPage {
   }
 
   ionViewDidLoad() { 
-    console.log('ionViewDidLoad SelectCommunityModalPage');
+    //console.log('ionViewDidLoad SelectCommunityModalPage');
+    this.initComponents();
+  }
+
+  initComponents(){
+    this.user = AppSettings.getCurrentUser();
+    if (this.user.community_ID && this.user.community_ID._id)
+    {
+      this.searchQuery = this.user.community_ID.name;
+    }
   }
 
   searchTextChagne(ev: any) {
@@ -53,7 +62,7 @@ export class SelectCommunityModalPage {
   }
 
   save() {
-    this.user = AppSettings.getCurrentUser();
+    
     if (this.user._id) {
       const udpateContent = {
         community_ID: this.selectedComunityID

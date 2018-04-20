@@ -29,13 +29,13 @@ export class ProfilePage {
 
   ionViewDidLoad() {
     this.user = AppSettings.getCurrentUser();
+    this.currentCarport = AppSettings.getCurrentCarport();
     this.initVariables();
     this.init();
-    console.log(this.user);
-    
+    //console.log(this.currentCarport); 
   }
 
- 
+
 
   presentModal() {
     //console.log('presentModal');
@@ -49,9 +49,10 @@ export class ProfilePage {
 
 
   init() {
-   
-    if (!this.user.community_ID || !this.user.community_ID._id) {
-      console.log(!this.user.community_ID._id);
+
+    if (!this.user.community_ID || !this.user.community_ID._id
+      || !this.currentCarport || !this.currentCarport.parkingNumber ) {
+      //console.log(!this.user.community_ID._id);
       this.presentModal();
     } else {
       this.user = AppSettings.getCurrentUser();
@@ -88,7 +89,9 @@ export class ProfilePage {
         phoneNo: '',
         address: ''
       };
-
+    }
+    console.log(this.currentCarport);
+    if (!this.currentCarport || !this.currentCarport.parkingNumber) {
       this.currentCarport = {
         _id: '',
         id: '',
@@ -99,5 +102,7 @@ export class ProfilePage {
         owner_user_ID: ''
       };
     }
+    console.dir( this.currentCarport);
   }
+
 }
