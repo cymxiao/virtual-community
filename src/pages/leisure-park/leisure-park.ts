@@ -104,20 +104,17 @@ export class LeisureParkPage {
     } else {
       if (!AppSettings.getCurrentCarport()) {
         this.service.getCarportListByOwnerId(this.currentUser._id).then((carp: any) => {
-          //console.dir(carp);
-          //Amin: Todo: temp solution 
-          if (carp) {
-            let carport = null;
-            carp.forEach(element => {
-              carport = element;
-            });
-            this.currentCarport = carport;
-            localStorage.setItem('carport', JSON.stringify(carport));
+          if (carp && carp.length > 0) {
+            let filterResult: any = carp.filter((f: any) => { return f.isCurrent === true });
+            if (filterResult && filterResult.length > 0) {
+              this.currentCarport = filterResult[0];
+            }
+            localStorage.setItem('carport', JSON.stringify(this.currentCarport));
           }
         });
-      } else {
-        this.currentCarport = AppSettings.getCurrentCarport();
-      }
+       } else {
+         this.currentCarport = AppSettings.getCurrentCarport();
+       }
     }
     this.getLeisureParkforOwner();
   }

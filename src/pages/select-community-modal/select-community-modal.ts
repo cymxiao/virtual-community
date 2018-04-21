@@ -27,7 +27,7 @@ import { AppSettings } from '../../settings/app-settings';
   selector: 'page-select-community-modal',
   templateUrl: 'select-community-modal.html',
 })
-export class SelectCommunityModalPage  extends BasePage {
+export class SelectCommunityModalPage extends BasePage {
   coms: any;
   searchQuery: string = '';
   selectedComunityID: string;
@@ -37,20 +37,20 @@ export class SelectCommunityModalPage  extends BasePage {
   currentCarportId: string;
   pathdescription: string;
   carportArray: ICarport[];
-  newCarport:string;
+  newCarport: string;
   currentCarport: ICarport;
 
   addMode: boolean;
-  showCarportList:boolean;
- 
+  showCarportList: boolean;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
     public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
-      super(navCtrl,navParams);
-      //super();
-      // console.log('con' + this.navParams.get("refresh"));
+    super(navCtrl, navParams);
+    //super();
+    // console.log('con' + this.navParams.get("refresh"));
   }
 
   ionViewDidLoad() {
@@ -72,7 +72,7 @@ export class SelectCommunityModalPage  extends BasePage {
     }
 
     this.currentCarport = AppSettings.getCurrentCarport();
-    if(this.currentCarport && this.currentCarport._id){
+    if (this.currentCarport && this.currentCarport._id) {
       this.currentCarportId = this.currentCarport._id;
     }
   }
@@ -99,23 +99,38 @@ export class SelectCommunityModalPage  extends BasePage {
 
 
     if (this.user._id) {
-      const udpateContent = {
-        community_ID: this.selectedComunityID
+      if(!this.selectedComunityID && this.user.community_ID ){
+        this.selectedComunityID = this.user.community_ID._id;
       }
-      this.service.updateUser(this.user._id, udpateContent).then(usr => {
+      const udpateContent = {
+        community_ID: this.selectedComunityID 
+      }
+      this.service.updateUser(this.user._id, udpateContent).then((usr: any) => {
         if (usr && this.currentCarportId) {
-          //add a carport
-          const carport = {
-            isCurrent: true 
-          }
-          this.service.updateCarport(this.currentCarportId, carport).then((cp: any) => {
-            if (cp) {
 
-              localStorage.setItem('user', JSON.stringify(usr));
-              localStorage.setItem('carport', JSON.stringify(cp));
-              //this.navCtrl.pop();
+          const updateToFalseForALLCarportsforOwner = {
+            isCurrent: false
+            // ,owner_user_ID: this.user._id,
+            // community_ID: this.selectedComunityID
+          }
+          //Amin: Imp! param sequence is very important
+          this.service.updateManyCarports(this.selectedComunityID, this.user._id, updateToFalseForALLCarportsforOwner).then(
+            x => {
+              //add a carport
+              const carport = {
+                isCurrent: true
+              }
+              this.service.updateCarport(this.currentCarportId, carport).then((cp: any) => {
+                if (cp) {
+
+                  localStorage.setItem('user', JSON.stringify(usr));
+                  localStorage.setItem('carport', JSON.stringify(cp));
+                  //this.navCtrl.pop();
+                }
+              });
             }
-          });
+          );
+
         }
       })
     }
@@ -124,10 +139,10 @@ export class SelectCommunityModalPage  extends BasePage {
 
   getCarportList() {
     this.service.getCarportListByOwnerId(this.user._id).then((carp: any) => {
-  
+
       if (carp) {
         this.carportArray = carp;
-        if(carp.length>0){
+        if (carp.length > 0) {
           this.showCarportList = true;
         }
       }
@@ -153,21 +168,21 @@ export class SelectCommunityModalPage  extends BasePage {
     });
     cpModal.present();
   }
- 
-
-  
 
 
- 
+
+
+
+
   dismiss(data) {
-  
+
     this.viewCtrl.dismiss(data);
   }
 
   refresh() {
- 
+
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
- 
-  
+
+
 }

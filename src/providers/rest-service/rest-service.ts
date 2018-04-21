@@ -95,6 +95,18 @@ export class RestServiceProvider {
     });
   }
 
+  updateManyCarports(comId, ownerId, data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/updatecarports/' + comId + '/' + ownerId , JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+ 
 
   getUser(username) {
     return new Promise(resolve => {
