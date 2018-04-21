@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 
 import { ICarport } from 'model/carport';
 import { AppSettings } from '../../settings/app-settings';
@@ -20,23 +20,23 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 })
 export class CarportPage {
   user: any;
-  carport:ICarport;
+  carport: ICarport;
   pathdescription: string;
-  errorInfo:string;
+  errorInfo: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public service: RestServiceProvider) {
-      this.carport = {
-        _id: '',
-        id: '',
-        __v: '',
-        parkingNumber: '',
-        isCurrent:false,
-        type: '',
-        route: '',
-        owner_user_ID: ''
-      };
+    this.carport = {
+      _id: '',
+      id: '',
+      __v: '',
+      parkingNumber: '',
+      isCurrent: false,
+      type: '',
+      route: '',
+      owner_user_ID: ''
+    };
   }
 
   ionViewDidLoad() {
@@ -44,22 +44,22 @@ export class CarportPage {
   }
 
   btnSaveCarport() {
-    if (this.user && this.carport.parkingNumber) { 
+    if (this.user && this.carport.parkingNumber) {
       //add a carport
       const carport = {
         parkingNumber: this.carport.parkingNumber,
         route: this.carport.route,
-        community_ID: this.user.community_ID._id,
+        community_ID: this.user.community_ID ? this.user.community_ID._id : null,
         owner_user_ID: this.user._id
       }
-      this.service.addCarport(carport).then((cp: any) => { 
-        if(cp ){
-          console.log(cp.parkingNumber === '-1');
-          if(cp.parkingNumber === '-1'){
+      this.service.addCarport(carport).then((cp: any) => {
+        //console.log(cp);
+        if (cp) {
+          if (cp.parkingNumber === '-1') {
             this.errorInfo = '此车位编号已被占用，请核实后重新输入';
-          } else if(cp.parkingNumber === '-3') {
+          } else if (cp.parkingNumber === '-3') {
             this.errorInfo = '单个用户最多可以拥有3个车位';
-          } else if(cp._id){
+          } else if (cp._id) {
             this.dismiss({ "refresh": "true" });
           }
           // this.viewCtrl.dismiss();
@@ -69,7 +69,7 @@ export class CarportPage {
     }
   }
 
-  btnCancel(){
+  btnCancel() {
     this.dismiss({});
   }
 

@@ -50,6 +50,7 @@ export class SelectCommunityModalPage  extends BasePage {
     public autoService: AutoCompleteServiceProvider) {
       super(navCtrl,navParams);
       //super();
+      // console.log('con' + this.navParams.get("refresh"));
   }
 
   ionViewDidLoad() {
@@ -57,6 +58,11 @@ export class SelectCommunityModalPage  extends BasePage {
     this.initComponents();
     this.getCarportList();
   }
+
+  // ionViewWillEnter()
+  // {
+  //   console.log('ionViewWillEnter' + this.navParams.get("refresh"));
+  // }
 
   initComponents() {
     this.user = AppSettings.getCurrentUser();
@@ -107,7 +113,7 @@ export class SelectCommunityModalPage  extends BasePage {
 
               localStorage.setItem('user', JSON.stringify(usr));
               localStorage.setItem('carport', JSON.stringify(cp));
-          
+              //this.navCtrl.pop();
             }
           });
         }
@@ -140,8 +146,10 @@ export class SelectCommunityModalPage  extends BasePage {
   presentCarportModal() {
     let cpModal = this.modalCtrl.create(CarportPage);
     cpModal.onDidDismiss(data => {
-      console.log(data);
-      this.refresh();
+      //console.dir(  data);
+      //this.refresh();
+      //refresh carport list
+      this.getCarportList();
     });
     cpModal.present();
   }
@@ -161,8 +169,5 @@ export class SelectCommunityModalPage  extends BasePage {
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
  
-  goBackHome()
-  { 
-    super.goBackHome();
-  }
+  
 }

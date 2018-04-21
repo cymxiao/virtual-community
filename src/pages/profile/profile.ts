@@ -25,35 +25,66 @@ export class ProfilePage extends BasePage {
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
     public navParams: NavParams,
     public menu: MenuController) {
-      super(navCtrl,navParams);
+    super(navCtrl, navParams);
   }
 
   ionViewDidLoad() {
     this.user = AppSettings.getCurrentUser();
-    this.currentCarport = AppSettings.getCurrentCarport(); 
+   
+    this.currentCarport = AppSettings.getCurrentCarport();
     this.initVariables();
-    this.init(); 
-  }
+    this.init();
  
+  }
+
 
   init() {
 
     if (!this.user.community_ID || !this.user.community_ID._id
-      || !this.currentCarport || !this.currentCarport.parkingNumber ) {
-        this.navCtrl.push(SelectCommunityModalPage);
+      || !this.currentCarport || !this.currentCarport.parkingNumber) {
+      this.navCtrl.push(SelectCommunityModalPage);
+       //.then( x=>{
+      // super.refresh();
+      // });
     } else {
       this.user = AppSettings.getCurrentUser();
       this.currentCarport = AppSettings.getCurrentCarport();
     }
   }
- 
+
+  // presentCarportModal() {
+  //   let cpModal = this.modalCtrl.create(SelectCommunityModalPage);
+  //   cpModal.onDidDismiss(data => { 
+  //     this.init();
+  //   });
+  //   cpModal.present();
+  // }
+
   initVariables() {
-    if (!this.user || !this.user.community_ID || !this.user.community_ID._id) {
-      this.user = {
-        _id: '',
-        username: '',
-        password: '',
-        community_ID: {
+    if (!this.user || !this.user.community_ID) {
+      if (!this.user) {
+        this.user = {
+          _id: '',
+          username: '',
+          password: '',
+          community_ID: {
+            _id: '',
+            id: '',
+            __v: '',
+            name: '',
+            position: '',
+            mapid: '',
+            city_ID: '',
+            address: ''
+          },
+          role_ID: '',
+          phoneNo: '',
+          address: ''
+        };
+      }
+
+      if (!this.user.community_ID) {
+        this.user.community_ID = {
           _id: '',
           id: '',
           __v: '',
@@ -62,25 +93,22 @@ export class ProfilePage extends BasePage {
           mapid: '',
           city_ID: '',
           address: ''
-        },
-        role_ID: '',
-        phoneNo: '',
-        address: ''
-      };
+        }
+      }
     }
-  
-    if (!this.currentCarport || !this.currentCarport.parkingNumber) {
-      this.currentCarport = {
-        _id: '',
-        id: '',
-        __v: '',
-        parkingNumber: '',
-        isCurrent:false,
-        type: '',
-        route: '',
-        owner_user_ID: ''
-      };
-    }
-  }
 
-}
+      if (!this.currentCarport || !this.currentCarport.parkingNumber) {
+        this.currentCarport = {
+          _id: '',
+          id: '',
+          __v: '',
+          parkingNumber: '',
+          isCurrent: false,
+          type: '',
+          route: '',
+          owner_user_ID: ''
+        };
+      }
+    }
+
+  }

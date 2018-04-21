@@ -4,6 +4,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { IUILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
+import { MyOrdersPage } from '../myorders/myorders';
 import { BasePage } from '../base/base';
 
 import { AppSettings } from '../../settings/app-settings';
@@ -67,29 +68,31 @@ export class LookupLeisureParkPage extends BasePage {
   }
 
   apply(leiPk) {
-    //console.log('lpId: ' + leiPk._id);
+   //console.log('lpId: ' + leiPk._id);
     const updateBody = {
       status: 'applied',
       applied_UserID: this.currentUser._id
     };
-    if (ENV.mode !== 'test') {
+    //console.dir(ENV);
+    if (ENV && ENV.mode !== 'test') {
       this.apiService.getLeisureParkforApplier(this.currentUser._id).then((lpk: any) => {
-        if (lpk && lpk.length > 0) {
-          console.dir(lpk);
+        //console.dir(lpk);
+        if (lpk && lpk.length > 0) { 
           lpk.forEach(x => {  
             if (x && x.status && x.status.length>0 && x.status[0] === 'applied') {
               this.canApply = false; 
             }
-          })
-          if (this.canApply) {
-            this.apiService.updateleisurePark(leiPk._id, updateBody).then(lp => {
-              if (lp) {
-                super.refresh();
-              }
-            });
-          } else {
-            this.presentAlert();
-          }
+          }) 
+        }
+        if (this.canApply) {
+          this.apiService.updateleisurePark(leiPk._id, updateBody).then(lp => {
+            if (lp) {
+              //super.refresh();
+              this.navCtrl.setRoot(MyOrdersPage);
+            }
+          });
+        } else {
+          this.presentAlert();
         }
       });
     }
