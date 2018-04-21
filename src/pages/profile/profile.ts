@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, ModalController } from 'ionic-angular';
 
 import { IUser } from '../../model/user';
 import { ICarport } from '../../model/carport';
 import { AppSettings } from '../../settings/app-settings';
-import { TabsPage } from '../tabs/tabs';
+import { BasePage } from '../base/base';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
 /**
  * Generated class for the ProfilePage page.
@@ -17,14 +17,15 @@ import { SelectCommunityModalPage } from '../select-community-modal/select-commu
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
-export class ProfilePage {
+export class ProfilePage extends BasePage {
 
   //map: any;
   user: IUser;
   currentCarport: ICarport;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
+    public navParams: NavParams,
     public menu: MenuController) {
-
+      super(navCtrl,navParams);
   }
 
   ionViewDidLoad() {
@@ -33,19 +34,7 @@ export class ProfilePage {
     this.initVariables();
     this.init(); 
   }
-
-
-
-  // presentModal() {
-  //   //console.log('presentModal');
-  //   const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
-  //   selectcommodal.onDidDismiss(data => {
-  //     console.log(data);
-  //     this.refresh();
-  //   });
-  //   selectcommodal.present();
-  // }
-
+ 
 
   init() {
 
@@ -57,16 +46,7 @@ export class ProfilePage {
       this.currentCarport = AppSettings.getCurrentCarport();
     }
   }
-
-
-  goBackHome() {
-    this.navCtrl.setRoot(TabsPage);
-  }
-
-  refresh() {
-    this.navCtrl.setRoot(this.navCtrl.getActive().component);
-  }
-
+ 
   initVariables() {
     if (!this.user || !this.user.community_ID || !this.user.community_ID._id) {
       this.user = {
@@ -88,8 +68,7 @@ export class ProfilePage {
         address: ''
       };
     }
-    // console.log('1' + this.currentCarport);
-    // console.log(!this.currentCarport );
+  
     if (!this.currentCarport || !this.currentCarport.parkingNumber) {
       this.currentCarport = {
         _id: '',
@@ -102,7 +81,6 @@ export class ProfilePage {
         owner_user_ID: ''
       };
     }
-    //console.dir( this.currentCarport);
   }
 
 }

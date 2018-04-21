@@ -53,14 +53,14 @@ export class SelectCommunityModalPage  extends BasePage {
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad SelectCommunityModalPage');
+
     this.initComponents();
     this.getCarportList();
   }
 
   initComponents() {
     this.user = AppSettings.getCurrentUser();
-    console.log(this.user);
+
     if (this.user.community_ID && this.user.community_ID._id) {
       this.searchQuery = this.user.community_ID.name;
     }
@@ -84,14 +84,14 @@ export class SelectCommunityModalPage  extends BasePage {
 
   addItem(item: any) {
     this.hideList = true;
-    //console.dir(item);
+
     this.searchQuery = item.name;
     this.selectedComunityID = item._id;
   }
 
   save() {
 
-    //console.log(this.selectedCarport);
+
     if (this.user._id) {
       const udpateContent = {
         community_ID: this.selectedComunityID
@@ -107,9 +107,7 @@ export class SelectCommunityModalPage  extends BasePage {
 
               localStorage.setItem('user', JSON.stringify(usr));
               localStorage.setItem('carport', JSON.stringify(cp));
-              //update profile 
-              //this.dismiss({ "refresh": "true" });
-              //this.navCtrl.pop();
+          
             }
           });
         }
@@ -120,8 +118,7 @@ export class SelectCommunityModalPage  extends BasePage {
 
   getCarportList() {
     this.service.getCarportListByOwnerId(this.user._id).then((carp: any) => {
-      //console.dir(carp);
-      //Amin: Todo: temp solution 
+  
       if (carp) {
         this.carportArray = carp;
         if(carp.length>0){
@@ -141,7 +138,7 @@ export class SelectCommunityModalPage  extends BasePage {
   }
 
   presentCarportModal() {
-    let cpModal = this.modalCtrl.create(CarportPage, { userId: 8675309 });
+    let cpModal = this.modalCtrl.create(CarportPage);
     cpModal.onDidDismiss(data => {
       console.log(data);
       this.refresh();

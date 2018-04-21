@@ -46,7 +46,7 @@ export class LookupLeisureParkPage extends BasePage {
           // console.log();
       if (!this.plt.is('core')) {
         this.localNotifications.on('click').subscribe(notification => {
-          console.log('click');
+          //console.log('click');
 
           let json = JSON.parse(notification.data);
 
@@ -67,7 +67,7 @@ export class LookupLeisureParkPage extends BasePage {
   }
 
   apply(leiPk) {
-    console.log('lpId: ' + leiPk._id);
+    //console.log('lpId: ' + leiPk._id);
     const updateBody = {
       status: 'applied',
       applied_UserID: this.currentUser._id

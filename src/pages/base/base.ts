@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import {TabsPage} from '../tabs/tabs'
+import { TabsPage } from '../tabs/tabs';
+//Amin:Tocheck . TestPage can't be used here.
+//import {TestPage} from '../test/test';
 
 /**
  * Generated class for the BasePage page.
@@ -24,12 +26,17 @@ export class BasePage {
     console.log('ionViewDidLoad BasePage');
   }
 
-  goBackHome()
-  {
+  goBackHome() {
     this.navCtrl.setRoot(TabsPage);
-     
   }
 
+  goBackHomeWithParam(data) {
+    this.navCtrl.setRoot(TabsPage, data);
+  }
+
+  goBackHomeRefresh() {
+    this.navCtrl.setRoot(TabsPage, { "refresh": "true" });
+  }
 
   refresh() {
     //location.reload();

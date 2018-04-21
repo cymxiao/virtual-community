@@ -31,13 +31,9 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {  
-    console.log(AppSettings.Encrypt('111111'));
- 
     if(localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username ){
       this.navCtrl.setRoot(TabsPage);
-    }
-    console.log(AppSettings.Encrypt('111111'));
-    console.log('decypt : ' + AppSettings.Decrypt(AppSettings.Encrypt('111111')));
+    } 
   }
 
   // go to register page
@@ -57,7 +53,7 @@ export class LoginPage {
       }
       else {
         this.wrongUsrorPwd = true;
-        console.log('wrong username or password');
+        //console.log('wrong username or password');
       }
     }).catch(x => {
       console.log(x);
