@@ -8,6 +8,7 @@
 
   <ion-navbar color="primary">
     <ion-title>新增车位</ion-title>
+  
   </ion-navbar>
 
 </ion-header>
@@ -30,9 +31,14 @@
     <ion-input type="text" name="fieldNewRoute" placeholder="例如：从小区南大门进入后右转，直行50米左右" [(ngModel)]="carport.route" #fieldNewRoute="ngModel"></ion-input>
 </ion-item>
 <ion-item>
-    <button  ion-button icon-end block round color="primary" tappable (click)="btnSaveCarport()">
+        <button  ion-button icon-start  tappable (click)="btnCancel()">
+                <ion-icon name="done-all"></ion-icon>
+                &nbsp;&nbsp;取消
+            </button>
+    <button  ion-button icon-end   round color="primary" tappable (click)="btnSaveCarport()">
         <ion-icon name="done-all"></ion-icon>
         &nbsp;&nbsp;保存车位
     </button>
+  
 </ion-item>
 </ion-content>

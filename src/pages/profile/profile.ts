@@ -36,23 +36,22 @@ export class ProfilePage {
 
 
 
-  presentModal() {
-    //console.log('presentModal');
-    const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
-    selectcommodal.onDidDismiss(data => {
-      console.log(data);
-      this.refresh();
-    });
-    selectcommodal.present();
-  }
+  // presentModal() {
+  //   //console.log('presentModal');
+  //   const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
+  //   selectcommodal.onDidDismiss(data => {
+  //     console.log(data);
+  //     this.refresh();
+  //   });
+  //   selectcommodal.present();
+  // }
 
 
   init() {
 
     if (!this.user.community_ID || !this.user.community_ID._id
       || !this.currentCarport || !this.currentCarport.parkingNumber ) {
-      //console.log(!this.user.community_ID._id);
-      this.presentModal();
+        this.navCtrl.push(SelectCommunityModalPage);
     } else {
       this.user = AppSettings.getCurrentUser();
       this.currentCarport = AppSettings.getCurrentCarport();

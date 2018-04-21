@@ -54,9 +54,15 @@ export class CarportPage {
       this.service.addCarport(carport).then((cp: any) => { 
         if(cp && cp._id){
            this.dismiss({ "refresh": "true" });
+          //  this.viewCtrl.dismiss();
+          //  this.navCtrl.getRootNav().push(SecondPage);
         }
       });
     }
+  }
+
+  btnCancel(){
+    this.dismiss({});
   }
 
   dismiss(data) {

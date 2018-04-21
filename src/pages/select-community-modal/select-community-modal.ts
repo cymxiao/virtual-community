@@ -8,7 +8,8 @@ import { CarportPage } from '../carport/carport';
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
-import { BasePage } from '../../base/basePage';
+//import { BasePage } from '../base/base';
+import { BasePage } from '../base/base';
 import { AppSettings } from '../../settings/app-settings';
 
 
@@ -26,7 +27,7 @@ import { AppSettings } from '../../settings/app-settings';
   selector: 'page-select-community-modal',
   templateUrl: 'select-community-modal.html',
 })
-export class SelectCommunityModalPage{ // extends BasePage {
+export class SelectCommunityModalPage  extends BasePage {
   coms: any;
   searchQuery: string = '';
   selectedComunityID: string;
@@ -47,7 +48,8 @@ export class SelectCommunityModalPage{ // extends BasePage {
     public modalCtrl: ModalController,
     public service: RestServiceProvider,
     public autoService: AutoCompleteServiceProvider) {
-     // super();
+      super(navCtrl,navParams);
+      //super();
   }
 
   ionViewDidLoad() {
@@ -58,7 +60,7 @@ export class SelectCommunityModalPage{ // extends BasePage {
 
   initComponents() {
     this.user = AppSettings.getCurrentUser();
-    //console.log(this.user);
+    console.log(this.user);
     if (this.user.community_ID && this.user.community_ID._id) {
       this.searchQuery = this.user.community_ID.name;
     }
@@ -107,6 +109,7 @@ export class SelectCommunityModalPage{ // extends BasePage {
               localStorage.setItem('carport', JSON.stringify(cp));
               //update profile 
               //this.dismiss({ "refresh": "true" });
+              //this.navCtrl.pop();
             }
           });
         }
@@ -162,7 +165,7 @@ export class SelectCommunityModalPage{ // extends BasePage {
   }
  
   goBackHome()
-  {
-    this.navCtrl.setRoot(TabsPage);
+  { 
+    super.goBackHome();
   }
 }

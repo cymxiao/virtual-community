@@ -4,6 +4,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { IUILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
+import { BasePage } from '../base/base';
+
 import { AppSettings } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
@@ -22,7 +24,7 @@ import { ENV } from '@app/env';
   selector: 'page-lookup-leisure-park',
   templateUrl: 'lookup-leisure-park.html',
 })
-export class LookupLeisureParkPage {
+export class LookupLeisureParkPage extends BasePage {
 
   sharedLeisureParks : IUILeisurePark[];
   currentUser: IUser;
@@ -35,6 +37,7 @@ export class LookupLeisureParkPage {
     private localNotifications: LocalNotifications, public alertCtrl: AlertController,
     public plt: Platform,
     public apiService: RestServiceProvider) {
+      super(navCtrl,navParams);
     //  console.log(LeisureParkStatus.pending);
     this.inputComId = navParams.get('comId');
     this.plt.ready().then(x => {
@@ -81,7 +84,7 @@ export class LookupLeisureParkPage {
           if (this.canApply) {
             this.apiService.updateleisurePark(leiPk._id, updateBody).then(lp => {
               if (lp) {
-                this.refresh();
+                super.refresh();
               }
             });
           } else {
@@ -125,11 +128,6 @@ export class LookupLeisureParkPage {
     return a.diff(b, 'hours'); // 1
   }
 
-
-  refresh() {
-    //location.reload();
-    this.navCtrl.setRoot(this.navCtrl.getActive().component);
-  }
 
   presentAlert() {
     let alert = this.alertCtrl.create({

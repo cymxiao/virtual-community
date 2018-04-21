@@ -23,6 +23,9 @@ import { LookupLeisureParkPageModule } from '../pages/lookup-leisure-park/lookup
 import { MyordersPageModule } from '../pages/myorders/myorders.module';
 import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
+import { BasePageModule } from '../pages/base/base.module';
+ 
+
 import { Geolocation } from '@ionic-native/geolocation';
 import { SMS } from '@ionic-native/sms';
 import { LocalNotifications } from '@ionic-native/local-notifications';
@@ -30,7 +33,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 @NgModule({
   declarations: [
     MyApp,
-    // AboutPage, 
+ 
     // HomePage, 
     TabsPage
   ],
@@ -48,12 +51,13 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     UserPortalPageModule,
     ProfilePageModule,
     CarportPageModule,
+    BasePageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    //AboutPage, 
+ 
     //HomePage, 
     //SelectCommunityModalPage,
     TabsPage

@@ -100,7 +100,7 @@ export class LeisureParkPage {
     this.minDateforEndTime =this.getGoodTime().add(12, 'hours').toISOString();
     this.currentUser = AppSettings.getCurrentUser();
     if (this.currentUser && !this.currentUser.community_ID) {
-      this.presentModal();
+      this.navToPage();
     } else {
       if (!AppSettings.getCurrentCarport()) {
         this.service.getCarportListByOwnerId(this.currentUser._id).then((carp: any) => {
@@ -121,20 +121,19 @@ export class LeisureParkPage {
     }
     this.getLeisureParkforOwner();
   }
+ 
 
-  // ionViewWillEnter()
-  // {
-  //   //console.log('get param : ' + this.params.get('reload'));
-  //   //this.navCtrl. refresh();
+  // presentModal() {
+  //   const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
+  //   selectcommodal.onDidDismiss(data => {
+  //     console.log(data);
+  //     this.refresh();
+  //   });
+  //   selectcommodal.present();
   // }
 
-  presentModal() {
-    const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
-    selectcommodal.onDidDismiss(data => {
-      console.log(data);
-      this.refresh();
-    });
-    selectcommodal.present();
+  navToPage(){
+    this.navCtrl.push(SelectCommunityModalPage);
   }
 
   addButtonClick() {
