@@ -22,6 +22,7 @@ export class CarportPage {
   user: any;
   carport:ICarport;
   pathdescription: string;
+  errorInfo:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
@@ -40,7 +41,6 @@ export class CarportPage {
 
   ionViewDidLoad() {
     this.user = AppSettings.getCurrentUser();
-    console.log('ionViewDidLoad CarportPage');
   }
 
   btnSaveCarport() {
@@ -49,13 +49,21 @@ export class CarportPage {
       const carport = {
         parkingNumber: this.carport.parkingNumber,
         route: this.carport.route,
+        community_ID: this.user.community_ID._id,
         owner_user_ID: this.user._id
       }
       this.service.addCarport(carport).then((cp: any) => { 
-        if(cp && cp._id){
-           this.dismiss({ "refresh": "true" });
-          //  this.viewCtrl.dismiss();
-          //  this.navCtrl.getRootNav().push(SecondPage);
+        if(cp ){
+          console.log(cp.parkingNumber === '-1');
+          if(cp.parkingNumber === '-1'){
+            this.errorInfo = '此车位编号已被占用，请核实后重新输入';
+          } else if(cp.parkingNumber === '-3') {
+            this.errorInfo = '单个用户最多可以拥有3个车位';
+          } else if(cp._id){
+            this.dismiss({ "refresh": "true" });
+          }
+          // this.viewCtrl.dismiss();
+          // this.navCtrl.getRootNav().push(SecondPage);
         }
       });
     }

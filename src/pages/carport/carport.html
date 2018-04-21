@@ -6,39 +6,47 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>新增车位</ion-title>
-  
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>新增车位</ion-title>
+
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  
-  <ion-item  >
-    <ion-label stacked>
-        <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
-        车位编号
-    </ion-label>
-    <ion-input type="text" name="fieldNewCarport" [(ngModel)]="carport.parkingNumber" #fieldNewCarport="ngModel"></ion-input>
-</ion-item>
-<ion-item >
-    <ion-label stacked>
-        <ion-icon name="git-branch" item-start class="text-primary"></ion-icon>
-        车位位置描述
-    </ion-label>
-    <ion-input type="text" name="fieldNewRoute" placeholder="例如：从小区南大门进入后右转，直行50米左右" [(ngModel)]="carport.route" #fieldNewRoute="ngModel"></ion-input>
-</ion-item>
-<ion-item>
-        <button  ion-button icon-start  tappable (click)="btnCancel()">
+    <form class="list-form" novalidate #carportForm="ngForm">
+        <ion-item>
+            <ion-label stacked>
+                <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
+                车位编号
+            </ion-label>
+            <ion-input type="text" name="fieldNewCarport" required [(ngModel)]="carport.parkingNumber" #fieldNewCarport="ngModel"></ion-input>
+        </ion-item>
+        <div  *ngIf="fieldNewCarport.invalid && (fieldNewCarport.dirty || fieldNewCarport.touched)">
+                <div class="text-danger" *ngIf="fieldNewCarport.errors.required">
+                    请输入您拥有或租赁的车位编号
+                </div>
+               
+            </div>
+            <div class="text-danger-padding">{{errorInfo}}</div>
+        <ion-item>
+            <ion-label stacked>
+                <ion-icon name="git-branch" item-start class="text-primary"></ion-icon>
+                车位位置描述
+            </ion-label>
+            <ion-input type="text" name="fieldNewRoute" placeholder="例如：从小区南大门进入后右转，直行50米左右，方便他人定位" [(ngModel)]="carport.route" #fieldNewRoute="ngModel"></ion-input>
+        </ion-item>
+        <ion-item>
+            <button ion-button icon-start tappable (click)="btnCancel()">
                 <ion-icon name="done-all"></ion-icon>
                 &nbsp;&nbsp;取消
             </button>
-    <button  ion-button icon-end   round color="primary" tappable (click)="btnSaveCarport()">
-        <ion-icon name="done-all"></ion-icon>
-        &nbsp;&nbsp;保存车位
-    </button>
-  
-</ion-item>
+            <button ion-button icon-end round color="primary" tappable (click)="btnSaveCarport()" [disabled]="carportForm.form.invalid" >
+                <ion-icon name="done-all"></ion-icon>
+                &nbsp;&nbsp;保存车位
+            </button>
+
+        </ion-item>
+    </form>
 </ion-content>
