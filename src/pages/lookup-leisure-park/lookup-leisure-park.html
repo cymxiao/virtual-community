@@ -14,7 +14,10 @@
 
 <ion-content padding> 
    
-      
+    <button ion-button icon-end color="primary" tappable (click)="openPayActionSheet({})" >
+        <ion-icon name="bookmark"></ion-icon>  
+        &nbsp;&nbsp;测试支付
+    </button>
       <ion-card *ngFor="let lp of sharedLeisureParks">
 
           <ion-card-header> 

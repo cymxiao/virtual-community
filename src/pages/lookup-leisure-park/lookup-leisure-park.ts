@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams ,Platform} from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams ,Platform ,ActionSheetController } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { IUILeisurePark } from '../../model/leisurePark';
@@ -9,10 +9,12 @@ import { BasePage } from '../base/base';
 
 import { AppSettings } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { Alipay, AlipayOrder } from '@ionic-native/alipay';
 
 import * as moment from 'moment';
 
 import { ENV } from '@app/env';
+import { Action } from 'rxjs/scheduler/Action';
 /**
  * Generated class for the LookupLeisureParkPage page.
  *
@@ -37,6 +39,8 @@ export class LookupLeisureParkPage extends BasePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private localNotifications: LocalNotifications, public alertCtrl: AlertController,
     public plt: Platform,
+    public actionSheetCtrl: ActionSheetController,
+    private alipay: Alipay,
     public apiService: RestServiceProvider) {
       super(navCtrl,navParams);
     //  console.log(LeisureParkStatus.pending);
@@ -88,6 +92,8 @@ export class LookupLeisureParkPage extends BasePage {
           this.apiService.updateleisurePark(leiPk._id, updateBody).then(lp => {
             if (lp) {
               //super.refresh();
+              
+
               this.navCtrl.setRoot(MyOrdersPage);
             }
           });
@@ -146,5 +152,49 @@ export class LookupLeisureParkPage extends BasePage {
     });
     alert.present();
   }
+
+  openPayActionSheet(data) {
+    this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: "支付宝支付",
+          handler: () => {
+            this.aliPay(data);
+          }
+        },
+        {
+          text: "微信支付",
+          handler: () => {
+            //this.weiXinPay(data);
+          }
+        },
+        {
+          text:"取消",
+          role: 'cancel'
+        }
+      ]
+    }).present();
+
+  }
+  
+
+  aliPay(data){
+    
+  }
+  // Should get from server side with sign.
+// const alipayOrder: AlipayOrder = {
+//   ...
+// };
+
+
+// this.alipay.pay(alipayOrder)
+// .then(result => {
+//   console.log(result); // Success
+// })
+// .catch(error => {
+//   console.log(error); // Failed
+// });
+
+//}
   
 }
