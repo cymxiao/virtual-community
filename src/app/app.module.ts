@@ -28,6 +28,8 @@ import { BasePageModule } from '../pages/base/base.module';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { SMS } from '@ionic-native/sms';
+import { Alipay } from '@ionic-native/alipay';
+//It's quite important to delcare in provider
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
@@ -70,6 +72,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     AutoCompleteServiceProvider,
     SMS,
     LocalNotifications,
+    Alipay,
     Geolocation
     //GeographicalMapServiceProvider
   ]
