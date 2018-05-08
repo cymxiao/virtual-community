@@ -26,8 +26,16 @@ export class LoginPage {
   usernameBlur: boolean;
   passwordBlur: boolean;
   wrongUsrorPwd: boolean = false;
+
+  verifyCode: any = {  
+    verifyCodeTips: "获取验证码",  
+    countdown: 60,  
+    disable: true  
+  }  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public service: RestServiceProvider) {
     this.user = { phone: '', pwd: '' };
+    //this.verifyCode.countdown = 1;
   }
 
   ionViewDidLoad() {  
@@ -72,6 +80,24 @@ export class LoginPage {
   on_passwordBlur(target){
     this.passwordBlur = true;
   }
+
+  settime() {  
+    console.log(this.verifyCode.countdown);
+    if (this.verifyCode.countdown == 1) {  
+      this.verifyCode.countdown = 60;  
+      this.verifyCode.verifyCodeTips = "获取验证码";  
+      this.verifyCode.disable = true;  
+      return;  
+    } else {  
+      this.verifyCode.countdown--;  
+    }  
+    this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;  
+    setTimeout(() => {  
+      this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;  
+      this.settime();  
+    }, 1000);  
+  }  
+ 
 
 
 }

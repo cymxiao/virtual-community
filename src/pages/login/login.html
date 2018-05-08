@@ -32,7 +32,7 @@
                     登陆
                 </ion-segment-button>
                 <ion-segment-button value="register" (click)="register()" class="third-bg">
-                    新用户注册
+                    物业注册
                 </ion-segment-button>
             </ion-segment>
         </div>
@@ -60,7 +60,7 @@
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-                    密码
+                    验证码
                 </ion-label>
                 <!-- [ngModelOptions]="{standalone: true}" -->
                 <ion-input type="password" [(ngModel)]="user.pwd" name="fieldpwd" minlength="6" required 
@@ -68,19 +68,22 @@
             </ion-item>
             <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
                 <div class="text-danger" *ngIf="fieldpwd.errors.required">
-                    请输入密码
+                    请输入验证码
                 </div>
                 <div class="text-danger" *ngIf="passwordBlur && fieldpwd.errors.minlength">
-                    请输入至少6位密码
+                    请输入至少6位验证码
                 </div>
             </div>
             <div class="text-danger" *ngIf="wrongUsrorPwd">
-                用户名或者密码错误
+                用户名或者验证码错误
             </div>
-
-        <p text-right ion-text color="secondary" tappable (click)="forgotPass()">
+            <button ion-button  clear ion-end color="secondary" tappable  (click)="settime()" [disabled]="!verifyCode.disable"  >
+                    <ion-icon name="log-in"></ion-icon>
+                    {{verifyCode.verifyCodeTips}}
+                </button>
+        <!-- <p text-right ion-text color="secondary" tappable (click)="forgotPass()">
             <strong>忘记密码?</strong>
-        </p>
+        </p> -->
 
         <div>
               
@@ -89,7 +92,7 @@
                 登陆
             </button>
 
-            <p text-center ion-text color="primary">第三方账号登陆:</p>
+            <!-- <p text-center ion-text color="primary">第三方账号登陆:</p>
 
             <ion-grid>
                 <ion-row>
@@ -109,7 +112,7 @@
                         </button>
                     </ion-col>
                 </ion-row>
-            </ion-grid>
+            </ion-grid> -->
 
         </div>
         </form> 

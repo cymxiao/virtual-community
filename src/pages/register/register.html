@@ -39,6 +39,33 @@
 
         <!-- Register form -->
         <form class="list-form" #myForm="ngForm">
+            <ion-item>
+                <ion-searchbar (ionInput)="searchTextChagne($event)" name="searchQuery" [(ngModel)]="searchQuery" #fieldsearch="ngModel"
+                    required>
+                </ion-searchbar>
+                <ion-item no-lines *ngIf="fieldsearch.invalid && (fieldsearch.dirty || fieldsearch.touched)">
+                    <div class="text-danger" *ngIf="fieldsearch.errors.required">
+                        请输入所管辖的小区名称
+                    </div>
+                </ion-item>
+                <ion-list *ngIf="!hideList">
+                    <ion-item no-lines *ngFor="let com of coms" (click)="addItem(com)">
+                        <!--tap-->
+                        {{com.name}}
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
+                    联系人姓名
+                </ion-label>
+                
+                <ion-input type="text" name="fieldName" required   
+                      ></ion-input>
+                    
+            </ion-item>
             <!-- #templateForm="ngForm" -->
             <ion-item>
                 <ion-label floating>
@@ -104,7 +131,7 @@
                 &nbsp;&nbsp;注册
       </button>
 
-            <p text-center ion-text color="primary">第三方账号登陆:</p>
+            <!-- <p text-center ion-text color="primary">第三方账号登陆:</p>
 
             <ion-grid>
                 <ion-row>
@@ -124,7 +151,7 @@
             </button>
                     </ion-col>
                 </ion-row>
-            </ion-grid>
+            </ion-grid> -->
         </div>
 
     

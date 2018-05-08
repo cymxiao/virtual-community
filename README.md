@@ -3,10 +3,12 @@
 ionic cordova plugin add cordova-plugin-geolocation
 ionic cordova plugin add cordova-sms-plugin
 ionic cordova plugin add cordova-plugin-local-notification
+ionic cordova plugin add cordova-alipay-base --variable ALI_PID=your_app_id
 
 npm i @ionic-native/geolocation
 npm install --save @ionic-native/sms
 npm install --save @ionic-native/local-notifications
+npm install --save @ionic-native/alipay
 
 
 Run
