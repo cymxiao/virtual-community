@@ -48,12 +48,19 @@
                         请输入所管辖的小区名称
                     </div>
                 </ion-item>
-                <ion-list *ngIf="!hideList">
+                <ion-scroll *ngIf="!hideList" scrollY="true" style="width: 100%; height: 100px">
+                  <div *ngIf="!hideList" style="width: 100%; height: 500px;" >
+                    <div  *ngFor="let com of coms" (click)="addItem(com)"> 
+                        {{com.name}}
+                    </div>
+                </div>
+                <!-- <ion-list *ngIf="!hideList">
                     <ion-item no-lines *ngFor="let com of coms" (click)="addItem(com)">
-                        <!--tap-->
+                      
                         {{com.name}}
                     </ion-item>
-                </ion-list>
+                </ion-list> -->
+            </ion-scroll>
             </ion-item>
 
             <ion-item>

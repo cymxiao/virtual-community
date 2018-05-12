@@ -205,6 +205,7 @@ export class TestPage {
   }
 
   searchTextChagne(ev: any) {
+    if(ev.target.value.length>1){
     this.hideList = false;
     this.autoService.getResults(ev.target.value).then(x => {
       this.coms = x;
@@ -212,6 +213,7 @@ export class TestPage {
         JSON.stringify(element);
       });
     }); 
+  }
   }
 
   addItem(item: any) {
