@@ -30,7 +30,7 @@ export class LoginPage {
   verifyCode: any = {  
     verifyCodeTips: "获取验证码",  
     countdown: 60,  
-    disable: true  
+    disable: false  
   }  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public service: RestServiceProvider) {
@@ -86,10 +86,11 @@ export class LoginPage {
     if (this.verifyCode.countdown == 1) {  
       this.verifyCode.countdown = 60;  
       this.verifyCode.verifyCodeTips = "获取验证码";  
-      this.verifyCode.disable = true;  
+      this.verifyCode.disable = false;  
       return;  
     } else {  
       this.verifyCode.countdown--;  
+      this.verifyCode.disable = true;  
     }  
     this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;  
     setTimeout(() => {  
@@ -97,7 +98,4 @@ export class LoginPage {
       this.settime();  
     }, 1000);  
   }  
- 
-
-
 }

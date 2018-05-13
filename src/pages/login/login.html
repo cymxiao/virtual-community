@@ -38,19 +38,19 @@
         </div>
 
         <!-- Login form -->
-        <form class="list-form" novalidate  #loginForm="ngForm">
+        <form class="list-form" novalidate #loginForm="ngForm">
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
                     手机号码
                 </ion-label>
                 <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
-                <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" required [(ngModel)]="user.phone" 
-                    #fieldPhone="ngModel" (ionBlur) = "on_usernameBlur($event)"></ion-input>
+                <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" required [(ngModel)]="user.phone" #fieldPhone="ngModel"
+                    (ionBlur)="on_usernameBlur($event)"></ion-input>
             </ion-item>
             <div *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
                 <div class="text-danger" *ngIf="fieldPhone.errors.required">
-                    请输入手机号码 
+                    请输入手机号码
                 </div>
                 <div class="text-danger" *ngIf="usernameBlur && (fieldPhone.errors.minlength || fieldPhone.errors.maxlength)">
                     请确认输入11位手机号码
@@ -63,8 +63,8 @@
                     验证码
                 </ion-label>
                 <!-- [ngModelOptions]="{standalone: true}" -->
-                <ion-input type="password" [(ngModel)]="user.pwd" name="fieldpwd" minlength="6" required 
-                (ionBlur) = "on_passwordBlur($event)" #fieldpwd="ngModel"></ion-input>
+                <ion-input type="password" [(ngModel)]="user.pwd" name="fieldpwd" minlength="6" required (ionBlur)="on_passwordBlur($event)"
+                    #fieldpwd="ngModel"></ion-input>
             </ion-item>
             <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
                 <div class="text-danger" *ngIf="fieldpwd.errors.required">
@@ -77,22 +77,17 @@
             <div class="text-danger" *ngIf="wrongUsrorPwd">
                 用户名或者验证码错误
             </div>
-            <button ion-button  clear ion-end color="secondary" tappable  (click)="settime()" [disabled]="!verifyCode.disable"  >
+            <button class="verifyCode" ion-button clear ion-end color="secondary" tappable (click)="settime()" [disabled]="verifyCode.disable">
+                <ion-icon name="code-download"></ion-icon>
+                &nbsp;&nbsp;{{verifyCode.verifyCodeTips}}
+            </button> 
+            <div> 
+                <button ion-button icon-start block color="secondary" tappable [disabled]=" !loginForm.form.valid" (click)="login()">
                     <ion-icon name="log-in"></ion-icon>
-                    {{verifyCode.verifyCodeTips}}
+                    登陆
                 </button>
-        <!-- <p text-right ion-text color="secondary" tappable (click)="forgotPass()">
-            <strong>忘记密码?</strong>
-        </p> -->
 
-        <div>
-              
-            <button ion-button icon-start block color="secondary" tappable [disabled]=" !loginForm.form.valid" (click)="login()">
-                <ion-icon name="log-in"></ion-icon>
-                登陆
-            </button>
-
-            <!-- <p text-center ion-text color="primary">第三方账号登陆:</p>
+                <!-- <p text-center ion-text color="primary">第三方账号登陆:</p>
 
             <ion-grid>
                 <ion-row>
@@ -114,7 +109,7 @@
                 </ion-row>
             </ion-grid> -->
 
-        </div>
-        </form> 
+            </div>
+        </form>
     </div>
 </ion-content>
