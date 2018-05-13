@@ -6,7 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { AppSettings } from '../../settings/app-settings';
-import { DEFAULT_PACKAGE_URL_PROVIDER } from '@angular/platform-browser-dynamic/src/compiler_factory';
+
 /**
  * Generated class for the LoginPage page.
  *

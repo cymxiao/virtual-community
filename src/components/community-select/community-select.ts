@@ -17,6 +17,7 @@ export class CommunitySelectComponent {
   hideList: boolean;
   coms: any;
   selectedComunityID: string;
+  pmc:string;
 
   scrollClass: string;
 
@@ -46,6 +47,7 @@ export class CommunitySelectComponent {
     this.hideList = true; 
     this.searchQuery = item.name;
     this.selectedComunityID = item._id;
+    this.pmc = item.PMC;
   }
 
 

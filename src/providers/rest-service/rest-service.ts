@@ -106,6 +106,17 @@ export class RestServiceProvider {
     });
   }
 
+  updateCommunity(comId, data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/community/' + comId, JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
  
 
   getUser(username) {

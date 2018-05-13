@@ -77,9 +77,10 @@ export class ProfilePage extends BasePage {
             city_ID: '',
             address: ''
           },
-          role_ID: '',
+          role: '',
           phoneNo: '',
-          address: ''
+          address: '',
+          name:''
         };
       }
 

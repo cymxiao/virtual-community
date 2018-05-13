@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SMS } from '@ionic-native/sms';
 
+import { IPMC } from '../../model/pmc';
 import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from "../login/login";
 import { CommunitySelectComponent } from '../../components/community-select/community-select'
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { AppSettings } from '../../settings/app-settings';
+import { AppSettings, UserRoleEnum ,UserStatusEnum } from '../../settings/app-settings';
 
 
 
@@ -23,7 +24,7 @@ import { AppSettings } from '../../settings/app-settings';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
-  //registerForm;
+  @ViewChild(CommunitySelectComponent) csCom: CommunitySelectComponent;
   user: any;
   phone: string;
   pwd: string;
@@ -31,22 +32,38 @@ export class RegisterPage {
   isLogin: string = "register";
   myForm: any;
   showDuplicateUserNameError: boolean = false;
+  showPMCExistError: boolean = false;
   blured: boolean = false;
 
   usernameBlur: boolean;
   passwordBlur: boolean;
   verifyCodeBlur: boolean;
 
+  selectedComId: string;
+  pmc: IPMC;
 
 
-  
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
-     public apiService: RestServiceProvider, 
-     private sms: SMS) {
+    public apiService: RestServiceProvider,
+    private sms: SMS) {
     this.user = { phone: '', pwd: '' };
+    this.pmc = {
+      _id: '',
+      id: '',
+      __v: '',
+      PMC: '',
+      username: '',
+      password: '',
+      community_ID: '',
+      role: '',
+      name: ''
+    }
   }
 
   ionViewDidLoad() {
+    //console.log(UserRoleEnum.PMCUser);
     //console.log('send message');
     //this.sms.send('13816873730', 'Hello world!');
   }
@@ -55,31 +72,49 @@ export class RegisterPage {
     //console.log(this.pwd);
     // const encryptPwd = AppSettings.Encrypt(this.pwd);
     // console.log(AppSettings.Decrypt(encryptPwd));
-    this.apiService.addUser(
-      {
-        username: this.phone,
-        password: AppSettings.Encrypt(this.pwd)
-      }
-    ).then((usr: any) => {
-      if (usr) {
-        //console.dir(usr);
-        if (usr.duplicateUsername === true) {
-          this.showDuplicateUserNameError = true;
-          //console.log(this.showDuplicateUserNameError);
+    //step 1 :update community with property management compamy
+
+
+    //console.log(this.csCom.selectedComunityID);
+    if (this.csCom.pmc) {
+      this.showPMCExistError = true;
+      console.log('this community already has pmc ' + this.showPMCExistError);
+    } else {
+      this.apiService.updateCommunity(this.csCom.selectedComunityID, { PMC: this.pmc.PMC }).then(c => {
+        if (c) {
+          //console.log('haha');
+          this.apiService.addUser(
+            {
+              username: this.pmc.username,
+              password: AppSettings.Encrypt(this.pwd),
+              name: this.pmc.name,
+              community_ID: this.csCom.selectedComunityID,
+              role: UserRoleEnum.PMCUser,
+              status: UserStatusEnum.pendingOnVerify
+            }
+          ).then((usr: any) => {
+            if (usr) {
+              //console.dir(usr);
+              if (usr.duplicateUsername === true) {
+                this.showDuplicateUserNameError = true;
+                //console.log(this.showDuplicateUserNameError);
+              } else {
+                localStorage.setItem('user', JSON.stringify(usr));
+                this.navCtrl.setRoot(TabsPage);
+              }
+            }
+          }).catch(e => {
+            console.log(e);
+          });
         } else {
-          localStorage.setItem('user', JSON.stringify(usr));
-          this.navCtrl.setRoot(TabsPage);
+          console.log('updateCommunity failed!');
         }
-      }
-    }).catch(e => {
-      console.log(e);
-    });
+      });
+    }
   }
 
-  changeText()
-  { 
-    if(this.showDuplicateUserNameError)
-    {
+  changeText() {
+    if (this.showDuplicateUserNameError) {
       this.showDuplicateUserNameError = false;
     }
   }
@@ -90,9 +125,11 @@ export class RegisterPage {
     //console.log(item.target.value);
     if (item.value) {
       this.apiService.getUser(item.value).then(duplicateUser => {
-        //console.log(duplicateUser);
+        console.log(duplicateUser);
         if (duplicateUser) {
           this.showDuplicateUserNameError = true;
+        } else {
+          this.showDuplicateUserNameError = false;
         }
       });
     }
@@ -102,15 +139,11 @@ export class RegisterPage {
     this.navCtrl.setRoot(LoginPage);
   }
 
-  on_passwordBlur(target){
+  on_passwordBlur(target) {
     this.passwordBlur = true;
   }
 
-  on_verifyCodeBlur(target){
+  on_verifyCodeBlur(target) {
     this.verifyCodeBlur = true;
   }
-
-
-  
-
 }

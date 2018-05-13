@@ -48,14 +48,13 @@
                     <ion-icon name="construct" item-start class="text-primary"></ion-icon>
                     物业公司名称
                 </ion-label>
-                <ion-input type="text"  name="fieldPM"  
-                 ></ion-input>
+                <ion-input type="text" name="fieldPMC" required [(ngModel)]="pmc.PMC" #fieldPMC="ngModel"> </ion-input>
             </ion-item>
-            <!-- <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
-                <div class="text-danger" *ngIf="fieldpwd.errors.required">
+            <div *ngIf="fieldPMC.invalid && (fieldPMC.dirty || fieldPMC.touched)">
+                <div class="text-danger" *ngIf="fieldPMC.errors.required">
                     请输入物业公司名称
                 </div>  
-            </div>  -->
+            </div> 
 
             <ion-item>
                 <ion-label floating>
@@ -63,8 +62,7 @@
                     联系人姓名
                 </ion-label>
                 
-                <ion-input type="text" name="fieldName" required   
-                      ></ion-input>
+                <ion-input type="text" name="fieldName" required [(ngModel)]="pmc.name" #fieldPMC="ngModel" ></ion-input>
                     
             </ion-item>
             <!-- #templateForm="ngForm" -->
@@ -74,15 +72,15 @@
                     手机号码
                 </ion-label>
                 
-                <ion-input type="number" minlength="11" maxlength="11"  name="fieldPhone" required  [(ngModel)]="phone" 
-                 #fieldPhone="ngModel" (ionChange)="changeText()" (ionBlur) = "on_username_Blur($event)"></ion-input>
-                 
+                <ion-input type="number" minlength="11" maxlength="11"  name="fieldUsername" required  [(ngModel)]="pmc.username" 
+                 #fieldUsername="ngModel" (ionChange)="changeText()" (ionBlur) = "on_username_Blur($event)"></ion-input>
+             
             </ion-item>
-             <div *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
-                <div class="text-danger" *ngIf="fieldPhone.errors.required">
+             <div *ngIf="fieldUsername.invalid && (fieldUsername.dirty || fieldUsername.touched)">
+                <div class="text-danger" *ngIf="fieldUsername.errors.required">
                     请输入手机号码
                 </div> 
-                <div class="text-danger" *ngIf="usernameBlur && (fieldPhone.errors.minlength || fieldPhone.errors.maxlength)">
+                <div class="text-danger" *ngIf="usernameBlur && (fieldUsername.errors.minlength || fieldUsername.errors.maxlength)">
                     请确认输入11位手机号码
                 </div>  
             </div> 
@@ -96,7 +94,7 @@
                     <ion-icon name="code-download" item-start class="text-primary"></ion-icon>
                     验证码
                 </ion-label>
-                <ion-input type="number" minlength="4" maxlength="4" name="verifycode" required  [(ngModel)]="verifycode"
+                <ion-input type="number" minlength="6" maxlength="6" name="verifycode" required  [(ngModel)]="pmc.password"
                    #fieldverifycode="ngModel" (ionBlur) ="on_verifyCodeBlur($event)" ></ion-input>
             </ion-item>
             <div  *ngIf="fieldverifycode.invalid && (fieldverifycode.dirty || fieldverifycode.touched)">
@@ -111,8 +109,9 @@
            
         </form>
 
-        <div margin-top>
-            <button ion-button block color="secondary" tappable [disabled]="!myForm.form.valid" (click)="register()">
+        <div margin-top> 
+                <!--  -->
+            <button ion-button block color="secondary" tappable  (click)="register()" [disabled]="!myForm.form.valid">
                 <ion-icon name="create"></ion-icon>
                 &nbsp;&nbsp;物业注册
       </button>

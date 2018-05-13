@@ -154,4 +154,19 @@ export enum LeisureParkStatus {
     invalid  = 'invalid', 
   }
 
+  export enum UserRoleEnum {
+    //'PMCUser','proprietor', 'externalUser'
+    PMCUser = 'PMCUser' ,
+    proprietor  = 'proprietor',
+    externalUser  = 'externalUser' 
+  }
+
+  export enum UserStatusEnum {
+    //'pendingOnVerify','active', 'blocked', 'deleted'
+    pendingOnVerify = 'pendingOnVerify' ,
+    active  = 'active',
+    blocked  = 'blocked' ,
+    deleted = 'deleted'
+  }
+
 
