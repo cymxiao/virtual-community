@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>注册</ion-title>
+        <ion-title>物业注册</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -21,7 +21,7 @@
         <div padding text-center>
             <div class="logo"></div>
             <h2 ion-text class="text-primary">
-                <strong></strong> Demo App
+                <strong>享停就停</strong> 
             </h2>
         </div>
 
@@ -31,7 +31,7 @@
                     登陆
                 </ion-segment-button>
                 <ion-segment-button value="register" (click)="register()" class="primary-bg">
-                    新用户注册
+                    物业注册
                 </ion-segment-button>
             </ion-segment>
         </div>
@@ -45,7 +45,21 @@
 
             <ion-item>
                 <ion-label floating>
-                    <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
+                    <ion-icon name="construct" item-start class="text-primary"></ion-icon>
+                    物业公司名称
+                </ion-label>
+                <ion-input type="text"  name="fieldPM"  
+                 ></ion-input>
+            </ion-item>
+            <!-- <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
+                <div class="text-danger" *ngIf="fieldpwd.errors.required">
+                    请输入物业公司名称
+                </div>  
+            </div>  -->
+
+            <ion-item>
+                <ion-label floating>
+                    <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
                     联系人姓名
                 </ion-label>
                 
@@ -94,28 +108,13 @@
                 </div> 
             </div> 
 
-            <ion-item>
-                <ion-label floating>
-                    <ion-icon name="lock" item-start class="text-primary"></ion-icon>
-                    密码
-                </ion-label>
-                <ion-input type="password" [(ngModel)]="pwd" minlength="6" required name="fieldpwd" #fieldpwd="ngModel" 
-                (ionBlur) ="on_passwordBlur($event)"></ion-input>
-            </ion-item>
-            <div *ngIf="fieldpwd.invalid && (fieldpwd.dirty || fieldpwd.touched)">
-                <div class="text-danger" *ngIf="fieldpwd.errors.required">
-                    请输入密码
-                </div> 
-                <div class="text-danger" *ngIf="passwordBlur && fieldpwd.errors.minlength">
-                    请输入至少6位密码
-                </div> 
-            </div> 
+           
         </form>
 
         <div margin-top>
             <button ion-button block color="secondary" tappable [disabled]="!myForm.form.valid" (click)="register()">
                 <ion-icon name="create"></ion-icon>
-                &nbsp;&nbsp;注册
+                &nbsp;&nbsp;物业注册
       </button>
 
             <!-- <p text-center ion-text color="primary">第三方账号登陆:</p>

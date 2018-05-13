@@ -6,6 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { AppSettings } from '../../settings/app-settings';
+import { DEFAULT_PACKAGE_URL_PROVIDER } from '@angular/platform-browser-dynamic/src/compiler_factory';
 /**
  * Generated class for the LoginPage page.
  *
@@ -90,10 +91,11 @@ export class LoginPage {
       return;  
     } else {  
       this.verifyCode.countdown--;  
-      this.verifyCode.disable = true;  
+      //this.verifyCode.disable = true;  
     }  
     this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;  
     setTimeout(() => {  
+      this.verifyCode.disable = true; 
       this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;  
       this.settime();  
     }, 1000);  

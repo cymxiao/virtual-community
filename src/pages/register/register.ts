@@ -47,7 +47,7 @@ export class RegisterPage {
   }
 
   ionViewDidLoad() {
-    console.log('send message');
+    //console.log('send message');
     //this.sms.send('13816873730', 'Hello world!');
   }
 

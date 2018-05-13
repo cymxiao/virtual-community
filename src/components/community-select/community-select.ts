@@ -12,8 +12,7 @@ import { AutoCompleteServiceProvider } from '../../providers/autocomplete-servic
   templateUrl: 'community-select.html'
 })
 export class CommunitySelectComponent {
-
-  text: string;
+ 
   searchQuery: string = '';
   hideList: boolean;
   coms: any;
@@ -23,8 +22,6 @@ export class CommunitySelectComponent {
 
 
   constructor(public autoService: AutoCompleteServiceProvider) {
-    console.log('Hello CommunitySelectComponent Component');
-    this.text = 'Hello World';
     this.scrollClass = "scroll-min";
   }
 
