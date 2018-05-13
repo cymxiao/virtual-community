@@ -5,7 +5,7 @@ import { TabsPage } from '../tabs/tabs';
 import { ICarport } from 'model/carport';
 import { CarportPage } from '../carport/carport';
 
-import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
+
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
 //import { BasePage } from '../base/base';
@@ -46,8 +46,7 @@ export class SelectCommunityModalPage extends BasePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
-    public service: RestServiceProvider,
-    public autoService: AutoCompleteServiceProvider) {
+    public service: RestServiceProvider ) {
     super(navCtrl, navParams);
     //super();
     // console.log('con' + this.navParams.get("refresh"));
@@ -76,26 +75,7 @@ export class SelectCommunityModalPage extends BasePage {
       this.currentCarportId = this.currentCarport._id;
     }
   }
-
-  searchTextChagne(ev: any) {
-    if(ev.target.value.length>1){
-    this.hideList = false;
-    this.autoService.getResults(ev.target.value).then(x => {
-      this.coms = x;
-      this.coms.forEach(element => {
-        JSON.stringify(element);
-      });
-    });
-  }
-
-  }
-
-  addItem(item: any) {
-    this.hideList = true;
-
-    this.searchQuery = item.name;
-    this.selectedComunityID = item._id;
-  }
+ 
 
   save() {
 

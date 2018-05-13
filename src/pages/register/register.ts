@@ -4,10 +4,10 @@ import { SMS } from '@ionic-native/sms';
 
 import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from "../login/login";
-
+import { CommunitySelectComponent } from '../../components/community-select/community-select'
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { AppSettings } from '../../settings/app-settings';
-import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
+
 
 
 /**
@@ -38,14 +38,10 @@ export class RegisterPage {
   verifyCodeBlur: boolean;
 
 
-  searchQuery: string = '';
-  hideList: boolean;
-  coms: any;
-  selectedComunityID: string;
+
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
-     public apiService: RestServiceProvider,
-     public autoService: AutoCompleteServiceProvider,
+     public apiService: RestServiceProvider, 
      private sms: SMS) {
     this.user = { phone: '', pwd: '' };
   }
@@ -115,24 +111,6 @@ export class RegisterPage {
   }
 
 
-  searchTextChagne(ev: any) {
-    if(ev.target.value.length>1){
-    this.hideList = false;
-    this.autoService.getResults(ev.target.value).then(x => {
-      this.coms = x;
-      this.coms.forEach(element => {
-        JSON.stringify(element);
-      });
-    }); 
-  }
-  }
-
-  addItem(item: any) {
-    this.hideList = true;
-
-    this.searchQuery = item.name;
-    this.selectedComunityID = item._id;
-  }
-
+  
 
 }

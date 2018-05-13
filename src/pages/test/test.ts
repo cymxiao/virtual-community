@@ -7,7 +7,7 @@ import { IStatisticCarport } from '../../model/visual-statistic-carport';
 import { IUser} from '../../model/user';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
+//import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
 
 import { HomePage } from '../../pages/home/home';
@@ -48,8 +48,7 @@ export class TestPage {
   @ViewChild('map') map_container: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public APIService: RestServiceProvider,private geolocation: Geolocation,
-    public autoService: AutoCompleteServiceProvider) { 
+    public APIService: RestServiceProvider,private geolocation: Geolocation) { 
     this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(30, 30));
 
   }
@@ -204,27 +203,27 @@ export class TestPage {
     });
   }
 
-  searchTextChagne(ev: any) {
-    if(ev.target.value.length>1){
-    this.hideList = false;
-    this.autoService.getResults(ev.target.value).then(x => {
-      this.coms = x;
-      this.coms.forEach(element => {
-        JSON.stringify(element);
-      });
-    }); 
-  }
-  }
+  // searchTextChagne(ev: any) {
+  //   if(ev.target.value.length>1){
+  //   this.hideList = false;
+  //   this.autoService.getResults(ev.target.value).then(x => {
+  //     this.coms = x;
+  //     this.coms.forEach(element => {
+  //       JSON.stringify(element);
+  //     });
+  //   }); 
+  // }
+  // }
 
-  addItem(item: any) {
-    this.hideList = true; 
-    this.searchQuery = item.name;
-    this.selectedComId = item._id;
-    this.navCtrl.push(LookupLeisureParkPage, {
-      comId: this.selectedComId,
-      comName: this.searchQuery
-    });
-  }
+  // addItem(item: any) {
+  //   this.hideList = true; 
+  //   this.searchQuery = item.name;
+  //   this.selectedComId = item._id;
+  //   this.navCtrl.push(LookupLeisureParkPage, {
+  //     comId: this.selectedComId,
+  //     comName: this.searchQuery
+  //   });
+  // }
 
   // on_searchbar_blur(item) {
     

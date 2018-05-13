@@ -15,19 +15,7 @@
 
 <ion-content>
     <div id="search_bar">
-        <form class="list-form" novalidate #communityModalForm="ngForm">
-            <ion-item>
-                <ion-searchbar color="secondary" (ionInput)="searchTextChagne($event)" name="searchQuery" [(ngModel)]="searchQuery" #fieldsearch="ngModel"
-                    required placeholder="请输入您想停车的小区名称"   >
-                </ion-searchbar>  
-                <div *ngIf="!hideList" > 
-                    <ion-item *ngFor="let com of coms"  (click)="addItem(com)">  
-                        {{com.name}}
-                    </ion-item>
-                </div>
-            </ion-item>
-          
-          </form>
+       <community-select></community-select> 
     </div>
     <div class="align-bottom" #map id="map_container"></div>
    

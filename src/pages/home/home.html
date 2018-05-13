@@ -11,20 +11,7 @@
   </p>
   <form class="list-form" novalidate #communityModalForm="ngForm">
     <ion-item>
-        <ion-searchbar (ionInput)="searchTextChagne($event)" name="searchQuery" [(ngModel)]="searchQuery" #fieldsearch="ngModel"
-            required placeholder="请输入您想停车的小区名称" >
-        </ion-searchbar>
-        <div *ngIf="fieldsearch.invalid && (fieldsearch.dirty || fieldsearch.touched)">
-            <div class="text-danger" *ngIf="fieldsearch.errors.required">
-                请输入您所在的小区名称
-            </div>
-        </div>
-        <ion-list *ngIf="!hideList" > 
-            <ion-item *ngFor="let com of coms"  (click)="addItem(com)">
-                <!--tap-->
-                {{com.name}}
-            </ion-item>
-        </ion-list>
+            <community-select></community-select> 
     </ion-item>
     <button ion-button icon-start block round color="primary" tappable (click)="searchClicked()" [disabled]="communityModalForm.form.invalid ">
       <ion-icon name="search"></ion-icon>

@@ -17,20 +17,7 @@
 <ion-content padding>
     <form class="list-form" novalidate #communityModalForm="ngForm">
         <ion-item>
-            <ion-searchbar (ionInput)="searchTextChagne($event)" name="searchQuery" [(ngModel)]="searchQuery" #fieldsearch="ngModel"
-                required>
-            </ion-searchbar>
-            <ion-item no-lines *ngIf="fieldsearch.invalid && (fieldsearch.dirty || fieldsearch.touched)">
-                <div class="text-danger" *ngIf="fieldsearch.errors.required">
-                    请输入您所在的小区名称
-                </div>
-            </ion-item>
-            <ion-list *ngIf="!hideList">
-                <ion-item *ngFor="let com of coms" (click)="addItem(com)">
-                    <!--tap-->
-                    {{com.name}}
-                </ion-item>
-            </ion-list>
+            <community-select></community-select> 
         </ion-item>
 
         <ion-item *ngIf="showCarportList">
