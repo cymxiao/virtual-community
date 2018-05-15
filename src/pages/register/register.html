@@ -94,7 +94,7 @@
                     <ion-icon name="code-download" item-start class="text-primary"></ion-icon>
                     验证码
                 </ion-label>
-                <ion-input type="number" minlength="6" maxlength="6" name="verifycode" required  [(ngModel)]="pmc.password"
+                <ion-input type="password" minlength="6" maxlength="6" name="verifycode" required  [(ngModel)]="pmc.password"
                    #fieldverifycode="ngModel" (ionBlur) ="on_verifyCodeBlur($event)" ></ion-input>
             </ion-item>
             <div  *ngIf="fieldverifycode.invalid && (fieldverifycode.dirty || fieldverifycode.touched)">
@@ -102,7 +102,7 @@
                     请输入验证码
                 </div> 
                 <div class="text-danger" *ngIf="verifyCodeBlur && (fieldverifycode.errors.minlength || fieldverifycode.errors.maxlength)">
-                    请确认输入4位手机验证码
+                    请确认输入6位手机验证码
                 </div> 
             </div> 
 

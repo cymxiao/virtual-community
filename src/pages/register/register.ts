@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SMS } from '@ionic-native/sms';
 
 import { IPMC } from '../../model/pmc';
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
+import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { LoginPage } from "../login/login";
 import { CommunitySelectComponent } from '../../components/community-select/community-select'
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
@@ -48,7 +49,7 @@ export class RegisterPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public apiService: RestServiceProvider,
     private sms: SMS) {
-    this.user = { phone: '', pwd: '' };
+    //this.user = { phone: '', pwd: '' };
     this.pmc = {
       _id: '',
       id: '',
@@ -82,11 +83,11 @@ export class RegisterPage {
     } else {
       this.apiService.updateCommunity(this.csCom.selectedComunityID, { PMC: this.pmc.PMC }).then(c => {
         if (c) {
-          //console.log('haha');
+          localStorage.setItem('comId', this.csCom.selectedComunityID); //or c._id
           this.apiService.addUser(
             {
               username: this.pmc.username,
-              password: AppSettings.Encrypt(this.pwd),
+              password: AppSettings.Encrypt(this.pmc.password),
               name: this.pmc.name,
               community_ID: this.csCom.selectedComunityID,
               role: UserRoleEnum.PMCUser,
@@ -100,7 +101,7 @@ export class RegisterPage {
                 //console.log(this.showDuplicateUserNameError);
               } else {
                 localStorage.setItem('user', JSON.stringify(usr));
-                this.navCtrl.setRoot(TabsPage);
+                this.navCtrl.setRoot(PmcCarportDashboardPage);
               }
             }
           }).catch(e => {

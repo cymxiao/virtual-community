@@ -25,8 +25,12 @@ export class AppSettings{
         return JSON.parse(localStorage.getItem('user'));
     }
 
-    public static getCurrentCommunity(){
-        return JSON.parse(localStorage.getItem('community'));
+    // public static getCurrentCommunity(){
+    //     return JSON.parse(localStorage.getItem('community'));
+    // }
+
+    public static getCurrentCommunityID(){
+        return localStorage.getItem('comId');
     }
 
     public static getCurrentCarport(){
@@ -54,8 +58,9 @@ export class AppSettings{
             padding: CryptoJS.pad.Pkcs7
         });
         //　由于CryptoJS生成的密文是一个对象，如果直接将其转为字符串是一个Base64编码过的，在encryptedData.ciphertext上的属性转为字符串才是后端需要的格式。
-        var encryptedBase64Str = encryptedData.toString();
+        //var encryptedBase64Str = encryptedData.toString();
         var encryptedStr = encryptedData.ciphertext.toString(); 
+        //console.log(encryptedStr);
         return encryptedStr;
       }
 

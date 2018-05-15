@@ -4,8 +4,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
+import { IUser } from '../../model/user';
+import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { AppSettings } from '../../settings/app-settings';
+import { AppSettings , UserRoleEnum  } from '../../settings/app-settings';
 
 /**
  * Generated class for the LoginPage page.
@@ -51,14 +53,18 @@ export class LoginPage {
   }
 
   // login and go to home page
-  login() {
+  login() { 
     this.service.loginUser({
       username: this.user.phone,
       password: AppSettings.Encrypt(this.user.pwd)
-    }).then(usr => { 
+    }).then((usr:IUser) => { 
       if (usr) {
         localStorage.setItem('user', JSON.stringify(usr));
-        this.navCtrl.setRoot(TabsPage);
+        if(!usr.role || (usr.role && usr.role[0]!== UserRoleEnum.PMCUser)){
+          this.navCtrl.setRoot(TabsPage);
+        } else {
+          this.navCtrl.setRoot(PmcCarportDashboardPage);
+        }
       }
       else {
         this.wrongUsrorPwd = true;

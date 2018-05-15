@@ -21,6 +21,7 @@ import { LeisureParkPageModule } from '../pages/leisure-park/leisure-park.module
 import { SelectCommunityModalPageModule } from '../pages/select-community-modal/select-community-modal.module';
 import { LookupLeisureParkPageModule } from '../pages/lookup-leisure-park/lookup-leisure-park.module';
 import { MyordersPageModule } from '../pages/myorders/myorders.module';
+import { PmcCarportDashboardPageModule } from '../pages/pmc-carport-dashboard/pmc-carport-dashboard.module';
 import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { BasePageModule } from '../pages/base/base.module';
@@ -53,6 +54,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     UserPortalPageModule,
     ProfilePageModule,
     CarportPageModule,
+    PmcCarportDashboardPageModule,
     BasePageModule,
     IonicModule.forRoot(MyApp)
   ],
