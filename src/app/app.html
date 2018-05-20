@@ -10,14 +10,17 @@
         <button ion-item (click)="myProfile()" menuClose>
           我的资料
         </button>
-        <button ion-item (click)="myCarports()" menuClose>
+        <button *ngIf="isPMCUser" ion-item (click)="mgrCarports()" menuClose>
+          共享车位管理
+        </button>
+        <button *ngIf="!isPMCUser" ion-item (click)="myCarports()" menuClose>
           车位登记
         </button>
-        <button ion-item (click)="myOrders()" menuClose>
+        <button *ngIf="!isPMCUser" ion-item (click)="myOrders()" menuClose>
           我的订单
         </button>
       
-        <button ion-item (click)="goBackHome()" menuClose>
+        <button *ngIf="!isPMCUser" ion-item (click)="goBackHome()" menuClose>
             返回主页
           </button>
       </ion-list>

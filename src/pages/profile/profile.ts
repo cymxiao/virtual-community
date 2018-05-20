@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, MenuController, ModalController } 
 
 import { IUser } from '../../model/user';
 import { ICarport } from '../../model/carport';
-import { AppSettings } from '../../settings/app-settings';
+import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 import { BasePage } from '../base/base';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
 /**
@@ -21,6 +21,7 @@ export class ProfilePage extends BasePage {
 
   //map: any;
   user: IUser;
+  isPMCUser: boolean;
   currentCarport: ICarport;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
     public navParams: NavParams,
@@ -30,11 +31,9 @@ export class ProfilePage extends BasePage {
 
   ionViewDidLoad() {
     this.user = AppSettings.getCurrentUser();
-   
     this.currentCarport = AppSettings.getCurrentCarport();
     this.initVariables();
     this.init();
- 
   }
 
 
@@ -42,23 +41,18 @@ export class ProfilePage extends BasePage {
 
     if (!this.user.community_ID || !this.user.community_ID._id
       || !this.currentCarport || !this.currentCarport.parkingNumber) {
-      this.navCtrl.push(SelectCommunityModalPage);
-       //.then( x=>{
-      // super.refresh();
-      // });
+        if(!this.user.role || (this.user.role && this.user.role[0]!== UserRoleEnum.PMCUser)){
+          this.navCtrl.push(SelectCommunityModalPage);  
+        } else{
+          this.isPMCUser = true;
+        }
     } else {
       this.user = AppSettings.getCurrentUser();
       this.currentCarport = AppSettings.getCurrentCarport();
     }
   }
 
-  // presentCarportModal() {
-  //   let cpModal = this.modalCtrl.create(SelectCommunityModalPage);
-  //   cpModal.onDidDismiss(data => { 
-  //     this.init();
-  //   });
-  //   cpModal.present();
-  // }
+ 
 
   initVariables() {
     if (!this.user || !this.user.community_ID) {

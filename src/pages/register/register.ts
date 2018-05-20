@@ -43,7 +43,11 @@ export class RegisterPage {
   selectedComId: string;
   pmc: IPMC;
 
-
+  verifyCode: any = {  
+    verifyCodeTips: "获取验证码",  
+    countdown: 60,  
+    disable: false  
+  }  
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -147,4 +151,24 @@ export class RegisterPage {
   on_verifyCodeBlur(target) {
     this.verifyCodeBlur = true;
   }
+
+
+  settime() {  
+    console.log(this.verifyCode.countdown);
+    if (this.verifyCode.countdown == 1) {  
+      this.verifyCode.countdown = 60;  
+      this.verifyCode.verifyCodeTips = "获取验证码";  
+      this.verifyCode.disable = false;  
+      return;  
+    } else {  
+      this.verifyCode.countdown--;  
+      //this.verifyCode.disable = true;  
+    }  
+    this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;  
+    setTimeout(() => {  
+      this.verifyCode.disable = true; 
+      this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;  
+      this.settime();  
+    }, 1000);  
+  }  
 }

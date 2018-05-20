@@ -33,7 +33,7 @@
     </ion-label>
     <ion-input type="text" name="community" disabled="true" [(ngModel)]="user.community_ID.name"> </ion-input> 
   </ion-item>
-  <ion-item>
+  <ion-item *ngIf="!isPMCUser">
     <ion-label floating>
       <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
       车位编号

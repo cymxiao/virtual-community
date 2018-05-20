@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { IUILeisurePark } from '../../model/leisurePark';
 //import { ICommunity } from '../../model/community';
 import { AppSettings } from '../../settings/app-settings';
-import { TabsPage } from '../tabs/tabs';
+import { ProfilePage } from '../profile/profile';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**
@@ -49,9 +49,9 @@ export class PmcCarportDashboardPage {
     });
   }  
 
-  goBackHome()
+  updateProfile()
   {
-    this.navCtrl.setRoot(TabsPage);
+    this.navCtrl.setRoot(ProfilePage);
   }
 
 }

@@ -43,15 +43,19 @@ export class LoginPage {
 
   ionViewDidLoad() {  
     if(localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username ){
-      this.navCtrl.setRoot(TabsPage);
+      const usr:IUser  = AppSettings.getCurrentUser();
+      if(!usr.role || (usr.role && usr.role[0]!== UserRoleEnum.PMCUser)){
+        this.navCtrl.setRoot(TabsPage);
+      } else {
+        this.navCtrl.setRoot(PmcCarportDashboardPage);
+      }
     } 
   }
 
-  // go to register page
-  register() {
+   // go to register page
+   register() {
     this.navCtrl.setRoot(RegisterPage);
   }
-
   // login and go to home page
   login() { 
     this.service.loginUser({
