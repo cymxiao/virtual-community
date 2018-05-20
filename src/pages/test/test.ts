@@ -4,10 +4,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 
 import { IStatisticCarport } from '../../model/visual-statistic-carport';
-import { IUser} from '../../model/user';
+import { IUser } from '../../model/user';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-//import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
 
 import { HomePage } from '../../pages/home/home';
@@ -36,9 +35,9 @@ export class TestPage {
   myIcon: any;
 
   avaiableComs: IStatisticCarport[];
-  adds :string [] = [];
- 
-  user : IUser;
+  adds: string[] = [];
+
+  user: IUser;
   selectedComId: string;
   //selectedComName: string;
   searchQuery: string = '';
@@ -48,7 +47,7 @@ export class TestPage {
   @ViewChild('map') map_container: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public APIService: RestServiceProvider,private geolocation: Geolocation) { 
+    public APIService: RestServiceProvider, private geolocation: Geolocation) {
     this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(30, 30));
 
   }
@@ -71,13 +70,11 @@ export class TestPage {
     this.map.centerAndZoom('上海', 13);
     this.map.enableScrollWheelZoom(true);
     this.myGeo = new BMap.Geocoder();
-    var geolocationControl = new BMap.GeolocationControl(); 
+    var geolocationControl = new BMap.GeolocationControl();
     this.map.addControl(geolocationControl);
     this.getStatisticOfCarport();
 
-    //this.bdGEO();
-    this.getLocation();
-    //this.addMark();
+    //this.getLocation(); 
   }
 
 
@@ -101,99 +98,99 @@ export class TestPage {
   //   }
   //   //this.index++;
   // }
-  geocodeSearch(add, comName , sharedCarportNumber) { 
-    this.myGeo.getPoint(add, x => {this.callBackEvent(x, add, comName, sharedCarportNumber);} , "上海市");
+  geocodeSearch(add, comName, sharedCarportNumber) {
+    this.myGeo.getPoint(add, x => { this.callBackEvent(x, add, comName, sharedCarportNumber); }, "上海市");
   }
   // 编写自定义函数,创建标注
-  addMarker(point, label) { 
+  addMarker(point, label) {
     var marker = new BMap.Marker(point);
     this.map.addOverlay(marker);
     marker.setLabel(label);
   }
 
-  callBackEvent(point ,add, comName , sharedCarportNumber){ 
-      if (point) { 
-        //this.addMarker(point, new BMap.Label( add , { offset: new BMap.Size(20, -10) }));
-        this.addInfoWindow(point, add,comName, sharedCarportNumber);
-      }
+  callBackEvent(point, add, comName, sharedCarportNumber) {
+    if (point) {
+      //this.addMarker(point, new BMap.Label( add , { offset: new BMap.Size(20, -10) }));
+      this.addInfoWindow(point, add, comName, sharedCarportNumber);
+    }
   }
 
 
-  addInfoWindow(point, address, community_name , sharedCarportNumber){
-    const content = '<div >'   + address + '</div>' +
-                    '<div > 空闲车位数量：'   + sharedCarportNumber + '</div>';
-                    //+ '<div>  <a href="#">查看详情</a> </div>';
+  addInfoWindow(point, address, community_name, sharedCarportNumber) {
+    const content = '<div >' + address + '</div>' +
+      '<div > 空闲车位数量：' + sharedCarportNumber + '</div>';
+    //+ '<div>  <a href="#">查看详情</a> </div>';
 
-                  //创建检索信息窗口对象
+    //创建检索信息窗口对象
     let searchInfoWindow = null;
     searchInfoWindow = new BMapLib.SearchInfoWindow(this.map, content, {
-        title  : community_name,      //标题
-        width  : 290,             //宽度
-        height : 105,              //高度
-        panel  : "panel",         //检索结果面板
-        enableAutoPan : true,     //自动平移
-        searchTypes   :[
-          // BMAPLIB_TAB_SEARCH,   //周边检索
-          // BMAPLIB_TAB_TO_HERE,  //到这里去
-          // BMAPLIB_TAB_FROM_HERE //从这里出发
-        ]
-      });
-      let marker = new BMap.Marker(point); //创建marker对象
-      //marker.enableDragging(); //marker可拖拽
-      marker.addEventListener("click", function(e){
-        searchInfoWindow.open(marker);
-      })
-      this.map.addOverlay(marker); //在地图中添加marker
+      title: community_name,      //标题
+      width: 290,             //宽度
+      height: 105,              //高度
+      panel: "panel",         //检索结果面板
+      enableAutoPan: true,     //自动平移
+      searchTypes: [
+        // BMAPLIB_TAB_SEARCH,   //周边检索
+        // BMAPLIB_TAB_TO_HERE,  //到这里去
+        // BMAPLIB_TAB_FROM_HERE //从这里出发
+      ]
+    });
+    let marker = new BMap.Marker(point); //创建marker对象
+    //marker.enableDragging(); //marker可拖拽
+    marker.addEventListener("click", function (e) {
+      searchInfoWindow.open(marker);
+    })
+    this.map.addOverlay(marker); //在地图中添加marker
   }
 
   getLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      let locationPoint = new BMap.Point(resp.coords.longitude, resp.coords.latitude);
-      let convertor = new BMap.Convertor();
-      let pointArr = [];
-      pointArr.push(locationPoint);
-      convertor.translate(pointArr, 1, 5, (data) => {
-        if (data.status === 0) {
-          let marker = new BMap.Marker(data.points[0], { icon: this.myIcon });
-          this.map.panTo(data.points[0]);
-          marker.setPosition(data.points[0]);
-          this.map.addOverlay(marker);
-        }
-      })
-      this.map.centerAndZoom(locationPoint, 13);
-      console.log('GPS定位：您的位置是 ' + resp.coords.longitude + ',' + resp.coords.latitude);
+      if (resp) {
+        let locationPoint = new BMap.Point(resp.coords.longitude, resp.coords.latitude);
+        let convertor = new BMap.Convertor();
+        let pointArr = [];
+        pointArr.push(locationPoint);
+        convertor.translate(pointArr, 1, 5, (data) => {
+          if (data.status === 0) {
+            let marker = new BMap.Marker(data.points[0], { icon: this.myIcon });
+            this.map.panTo(data.points[0]);
+            marker.setPosition(data.points[0]);
+            this.map.addOverlay(marker);
+          }
+        })
+        this.map.centerAndZoom(locationPoint, 13);
+        console.log('GPS定位：您的位置是 ' + resp.coords.longitude + ',' + resp.coords.latitude);
+      }
     })
   }
 
   getStatisticOfCarport() {
     //let addtmp;
     this.APIService.getStatisticOfCarport().then((x: any) => {
-      this.avaiableComs = x;  
-      x.forEach(  c => {
-        if(c.community_info && c.community_info.length > 0){
+      this.avaiableComs = x;
+      x.forEach(c => {
+        if (c.community_info && c.community_info.length > 0) {
           //addtmp = c.community_info[0].address;
-        this.adds.push(c.community_info[0].address);
-        this.geocodeSearch(c.community_info[0].address, c.community_info[0].name, c.count);
+          this.adds.push(c.community_info[0].address);
+          this.geocodeSearch(c.community_info[0].address, c.community_info[0].name, c.count);
         }
       });
       //console.dir(this.adds);
     });
   }
 
-  addLocaltion()
-  {
+  addLocaltion() {
     var geolocationControl = new BMap.GeolocationControl();
-    
+
     this.map.addControl(geolocationControl);
   }
 
-  checkDetail()
-  {
+  checkDetail() {
     this.navCtrl.push(HomePage);
   }
 
 
-  searchClicked(){
+  searchClicked() {
     // push another page onto the navigation stack
     // causing the nav controller to transition to the new page
     // optional data can also be passed to the pushed page.
@@ -202,38 +199,4 @@ export class TestPage {
       comName: this.searchQuery
     });
   }
-
-  // searchTextChagne(ev: any) {
-  //   if(ev.target.value.length>1){
-  //   this.hideList = false;
-  //   this.autoService.getResults(ev.target.value).then(x => {
-  //     this.coms = x;
-  //     this.coms.forEach(element => {
-  //       JSON.stringify(element);
-  //     });
-  //   }); 
-  // }
-  // }
-
-  // addItem(item: any) {
-  //   this.hideList = true; 
-  //   this.searchQuery = item.name;
-  //   this.selectedComId = item._id;
-  //   this.navCtrl.push(LookupLeisureParkPage, {
-  //     comId: this.selectedComId,
-  //     comName: this.searchQuery
-  //   });
-  // }
-
-  // on_searchbar_blur(item) {
-    
-  //   //console.log(item.target.value);
-  //   if (item.name) {
-  //     //this.addItem()
-  //     this.navCtrl.push(LookupLeisureParkPage, { 
-  //       comName: item.target.value
-  //     });
-  //   }
-  // }
-
 }
