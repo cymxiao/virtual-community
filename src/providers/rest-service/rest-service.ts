@@ -55,14 +55,7 @@ export class RestServiceProvider {
     });
   }
 
-  updateUser(userId, data) {
-    //const params = new HttpParams().append("userId",userId);
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type':  'application/json'  
-    //   })
-    // };
-
+  updateUser(userId, data) { 
     return new Promise(resolve => {
       this.http.post(this.apiUrl + '/users/' + userId, JSON.stringify(data)).subscribe(data => {
         resolve(data);
@@ -258,7 +251,8 @@ export class RestServiceProvider {
 
   sendSMS(cellPhone,verifyCode) { 
     return new Promise(resolve => {
-      this.http.post(this.apiUrl + '/sms/' + cellPhone + '/' + verifyCode).subscribe(data => {
+      //Amin: IMP, please use JSON.stringify({}). otherwise 404 error.
+      this.http.post(this.apiUrl + '/sms/' + cellPhone + '/' + verifyCode, JSON.stringify({})).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('sendSMS error' + err.message);
