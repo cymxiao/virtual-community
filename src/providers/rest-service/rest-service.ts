@@ -256,6 +256,15 @@ export class RestServiceProvider {
     });
   }
 
+  sendSMS(cellPhone,verifyCode) { 
+    return new Promise(resolve => {
+      this.http.post(this.apiUrl + '/sms/' + cellPhone + '/' + verifyCode).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('sendSMS error' + err.message);
+      });
+    });
+  }
 
 }
 

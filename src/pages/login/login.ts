@@ -7,6 +7,8 @@ import { RegisterPage } from "../register/register";
 import { IUser } from '../../model/user';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+//import { SmsServiceProvider } from '../../providers/sms-service/sms-service';
+
 import { AppSettings , UserRoleEnum  } from '../../settings/app-settings';
 
 /**
@@ -36,7 +38,9 @@ export class LoginPage {
     disable: false  
   }  
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public service: RestServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    //private smsService : SmsServiceProvider,
+    public service: RestServiceProvider) {
     this.user = { phone: '', pwd: '' };
     //this.verifyCode.countdown = 1;
   }
@@ -109,5 +113,20 @@ export class LoginPage {
       this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;  
       this.settime();  
     }, 1000);  
-  }  
+  } 
+  
+  sendSMS(){
+    console.log('start sending sms...');
+   // const smsBody = {
+      // appid: "23171",
+      // signature: "92e80748c54a46ffd5c5954ffbbbe8e6",
+     const cellPhone = "13816873730";
+     const verifyCode ="123789";
+      //content: "【享停车】 您的验证码是 123456，请在10分钟内输入。"
+    //};
+
+    this.smsService.sendSMS(cellPhone,verifyCode).then( x => {
+      console.dir(x);
+    });
+  }
 }

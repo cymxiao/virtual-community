@@ -77,7 +77,7 @@
             <div class="text-danger" *ngIf="wrongUsrorPwd">
                 用户名或者验证码错误
             </div>
-            <button class="verifyCode" ion-button clear ion-end color="secondary" tappable (click)="settime()" [disabled]="verifyCode.disable">
+            <button class="verifyCode" ion-button clear ion-end color="secondary" tappable (click)="sendSMS();settime()" [disabled]="verifyCode.disable">
                 <ion-icon name="code-download"></ion-icon>
                 &nbsp;&nbsp;{{verifyCode.verifyCodeTips}}
             </button> 
