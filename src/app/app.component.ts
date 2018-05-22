@@ -42,7 +42,7 @@ export class MyApp {
   }
 
   myCarports() {
-    this.nav.setRoot(SelectCommunityModalPage);
+    this.nav.setRoot(SelectCommunityModalPage , { "comReadOnly": "true" });
   }
 
   myOrders() {

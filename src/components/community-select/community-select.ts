@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 /**
@@ -13,7 +13,7 @@ import { AutoCompleteServiceProvider } from '../../providers/autocomplete-servic
 })
 export class CommunitySelectComponent {
  
-  searchQuery: string = '';
+  @Input() searchQuery: string = '';
   hideList: boolean;
   coms: any;
   selectedComunityID: string;

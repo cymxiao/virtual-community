@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 import { ICarport } from 'model/carport';
 import { CarportPage } from '../carport/carport';
-
+import { CommunitySelectComponent } from '../../components/community-select/community-select'
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
@@ -42,14 +42,17 @@ export class SelectCommunityModalPage extends BasePage {
 
   addMode: boolean;
   showCarportList: boolean;
+  @ViewChild(CommunitySelectComponent) csCom: CommunitySelectComponent;
+  comReadOnly: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
-    public service: RestServiceProvider ) {
+    public service: RestServiceProvider) {
     super(navCtrl, navParams);
     //super();
-    // console.log('con' + this.navParams.get("refresh"));
+    this.comReadOnly =  this.navParams.get("comReadOnly");
+    console.log('param comReadOnly : ' + this.navParams.get("comReadOnly") );
   }
 
   ionViewDidLoad() {
@@ -75,17 +78,21 @@ export class SelectCommunityModalPage extends BasePage {
       this.currentCarportId = this.currentCarport._id;
     }
   }
- 
+
 
   save() {
 
 
     if (this.user._id) {
-      if(!this.selectedComunityID && this.user.community_ID ){
-        this.selectedComunityID = this.user.community_ID._id;
+      if (!this.selectedComunityID) {
+        if (this.user.community_ID) {
+          this.selectedComunityID = this.user.community_ID._id;
+        } else if (this.csCom.selectedComunityID) {
+          this.selectedComunityID = this.csCom.selectedComunityID;
+        }
       }
       const udpateContent = {
-        community_ID: this.selectedComunityID 
+        community_ID: this.selectedComunityID
       }
       this.service.updateUser(this.user._id, udpateContent).then((usr: any) => {
         if (usr && this.currentCarportId) {

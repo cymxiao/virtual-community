@@ -16,9 +16,17 @@
 
 <ion-content padding>
     <form class="list-form" novalidate #communityModalForm="ngForm">
-        <ion-item>
-            <community-select></community-select> 
+        <ion-item *ngIf="!comReadOnly">
+            <community-select [searchQuery]="searchQuery"></community-select> 
         </ion-item>
+
+        <ion-item *ngIf="comReadOnly">
+            <ion-label floating>
+              <ion-icon name="flag" item-start class="text-primary"></ion-icon>
+              所在小区
+            </ion-label>
+            <ion-input type="text" name="community" disabled="true" [ngModel]="searchQuery"> </ion-input> 
+          </ion-item>
 
         <ion-item *ngIf="showCarportList">
             <ion-label floating>
