@@ -7,7 +7,7 @@ import { RegisterPage } from "../register/register";
 import { IUser } from '../../model/user';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-//import { SmsServiceProvider } from '../../providers/sms-service/sms-service';
+import { Logger } from "angular2-logger/core"; 
 
 import { AppSettings, UserRoleEnum, UserStatusEnum } from '../../settings/app-settings';
 
@@ -40,7 +40,7 @@ export class LoginPage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    //private smsService : SmsServiceProvider,
+    private logger: Logger,
     public service: RestServiceProvider) {
     this.user = { phone: '', pwd: '' };
     //this.verifyCode.countdown = 1;
@@ -151,25 +151,28 @@ export class LoginPage {
         if (usr) {
           //console.dir(usr);
           if (usr.duplicateUsername === true) {
-            console.log('User Exist, Update password directly');
+            //console.log('User Exist, Update password directly');
             const udpateContent = {
               password: verifyCode
             };
             this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
               if (uptUser) {
                 //console.dir(uptUser);
-                console.log('update user password suc when user exist on login page.');
+                console.log('update user password suc when user exist on login page.'); 
               } else {
-                console.log('update user failed suc when user exist on login page.');
+                //console.log('update user failed suc when user exist on login page.');
+                this.logger.error('update user failed suc when user exist on login page.');
               }
             });
           }
         }
       }).catch(e => {
         console.log(e);
+        this.logger.error('Register user (add a new user to db) failed');
       });
       this.service.sendSMS(cellPhone, verifyCode).then(x => {
-        console.dir(x);
+        //console.dir(x);
+        this.logger.info('User Registed:' + cellPhone + 'has registered, and would get verifycode by SMS.')
       });
     } else {
       this.cellPhoneError = true;

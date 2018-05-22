@@ -32,6 +32,7 @@ import { SMS } from '@ionic-native/sms';
 import { Alipay } from '@ionic-native/alipay';
 //It's quite important to delcare in provider
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Logger } from "angular2-logger/core"; 
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     SMS,
     LocalNotifications,
     Alipay,
+    Logger,
     Geolocation
     //GeographicalMapServiceProvider
   ]
