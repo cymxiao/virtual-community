@@ -151,13 +151,23 @@ export class LoginPage {
         if (usr) {
           //console.dir(usr);
           if (usr.duplicateUsername === true) {
-            console.log('User Exist, nothing to register!');
+            console.log('User Exist, Update password directly');
+            const udpateContent = {
+              password: verifyCode
+            };
+            this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
+              if (uptUser) {
+                //console.dir(uptUser);
+                console.log('update user password suc when user exist on login page.');
+              } else {
+                console.log('update user failed suc when user exist on login page.');
+              }
+            });
           }
         }
       }).catch(e => {
         console.log(e);
       });
-      console.log(verifyCode);
       this.service.sendSMS(cellPhone, verifyCode).then(x => {
         console.dir(x);
       });

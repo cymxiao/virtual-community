@@ -19,3 +19,12 @@ ionic cordova platform add browser
 ionic cordova run browser
 
 
+
+
+Deploy: 
+ionic cordova platform remove android
+ionic cordova platform add android@6.4.0
+ionic cordova platform remove ios
+ionic cordova platform add ios 
+
+

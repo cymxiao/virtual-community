@@ -13,9 +13,9 @@ export class AppSettings{
         if (ENV.mode === 'Production') {
             return "http://localhost:3000";
         } else if (ENV.mode === 'Development') {
-            return "http://192.168.0.110:3000";
+            return "http://192.168.1.4:3000";
         } else if (ENV.mode === 'Home') {
-            return "http://192.168.0.110:3000";
+            return "http://192.168.1.4:3000";
         } else {
             return "http://localhost:3000";
         }
