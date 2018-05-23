@@ -60,7 +60,7 @@ export class CarportPage {
           } else if (cp.parkingNumber === '-3') {
             this.errorInfo = '单个用户最多可以拥有3个车位';
           } else if (cp._id) {
-            this.dismiss({ "refresh": "true" });
+            this.dismiss({ "data": cp });
           }
           // this.viewCtrl.dismiss();
           // this.navCtrl.getRootNav().push(SecondPage);

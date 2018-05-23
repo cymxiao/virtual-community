@@ -154,10 +154,11 @@ export class SelectCommunityModalPage extends BasePage {
 
   presentCarportModal() {
     let cpModal = this.modalCtrl.create(CarportPage);
-    cpModal.onDidDismiss(data => {
-      //console.dir(  data);
-      //this.refresh();
-      //refresh carport list
+    cpModal.onDidDismiss(data => { 
+      //console.dir(data); 
+      if(data && data.data){
+        this.currentCarportId = data.data._id;
+      }
       this.getCarportList();
     });
     cpModal.present();
