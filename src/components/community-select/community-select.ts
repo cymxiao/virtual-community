@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
+import { LookupLeisureParkPage } from '../../pages/lookup-leisure-park/lookup-leisure-park';
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';
 /**
  * Generated class for the CommunitySelectComponent component.
@@ -14,6 +16,7 @@ import { AutoCompleteServiceProvider } from '../../providers/autocomplete-servic
 export class CommunitySelectComponent {
  
   @Input() searchQuery: string = '';
+  @Input() source: string = '';
   hideList: boolean;
   coms: any;
   selectedComunityID: string;
@@ -22,11 +25,11 @@ export class CommunitySelectComponent {
   scrollClass: string;
 
 
-  constructor(public autoService: AutoCompleteServiceProvider) {
+  constructor(public navCtrl: NavController,public autoService: AutoCompleteServiceProvider) {
     this.scrollClass = "scroll-min";
   }
 
-  searchTextChagne(ev: any) {
+  searchTextChange(ev: any) {
     if (ev.target.value.length > 1) {
       //scroll-y is ionic class ,important: take care the sequence, scroll-max must be on the first place.
       this.scrollClass = "scroll-max scroll-y";
@@ -48,6 +51,14 @@ export class CommunitySelectComponent {
     this.searchQuery = item.name;
     this.selectedComunityID = item._id;
     this.pmc = item.PMC;
+
+    //if this component is called by Test Page(it's a map page)
+    if (this.source === 'map') {
+      this.navCtrl.push(LookupLeisureParkPage, {
+        comId: this.selectedComunityID,
+        comName: this.searchQuery
+      });
+    }
   }
 
 

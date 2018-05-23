@@ -43,13 +43,14 @@ export class TestPage {
   searchQuery: string = '';
   coms: any;
   hideList: boolean;
+  source: string;
 
   @ViewChild('map') map_container: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public APIService: RestServiceProvider, private geolocation: Geolocation) {
     this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(30, 30));
-
+    this.source = "map";
   }
 
   ionViewDidLoad() {
