@@ -42,7 +42,7 @@ export class ProfilePage extends BasePage {
     if (!this.user.community_ID || !this.user.community_ID._id
       || !this.currentCarport || !this.currentCarport.parkingNumber) {
         if(!this.user.role || (this.user.role && this.user.role[0]!== UserRoleEnum.PMCUser)){
-          this.navCtrl.push(SelectCommunityModalPage);  
+          this.navCtrl.push(SelectCommunityModalPage, {source: "profile"});  
         } else{
           this.isPMCUser = true;
         }

@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, ViewController, ModalController } 
 import { TabsPage } from '../tabs/tabs';
 import { ICarport } from 'model/carport';
 import { CarportPage } from '../carport/carport';
+import { ProfilePage } from '../profile/profile';
 import { CommunitySelectComponent } from '../../components/community-select/community-select'
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
@@ -44,6 +45,7 @@ export class SelectCommunityModalPage extends BasePage {
   showCarportList: boolean;
   @ViewChild(CommunitySelectComponent) csCom: CommunitySelectComponent;
   comReadOnly: boolean;
+  source: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
@@ -52,6 +54,7 @@ export class SelectCommunityModalPage extends BasePage {
     super(navCtrl, navParams);
     //super();
     this.comReadOnly =  this.navParams.get("comReadOnly");
+    this.source = this.navParams.get("source");
     console.log('param comReadOnly : ' + this.navParams.get("comReadOnly") );
   }
 
@@ -81,8 +84,6 @@ export class SelectCommunityModalPage extends BasePage {
 
 
   save() {
-
-
     if (this.user._id) {
       if (!this.selectedComunityID) {
         if (this.user.community_ID) {
@@ -115,6 +116,10 @@ export class SelectCommunityModalPage extends BasePage {
                   localStorage.setItem('user', JSON.stringify(usr));
                   localStorage.setItem('carport', JSON.stringify(cp));
                   //this.navCtrl.pop();
+
+                  if(this.source === 'profile'){
+                    this.navCtrl.setRoot(ProfilePage);
+                  }
                 }
               });
             }
@@ -163,13 +168,11 @@ export class SelectCommunityModalPage extends BasePage {
 
 
 
-  dismiss(data) {
-
+  dismiss(data) { 
     this.viewCtrl.dismiss(data);
   }
 
-  refresh() {
-
+  refresh() { 
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
