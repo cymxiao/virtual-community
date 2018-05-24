@@ -105,10 +105,7 @@
                     请确认输入6位手机验证码
                 </div> 
             </div> 
-            <button class="verifyCode" ion-button clear ion-end color="secondary" tappable (click)="settime()" [disabled]="verifyCode.disable">
-                <ion-icon name="code-download"></ion-icon>
-                &nbsp;&nbsp;{{verifyCode.verifyCodeTips}}
-            </button>
+            <sms-code [cellPhoneNumber] ="this.pmc.username"></sms-code>
            
         </form>
 

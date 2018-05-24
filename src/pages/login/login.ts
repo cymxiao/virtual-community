@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
@@ -10,6 +10,7 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { Logger } from "angular2-logger/core"; 
 
 import { AppSettings, UserRoleEnum, UserStatusEnum } from '../../settings/app-settings';
+import { SmsCodeComponent } from '../../components/sms-code/sms-code';
 
 /**
  * Generated class for the LoginPage page.
@@ -32,6 +33,7 @@ export class LoginPage {
   passwordBlur: boolean;
   wrongUsrorPwd: boolean = false;
   cellPhoneError: boolean = false;
+  @ViewChild(SmsCodeComponent) smsCom: SmsCodeComponent;
 
   verifyCode: any = {
     verifyCodeTips: "获取验证码",
@@ -97,85 +99,12 @@ export class LoginPage {
 
   on_usernameBlur(target) {
     //console.log('username on blur');
-    this.usernameBlur = true;
-    if (this.user.phone && this.user.phone.length === 11) {
-      this.cellPhoneError = false;
-      this.verifyCode.disable = false;
-    } else {
-      //this.cellPhoneError = true;
-      this.verifyCode.disable = true;
-    }
+    this.usernameBlur = true; 
+    this.smsCom.disabled();
   }
 
   on_passwordBlur(target) {
     this.passwordBlur = true;
-  }
+  } 
 
-  settime() {
-    if (this.user.phone && this.user.phone.length === 11) {
-      //console.log(this.verifyCode.countdown);
-      if (this.verifyCode.countdown == 1) {
-        this.verifyCode.countdown = 60;
-        this.verifyCode.verifyCodeTips = "获取验证码";
-        this.verifyCode.disable = false;
-        return;
-      } else {
-        this.verifyCode.countdown--;
-        //this.verifyCode.disable = true;  
-      }
-      this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;
-      setTimeout(() => {
-        this.verifyCode.disable = true;
-        this.verifyCode.verifyCodeTips = "重新获取" + this.verifyCode.countdown;
-        this.settime();
-      }, 1000);
-    }
-  }
-
-  sendSMS() {
-    if (this.user.phone && this.user.phone.length === 11) {
-      const cellPhone = this.user.phone;
-      //generate a random number , length six
-      const verifyCode = Math.round(Math.random() * 1000000);
-      console.log(verifyCode);
-
-      //register this user
-      this.service.addUser(
-        {
-          username: cellPhone,
-          //password: AppSettings.Encrypt(verifyCode),
-          password: verifyCode,
-          status: UserStatusEnum.pendingOnVerify
-        }
-      ).then((usr: any) => {
-        if (usr) {
-          //console.dir(usr);
-          if (usr.duplicateUsername === true) {
-            //console.log('User Exist, Update password directly');
-            const udpateContent = {
-              password: verifyCode
-            };
-            this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
-              if (uptUser) {
-                //console.dir(uptUser);
-                console.log('update user password suc when user exist on login page.'); 
-              } else {
-                //console.log('update user failed suc when user exist on login page.');
-                this.logger.error('update user failed suc when user exist on login page.');
-              }
-            });
-          }
-        }
-      }).catch(e => {
-        console.log(e);
-        this.logger.error('Register user (add a new user to db) failed');
-      });
-      this.service.sendSMS(cellPhone, verifyCode).then(x => {
-        //console.dir(x);
-        this.logger.info('User Registed:' + cellPhone + 'has registered, and would get verifycode by SMS.')
-      });
-    } else {
-      this.cellPhoneError = true;
-    }
-  }
 }

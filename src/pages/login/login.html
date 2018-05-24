@@ -56,9 +56,9 @@
                     请确认输入11位手机号码
                 </div>
             </div>
-            <div class="text-danger" *ngIf="cellPhoneError">
+            <!-- <div class="text-danger" *ngIf="cellPhoneError">
                 请确认输入11位手机号码
-            </div>
+            </div> -->
 
             <ion-item>
                 <ion-label floating>
@@ -80,10 +80,11 @@
             <div class="text-danger" *ngIf="wrongUsrorPwd">
                 用户名或者验证码错误
             </div>
-            <button class="verifyCode" ion-button clear ion-end color="secondary" tappable (click)="sendSMS();settime()" [disabled]="verifyCode.disable">
+            <!-- <button class="verifyCode" ion-button clear ion-end color="secondary" tappable (click)="sendSMS();settime()" [disabled]="verifyCode.disable">
                 <ion-icon name="code-download"></ion-icon>
                 &nbsp;&nbsp;{{verifyCode.verifyCodeTips}}
-            </button> 
+            </button>  -->
+            <sms-code [cellPhoneNumber] ="this.user.phone"></sms-code>
             <div> 
                 <button ion-button icon-start block round color="secondary" tappable [disabled]=" !loginForm.form.valid" (click)="login()">
                     <ion-icon name="log-in"></ion-icon>

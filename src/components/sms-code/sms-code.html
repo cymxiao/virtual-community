@@ -1,0 +1,5 @@
+<!-- Generated template for the SmsCodeComponent component -->
+<button class="verifyCode" ion-button clear ion-end color="secondary" tappable (click)="sendSMS();settime()" [disabled]="verifyCode.disable">
+  <ion-icon name="code-download"></ion-icon>
+  &nbsp;&nbsp;{{verifyCode.verifyCodeTips}}
+</button> 
