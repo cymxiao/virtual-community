@@ -9,11 +9,11 @@
 <ion-content padding>
     <div>
             <!-- {{loginForm.form.valid}} -->
-            <button  *ngIf="!showAddContent" ion-button icon-start block color="secondary" tappable  (click)="addButtonClick()">
+            <button  *ngIf="!showAddContent" ion-button icon-start block round color="secondary" tappable  (click)="addButtonClick()">
                 <ion-icon name="add-circle"></ion-icon>
                 我要共享车位
             </button>
-            <button *ngIf="showAddContent" ion-button icon-start block color="secondary" tappable  (click)="cancelButtonClick()">
+            <button *ngIf="showAddContent" ion-button icon-start block round color="secondary" tappable  (click)="cancelButtonClick()">
                 <ion-icon name="close-circle"></ion-icon>
                 取消
             </button>
@@ -46,25 +46,7 @@
             </ion-card-content>
 
         </ion-card>
-         
-       
-<!-- 
-        <ion-item>
-            <ion-label floating>
-                <ion-icon name="time" item-start class="text-primary"></ion-icon>
-                开始时间
-            </ion-label> 
-            <!--[error]="user.invalid && templSubmitted" [errorMessage]="getErrorMessage('username', 'templ')" placeholder="Username" minlength="2" required icon="user4"-->
-            <!-- <ion-datetime displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime"
-             name="fieldPhone" required #fieldPhone="ngModel" cancelText ="取消" doneText="确定"></ion-datetime> 
-        </ion-item>
-        <div *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
-            <div class="text-danger" *ngIf="fieldPhone.errors.required">
-                请选择开始时间
-            </div>
-
-        </div> -->  
-
+          
         <ion-item>
             <ion-label floating>
                 <ion-icon name="time" item-start class="text-primary"></ion-icon>
@@ -149,7 +131,7 @@
 
         <div>
             <!-- {{loginForm.form.valid}} -->
-            <button ion-button icon-start block color="secondary" tappable [disabled]="!leisureParkForm.form.valid || failedForValidation" (click)="saveLeisurePark()">
+            <button ion-button icon-start block round color="secondary" tappable [disabled]="!leisureParkForm.form.valid || failedForValidation" (click)="saveLeisurePark()">
                 <ion-icon name="checkbox"></ion-icon>
                 提交
             </button>

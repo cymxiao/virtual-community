@@ -55,17 +55,7 @@ export class TestPage {
 
   ionViewDidLoad() {
     //Amin: !Important:map_container shoud be called here, it can't be inited in constructor, if called in constructor
-    // this error display: nativeElement can be find of undefined
-    // let map =
-    // this.map =
-    // new BMap.Map(
-    //   this.map_container.nativeElement,
-    //   {
-    //     enableMapClick: true,//点击拖拽
-    //     enableScrollWheelZoom: true,//启动滚轮放大缩小，默认禁用
-    //     enableContinuousZoom: true //连续缩放效果，默认禁用
-    //   }
-    // );
+ 
 
     this.map = new BMap.Map("map_container");
     this.map.centerAndZoom('上海', 13);
@@ -75,7 +65,7 @@ export class TestPage {
     this.map.addControl(geolocationControl);
     this.getStatisticOfCarport();
 
-    //this.getLocation(); 
+    this.getLocation(); 
   }
 
 

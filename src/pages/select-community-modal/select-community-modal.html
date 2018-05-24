@@ -45,20 +45,20 @@
             </div>
         </ion-item> -->
         <ion-item>
-            <button  ion-button icon-end color="primary" tappable (click)="btnAdd()">
+            <button  ion-button icon-end color="secondary" tappable (click)="btnAdd()">
                 <ion-icon name="add-circle"></ion-icon>
                 &nbsp;&nbsp;新增车位
             </button>
         </ion-item> 
  <!-- {{communityModalForm.form.invalid}} -->
-        <button ion-button icon-start block color="primary" tappable (click)="save()" 
+        <button ion-button icon-start block round color="secondary" tappable (click)="save()" 
         [disabled]="communityModalForm.form.invalid ||!showCarportList">
             <ion-icon name="checkbox"></ion-icon>
             保存设置
         </button>
     </form>
-    <button ion-button icon-end class="pull-right" color="primary" tappable (click)="goBackHome()" >
+    <!-- <button ion-button icon-end class="pull-right" color="primary" tappable (click)="goBackHome()" >
             <ion-icon name="arrow-back"></ion-icon>  
             &nbsp;&nbsp;返回主页
-    </button>
+    </button> -->
 </ion-content>
