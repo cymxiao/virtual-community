@@ -4,21 +4,14 @@
     <ion-searchbar (ionInput)="searchTextChange($event)" placeholder="请输入小区名称" 
     name="searchQuery" [(ngModel)]="searchQuery" #fieldsearch="ngModel" required >
     </ion-searchbar>
-    <ion-item no-lines *ngIf="fieldsearch.invalid && (fieldsearch.dirty || fieldsearch.touched)">
+    <ion-item no-lines *ngIf="this.source!=='map' && fieldsearch.invalid && (fieldsearch.dirty || fieldsearch.touched)">
       <div class="text-danger" *ngIf="fieldsearch.errors.required">
         请输入小区名称
       </div>
     </ion-item>
-    <ion-scroll scrollY="true" [class]="scrollClass" > 
-       <!-- style="width: 100%; height: 150px;"-->
-      <!-- <div *ngIf="!hideList" style="width: 100%; height: 500px;">
-        <div *ngFor="let com of coms" (click)="addItem(com)">
-          {{com.name}}
-        </div>
-      </div> -->
+    <ion-scroll scrollY="true" [class]="scrollClass" >  
       <ion-list *ngIf="!hideList">
-        <ion-item no-lines *ngFor="let com of coms" (click)="addItem(com)" >
-            <!--tap-->
+        <ion-item no-lines *ngFor="let com of coms" (click)="addItem(com)" > 
             {{com.name}}
         </ion-item>
     </ion-list>

@@ -5,6 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { IStatisticCarport } from '../../model/visual-statistic-carport';
 import { IUser } from '../../model/user';
+import { ICommunity } from '../../model/community';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
@@ -89,8 +90,8 @@ export class TestPage {
   //   }
   //   //this.index++;
   // }
-  geocodeSearch(add, comName, sharedCarportNumber) {
-    this.myGeo.getPoint(add, x => { this.callBackEvent(x, add, comName, sharedCarportNumber); }, "上海市");
+  geocodeSearch(community :ICommunity, sharedCarportNumber) {
+    this.myGeo.getPoint(community.address, x => { this.callBackEvent(x, community, sharedCarportNumber); }, "上海市");
   }
   // 编写自定义函数,创建标注
   addMarker(point, label) {
@@ -99,24 +100,25 @@ export class TestPage {
     marker.setLabel(label);
   }
 
-  callBackEvent(point, add, comName, sharedCarportNumber) {
+  callBackEvent(point, community:ICommunity, sharedCarportNumber) {
     if (point) {
       //this.addMarker(point, new BMap.Label( add , { offset: new BMap.Size(20, -10) }));
-      this.addInfoWindow(point, add, comName, sharedCarportNumber);
+      this.addInfoWindow(point, community, sharedCarportNumber);
     }
   }
 
 
-  addInfoWindow(point, address, community_name, sharedCarportNumber) {
-    const content = '<div >' + address + '</div>' +
+  addInfoWindow(point, community, sharedCarportNumber) {
+    const content = '<div >' + community.address + '</div>' +
+    '<div onclick='+ this.checkDetail(community._id,community.name) +' >  <a >查看详情</a> </div>'
       '<div > 空闲车位数量：' + sharedCarportNumber + '</div>';
     //+ '<div>  <a href="#">查看详情</a> </div>';
 
     //创建检索信息窗口对象
     let searchInfoWindow = null;
     searchInfoWindow = new BMapLib.SearchInfoWindow(this.map, content, {
-      title: community_name,      //标题
-      width: 290,             //宽度
+      title: community.name,      //标题
+      width: 250,             //宽度
       height: 105,              //高度
       panel: "panel",         //检索结果面板
       enableAutoPan: true,     //自动平移
@@ -163,7 +165,7 @@ export class TestPage {
         if (c.community_info && c.community_info.length > 0) {
           //addtmp = c.community_info[0].address;
           this.adds.push(c.community_info[0].address);
-          this.geocodeSearch(c.community_info[0].address, c.community_info[0].name, c.count);
+          this.geocodeSearch(c.community_info[0], c.count);
         }
       });
       //console.dir(this.adds);
@@ -176,11 +178,15 @@ export class TestPage {
     this.map.addControl(geolocationControl);
   }
 
-  checkDetail() {
-    this.navCtrl.push(HomePage);
+  checkDetail(commmunityId,community_name) {
+    console.log('haha this');
+    // this.navCtrl.push(LookupLeisureParkPage, {
+    //   comId: commmunityId,
+    //   comName: community_name
+    // });
   }
 
-
+ 
   searchClicked() {
     // push another page onto the navigation stack
     // causing the nav controller to transition to the new page
