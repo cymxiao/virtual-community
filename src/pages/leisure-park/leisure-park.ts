@@ -8,7 +8,7 @@ import { IUser } from '../../model/user';
 import { ICommunity } from '../../model/community';
 import { ICarport } from '../../model/carport';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
-import { AppSettings } from '../../settings/app-settings';
+import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
@@ -99,9 +99,12 @@ export class LeisureParkPage {
     this.minDate = this.getGoodTime().add(8, 'hours').toISOString();
     this.minDateforEndTime =this.getGoodTime().add(12, 'hours').toISOString();
     this.currentUser = AppSettings.getCurrentUser();
-    if (this.currentUser && !this.currentUser.community_ID) {
-      this.navToPage();
-    } else {
+    this.currentCarport = AppSettings.getCurrentCarport();
+    if (!this.currentUser.community_ID || !this.currentUser.community_ID._id
+      || !this.currentCarport || !this.currentCarport.parkingNumber) {
+        if(!this.currentUser.role || (this.currentUser.role && this.currentUser.role[0]!== UserRoleEnum.PMCUser)) {
+          this.navCtrl.push(SelectCommunityModalPage, {source: "leisurepark"});
+    }} else {
       if (!AppSettings.getCurrentCarport()) {
         this.service.getCarportListByOwnerId(this.currentUser._id).then((carp: any) => {
           if (carp && carp.length > 0) {
@@ -129,9 +132,9 @@ export class LeisureParkPage {
   //   selectcommodal.present();
   // }
 
-  navToPage(){
-    this.navCtrl.push(SelectCommunityModalPage);
-  }
+  // navToPage(){
+  //   this.navCtrl.push(SelectCommunityModalPage, {source: "profile"});
+  // }
 
   addButtonClick() {
     //Amin: IMP.  +8 display as local timezone .

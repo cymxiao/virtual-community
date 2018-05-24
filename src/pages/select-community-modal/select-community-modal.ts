@@ -5,6 +5,7 @@ import { TabsPage } from '../tabs/tabs';
 import { ICarport } from 'model/carport';
 import { CarportPage } from '../carport/carport';
 import { ProfilePage } from '../profile/profile';
+import { LeisureParkPage } from '../leisure-park/leisure-park';
 import { CommunitySelectComponent } from '../../components/community-select/community-select'
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
@@ -55,7 +56,7 @@ export class SelectCommunityModalPage extends BasePage {
     //super();
     this.comReadOnly =  this.navParams.get("comReadOnly");
     this.source = this.navParams.get("source");
-    console.log('param comReadOnly : ' + this.navParams.get("comReadOnly") );
+    //console.log('param comReadOnly : ' + this.navParams.get("comReadOnly") );
   }
 
   ionViewDidLoad() {
@@ -119,6 +120,8 @@ export class SelectCommunityModalPage extends BasePage {
 
                   if(this.source === 'profile'){
                     this.navCtrl.setRoot(ProfilePage);
+                  } else if(this.source === 'leisurepark'){
+                    this.navCtrl.setRoot(LeisureParkPage);
                   }
                 }
               });
