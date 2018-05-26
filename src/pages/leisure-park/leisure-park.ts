@@ -64,7 +64,7 @@ export class LeisureParkPage {
       price: '',
       timestamp: null,
       priceUnit: 'day'
-    }
+    } 
 
     this.currentCommunity = {
       _id: '',
@@ -76,6 +76,19 @@ export class LeisureParkPage {
       city_ID: '',
       address: ''
     }
+
+    this.currentUser ={
+      _id: '',
+   
+      username: '',
+      password: '',
+      community_ID: this.currentCommunity,
+      role:'',
+      phoneNo: '',
+      address: '',
+      name:''
+    }
+
     this.currentCarport = {
       _id: '',
       id: '',
@@ -86,14 +99,9 @@ export class LeisureParkPage {
       route: '',
       owner_user_ID: ''
     }
-
-    //console.log('get param : ' + this.params.get('reload'));
   }
 
-  ionViewDidLoad() {
-    //console.log(moment().format());
-    //console.log(mz.timezone.name);
-    //console.log( new Date().toISOString());
+  ionViewDidLoad() { 
     //console.log(this.moment.toLocaleString());
     //this.minDate =  new Date().toISOString();
     this.minDate = this.getGoodTime().add(8, 'hours').toISOString();
@@ -122,21 +130,34 @@ export class LeisureParkPage {
     this.getLeisureParkforOwner();
   }
  
-
-  // presentModal() {
-  //   const selectcommodal = this.modalCtrl.create(SelectCommunityModalPage);
-  //   selectcommodal.onDidDismiss(data => {
-  //     console.log(data);
-  //     this.refresh();
-  //   });
-  //   selectcommodal.present();
-  // }
-
-  // navToPage(){
-  //   this.navCtrl.push(SelectCommunityModalPage, {source: "profile"});
-  // }
-
+ 
   addButtonClick() {
+    // let time = moment();
+    // let previousRecordEndTime = time;
+    // //Amin: IMP, please if use this.currentUser.community_ID, this.currentUser should be init in contructor.
+    // if(this.currentCarport && this.currentUser && this.currentUser.community_ID ){
+    // this.service.getStartTimeforNext(this.currentUser.community_ID._id, this.currentUser._id,this.currentCarport._id) 
+    //   .then( (lpRec:ILeisurePark) => {  
+    //     if(lpRec){
+    //       previousRecordEndTime = moment(lpRec.endTime);
+    //       if(time.isBefore(previousRecordEndTime)){
+    //         time = previousRecordEndTime;
+    //       }
+    //       if (moment().minute() < 30) {
+    //         time.minute(30).second(0);
+    //       } else {
+    //         time.add(1, 'hours').minute(0).second(0);
+    //       }
+
+    //       //console.log('1:' + time.format("YYYY-MM-DD hh:mm:ss"));
+    //       this.leisurePark.startTime = time.add(8, 'hours').toISOString();
+    //       //console.log('2:' + time.format("YYYY-MM-DD hh:mm:ss"));
+    //       this.leisurePark.endTime = time.add(8, 'hours').toISOString();
+    //       //console.log('3:' + time.format("YYYY-MM-DD hh:mm:ss"));
+    //       this.showAddContent = true;
+    //     } 
+    //   });
+    // } 
     //Amin: IMP.  +8 display as local timezone .
     this.leisurePark.startTime = this.getGoodTime().add(8, 'hours').toISOString();
     //Amin: IMP. I can't direct use add(8, 'hours'), otherwise when validate endTime, 
@@ -147,7 +168,7 @@ export class LeisureParkPage {
   }
 
   getGoodTime() {
-    let time = moment();
+    let time = moment(); 
     if (moment().minute() < 30) {
       time.minute(30).second(0);
     } else {
@@ -166,9 +187,10 @@ export class LeisureParkPage {
     this.leisurePark.community_ID = this.currentUser.community_ID._id;
 
     //Amin: IMP. -8, Save as ISO date
-    this.leisurePark.startTime = moment(this.leisurePark.startTime).add(-8, 'hours').toISOString();
-    this.leisurePark.endTime = moment(this.leisurePark.endTime).add(-8, 'hours').toISOString();
-
+    //when save to momgo db, remove miniseconds
+    this.leisurePark.startTime = moment(moment(this.leisurePark.startTime).format("YYYY-MM-DD hh:mm:ss")).add(-8, 'hours').toISOString();
+    this.leisurePark.endTime = moment(moment(this.leisurePark.endTime).format("YYYY-MM-DD hh:mm:ss")).add(-8, 'hours').toISOString();
+ 
     if (!this.leisurePark.community_ID) {
       //console.log('saveLeisurePark' + 'delete empty community_ID');
       delete this.leisurePark.community_ID;
@@ -204,19 +226,23 @@ export class LeisureParkPage {
 
 
   on_startTime_Blur(item) {
-    //console.log(item);
     //console.log(item._text);
     if (item && item._text) {
-      this.service.checkStartTime(this.currentUser.community_ID._id,this.currentUser._id
-        //IMP:comment. add minute for boudary condition.
-        ,this.currentCarport._id, moment(item._text).add(-1, 'minutes').toISOString()).then( (wrongTime) => {
-        //console.log(duplicateUser);
-        if (wrongTime) {
-          this.wrongStartTime = true;
-          this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
-        }
-      });
+       this.checkStartTime(item._text);
     }
+  }
+
+  checkStartTime(startTime){
+    this.service.checkStartTime(this.currentUser.community_ID._id,this.currentUser._id
+      //IMP:comment. add minute for boudary condition.
+      //,this.currentCarport._id, moment(item._text).add(-1, 'minutes').toISOString()).then( (wrongTime) => {
+        ,this.currentCarport._id, moment(startTime).toISOString()).then( (wrongTime) => {
+      console.log( wrongTime);
+      if (wrongTime) {
+        this.wrongStartTime = true;
+        this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice; 
+      }
+    });
   }
 
   on_price_Blur(item) {
@@ -227,33 +253,38 @@ export class LeisureParkPage {
          
        } else {
         this.wrongPrice = false;
-       }
-       
-    }
+       } 
+    } 
+    this.checkStartTime(moment(this.leisurePark.startTime).add(-8, 'hours'));
+    //this.checkEndTime(moment(this.leisurePark.endTime));
     this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
   }
 
   on_endTime_Blur(item) {
     if (item && item._text) {
-      const begin = new Date(this.leisurePark.startTime);
-      const end = new Date(this.leisurePark.endTime);
-      //console.log('hours :' + moment(end).diff(moment(begin), 'hours') );
-      if (end <= begin) {
-        this.endTimeshouldGreaterThanStart = true;
-      } else if (moment(end).diff(moment(begin), 'minutes') < 4*60) {
-        this.fourHoursError = true;
-      } else {
-        this.service.checkEndTime(this.currentUser.community_ID._id, this.currentUser._id
-          //Todo:Amin, what's diff for endtime, due to checkStartTime didn't call this.savedISOTime method
-          //It's may be dirty data in database. I should remove all dirty data in db.
-          //Todo: do we boundary condition here?
-          , this.currentCarport._id, item._text).then((wrongEndTime) => {
-            if (wrongEndTime) {
-              this.wrongEndTime = true;
-              this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
-            }
-          });
-      }
+     this.checkEndTime(item._text);
+    }
+  }
+
+  checkEndTime(endTime){
+    const begin = new Date(this.leisurePark.startTime);
+    const end = new Date(this.leisurePark.endTime);
+    //console.log('hours :' + moment(end).diff(moment(begin), 'hours') );
+    if (end <= begin) {
+      this.endTimeshouldGreaterThanStart = true;
+    } else if (moment(end).diff(moment(begin), 'minutes') < 4*60) {
+      this.fourHoursError = true;
+    } else {
+      this.service.checkEndTime(this.currentUser.community_ID._id, this.currentUser._id
+        //Todo:Amin, what's diff for endtime, due to checkStartTime didn't call this.savedISOTime method
+        //It's may be dirty data in database. I should remove all dirty data in db.
+        //Todo: do we boundary condition here?
+        , this.currentCarport._id, endTime).then((wrongEndTime) => {
+          if (wrongEndTime) {
+            this.wrongEndTime = true;
+            this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
+          }
+        });
     }
   }
 

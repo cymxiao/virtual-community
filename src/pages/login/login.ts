@@ -93,11 +93,7 @@ export class LoginPage {
       console.log(x);
     })
   }
-
-  forgotPass() {
-
-  }
-
+ 
   on_usernameBlur(target) {
     //console.log('username on blur');
     this.usernameBlur = true; 

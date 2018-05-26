@@ -9,8 +9,8 @@ import { ICommunity } from '../../model/community';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
+import { SmsCodeComponent } from '../../components/sms-code/sms-code';
 
-import { HomePage } from '../../pages/home/home';
 
 declare var BMap;
 declare var BMapLib;
@@ -47,6 +47,7 @@ export class TestPage {
   source: string;
 
   @ViewChild('map') map_container: ElementRef;
+  @ViewChild(SmsCodeComponent) smsCom: SmsCodeComponent;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public APIService: RestServiceProvider, private geolocation: Geolocation) {
@@ -110,9 +111,11 @@ export class TestPage {
 
   addInfoWindow(point, community, sharedCarportNumber) {
     const content = '<div >' + community.address + '</div>' +
-    '<div onclick='+ this.checkDetail(community._id,community.name) +' >  <a >查看详情</a> </div>'
-      '<div > 空闲车位数量：' + sharedCarportNumber + '</div>';
-    //+ '<div>  <a href="#">查看详情</a> </div>';
+      //'<div  click ="this.checkDetail(community._id,community.name)" >  <a>查看详情</a> </div>' +
+      //'<div  click =alert("haha") >  <a>查看详情</a> </div>' +
+      '<div > 空闲车位数量：' + sharedCarportNumber + '</div>' ;
+     
+ 
 
     //创建检索信息窗口对象
     let searchInfoWindow = null;
@@ -138,7 +141,7 @@ export class TestPage {
 
   getLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      if (resp) {
+      if (resp && resp.coords) {
         let locationPoint = new BMap.Point(resp.coords.longitude, resp.coords.latitude);
         let convertor = new BMap.Convertor();
         let pointArr = [];
@@ -154,7 +157,9 @@ export class TestPage {
         this.map.centerAndZoom(locationPoint, 13);
         console.log('GPS定位：您的位置是 ' + resp.coords.longitude + ',' + resp.coords.latitude);
       }
-    })
+    }).catch(e => {
+      console.log(e); 
+    });;
   }
 
   getStatisticOfCarport() {
@@ -179,12 +184,14 @@ export class TestPage {
   }
 
   checkDetail(commmunityId,community_name) {
-    console.log('haha this');
-    // this.navCtrl.push(LookupLeisureParkPage, {
-    //   comId: commmunityId,
-    //   comName: community_name
-    // });
+    //console.log('haha this');
+    this.navCtrl.push(LookupLeisureParkPage, {
+      comId: commmunityId,
+      comName: community_name
+    });
   }
+
+ 
 
  
   searchClicked() {

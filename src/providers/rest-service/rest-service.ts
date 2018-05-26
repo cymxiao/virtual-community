@@ -224,6 +224,16 @@ export class RestServiceProvider {
     });
   }
 
+  getStartTimeforNext(comId,ownerId,cpId){
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/getStartTimeforNext/' + comId + '/' + ownerId + '/' + cpId ).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
   checkEndTime(comId,ownerId,cpId,endTime){
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/checkEndTime/' + comId + '/' + ownerId + '/' + cpId + '/' + endTime).subscribe(data => {
