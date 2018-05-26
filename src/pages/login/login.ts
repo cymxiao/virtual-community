@@ -87,6 +87,7 @@ export class LoginPage {
       } else {
         this.wrongUsrorPwd = true;
         //console.log('wrong username or password');
+        this.logger.error('wrong username or password.');
       }
     }).catch(x => {
       console.log(x);

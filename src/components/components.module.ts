@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from "ionic-angular";
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { CommunitySelectComponent } from './community-select/community-select';
 import { SmsCodeComponent } from './sms-code/sms-code';

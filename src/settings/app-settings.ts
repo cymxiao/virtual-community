@@ -1,6 +1,6 @@
 import { ENV } from '@app/env';
 import CryptoJS from 'crypto-js';
-import CryptoBrowserify from 'crypto-browserify';
+//import CryptoBrowserify from 'crypto-browserify';
 
 
 export class AppSettings{
@@ -13,7 +13,7 @@ export class AppSettings{
         if (ENV.mode === 'Production') {
             return "http://localhost:3000";
         } else if (ENV.mode === 'Development') {
-            return "http://192.168.1.4:3000";
+            return "http://localhost:3000";
         } else if (ENV.mode === 'Home') {
             return "http://192.168.1.4:3000";
         } else {
@@ -46,7 +46,7 @@ export class AppSettings{
 
        public static Encrypt(source){
        let ekey = CryptoJS.enc.Utf8.parse(AppSettings.ENCRYPTION_KEY); //16位
-       let eiv = CryptoJS.enc.Utf8.parse(AppSettings.ENCRYPTION_KEY);
+       //let eiv = CryptoJS.enc.Utf8.parse(AppSettings.ENCRYPTION_KEY);
         // return CryptoJS.AES.encrypt(source, ekey,
         // {
         //     iv: eiv,
@@ -66,7 +66,7 @@ export class AppSettings{
 
       public static Decrypt(source){
         var dkey = CryptoJS.enc.Utf8.parse(AppSettings.ENCRYPTION_KEY);
-        var div = CryptoJS.enc.Utf8.parse(AppSettings.ENCRYPTION_KEY);
+        //var div = CryptoJS.enc.Utf8.parse(AppSettings.ENCRYPTION_KEY);
         // var encryptedHexStr = CryptoJS.enc.Hex.parse(source);
         // var srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
         // return CryptoJS.AES.decrypt(srcs, dkey,

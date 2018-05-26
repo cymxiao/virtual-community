@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SMS } from '@ionic-native/sms';
+//import { SMS } from '@ionic-native/sms';
 
 import { IPMC } from '../../model/pmc';
 //import { TabsPage } from '../tabs/tabs';
@@ -46,8 +46,7 @@ export class RegisterPage {
   pmc: IPMC;
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public apiService: RestServiceProvider,
-    private sms: SMS) {
+    public apiService: RestServiceProvider) {
     //this.user = { phone: '', pwd: '' };
     this.pmc = {
       _id: '',

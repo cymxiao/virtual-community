@@ -1,22 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
-import { TabsPage } from '../tabs/tabs';
 import { ICarport } from 'model/carport';
 import { CarportPage } from '../carport/carport';
 import { ProfilePage } from '../profile/profile';
+import { BasePage } from '../base/base';
 import { LeisureParkPage } from '../leisure-park/leisure-park';
 import { CommunitySelectComponent } from '../../components/community-select/community-select'
 
-import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-
-//import { BasePage } from '../base/base';
-import { BasePage } from '../base/base';
+import { RestServiceProvider } from '../../providers/rest-service/rest-service'; 
 import { AppSettings } from '../../settings/app-settings';
 
-
-
-
+ 
 /**
  * Generated class for the SelectCommunityModalPage page.
  *

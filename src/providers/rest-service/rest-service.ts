@@ -15,9 +15,7 @@ export class RestServiceProvider {
   //apiUrl = 'http://192.168.0.110:3000';
   apiUrl;
   constructor(public http: HttpClient) {
-    this.apiUrl = AppSettings.getAPIServiceURL();
-    //this.http.post('',null);
-    console.log('Hello RestServiceProvider Provider');
+    this.apiUrl = AppSettings.getAPIServiceURL(); 
   }
 
   getUsers() {

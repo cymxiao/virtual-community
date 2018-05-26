@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Logger } from "angular2-logger/core";
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { AppSettings, UserRoleEnum, UserStatusEnum } from '../../settings/app-settings';
+import { UserStatusEnum } from '../../settings/app-settings';
 /**
  * Generated class for the SmsCodeComponent component.
  *
@@ -95,10 +95,10 @@ export class SmsCodeComponent {
         console.log(e);
         this.logger.error('Register user (add a new user to db) failed');
       });
-      // this.service.sendSMS(cellPhone, verifyCode).then(x => {
-      //   //console.dir(x);
-      //   this.logger.info('User Registed:' + cellPhone + 'has registered, and would get verifycode by SMS.')
-      // });
+      this.service.sendSMS(this.cellPhoneNumber, verifyCode).then(x => {
+        //console.dir(x);
+        this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
+      });
     } else {
       this.cellPhoneError = true;
     }

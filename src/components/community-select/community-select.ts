@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 import { LookupLeisureParkPage } from '../../pages/lookup-leisure-park/lookup-leisure-park';
 import { AutoCompleteServiceProvider } from '../../providers/autocomplete-service/autocomplete-service';

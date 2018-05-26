@@ -9,12 +9,12 @@ import { BasePage } from '../base/base';
 
 import { AppSettings } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { Alipay, AlipayOrder } from '@ionic-native/alipay';
+//import { Alipay, AlipayOrder } from '@ionic-native/alipay';
 
 import * as moment from 'moment';
 
 import { ENV } from '@app/env';
-import { Action } from 'rxjs/scheduler/Action';
+//import { Action } from 'rxjs/scheduler/Action';
 /**
  * Generated class for the LookupLeisureParkPage page.
  *
@@ -40,15 +40,13 @@ export class LookupLeisureParkPage extends BasePage {
     private localNotifications: LocalNotifications, public alertCtrl: AlertController,
     public plt: Platform,
     public actionSheetCtrl: ActionSheetController,
-    private alipay: Alipay,
+    //private alipay: Alipay,
     public apiService: RestServiceProvider) {
       super(navCtrl,navParams);
-    //  console.log(LeisureParkStatus.pending);
+  
     this.inputComId = navParams.get('comId');
     this.plt.ready().then(x => {
-      // console.dir(this.plt);
-      // console.log();  //output dom
-          // console.log();
+ 
       if (!this.plt.is('core')) {
         this.localNotifications.on('click').subscribe(notification => {
           //console.log('click');
@@ -67,7 +65,7 @@ export class LookupLeisureParkPage extends BasePage {
 
   ionViewDidLoad() {
     this.currentUser = AppSettings.getCurrentUser(); 
-    console.log('ionViewDidLoad LookupLeisureParkPage');
+    //console.log('ionViewDidLoad LookupLeisureParkPage');
     this.getLeisureParkbyCommunity();
   }
 
