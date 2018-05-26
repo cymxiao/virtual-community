@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Logger } from "angular2-logger/core";
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { UserStatusEnum } from '../../settings/app-settings';
-import { BoundElementPropertyAst } from '@angular/compiler';
+
 /**
  * Generated class for the SmsCodeComponent component.
  *

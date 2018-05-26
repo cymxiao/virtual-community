@@ -9,14 +9,21 @@ export class AppSettings{
 
 
     public static getAPIServiceURL() {
-        //static svcURL = '';
-        if (ENV.mode === 'Production') {
+       //console.log('ENV in appsettings is : ' + ENV.mode );
+       //return "http://106.14.132.131:3000";
+       //Amin:Todo: why the mode doesn't works well. it's always dev mode. 
+       //Amin:Important. Please make sure if deploy to server, the url should be an IP or internet url, 'localhost' is wrong, when user 
+       //access this , if use localhost, it would try to connect localhost on user's device.
+       
+       if (ENV.mode === 'Production') {
             return "http://localhost:3000";
         } else if (ENV.mode === 'Development') {
             return "http://localhost:3000";
         } else if (ENV.mode === 'Home') {
             return "http://192.168.1.4:3000";
-        } else {
+        } else if (ENV.mode === 'aliyun') {
+            return "http://106.14.132.131:3000";
+        }else {
             return "http://localhost:3000";
         }
     }

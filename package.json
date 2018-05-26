@@ -12,6 +12,7 @@
     "ionic:prod": "MY_ENV=prod ionic-app-scripts serve",
     "ionic:home": "MY_ENV=home ionic-app-scripts serve",
     "ionic:test": "MY_ENV=test ionic-app-scripts serve",
+    "ionic:aliyun": "MY_ENV=aliyun ionic-app-scripts serve",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve"
   },
