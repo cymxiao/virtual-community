@@ -63,8 +63,10 @@ export class SmsCodeComponent {
   sendSMS() {
     if (this.cellPhoneNumber && this.cellPhoneNumber.length === 11) {
       //const cellPhone = this.user.phone;
-      //generate a random number , length six
-      const verifyCode = Math.round(Math.random() * 1000000);
+      //generate a random number , length six ,  sometime , Math.round(Math.random() * 1000000) length is 5, due to first number is 0.
+      const randomNumber = Math.round(Math.random() * 1000000);
+      //console.log(randomNumber);
+      let verifyCode = randomNumber < 100000 ? randomNumber + 100000 : randomNumber ;
       console.log(verifyCode);
 
       this.userStatus   = UserStatusEnum.pendingOnVerify;
@@ -103,10 +105,10 @@ export class SmsCodeComponent {
         console.log(e);
         this.logger.error('Register user (add a new user to db) failed');
       });
-      // this.service.sendSMS(this.cellPhoneNumber, verifyCode).then(x => {
-      //   //console.dir(x);
-      //   this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
-      // });
+      this.service.sendSMS(this.cellPhoneNumber, verifyCode).then(x => {
+        //console.dir(x);
+        this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
+      });
     } else {
       this.cellPhoneError = true;
     }
