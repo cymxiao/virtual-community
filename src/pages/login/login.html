@@ -84,7 +84,7 @@
                 <ion-icon name="code-download"></ion-icon>
                 &nbsp;&nbsp;{{verifyCode.verifyCodeTips}}
             </button>  -->
-            <sms-code [cellPhoneNumber] ="this.user.phone"></sms-code>
+            <sms-code [cellPhoneNumber] ="this.user.phone" [source]="isLogin"></sms-code>
             <div> 
                 <button ion-button icon-start block round color="secondary" tappable [disabled]=" !loginForm.form.valid" (click)="login()">
                     <ion-icon name="log-in"></ion-icon>

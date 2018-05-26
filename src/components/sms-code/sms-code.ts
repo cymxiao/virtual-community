@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Logger } from "angular2-logger/core";
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { UserStatusEnum } from '../../settings/app-settings';
+import { BoundElementPropertyAst } from '@angular/compiler';
 /**
  * Generated class for the SmsCodeComponent component.
  *
@@ -15,7 +16,10 @@ import { UserStatusEnum } from '../../settings/app-settings';
 export class SmsCodeComponent {
 
   @Input() cellPhoneNumber: string;
+  @Input() source: string = '';
   cellPhoneError: boolean;
+  userStatus:string;
+  
   verifyCode: any = {
     verifyCodeTips: "获取验证码",
     countdown: 60,
@@ -23,8 +27,7 @@ export class SmsCodeComponent {
   }
   constructor(private logger: Logger,
     public service: RestServiceProvider) {
-    //console.log('Hello SmsCodeComponent Component');
-
+    
   }
 
   disabled(){
@@ -64,13 +67,18 @@ export class SmsCodeComponent {
       const verifyCode = Math.round(Math.random() * 1000000);
       console.log(verifyCode);
 
+      this.userStatus   = UserStatusEnum.pendingOnVerify;
+      if(this.source === 'login') {
+        this.userStatus = UserStatusEnum.active;
+      }
+
       //register this user
       this.service.addUser(
         {
           username: this.cellPhoneNumber,
           //password: AppSettings.Encrypt(verifyCode),
           password: verifyCode,
-          status: UserStatusEnum.pendingOnVerify
+          status: this.userStatus
         }
       ).then((usr: any) => {
         if (usr) {
@@ -95,10 +103,10 @@ export class SmsCodeComponent {
         console.log(e);
         this.logger.error('Register user (add a new user to db) failed');
       });
-      this.service.sendSMS(this.cellPhoneNumber, verifyCode).then(x => {
-        //console.dir(x);
-        this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
-      });
+      // this.service.sendSMS(this.cellPhoneNumber, verifyCode).then(x => {
+      //   //console.dir(x);
+      //   this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
+      // });
     } else {
       this.cellPhoneError = true;
     }
