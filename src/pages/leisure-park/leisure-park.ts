@@ -132,39 +132,39 @@ export class LeisureParkPage {
  
  
   addButtonClick() {
-    // let time = moment();
-    // let previousRecordEndTime = time;
-    // //Amin: IMP, please if use this.currentUser.community_ID, this.currentUser should be init in contructor.
-    // if(this.currentCarport && this.currentUser && this.currentUser.community_ID ){
-    // this.service.getStartTimeforNext(this.currentUser.community_ID._id, this.currentUser._id,this.currentCarport._id) 
-    //   .then( (lpRec:ILeisurePark) => {  
-    //     if(lpRec){
-    //       previousRecordEndTime = moment(lpRec.endTime);
-    //       if(time.isBefore(previousRecordEndTime)){
-    //         time = previousRecordEndTime;
-    //       }
-    //       if (moment().minute() < 30) {
-    //         time.minute(30).second(0);
-    //       } else {
-    //         time.add(1, 'hours').minute(0).second(0);
-    //       }
+    let time = moment();
+    let previousRecordEndTime = time;
+    //Amin: IMP, please if use this.currentUser.community_ID, this.currentUser should be init in contructor.
+    if(this.currentCarport && this.currentUser && this.currentUser.community_ID ){
+    this.service.getStartTimeforNext(this.currentUser.community_ID._id, this.currentUser._id,this.currentCarport._id) 
+      .then( (lpRec:ILeisurePark) => {  
+        if(lpRec){
+          previousRecordEndTime = moment(lpRec.endTime);
+          if(time.isBefore(previousRecordEndTime)){
+            time = previousRecordEndTime;
+          }
+          if (time.minute() < 30) {
+            time.minute(30).second(0);
+          } else {
+            time.add(1, 'hours').minute(0).second(0);
+          }
 
-    //       //console.log('1:' + time.format("YYYY-MM-DD hh:mm:ss"));
-    //       this.leisurePark.startTime = time.add(8, 'hours').toISOString();
-    //       //console.log('2:' + time.format("YYYY-MM-DD hh:mm:ss"));
-    //       this.leisurePark.endTime = time.add(8, 'hours').toISOString();
-    //       //console.log('3:' + time.format("YYYY-MM-DD hh:mm:ss"));
-    //       this.showAddContent = true;
-    //     } 
-    //   });
-    // } 
-    //Amin: IMP.  +8 display as local timezone .
-    this.leisurePark.startTime = this.getGoodTime().add(8, 'hours').toISOString();
-    //Amin: IMP. I can't direct use add(8, 'hours'), otherwise when validate endTime, 
-    //it would prompt the endTime can't be convet to ISO string, due moment issue.
-    this.leisurePark.endTime = this.getGoodTime().add(1, 'days').add(-8,'hours').toISOString();
-    //this.leisurePark.endTime = this.getGoodTime().add(8, 'hours').toISOString();
-    this.showAddContent = true;
+          //console.log('1:' + time.format("YYYY-MM-DD hh:mm:ss"));
+          this.leisurePark.startTime = time.add(8, 'hours').toISOString();
+          //console.log('2:' + time.format("YYYY-MM-DD hh:mm:ss"));
+          this.leisurePark.endTime = time.add(8, 'hours').toISOString();
+          //console.log('3:' + time.format("YYYY-MM-DD hh:mm:ss"));
+          this.showAddContent = true;
+        } 
+      });
+    } 
+    // //Amin: IMP.  +8 display as local timezone .
+    // this.leisurePark.startTime = this.getGoodTime().add(8, 'hours').toISOString();
+    // //Amin: IMP. I can't direct use add(8, 'hours'), otherwise when validate endTime, 
+    // //it would prompt the endTime can't be convet to ISO string, due moment issue.
+    // this.leisurePark.endTime = this.getGoodTime().add(1, 'days').add(-8,'hours').toISOString();
+    // //this.leisurePark.endTime = this.getGoodTime().add(8, 'hours').toISOString();
+    // this.showAddContent = true;
   }
 
   getGoodTime() {
@@ -187,9 +187,10 @@ export class LeisureParkPage {
     this.leisurePark.community_ID = this.currentUser.community_ID._id;
 
     //Amin: IMP. -8, Save as ISO date
-    //when save to momgo db, remove miniseconds
-    this.leisurePark.startTime = moment(moment(this.leisurePark.startTime).format("YYYY-MM-DD hh:mm:ss")).add(-8, 'hours').toISOString();
-    this.leisurePark.endTime = moment(moment(this.leisurePark.endTime).format("YYYY-MM-DD hh:mm:ss")).add(-8, 'hours').toISOString();
+    //when save to momgo db, remove miniseconds 
+    const re = /.\d{3}Z/i;
+    this.leisurePark.startTime =moment(this.leisurePark.startTime).add(-8, 'hours').toISOString().replace(re, '.000Z');;
+    this.leisurePark.endTime = moment(this.leisurePark.endTime).add(-8, 'hours').toISOString().replace(re, '.000Z');
  
     if (!this.leisurePark.community_ID) {
       //console.log('saveLeisurePark' + 'delete empty community_ID');
