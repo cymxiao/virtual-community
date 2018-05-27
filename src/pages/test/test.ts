@@ -112,8 +112,9 @@ export class TestPage {
   addInfoWindow(point, community, sharedCarportNumber) {
     const content = '<div >' + community.address + '</div>' +
       //'<div  click ="this.checkDetail(community._id,community.name)" >  <a>查看详情</a> </div>' +
-      //'<div  click =alert("haha") >  <a>查看详情</a> </div>' +
-      '<div > 空闲车位数量：' + sharedCarportNumber + '</div>' ;
+
+      '<div > 空闲车位数量：' + sharedCarportNumber + '</div> </br>' +
+      '<div class="text-secondary"> 你可在最上方搜索区域输入该小区名称，即可查看或申请停车  </div>' ;
      
  
 
