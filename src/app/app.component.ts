@@ -38,7 +38,7 @@ export class MyApp {
         this.isPMCUser = true;
       }
 
-      timer(1000).subscribe(() => this.showSplash = false)
+      timer(1800).subscribe(() => this.showSplash = false)
     });
   }
 

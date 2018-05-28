@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content padding>
   <form class="list-form" #myForm="ngForm">
     <ion-item>
       <ion-label floating>
@@ -33,6 +33,7 @@
         <ion-icon name="flower" item-start class="text-primary"></ion-icon>
         生日 *
       </ion-label>
+      <!--Amin:Todo: ion-datetime default datetime is ISO date. Here I should use local datetime-->
       <ion-datetime required displayFormat="MM月 DD日 YYYY" [(ngModel)]="member.birthday" yearNames='2018' #fieldBirthday="ngModel"
         [min]="minDate" name="fieldBirthday" cancelText="取消" doneText="确定"></ion-datetime>
       <!--Amin:IMP. #fieldphone in v1 dupliate with price field, that result empty default value for the startTime date field.-->
@@ -77,10 +78,10 @@
   <div class="padding-xs"></div>
   <button ion-button icon-start block round color="secondary" tappable (click)="save()" [disabled]="!myForm.form.valid">
     <ion-icon name="checkbox"></ion-icon>
-    保存设置
+    保存资料
   </button> 
   
-  <ion-grid class="grid">
+  <ion-grid class="grid" *ngIf ="userArray">
     <ion-row class="light-bg">
       <ion-col> 姓名
       </ion-col>
