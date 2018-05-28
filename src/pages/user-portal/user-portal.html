@@ -63,11 +63,16 @@
   <ion-item> 
     <ion-label floating>
       <ion-icon name="leaf" item-start class="text-primary"></ion-icon>
-      address
+      通讯地址
     </ion-label>
-    <ion-input type="text" name="address" [(ngModel)]="user.address"> </ion-input> 
+    <ion-input type="text" required name="fieldAddress" [(ngModel)]="user.address" #fieldAddress="ngModel"> </ion-input> 
   </ion-item>
-   
+  <div class="padding10" *ngIf="fieldAddress.invalid && (fieldAddress.dirty || fieldAddress.touched)">
+    <div class="text-danger" *ngIf="fieldAddress.errors.required">
+      请输入通讯地址
+    </div> 
+</div> 
+<div class="padding-xs"></div>
   <button ion-button icon-start block round color="secondary" tappable (click)="save()" >
       <ion-icon name="checkbox"></ion-icon>
       保存设置
