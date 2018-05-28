@@ -5,7 +5,9 @@ import CryptoJS from 'crypto-js';
 
 export class AppSettings{
     public static ENCRYPTION_KEY = "ApP2018!-123211";
-
+    
+    //Amin: todo: temp code
+    public static PHONE1='10000100001';
 
 
     public static getAPIServiceURL() {

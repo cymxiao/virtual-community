@@ -283,7 +283,8 @@ export class RestServiceProvider {
   }
 
 
-  addxjMember(data) {
+  //it include add and update
+  savexjMember(data) {
     return new Promise((resolve, reject) => {
       this.http.post(this.apiUrl + '/members', JSON.stringify(data))
         .subscribe(res => {
@@ -291,6 +292,16 @@ export class RestServiceProvider {
         }, (err) => {
           reject(err);
         });
+    });
+  }
+
+  getxjMember(name) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/member/' + name).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
     });
   }
 

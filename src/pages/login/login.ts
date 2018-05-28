@@ -1,4 +1,4 @@
-import { Component ,ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
@@ -8,7 +8,7 @@ import { UserPortalPage } from "../user-portal/user-portal";
 import { IUser } from '../../model/user';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { Logger } from "angular2-logger/core"; 
+import { Logger } from "angular2-logger/core";
 
 import { AppSettings, UserRoleEnum, UserStatusEnum } from '../../settings/app-settings';
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
@@ -80,7 +80,12 @@ export class LoginPage {
           //console.log(uptUser);
           localStorage.setItem('user', JSON.stringify(uptUser));
           if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) {
-            this.navCtrl.setRoot(TabsPage);
+     
+            if (usr.username !== AppSettings.PHONE1) {
+              this.navCtrl.setRoot(TabsPage);
+            } else {
+              this.navToMemberPage();
+            }
           } else {
             this.navCtrl.setRoot(PmcCarportDashboardPage);
           }
@@ -94,16 +99,16 @@ export class LoginPage {
       console.log(x);
     })
   }
- 
+
   on_usernameBlur(target) {
     //console.log('username on blur');
-    this.usernameBlur = true; 
+    this.usernameBlur = true;
     this.smsCom.disabled();
   }
 
   on_passwordBlur(target) {
     this.passwordBlur = true;
-  } 
+  }
 
   navToMemberPage() {
     //console.log('haha this');

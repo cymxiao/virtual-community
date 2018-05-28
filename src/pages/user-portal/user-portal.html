@@ -4,77 +4,103 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header> 
-  <ion-navbar color="primary">  
+<ion-header>
+  <ion-navbar color="primary">
     <ion-title>
       心镜影像会员资料
-    </ion-title> 
-  </ion-navbar> 
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-  <ion-item>
-    <ion-label floating>
+  <form class="list-form" #myForm="ngForm">
+    <ion-item>
+      <ion-label floating>
         <ion-icon name="person" item-start class="text-primary"></ion-icon>
-         姓名 *
-    </ion-label> 
-    <ion-input type="text" name="fieldName" required [(ngModel)]="user.name" #fieldName="ngModel" ></ion-input>
-  </ion-item>
-  <div class="padding10" *ngIf="fieldName.invalid && (fieldName.dirty || fieldName.touched)">
+        姓名 *
+      </ion-label>
+      <ion-input type="text" name="fieldName" required [(ngModel)]="member.name" #fieldName="ngModel" (ionBlur)="on_usernameBlur($event)"></ion-input>
+    </ion-item>
+    <div class="padding10" *ngIf="fieldName.invalid && (fieldName.dirty || fieldName.touched)">
       <div class="text-danger" *ngIf="fieldName.errors.required">
         请输入姓名
-      </div> 
-  </div> 
+      </div>
+    </div>
 
-  <ion-item>
-    <ion-label floating>
+    <ion-item>
+      <ion-label floating>
         <ion-icon name="flower" item-start class="text-primary"></ion-icon>
         生日 *
-    </ion-label>
-    <ion-datetime required displayFormat="MMM DD YYYY" [(ngModel)]="user.birthday"  yearNames='2018' 
-    #fieldBirthday="ngModel" [min]="minDate" name="fieldBirthday" cancelText ="取消" doneText="确定"></ion-datetime>
-    <!--Amin:IMP. #fieldphone in v1 dupliate with price field, that result empty default value for the startTime date field.-->
-  </ion-item>
-  <div class="padding10" *ngIf="fieldBirthday.invalid && (fieldBirthday.dirty || fieldBirthday.touched)">
+      </ion-label>
+      <ion-datetime required displayFormat="MM月 DD日 YYYY" [(ngModel)]="member.birthday" yearNames='2018' #fieldBirthday="ngModel"
+        [min]="minDate" name="fieldBirthday" cancelText="取消" doneText="确定"></ion-datetime>
+      <!--Amin:IMP. #fieldphone in v1 dupliate with price field, that result empty default value for the startTime date field.-->
+    </ion-item>
+    <div class="padding10" *ngIf="fieldBirthday.invalid && (fieldBirthday.dirty || fieldBirthday.touched)">
       <div class="text-danger" *ngIf="fieldBirthday.errors.required">
-          请输入生日
-      </div> 
-  </div>
+        请输入生日
+      </div>
+    </div>
 
 
-  <ion-item>
-    <ion-label floating>
-      <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
-      手机号码
-    </ion-label>
-    <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" [(ngModel)]="user.cellPhone"
-     #fieldPhone="ngModel" (ionBlur)="on_usernameBlur($event)"> </ion-input> 
-  </ion-item>
-  <div class="padding10" *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
+    <ion-item>
+      <ion-label floating>
+        <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
+        手机号码
+      </ion-label>
+      <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" [(ngModel)]="member.cellPhone" #fieldPhone="ngModel"
+        (ionBlur)="on_usernameBlur($event)"> </ion-input>
+    </ion-item>
+    <div class="padding10" *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
       <!-- <div class="text-danger" *ngIf="fieldPhone.errors.required">
           请输入手机号码
       </div> -->
       <div class="text-danger" *ngIf="usernameBlur && (fieldPhone.errors.minlength || fieldPhone.errors.maxlength)">
-          请确认输入11位手机号码
+        请确认输入11位手机号码
       </div>
-  </div>
+    </div>
 
-  <ion-item> 
-    <ion-label floating>
-      <ion-icon name="leaf" item-start class="text-primary"></ion-icon>
-      通讯地址
-    </ion-label>
-    <ion-input type="text" required name="fieldAddress" [(ngModel)]="user.address" #fieldAddress="ngModel"> </ion-input> 
-  </ion-item>
-  <div class="padding10" *ngIf="fieldAddress.invalid && (fieldAddress.dirty || fieldAddress.touched)">
-    <div class="text-danger" *ngIf="fieldAddress.errors.required">
-      请输入通讯地址
-    </div> 
-</div> 
-<div class="padding-xs"></div>
-  <button ion-button icon-start block round color="secondary" tappable (click)="save()" >
-      <ion-icon name="checkbox"></ion-icon>
-      保存设置
+    <ion-item>
+      <ion-label floating>
+        <ion-icon name="leaf" item-start class="text-primary"></ion-icon>
+        通讯地址
+      </ion-label>
+      <ion-input type="text" required name="fieldAddress" [(ngModel)]="member.address" #fieldAddress="ngModel"> </ion-input>
+    </ion-item>
+    <div class="padding10" *ngIf="fieldAddress.invalid && (fieldAddress.dirty || fieldAddress.touched)">
+      <div class="text-danger" *ngIf="fieldAddress.errors.required">
+        请输入通讯地址
+      </div>
+    </div>
+  </form>
+  <div class="padding-xs"></div>
+  <button ion-button icon-start block round color="secondary" tappable (click)="save()" [disabled]="!myForm.form.valid">
+    <ion-icon name="checkbox"></ion-icon>
+    保存设置
   </button> 
+  
+  <ion-grid class="grid">
+    <ion-row class="light-bg">
+      <ion-col> 姓名
+      </ion-col>
+      <ion-col> 生日
+      </ion-col>
+      <ion-col> 手机号码
+      </ion-col>
+      <ion-col> 通讯地址
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let mu of userArray">
+      <ion-col> {{mu.name}}
+      </ion-col>
+      <ion-col> {{mu.birthday | date:'MM月dd日' }}
+      </ion-col>
+      <ion-col> {{mu.cellPhone}}
+      </ion-col>
+      <ion-col> {{mu.address}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
