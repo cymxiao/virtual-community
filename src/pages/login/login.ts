@@ -52,11 +52,7 @@ export class LoginPage {
   ionViewDidLoad() {
     if (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username) {
       const usr: IUser = AppSettings.getCurrentUser();
-      if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) {
-        this.navCtrl.setRoot(TabsPage);
-      } else {
-        this.navCtrl.setRoot(PmcCarportDashboardPage);
-      }
+      this.redirctPage(usr);
     }
   }
 
@@ -79,16 +75,7 @@ export class LoginPage {
         this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
           //console.log(uptUser);
           localStorage.setItem('user', JSON.stringify(uptUser));
-          if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) {
-     
-            if (usr.username !== AppSettings.PHONE1) {
-              this.navCtrl.setRoot(TabsPage);
-            } else {
-              this.navToMemberPage();
-            }
-          } else {
-            this.navCtrl.setRoot(PmcCarportDashboardPage);
-          }
+          this.redirctPage(usr);
         });
       } else {
         this.wrongUsrorPwd = true;
@@ -113,5 +100,17 @@ export class LoginPage {
   navToMemberPage() {
     //console.log('haha this');
     this.navCtrl.push(UserPortalPage);
+  }
+
+  redirctPage(usr:IUser){
+    if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) { 
+      if (usr.username !== AppSettings.PHONE1) {
+        this.navCtrl.setRoot(TabsPage);
+      } else {
+        this.navToMemberPage();
+      }
+    } else {
+      this.navCtrl.setRoot(PmcCarportDashboardPage);
+    }
   }
 }
