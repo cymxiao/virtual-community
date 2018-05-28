@@ -68,8 +68,10 @@ export class UserPortalPage {
           title: '保存成功',
           subTitle: '您的信息已经保存成功。'
         });
-        alert.present();
-        //this.refresh();
+        alert.present().then(x => {
+          //this.refresh();
+          this.userArray = [this.member];
+        });
       }
     }).catch(e => {
       console.log(e);
