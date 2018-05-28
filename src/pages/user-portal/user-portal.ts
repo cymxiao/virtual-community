@@ -68,9 +68,12 @@ export class UserPortalPage {
           title: '保存成功',
           subTitle: '您的信息已经保存成功。'
         });
-        alert.present().then(x => {
-          //this.refresh();
-          this.userArray = [this.member];
+        alert.present().then(x => { 
+          if (!this.currentUser) {
+            this.userArray = [this.member];
+          } else {
+            this.refresh();
+          }
         });
       }
     }).catch(e => {
@@ -87,7 +90,9 @@ export class UserPortalPage {
           this.member.birthday = mem.birthday;
           this.member.cellPhone = mem.cellPhone;
           this.member.address = mem.address;
-          this.userArray = [this.member];
+          if (!this.currentUser) {
+            this.userArray = [this.member];
+          }
         }
       });
     }
