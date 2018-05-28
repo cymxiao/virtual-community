@@ -13,6 +13,8 @@ import { MyOrdersPage } from '../pages/myorders/myorders';
 import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 
+import { timer } from 'rxjs/observable/timer';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -21,6 +23,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   isPMCUser: boolean;
   currentUser: IUser;
+  showSplash = true;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) { //,auth:Auth) {
     platform.ready().then(() => {
@@ -34,6 +37,8 @@ export class MyApp {
       if (this.currentUser && this.currentUser.role && this.currentUser.role[0] === UserRoleEnum.PMCUser) {
         this.isPMCUser = true;
       }
+
+      timer(1000).subscribe(() => this.showSplash = false)
     });
   }
 

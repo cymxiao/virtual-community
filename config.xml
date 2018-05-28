@@ -89,5 +89,4 @@
         <variable name="ALI_PID" value="2018042360039058" />
     </plugin>
     <engine name="ios" spec="~4.5.4" />
-    <engine name="android" spec="~6.4.0" />
 </widget>
