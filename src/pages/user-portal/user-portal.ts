@@ -32,7 +32,7 @@ export class UserPortalPage {
     this.member = {
       _id: '',
       name: '',
-      birthday: new Date(),
+      birthday: null,
       cellPhone: '',
       address: '',
       status: ''
