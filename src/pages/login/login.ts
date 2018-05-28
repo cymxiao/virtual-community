@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
+import { UserPortalPage } from "../user-portal/user-portal";
 import { IUser } from '../../model/user';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
@@ -104,4 +105,8 @@ export class LoginPage {
     this.passwordBlur = true;
   } 
 
+  navToMemberPage() {
+    //console.log('haha this');
+    this.navCtrl.push(UserPortalPage);
+  }
 }

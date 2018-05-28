@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 
-import { ProfilePage } from '../profile/profile';
-
+import { IXJMember } from '../../model/xjMember';
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**
  * Generated class for the UserPortalPage page.
  *
@@ -17,13 +17,50 @@ import { ProfilePage } from '../profile/profile';
 })
 export class UserPortalPage {
 
-  rootPage : any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.rootPage = ProfilePage;
+  user: IXJMember;
+  usernameBlur: boolean;
+  minDate: string;
+  constructor(public navCtrl: NavController, public apiService: RestServiceProvider,
+    public alertCtrl: AlertController,
+    public navParams: NavParams) {
+    this.user = {
+      _id: '',
+      name: '',
+      birthday: '',
+      cellPhone: '',
+      address: '',
+      status: ''
+    }
+    this.minDate = '2018-01-01';
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserPortalPage');
+    //console.log('ionViewDidLoad UserPortalPage');
+  }
+
+  save(){
+    this.apiService.addxjMember(
+      {
+        name: this.user.name,
+        birthday: this.user.birthday,
+        cellPhone: this.user.cellPhone,
+        address: this.user.address 
+      }
+    ).then((usr: any) => {
+      if (usr && usr._id) {
+        let alert = this.alertCtrl.create({
+          title: '保存成功',
+          subTitle: '您的信息已经保存成功。'
+        });
+        alert.present();
+      }
+    }).catch(e => {
+      console.log(e);
+    });
+  }
+
+  on_usernameBlur(target) { 
+    this.usernameBlur = true;   
   }
 
 }

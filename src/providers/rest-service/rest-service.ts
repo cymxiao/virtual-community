@@ -268,6 +268,42 @@ export class RestServiceProvider {
     });
   }
 
+
+
+
+
+  getxjMembers() {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/members').subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+
+  addxjMember(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/members', JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  updatexjMember(xjMemberId, data) { 
+    return new Promise(resolve => {
+      this.http.post(this.apiUrl + '/member/' + xjMemberId, JSON.stringify(data)).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log('update member error' + err.message);
+      });
+    });
+  }
+
 }
 
 @Injectable()

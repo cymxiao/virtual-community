@@ -26,6 +26,11 @@
             </h2>
         </div>
 
+        <button class="xinjinMember" ion-button clear ion-end color="secondary" tappable (click)="navToMemberPage()" >
+                <ion-icon name="camera"></ion-icon>
+                &nbsp;&nbsp;心境影像会员登记入口
+              </button> 
+
         <div padding>
             <ion-segment [(ngModel)]="isLogin">
                 <ion-segment-button value="login" (click)="login()" class="primary-bg">
