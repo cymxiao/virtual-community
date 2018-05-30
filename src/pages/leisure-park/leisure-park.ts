@@ -86,6 +86,7 @@ export class LeisureParkPage {
       role:'',
       phoneNo: '',
       address: '',
+      lastLoginDate: null,
       name:''
     }
 

@@ -74,6 +74,7 @@ export class ProfilePage extends BasePage {
           role: '',
           phoneNo: '',
           address: '',
+          lastLoginDate: null,
           name:''
         };
       }

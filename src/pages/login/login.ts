@@ -68,16 +68,16 @@ export class LoginPage {
       password: this.user.pwd
     }).then((usr: IUser) => {
       if (usr) {
-        //update user status to valid
+        //If lastLoginDate is null in mongo db, it means , there may be no verify code send to this user's cellphone.
         const udpateContent = {
-          status: UserStatusEnum.active
+          lastLoginDate: new Date()
         };
         this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
           //console.log(uptUser);
           localStorage.setItem('user', JSON.stringify(uptUser));
           this.redirctPage(usr);
         });
-      } else {
+      } else { 
         this.wrongUsrorPwd = true;
         //console.log('wrong username or password');
         this.logger.error('wrong username or password.');
