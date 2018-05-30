@@ -1,13 +1,11 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
-
-import { TabsPage } from '../pages/tabs/tabs';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { MyApp } from './app.component';
+import { TabsPage } from '../pages/tabs/tabs';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RestServiceProvider } from '../providers/rest-service/rest-service';
@@ -58,27 +56,26 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     CarportPageModule,
     PmcCarportDashboardPageModule,
     ErrorHandlerPageModule,
+  
     BasePageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
- 
-    //HomePage, 
-    //SelectCommunityModalPage,
     TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: GlobalErrorHandler},
+    {provide: ErrorHandler, useClass: GlobalErrorHandler}, 
     RestServiceProvider,
     AutoCompleteServiceProvider,
     SMS,
     LocalNotifications,
     Alipay,
     Logger,
+    //Amin: IMP. GlobalErrorHandler should be here, otherwise it would not be triggerred.
     GlobalErrorHandler,
     Geolocation 
      

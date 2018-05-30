@@ -24,6 +24,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log(err);
+        throw err;
       });
     });
   }
@@ -36,7 +37,7 @@ export class RestServiceProvider {
         .subscribe(res => {
           resolve(res);
         }, (err) => {
-          reject(err);
+          throw err;
         });
     });
   }
@@ -48,7 +49,10 @@ export class RestServiceProvider {
       this.http.get(this.apiUrl + '/userlogin', { params: params }).subscribe(data => {
         resolve(data);
       }, err => {
+        //Amin: important for error handling. throw err is necessary, if not, global error would not be triggered. 
+        //Another solution is:  romove the whole err{...} block, it means No error handler here.
         console.log('login error :' + err.message);
+        throw err;
       });
     });
   }
@@ -59,6 +63,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('update user error' + err.message);
+        throw err;
       });
     });
   }
@@ -70,6 +75,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('update leisurePark error' + err.message);
+        throw err;
       });
     });
   };
@@ -81,7 +87,7 @@ export class RestServiceProvider {
         .subscribe(res => {
           resolve(res);
         }, (err) => {
-          reject(err);
+          throw err;
         });
     });
   }
@@ -92,7 +98,7 @@ export class RestServiceProvider {
         .subscribe(res => {
           resolve(res);
         }, (err) => {
-          reject(err);
+          throw err;
         });
     });
   }
@@ -103,7 +109,7 @@ export class RestServiceProvider {
         .subscribe(res => {
           resolve(res);
         }, (err) => {
-          reject(err);
+          throw err;
         });
     });
   }
@@ -116,6 +122,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log(err);
+        throw err;
       });
     });
   }
@@ -126,7 +133,7 @@ export class RestServiceProvider {
         .subscribe(res => {
           resolve(res);
         }, (err) => {
-          reject(err);
+          throw err;
         });
     });
   }
@@ -137,7 +144,7 @@ export class RestServiceProvider {
         .subscribe(res => {
           resolve(res);
         }, (err) => {
-          reject(err);
+          throw err;
         });
     });
   }
@@ -148,6 +155,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('getLeisureParkforOwner error' + err.message);
+        throw err;
       });
     });
   }
@@ -159,6 +167,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('getLeisureParkbyCommunity error' + err.message);
+        throw err;
       });
     });
   }
@@ -169,6 +178,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('getLeisureParkforOwner error' + err.message);
+        throw err;
       });
     });
   }
@@ -179,6 +189,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('getCommunity error' + err.message);
+        throw err;
       });
     });
   }
@@ -189,6 +200,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('getCarport error' + err.message);
+        throw err;
       });
     });
   }
@@ -200,6 +212,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('getCarportListByOwnerId error' + err.message);
+        throw err;
       });
     });
   }
@@ -210,6 +223,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('getStatisticOfCarport error' + err.message);
+        throw err;
       });
     });
   }
@@ -220,6 +234,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log(err);
+        throw err;
       });
     });
   }
@@ -230,6 +245,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log(err);
+        throw err;
       });
     });
   }
@@ -240,6 +256,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log(err);
+        throw err;
       });
     });
   }
@@ -253,6 +270,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log(err);
+        throw err;
       });
     });
   }
@@ -264,6 +282,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('sendSMS error' + err.message);
+        throw err;
       });
     });
   }
@@ -278,6 +297,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log(err);
+        throw err;
       });
     });
   }
@@ -290,7 +310,8 @@ export class RestServiceProvider {
         .subscribe(res => {
           resolve(res);
         }, (err) => {
-          reject(err);
+          //throw err;
+          throw err;
         });
     });
   }
@@ -301,6 +322,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log(err);
+        throw err;
       });
     });
   }
@@ -311,6 +333,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err => {
         console.log('update member error' + err.message);
+        throw err;
       });
     });
   }

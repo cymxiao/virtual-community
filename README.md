@@ -41,3 +41,11 @@ ionic cordova run android --prod --release
 ionic cordova build android --prod --release
 
 https://ionicframework.com/docs/intro/deploying/
+
+
+
+
+
+
+#Issue
+since I use cellphone to do regeister and login on one page, how to avoid if a user A  input another one's (B) cellphone, and update this guy's (B) pwd.  And B is always' can login to system since we have a perment localstorage to save the authentication.

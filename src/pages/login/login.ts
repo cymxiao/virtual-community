@@ -82,9 +82,7 @@ export class LoginPage {
         //console.log('wrong username or password');
         this.logger.error('wrong username or password.');
       }
-    }).catch(x => {
-      console.log(x);
-    })
+    });
   }
 
   on_usernameBlur(target) {
