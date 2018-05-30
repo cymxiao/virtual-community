@@ -79,6 +79,7 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     LocalNotifications,
     Alipay,
     Logger,
+    GlobalErrorHandler,
     Geolocation 
      
     //GeographicalMapServiceProvider
