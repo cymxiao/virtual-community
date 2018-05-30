@@ -48,7 +48,7 @@ export class RestServiceProvider {
       this.http.get(this.apiUrl + '/userlogin', { params: params }).subscribe(data => {
         resolve(data);
       }, err => {
-        console.log('login error' + err.message);
+        console.log('login error :' + err.message);
       });
     });
   }

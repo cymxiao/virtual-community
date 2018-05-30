@@ -25,14 +25,15 @@ import { PmcCarportDashboardPageModule } from '../pages/pmc-carport-dashboard/pm
 import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { BasePageModule } from '../pages/base/base.module';
- 
+import { ErrorHandlerPageModule } from '../pages/error-handler/error-handler.module';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { SMS } from '@ionic-native/sms';
 import { Alipay } from '@ionic-native/alipay';
 //It's quite important to delcare in provider
 import { LocalNotifications } from '@ionic-native/local-notifications';
-import { Logger } from "angular2-logger/core"; 
+import { Logger } from "angular2-logger/core";
+import { GlobalErrorHandler } from '../providers/global-error-handler/global-error-handler'; 
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { Logger } from "angular2-logger/core";
     ProfilePageModule,
     CarportPageModule,
     PmcCarportDashboardPageModule,
+    ErrorHandlerPageModule,
     BasePageModule,
     IonicModule.forRoot(MyApp)
   ],
@@ -70,14 +72,15 @@ import { Logger } from "angular2-logger/core";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: ErrorHandler, useClass: GlobalErrorHandler},
     RestServiceProvider,
     AutoCompleteServiceProvider,
     SMS,
     LocalNotifications,
     Alipay,
     Logger,
-    Geolocation
+    Geolocation 
+     
     //GeographicalMapServiceProvider
   ]
 })

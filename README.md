@@ -28,3 +28,16 @@ ionic cordova platform remove ios
 ionic cordova platform add ios 
 
 
+
+
+
+Running Your App
+To run your app, all you have to do is enable USB debugging and Developer Mode on your Android device, then run ionic cordova run android --device from the command line.
+
+To run or build your app for production, run
+
+ionic cordova run android --prod --release
+# or
+ionic cordova build android --prod --release
+
+https://ionicframework.com/docs/intro/deploying/
