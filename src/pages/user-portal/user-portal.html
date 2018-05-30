@@ -133,7 +133,7 @@
       <ion-col> 电子邮件
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let mu of userArray">
+    <ion-row *ngFor="let mu of userArrayCopy">
       <ion-col> {{mu.name}}
       </ion-col>
       <ion-col> {{mu.birthday | date:'MM月dd日' }}
