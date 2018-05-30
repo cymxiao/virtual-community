@@ -22,6 +22,7 @@ export class UserPortalPage {
 
   member: IXJMember;
   userArray: IXJMember[];
+  userArrayCopy: IXJMember[];
   usernameBlur: boolean;
   minDate: string;
   currentUser: IUser;
@@ -34,6 +35,7 @@ export class UserPortalPage {
       name: '',
       birthday: null,
       cellPhone: '',
+      email:'',
       address: '',
       status: ''
     }
@@ -45,10 +47,15 @@ export class UserPortalPage {
     //console.log('ionViewDidLoad UserPortalPage');
     this.currentUser = AppSettings.getCurrentUser();
     if (this.currentUser && this.currentUser.username === AppSettings.PHONE1) {
-      this.apiService.getxjMembers().then((arr: any) => {
-        console.dir(arr);
+      this.apiService.getxjMembers('0').then((arr: any) => {
+        //console.dir(arr);
         if (arr) {
           this.userArray = arr;
+        }
+      });
+      this.apiService.getxjMembers('1').then((arrc: any) => { 
+        if (arrc) {
+          this.userArrayCopy = arrc;
         }
       });
     }
@@ -89,6 +96,7 @@ export class UserPortalPage {
         if (mem) {
           this.member.birthday = mem.birthday;
           this.member.cellPhone = mem.cellPhone;
+          this.member.email = mem.email;
           this.member.address = mem.address;
           if (!this.currentUser) {
             this.userArray = [this.member];

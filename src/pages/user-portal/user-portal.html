@@ -50,15 +50,26 @@
         <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
         手机号码
       </ion-label>
-      <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" [(ngModel)]="member.cellPhone" #fieldPhone="ngModel"
-        (ionBlur)="on_usernameBlur($event)"> </ion-input>
+      <ion-input type="number" minlength="11" maxlength="11" name="fieldPhone" 
+      [(ngModel)]="member.cellPhone" #fieldPhone="ngModel" ></ion-input>
     </ion-item>
-    <div class="padding10" *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)">
-      <!-- <div class="text-danger" *ngIf="fieldPhone.errors.required">
-          请输入手机号码
-      </div> -->
-      <div class="text-danger" *ngIf="usernameBlur && (fieldPhone.errors.minlength || fieldPhone.errors.maxlength)">
+    <div class="padding10" *ngIf="fieldPhone.invalid && (fieldPhone.dirty || fieldPhone.touched)"> 
+      <div class="text-danger" *ngIf="fieldPhone.errors.minlength || fieldPhone.errors.maxlength">
         请确认输入11位手机号码
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label floating>
+        <ion-icon name="mail" item-start class="text-primary"></ion-icon>
+        电子邮件
+      </ion-label>
+      <ion-input type="email" name="fieldEmail" [(ngModel)]="member.email" #fieldEmail="ngModel"  pattern="^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" ></ion-input>
+    </ion-item>
+    <div class="padding10" *ngIf="fieldEmail.invalid && (fieldEmail.dirty || fieldEmail.touched)">
+      
+      <div class="text-danger" *ngIf="fieldEmail.errors.pattern">
+        请确认输入有效电子邮件地址，例如: 123@abc.com
       </div>
     </div>
 
@@ -83,13 +94,15 @@
   
   <ion-grid class="grid" *ngIf ="userArray">
     <ion-row class="light-bg">
-      <ion-col> 姓名
+      <ion-col> 姓名 (按创建时间倒序)
       </ion-col>
       <ion-col> 生日
       </ion-col>
       <ion-col> 手机号码
       </ion-col>
       <ion-col> 通讯地址
+      </ion-col>
+      <ion-col> 电子邮件
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let mu of userArray">
@@ -100,6 +113,36 @@
       <ion-col> {{mu.cellPhone}}
       </ion-col>
       <ion-col> {{mu.address}}
+      </ion-col>
+      <ion-col> {{mu.email}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid class="grid" *ngIf ="userArrayCopy">
+    <ion-row class="light-bg">
+      <ion-col> 姓名 (按生日排序)
+      </ion-col>
+      <ion-col> 生日
+      </ion-col>
+      <ion-col> 手机号码
+      </ion-col>
+      <ion-col> 通讯地址
+      </ion-col>
+      <ion-col> 电子邮件
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let mu of userArray">
+      <ion-col> {{mu.name}}
+      </ion-col>
+      <ion-col> {{mu.birthday | date:'MM月dd日' }}
+      </ion-col>
+      <ion-col> {{mu.cellPhone}}
+      </ion-col>
+      <ion-col> {{mu.address}}
+      </ion-col>
+      <ion-col> {{mu.email}}
       </ion-col>
     </ion-row>
   </ion-grid>

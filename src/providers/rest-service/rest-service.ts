@@ -15,7 +15,7 @@ export class RestServiceProvider {
   //apiUrl = 'http://192.168.0.110:3000';
   apiUrl;
   constructor(public http: HttpClient) {
-    this.apiUrl = AppSettings.getAPIServiceURL(); 
+    this.apiUrl = AppSettings.getAPIServiceURL();
   }
 
   getUsers() {
@@ -57,7 +57,7 @@ export class RestServiceProvider {
     });
   }
 
-  updateUser(userId, data) { 
+  updateUser(userId, data) {
     return new Promise(resolve => {
       this.http.post(this.apiUrl + '/users/' + userId, JSON.stringify(data)).subscribe(data => {
         resolve(data);
@@ -69,7 +69,7 @@ export class RestServiceProvider {
   }
 
 
-  updateleisurePark(leisureParkId, data) {  
+  updateleisurePark(leisureParkId, data) {
     return new Promise(resolve => {
       this.http.post(this.apiUrl + '/leisurePark/' + leisureParkId, JSON.stringify(data)).subscribe(data => {
         resolve(data);
@@ -80,7 +80,7 @@ export class RestServiceProvider {
     });
   };
 
-  
+
   updateCarport(carportId, data) {
     return new Promise((resolve, reject) => {
       this.http.post(this.apiUrl + '/carport/' + carportId, JSON.stringify(data))
@@ -94,7 +94,7 @@ export class RestServiceProvider {
 
   updateManyCarports(comId, ownerId, data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + '/updatecarports/' + comId + '/' + ownerId , JSON.stringify(data))
+      this.http.post(this.apiUrl + '/updatecarports/' + comId + '/' + ownerId, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -114,7 +114,7 @@ export class RestServiceProvider {
     });
   }
 
- 
+
 
   getUser(username) {
     return new Promise(resolve => {
@@ -174,7 +174,7 @@ export class RestServiceProvider {
 
   getLeisureParkforApplier(applierId) {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/getleisureParkforApplier/' + applierId).subscribe(data => { 
+      this.http.get(this.apiUrl + '/getleisureParkforApplier/' + applierId).subscribe(data => {
         resolve(data);
       }, err => {
         console.log('getLeisureParkforOwner error' + err.message);
@@ -228,7 +228,7 @@ export class RestServiceProvider {
     });
   }
 
-  checkStartTime(comId,ownerId,cpId,startTime){
+  checkStartTime(comId, ownerId, cpId, startTime) {
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/checkStartTime/' + comId + '/' + ownerId + '/' + cpId + '/' + startTime).subscribe(data => {
         resolve(data);
@@ -239,9 +239,9 @@ export class RestServiceProvider {
     });
   }
 
-  getStartTimeforNext(comId,ownerId,cpId){
+  getStartTimeforNext(comId, ownerId, cpId) {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/getStartTimeforNext/' + comId + '/' + ownerId + '/' + cpId ).subscribe(data => {
+      this.http.get(this.apiUrl + '/getStartTimeforNext/' + comId + '/' + ownerId + '/' + cpId).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -250,7 +250,7 @@ export class RestServiceProvider {
     });
   }
 
-  checkEndTime(comId,ownerId,cpId,endTime){
+  checkEndTime(comId, ownerId, cpId, endTime) {
     return new Promise(resolve => {
       this.http.get(this.apiUrl + '/checkEndTime/' + comId + '/' + ownerId + '/' + cpId + '/' + endTime).subscribe(data => {
         resolve(data);
@@ -261,7 +261,7 @@ export class RestServiceProvider {
     });
   }
 
- 
+
 
 
   getMap() {
@@ -275,7 +275,7 @@ export class RestServiceProvider {
     });
   }
 
-  sendSMS(cellPhone,verifyCode) { 
+  sendSMS(cellPhone, verifyCode) {
     return new Promise(resolve => {
       //Amin: IMP, please use JSON.stringify({}). otherwise 404 error.
       this.http.post(this.apiUrl + '/sms/' + cellPhone + '/' + verifyCode, JSON.stringify({})).subscribe(data => {
@@ -291,9 +291,16 @@ export class RestServiceProvider {
 
 
 
-  getxjMembers() {
+  getxjMembers(sortByBth) {
+    // let urlString = '';
+    // if (sortByBth && sortByBth === '1') {
+    //   urlString = this.apiUrl + '/members/1';
+    // } else {
+    //   urlString = this.apiUrl + '/members';
+    // }
+
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/members').subscribe(data => {
+      this.http.get(this.apiUrl + '/members/' + sortByBth).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -306,7 +313,7 @@ export class RestServiceProvider {
   //it include add and update
   savexjMember(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + '/members', JSON.stringify(data))
+      this.http.post(this.apiUrl + '/member', JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -327,7 +334,7 @@ export class RestServiceProvider {
     });
   }
 
-  updatexjMember(xjMemberId, data) { 
+  updatexjMember(xjMemberId, data) {
     return new Promise(resolve => {
       this.http.post(this.apiUrl + '/member/' + xjMemberId, JSON.stringify(data)).subscribe(data => {
         resolve(data);
