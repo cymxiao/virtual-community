@@ -32,15 +32,16 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      this.currentUser = AppSettings.getCurrentUser();
-      //console.dir(this.currentUser);
+      this.currentUser = AppSettings.getCurrentUser(); 
       if (this.currentUser && this.currentUser.role && this.currentUser.role[0] === UserRoleEnum.PMCUser) {
         this.isPMCUser = true;
       }
 
-      timer(1800).subscribe(() => this.showSplash = false)
+      timer(1300).subscribe(() => this.showSplash = false)
     });
   }
+
+  onview
 
   mgrCarports() {
     this.nav.setRoot(PmcCarportDashboardPage);

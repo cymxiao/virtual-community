@@ -9,30 +9,37 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content padding>
       <ion-list>
         <button ion-item (click)="myProfile()" menuClose>
-          我的资料
+            <ion-icon name="contact"></ion-icon>
+          &nbsp;&nbsp;&nbsp;我的资料
         </button>
         <button *ngIf="isPMCUser" ion-item (click)="mgrCarports()" menuClose>
-          共享车位管理
+            <ion-icon name="umbrella" ></ion-icon>
+            &nbsp;&nbsp;&nbsp;共享车位管理
         </button>
         <button *ngIf="!isPMCUser" ion-item (click)="myCarports()" menuClose>
-          车位登记
+          <ion-icon name="umbrella" ></ion-icon>
+          &nbsp;&nbsp;&nbsp;车位登记
         </button>
         <button *ngIf="!isPMCUser" ion-item (click)="myOrders()" menuClose>
-          我的订单
+          <ion-icon name="basket" ></ion-icon>
+          &nbsp;&nbsp;&nbsp;我的订单
         </button>
       
         <button *ngIf="!isPMCUser" ion-item (click)="goBackHome()" menuClose>
-            返回主页
+            <ion-icon name="undo" ></ion-icon>
+            &nbsp;&nbsp;&nbsp;返回主页
           </button>
+          <div class="logoutDiv">
+              <button ion-item   (click)="logout()" menuClose>
+                  <ion-icon name="log-out" ></ion-icon>
+                  &nbsp;&nbsp;&nbsp;退出登陆
+                </button>
+              </div>
       </ion-list>
-       <div class="align-bottom">
-          <button ion-item (click)="logout()" menuClose>
-              退出登陆
-            </button>
-          </div>
+      
     </ion-content>
   </ion-menu>
 

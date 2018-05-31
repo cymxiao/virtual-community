@@ -35,27 +35,10 @@ export class ProfilePage extends BasePage {
   ionViewDidLoad() {
     this.user = AppSettings.getCurrentUser();
     this.currentCarport = AppSettings.getCurrentCarport();
-    this.initVariables();
-    this.init();
+    this.initVariables(); 
   }
 
-
-  init() {
-
-    if (!this.user.community_ID || !this.user.community_ID._id
-      || !this.currentCarport || !this.currentCarport.parkingNumber) {
-        if(!this.user.role || (this.user.role && this.user.role[0]!== UserRoleEnum.PMCUser)){
-          //If a user is a carport applier, no need to complete community and carport info.
-          //this.navCtrl.push(SelectCommunityModalPage, {source: "profile"});  
-        } else{
-          this.isPMCUser = true;
-        }
-    } else {
-      this.user = AppSettings.getCurrentUser();
-      this.currentCarport = AppSettings.getCurrentCarport();
-    }
-  }
-
+ 
   save(){
     const udpateContent = {
       carPlate: this.user.carPlate
@@ -70,6 +53,10 @@ export class ProfilePage extends BasePage {
  
 
   initVariables() {
+    if (this.user && this.user.role && this.user.role[0] === UserRoleEnum.PMCUser) {
+      this.isPMCUser = true;
+    }
+
     if (!this.user || !this.user.community_ID) {
       if (!this.user) {
         this.user = {

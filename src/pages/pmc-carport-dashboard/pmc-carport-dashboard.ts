@@ -27,6 +27,12 @@ export class PmcCarportDashboardPage {
   inputComId: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public apiService: RestServiceProvider) {
+       //in app constructor, when platform.ready(), the localstrage hasn't been saved yet. So I can't get any value
+    //from localstorage 
+    // if(this.navParams.get("refresh")=== 'true' ){
+    //   this.refresh();
+    //   //this.navParams.
+    // } 
   }
 
  
@@ -37,6 +43,8 @@ export class PmcCarportDashboardPage {
     }
     //console.log('ionViewDidLoad MyOrdersPage');
     this.getLeisureParkbyApplier();
+   
+    
   }
 
   getLeisureParkbyApplier() {
@@ -53,9 +61,9 @@ export class PmcCarportDashboardPage {
     });
   }  
 
-  updateProfile()
-  {
-    this.navCtrl.setRoot(ProfilePage);
+  refresh() {
+    //location.reload();
+    this.navCtrl.setRoot(this.navCtrl.getActive().component, {"refresh": "false"});
   }
 
 }
