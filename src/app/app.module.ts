@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -58,7 +58,9 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     ErrorHandlerPageModule,
   
     BasePageModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      backButtonText: '返回',
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -11,7 +11,7 @@ import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-da
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { Logger } from "angular2-logger/core";
 
-import { AppSettings, UserRoleEnum, UserStatusEnum } from '../../settings/app-settings';
+import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
 
 

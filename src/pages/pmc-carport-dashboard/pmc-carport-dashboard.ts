@@ -3,9 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
 import { IUILeisurePark } from '../../model/leisurePark';
-//import { ICommunity } from '../../model/community';
 import { AppSettings } from '../../settings/app-settings';
-import { ProfilePage } from '../profile/profile';
+ 
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**

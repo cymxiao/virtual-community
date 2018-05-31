@@ -5,7 +5,6 @@ import { IUser } from '../../model/user';
 import { ICarport } from '../../model/carport';
 import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 import { BasePage } from '../base/base';
-import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**
  * Generated class for the ProfilePage page.

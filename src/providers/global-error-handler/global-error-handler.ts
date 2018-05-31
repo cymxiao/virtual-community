@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { ErrorHandler, Injectable, Inject } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 
-import { ErrorHandlerPage } from '../../pages/error-handler/error-handler'
 /*
   Generated class for the GlobalErrorHandlerProvider provider.
 
@@ -15,10 +13,7 @@ export class GlobalErrorHandler extends ErrorHandler {
   //Amin: IMP. I cann't use NavController in constructor, it throw no provider for NavController. 
   //I think it may be the following reason: navCtl should identify the current nav, but in GlobalErrorHandler, it hard to identify the current nav
   constructor(public alertCtrl: AlertController) {
-    //constructor (private app:App) {
-    super();
-
-    console.log('  global error constructor ');
+    super(); 
   }
 
   handleError(error: any): void {
