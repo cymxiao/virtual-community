@@ -30,18 +30,14 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
-
-      this.currentUser = AppSettings.getCurrentUser(); 
+      splashScreen.hide(); 
+      this.currentUser = AppSettings.getCurrentUser();  
       if (this.currentUser && this.currentUser.role && this.currentUser.role[0] === UserRoleEnum.PMCUser) {
         this.isPMCUser = true;
-      }
-
-      timer(1300).subscribe(() => this.showSplash = false)
+      } 
+      timer(1000).subscribe(() => this.showSplash = false)
     });
   }
-
-  onview
 
   mgrCarports() {
     this.nav.setRoot(PmcCarportDashboardPage);
