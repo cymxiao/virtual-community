@@ -18,7 +18,7 @@ export class AppSettings{
        //access this , if use localhost, it would try to connect localhost on user's device.
        
        if (ENV.mode === 'Production') {
-            return "http://localhost:3000";
+            return "http://106.14.132.131:3000";
         } else if (ENV.mode === 'Development') {
             return "http://localhost:3000";
         } else if (ENV.mode === 'Home') {
@@ -26,7 +26,7 @@ export class AppSettings{
         } else if (ENV.mode === 'aliyun') {
             return "http://106.14.132.131:3000";
         }else {
-            return "http://localhost:3000";
+            return "http://106.14.132.131:3000";
         }
     }
 
