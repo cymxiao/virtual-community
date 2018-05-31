@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 //Amin:Tocheck . TestPage can't be used here.
@@ -18,8 +18,10 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'base.html',
 })
 export class BasePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+ 
+  constructor(public navCtrl: NavController,
+     public alertCtrl: AlertController,
+     public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -43,5 +45,15 @@ export class BasePage {
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
+
+  presentAlert(){
+    let alert = this.alertCtrl.create({
+      title: '保存成功',
+      subTitle: '您的信息已经保存成功。'
+    });
+    alert.present().then(x => {  
+      this.refresh(); 
+    });
+  }
 
 }

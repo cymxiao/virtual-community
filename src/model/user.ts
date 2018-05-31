@@ -10,6 +10,8 @@ export interface IUser  {
     phoneNo: string;
     address: string; 
     name:string;
+    //Amin: limitation . One user can only has one carPlate
+    carPlate: string; 
     lastLoginDate:Date;
   }
 

@@ -42,8 +42,24 @@
     <ion-input type="text" name="carport" disabled="true" [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
   </ion-item>
 
-  <!-- <button class="pull-right" ion-button icon-end color="primary" tappable (click)="goBackHome()" >
-          <ion-icon name="arrow-back"></ion-icon>  
-          &nbsp;&nbsp;返回主页
-      </button> -->
+  <ion-item *ngIf="!isPMCUser">
+    <ion-label floating>
+      <ion-icon name="card" item-start class="text-primary"></ion-icon>
+      车牌号码
+    </ion-label>
+    <ion-input type="text" name="carPlate" [(ngModel)]="user.carPlate"> </ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="isPMCUser">
+    <ion-label floating>
+      <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
+      车牌号码
+    </ion-label>
+    <ion-input type="text" name="姓名" [(ngModel)]="user.name"> </ion-input>
+  </ion-item>
+  <div class="padding-xs"></div>
+  <button class="pull-right" ion-button icon-start block round color="secondary" tappable (click)="save()" >
+          <ion-icon name="checkbox"></ion-icon>  
+          &nbsp;&nbsp;保存
+      </button>
 </ion-content>

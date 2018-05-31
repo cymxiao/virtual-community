@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
 import { ICarport } from 'model/carport';
 import { CarportPage } from '../carport/carport';
@@ -46,8 +46,9 @@ export class SelectCommunityModalPage extends BasePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
     public service: RestServiceProvider) {
-    super(navCtrl, navParams);
+    super(navCtrl, alertCtrl ,navParams);
     //super();
     this.comReadOnly =  this.navParams.get("comReadOnly");
     this.source = this.navParams.get("source");

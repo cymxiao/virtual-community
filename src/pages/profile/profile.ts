@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController,NavParams, MenuController, ModalController } from 'ionic-angular';
 
 import { IUser } from '../../model/user';
 import { ICarport } from '../../model/carport';
 import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 import { BasePage } from '../base/base';
 import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
+import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -24,9 +25,11 @@ export class ProfilePage extends BasePage {
   isPMCUser: boolean;
   currentCarport: ICarport;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
+    private service: RestServiceProvider,
+    public alertCtrl: AlertController,
     public navParams: NavParams,
     public menu: MenuController) {
-    super(navCtrl, navParams);
+    super(navCtrl, alertCtrl, navParams);
   }
 
   ionViewDidLoad() {
@@ -42,7 +45,8 @@ export class ProfilePage extends BasePage {
     if (!this.user.community_ID || !this.user.community_ID._id
       || !this.currentCarport || !this.currentCarport.parkingNumber) {
         if(!this.user.role || (this.user.role && this.user.role[0]!== UserRoleEnum.PMCUser)){
-          this.navCtrl.push(SelectCommunityModalPage, {source: "profile"});  
+          //If a user is a carport applier, no need to complete community and carport info.
+          //this.navCtrl.push(SelectCommunityModalPage, {source: "profile"});  
         } else{
           this.isPMCUser = true;
         }
@@ -50,6 +54,17 @@ export class ProfilePage extends BasePage {
       this.user = AppSettings.getCurrentUser();
       this.currentCarport = AppSettings.getCurrentCarport();
     }
+  }
+
+  save(){
+    const udpateContent = {
+      carPlate: this.user.carPlate
+    };
+    this.service.updateUser(this.user._id, udpateContent).then((uptUser: any) => { 
+      localStorage.setItem('user', JSON.stringify(uptUser));
+      //this.redirctPage(usr);
+      this.presentAlert();
+    });
   }
 
  
@@ -75,6 +90,7 @@ export class ProfilePage extends BasePage {
           phoneNo: '',
           address: '',
           lastLoginDate: null,
+          carPlate:'',
           name:''
         };
       }
