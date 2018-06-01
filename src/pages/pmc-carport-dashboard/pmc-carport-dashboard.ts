@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, AlertController,  NavParams } from 'ionic-angular';
 
 
 import { IUILeisurePark } from '../../model/leisurePark';
@@ -7,6 +7,7 @@ import { AppSettings } from '../../settings/app-settings';
  
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { BasePage } from '../base/base';
 /**
  * Generated class for the PmcCarportDashboardPage page.
  *
@@ -19,19 +20,19 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
   selector: 'page-pmc-carport-dashboard',
   templateUrl: 'pmc-carport-dashboard.html',
 })
-export class PmcCarportDashboardPage {
+export class PmcCarportDashboardPage extends BasePage {
   appliedLeisureParks : IUILeisurePark[];
   //currentCommunity: ICommunity;
   currentComId: string;
   inputComId: string;
+  activeMenu: string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public apiService: RestServiceProvider) {
-       //in app constructor, when platform.ready(), the localstrage hasn't been saved yet. So I can't get any value
-    //from localstorage 
-    // if(this.navParams.get("refresh")=== 'true' ){
-    //   this.refresh();
-    //   //this.navParams.
-    // } 
+    public menuCtrl: MenuController,
+    public alertCtrl: AlertController,
+    public apiService: RestServiceProvider) { 
+      super(navCtrl,alertCtrl,navParams);
+      this.activeMenu = super.menuPMCActive(menuCtrl);
   }
 
  
@@ -60,9 +61,5 @@ export class PmcCarportDashboardPage {
     });
   }  
 
-  refresh() {
-    //location.reload();
-    this.navCtrl.setRoot(this.navCtrl.getActive().component, {"refresh": "false"});
-  }
 
 }

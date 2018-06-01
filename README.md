@@ -49,3 +49,7 @@ https://ionicframework.com/docs/intro/deploying/
 
 #Issue
 since I use cellphone to do regeister and login on one page, how to avoid if a user A  input another one's (B) cellphone, and update this guy's (B) pwd.  And B is always' can login to system since we have a perment localstorage to save the authentication.
+
+
+2. Dynamic Menu. PMC user menu item is always wrong when first login , only if page freshed or use ion-refresher, the menu would be fine.
+--Use another solutin resolved. create two menus on app.html, use [menuToggle] on pages.

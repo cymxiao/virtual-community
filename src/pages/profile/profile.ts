@@ -23,12 +23,15 @@ export class ProfilePage extends BasePage {
   user: IUser;
   isPMCUser: boolean;
   currentCarport: ICarport;
+  activeMenu: string;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
     private service: RestServiceProvider,
     public alertCtrl: AlertController,
+    public menuCtrl: MenuController,
     public navParams: NavParams,
     public menu: MenuController) {
     super(navCtrl, alertCtrl, navParams);
+    this.activeMenu = super.menuActive(menuCtrl);
   }
 
   ionViewDidLoad() {

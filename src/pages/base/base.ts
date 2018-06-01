@@ -18,10 +18,10 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'base.html',
 })
 export class BasePage {
- 
+
   constructor(public navCtrl: NavController,
-     public alertCtrl: AlertController,
-     public navParams: NavParams) {
+    public alertCtrl: AlertController,
+    public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -46,14 +46,26 @@ export class BasePage {
   }
 
 
-  presentAlert(){
+  presentAlert() {
     let alert = this.alertCtrl.create({
       title: '保存成功',
       subTitle: '您的信息已经保存成功。'
     });
-    alert.present().then(x => {  
-      this.refresh(); 
+    alert.present().then(x => {
+      this.refresh();
     });
+  }
+
+  menuActive(menuCtrl) {
+    menuCtrl.enable(true, 'menu');
+    menuCtrl.enable(false, 'menuPMC');
+    return 'menu';
+  }
+  
+  menuPMCActive(menuCtrl) { 
+    menuCtrl.enable(false, 'menu');
+    menuCtrl.enable(true, 'menuPMC');
+    return 'menuPMC';
   }
 
 }
