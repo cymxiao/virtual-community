@@ -3,7 +3,7 @@ import { IonicPage, NavController, AlertController, NavParams, MenuController, M
 
 import { IUser } from '../../model/user';
 import { ICarport } from '../../model/carport';
-import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
+import { AppSettings } from '../../settings/app-settings';
 import { BasePage } from '../base/base';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**

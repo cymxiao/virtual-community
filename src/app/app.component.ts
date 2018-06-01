@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { IUser } from '../model/user';
-import { AppSettings, UserRoleEnum } from '../settings/app-settings';
 
 import { LoginPage } from '../pages/login/login';
 import { SelectCommunityModalPage } from '../pages/select-community-modal/select-community-modal';
