@@ -21,6 +21,7 @@ import { timer } from 'rxjs/observable/timer';
 export class MyApp {
   rootPage: any = LoginPage;
   @ViewChild(Nav) nav: Nav;
+  //@ViewChild(Refresher) refresher: Refresher;
   isPMCUser: boolean;
   currentUser: IUser;
   showSplash = true;
@@ -31,13 +32,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide(); 
-      this.currentUser = AppSettings.getCurrentUser();  
-      if (this.currentUser && this.currentUser.role && this.currentUser.role[0] === UserRoleEnum.PMCUser) {
-        this.isPMCUser = true;
-      } 
-      timer(1000).subscribe(() => this.showSplash = false)
+      this.initApp();
+      //console.dir(this.nav._root);
+      //this.doRefresh(this.refresher);
+      timer(1000).subscribe(() => this.showSplash = false);  
     });
   }
+
+  
 
   mgrCarports() {
     this.nav.setRoot(PmcCarportDashboardPage);
@@ -63,4 +65,20 @@ export class MyApp {
     localStorage.clear();
     location.reload();
   }
+
+  initApp(){
+    this.currentUser = AppSettings.getCurrentUser();  
+    if (this.currentUser && this.currentUser.role && this.currentUser.role[0] === UserRoleEnum.PMCUser) {
+      this.isPMCUser = true;
+    } 
+  }
+
+  // doRefresh(refresher) {
+  //   //console.log('Begin async operation', refresher);
+  //   this.initApp();
+  //   setTimeout(() => {
+  //     console.log('Async operation has ended');
+  //     refresher.complete();
+  //   }, 200);
+  // }
 }

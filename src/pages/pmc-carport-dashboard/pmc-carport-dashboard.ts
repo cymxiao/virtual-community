@@ -49,7 +49,7 @@ export class PmcCarportDashboardPage {
   getLeisureParkbyApplier() {
     //console.log('pmc getLeisureParkbyCommunity' + this.currentComId); //"5adaef7a8afb9251ff14f7ae")
     this.apiService.getLeisureParkbyCommunity(this.currentComId,'000000000000000000000000').then((lpark: any) => {
-      console.dir(lpark);
+ 
       if (lpark && lpark.length>0) {
         this.appliedLeisureParks = lpark;
         this.appliedLeisureParks.forEach(x => {
