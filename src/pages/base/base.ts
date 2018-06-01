@@ -19,8 +19,8 @@ import { AppSettings , UserRoleEnum } from '../../settings/app-settings';
 })
 export class BasePage {
 
-  public isPMCUser:Boolean;
-  public currentUser:IUser;
+  public isPMCUser: boolean;
+  public currentUser: IUser;
 
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,

@@ -4,15 +4,15 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header> 
-  <ion-navbar color="primary"> 
+<ion-header>
+  <ion-navbar color="primary">
     <button ion-button [menuToggle]="activeMenu">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
       个人中心
-    </ion-title> 
-  </ion-navbar> 
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
 
@@ -20,46 +20,60 @@
   <!--Amin: tocheck : why use two times for class padding-xs -->
   <div class="padding-xs"></div>
   <div class="padding-xs"></div>
-  <ion-item>
-    <ion-label floating>
-      <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
-      手机号码
-    </ion-label>
-    <ion-input type="number" name="username" [(ngModel)]="user.username" disabled="true"> </ion-input> 
-  </ion-item>
-  <ion-item>
-    <ion-label floating>
-      <ion-icon name="flag" item-start class="text-primary"></ion-icon>
-      所在小区
-    </ion-label>
-    <ion-input type="text" name="community" disabled="true" [(ngModel)]="user.community_ID.name"> </ion-input> 
-  </ion-item>
-  <ion-item *ngIf="!isPMCUser">
-    <ion-label floating>
-      <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
-      车位编号
-    </ion-label>
-    <ion-input type="text" name="carport" disabled="true" [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
-  </ion-item>
+  <ion-card>
+    <ion-card-header>
+      不可修改部分。车位修改路径：我的资料->车位登记
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
+          手机号码
+        </ion-label>
+        <ion-input type="number" name="username" [(ngModel)]="user.username" disabled="true"> </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="flag" item-start class="text-primary"></ion-icon>
+          所在小区
+        </ion-label>
+        <ion-input type="text" name="community" disabled="true" [(ngModel)]="user.community_ID.name"> </ion-input>
+      </ion-item>
+      <ion-item *ngIf="!isPMCUser">
+        <ion-label floating>
+          <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
+          车位编号
+        </ion-label>
+        <ion-input type="text" name="carport" disabled="true" [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-item *ngIf="!isPMCUser">
-    <ion-label floating>
-      <ion-icon name="card" item-start class="text-primary"></ion-icon>
-      车牌号码
-    </ion-label>
-    <ion-input type="text" name="carPlate" [(ngModel)]="user.carPlate"> </ion-input>
-  </ion-item>
+  <ion-card>
+    <ion-card-header>
+      可以修改部分。
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngIf="!isPMCUser">
+        <ion-label floating>
+          <ion-icon name="card" item-start class="text-primary"></ion-icon>
+          车牌号码
+        </ion-label>
+        <ion-input type="text" name="carPlate" [(ngModel)]="user.carPlate"> </ion-input>
+      </ion-item>
 
-  <ion-item *ngIf="isPMCUser">
-    <ion-label floating>
-      <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
-      联系人名称
-    </ion-label>
-    <ion-input type="text" name="姓名" [(ngModel)]="user.name"> </ion-input>
-  </ion-item>
+      <ion-item *ngIf="isPMCUser">
+        <ion-label floating>
+          <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
+          联系人名称
+        </ion-label>
+        <ion-input type="text" name="姓名" [(ngModel)]="user.name"> </ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
   <div class="padding-xs"></div>
-  <button class="pull-right" ion-button icon-start block round color="secondary" tappable (click)="save()" >
-          <ion-icon name="checkbox"></ion-icon>  
-          &nbsp;&nbsp;保存
-      </button>
+  <button class="pull-right" ion-button icon-start block round color="secondary" tappable (click)="save()">
+    <ion-icon name="checkbox"></ion-icon>
+    &nbsp;&nbsp;保存
+  </button>
 </ion-content>

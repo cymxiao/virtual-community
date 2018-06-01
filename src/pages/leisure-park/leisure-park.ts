@@ -134,6 +134,14 @@ export class LeisureParkPage {
 
 
   addButtonClick() {
+
+    if (!this.currentUser.community_ID || !this.currentUser.community_ID._id
+      || !this.currentCarport || !this.currentCarport.parkingNumber) {
+      if (!this.currentUser.role || (this.currentUser.role && this.currentUser.role[0] !== UserRoleEnum.PMCUser)) {
+        this.navCtrl.push(SelectCommunityModalPage, { source: "leisurepark" });
+      }
+    } 
+
     let time = moment();
     let previousRecordEndTime = time;
     //Amin: IMP, please if use this.currentUser.community_ID, this.currentUser should be init in contructor.
