@@ -1,4 +1,5 @@
 import { ICarport } from './carport';
+import { IUser } from './user';
 
 export interface ILeisurePark  {
     id: string; 
@@ -39,11 +40,12 @@ export interface ILeisurePark  {
     statusDisplayText: string;
     carport_ID: ICarport; 
     community_ID:string;
-    applied_UserID: string;
+    applied_UserID: IUser;
     shared_UserID:string;
     price: string;
     priceUnit:string; 
     priceUnitDisplayText: string;
     avaibleHours: number;
     timestamp: Date;
+    showPMCButton:Boolean;
   }

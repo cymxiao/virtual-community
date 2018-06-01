@@ -36,11 +36,11 @@
           <ion-label>
               价格：     {{lp.price }} / {{lp.priceUnitDisplayText}}
           </ion-label>
+          <button *ngIf="lp.showPMCButton" ion-button icon-end round color="secondary" class="pull-right" tappable (click)="updateStatus(lp)" >
+                <ion-icon name="bookmark"></ion-icon>  
+                &nbsp;&nbsp;以支付并出闸
+            </button>
       </ion-card-content>
 
-  </ion-card>
-  <!-- <button ion-button icon-end round class="pull-right" color="primary" tappable (click)="updateProfile()" >
-          <ion-icon name="arrow-back"></ion-icon>  
-          &nbsp;&nbsp;更改注册资料
-  </button> -->
+  </ion-card> 
 </ion-content>

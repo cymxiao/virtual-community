@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, MenuController, AlertController,  NavParams } from 'ionic-angular';
-
-
+ 
 import { IUILeisurePark } from '../../model/leisurePark';
 import { AppSettings } from '../../settings/app-settings';
  
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { BasePage } from '../base/base';
+ 
 /**
  * Generated class for the PmcCarportDashboardPage page.
  *
@@ -47,19 +47,38 @@ export class PmcCarportDashboardPage extends BasePage {
     
   }
 
+
+  updateStatus(leisurePark){
+    const updateBody = {
+      status: 'paid'  
+    }; 
+      this.apiService.updateleisurePark(leisurePark._id, updateBody).then(lp => {
+        if (lp) {
+          //Fresh page.
+          this.getLeisureParkbyApplier();
+        }
+      }); 
+  }
+
+ 
   getLeisureParkbyApplier() {
     //console.log('pmc getLeisureParkbyCommunity' + this.currentComId); //"5adaef7a8afb9251ff14f7ae")
     this.apiService.getLeisureParkbyCommunity(this.currentComId,'000000000000000000000000').then((lpark: any) => {
- 
       if (lpark && lpark.length>0) {
+
         this.appliedLeisureParks = lpark;
         this.appliedLeisureParks.forEach(x => {
           x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
           x.statusDisplayText = AppSettings.getDisplayText( x.status , AppSettings.leisureParkStatusDict); 
+
+          if(x.status && x.status[0] === 'applied' && x.applied_UserID && x.applied_UserID.carPlate){
+            x.showPMCButton = true;
+            x.statusDisplayText  = '车牌号为：' + x.applied_UserID.carPlate + ' 的车辆' +  x.statusDisplayText;
+          }
         }) 
       }
     });
-  }  
+  } 
 
 
 }
