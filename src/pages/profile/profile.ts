@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController,NavParams, MenuController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, MenuController, ModalController } from 'ionic-angular';
 
 import { IUser } from '../../model/user';
 import { ICarport } from '../../model/carport';
@@ -20,8 +20,7 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 export class ProfilePage extends BasePage {
 
   //map: any;
-  user: IUser;
-  isPMCUser: boolean;
+  user: IUser; 
   currentCarport: ICarport;
   activeMenu: string;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
@@ -31,34 +30,35 @@ export class ProfilePage extends BasePage {
     public navParams: NavParams,
     public menu: MenuController) {
     super(navCtrl, alertCtrl, navParams);
-    this.activeMenu = super.menuActive(menuCtrl);
   }
 
   ionViewDidLoad() {
-    this.user = AppSettings.getCurrentUser();
+    super.ionViewDidLoad(); 
+    this.user = this.currentUser;
     this.currentCarport = AppSettings.getCurrentCarport();
-    this.initVariables(); 
+    this.initVariables();
+    if(this.isPMCUser){
+      super.menuPMCActive(this.menuCtrl);
+    } else {
+      super.menuActive(this.menuCtrl);
+    }
   }
 
- 
-  save(){
+
+  save() {
     const udpateContent = {
       carPlate: this.user.carPlate
     };
-    this.service.updateUser(this.user._id, udpateContent).then((uptUser: any) => { 
+    this.service.updateUser(this.user._id, udpateContent).then((uptUser: any) => {
       localStorage.setItem('user', JSON.stringify(uptUser));
       //this.redirctPage(usr);
       this.presentAlert();
     });
   }
 
- 
 
-  initVariables() {
-    if (this.user && this.user.role && this.user.role[0] === UserRoleEnum.PMCUser) {
-      this.isPMCUser = true;
-    }
 
+  initVariables() { 
     if (!this.user || !this.user.community_ID) {
       if (!this.user) {
         this.user = {
@@ -79,8 +79,8 @@ export class ProfilePage extends BasePage {
           phoneNo: '',
           address: '',
           lastLoginDate: null,
-          carPlate:'',
-          name:''
+          carPlate: '',
+          name: ''
         };
       }
 
@@ -98,18 +98,18 @@ export class ProfilePage extends BasePage {
       }
     }
 
-      if (!this.currentCarport || !this.currentCarport.parkingNumber) {
-        this.currentCarport = {
-          _id: '',
-          id: '',
-          __v: '',
-          parkingNumber: '',
-          isCurrent: false,
-          type: '',
-          route: '',
-          owner_user_ID: ''
-        };
-      }
+    if (!this.currentCarport || !this.currentCarport.parkingNumber) {
+      this.currentCarport = {
+        _id: '',
+        id: '',
+        __v: '',
+        parkingNumber: '',
+        isCurrent: false,
+        type: '',
+        route: '',
+        owner_user_ID: ''
+      };
     }
-
   }
+
+}

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
-//Amin:Tocheck . TestPage can't be used here.
-//import {TestPage} from '../test/test';
+import { IUser } from 'model/user';
+import { AppSettings , UserRoleEnum } from '../../settings/app-settings';
 
 /**
  * Generated class for the BasePage page.
@@ -19,13 +19,18 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class BasePage {
 
+  public isPMCUser:Boolean;
+  public currentUser:IUser;
+
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
     public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BasePage');
+    //console.log('ionViewDidLoad BasePage');
+    this.initCurrentUser();
+    this.checkPMCUser();
   }
 
   goBackHome() {
@@ -45,6 +50,15 @@ export class BasePage {
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
+  initCurrentUser(){
+    this.currentUser = AppSettings.getCurrentUser(); 
+  }
+
+  checkPMCUser(){ 
+    if (this.currentUser && this.currentUser.role && this.currentUser.role[0] === UserRoleEnum.PMCUser) {
+      this.isPMCUser = true;
+    } 
+  }
 
   presentAlert() {
     let alert = this.alertCtrl.create({
@@ -67,5 +81,5 @@ export class BasePage {
     menuCtrl.enable(true, 'menuPMC');
     return 'menuPMC';
   }
-
+ 
 }

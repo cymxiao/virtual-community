@@ -22,7 +22,6 @@ export class MyApp {
   rootPage: any = LoginPage;
   @ViewChild(Nav) nav: Nav;
   //@ViewChild(Refresher) refresher: Refresher;
-  isPMCUser: boolean;
   currentUser: IUser;
   showSplash = true;
 
@@ -32,9 +31,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide(); 
-      this.initApp();
-      //console.dir(this.nav._root);
-      //this.doRefresh(this.refresher);
       timer(1000).subscribe(() => this.showSplash = false);  
     });
   }
@@ -66,12 +62,7 @@ export class MyApp {
     location.reload();
   }
 
-  initApp(){
-    this.currentUser = AppSettings.getCurrentUser();  
-    if (this.currentUser && this.currentUser.role && this.currentUser.role[0] === UserRoleEnum.PMCUser) {
-      this.isPMCUser = true;
-    } 
-  }
+
 
   // doRefresh(refresher) {
   //   //console.log('Begin async operation', refresher);
