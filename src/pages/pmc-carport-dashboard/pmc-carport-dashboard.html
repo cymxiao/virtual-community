@@ -16,7 +16,8 @@
 
 
 <ion-content padding>
-  <div *ngIf="!appliedLeisureParks"> 贵小区暂未查询有共享车位，请后续关注 </div>
+  <div *ngIf="!pendingOnVerify && !appliedLeisureParks"> 贵小区暂未查询有共享车位，请后续关注 </div>
+  <div *ngIf="pendingOnVerify">贵公司的注册资料尚未通过审核，我们的客服会在2个工作日之内完成审核，请耐心等待。</div>
   <ion-card *ngFor="let lp of appliedLeisureParks"> 
       <ion-card-header>
       </ion-card-header> 
@@ -36,9 +37,9 @@
           <ion-label>
               价格：     {{lp.price }} / {{lp.priceUnitDisplayText}}
           </ion-label>
-          <button *ngIf="lp.showPMCButton" ion-button icon-end round color="secondary" class="pull-right" tappable (click)="updateStatus(lp)" >
+          <button *ngIf="lp.showPMCButton"   [disabled]="pendingOnVerify" ion-button icon-end round color="secondary" class="pull-right" tappable (click)="updateStatus(lp)" >
                 <ion-icon name="bookmark"></ion-icon>  
-                &nbsp;&nbsp;以支付并出闸
+                &nbsp;&nbsp;已支付并出闸
             </button>
       </ion-card-content>
 

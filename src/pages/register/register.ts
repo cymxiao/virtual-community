@@ -91,7 +91,7 @@ export class RegisterPage {
           this.apiService.addUser(
             {
               username: this.pmc.username,
-              password: AppSettings.Encrypt(this.pmc.password),
+              password: this.pmc.password,
               name: this.pmc.name,
               community_ID: this.csCom.selectedComunityID,
               role: UserRoleEnum.PMCUser,

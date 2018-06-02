@@ -53,3 +53,9 @@ since I use cellphone to do regeister and login on one page, how to avoid if a u
 
 2. Dynamic Menu. PMC user menu item is always wrong when first login , only if page freshed or use ion-refresher, the menu would be fine.
 --Use another solutin resolved. create two menus on app.html, use [menuToggle] on pages.
+
+3. Community auto complete control has a pending issue: 输入 '金丰'， 金丰蓝庭小区未显示。
+
+
+# Pending on improve
+1. On PMC register, it's better to prompt 'pmc regeisted error'  when user select a community.

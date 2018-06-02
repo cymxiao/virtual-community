@@ -90,6 +90,7 @@ export class LeisureParkPage {
       address: '',
       lastLoginDate: null,
       carPlate:'',
+      status:'',
       name: ''
     }
 

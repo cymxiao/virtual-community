@@ -46,7 +46,7 @@
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="construct" item-start class="text-primary"></ion-icon>
-                    物业公司名称
+                    物业公司名称 *
                 </ion-label>
                 <ion-input type="text" name="fieldPMC" required [(ngModel)]="pmc.PMC" #fieldPMC="ngModel"> </ion-input>
             </ion-item>
@@ -58,7 +58,7 @@
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
-                    负责人或联系人手机号码
+                    负责人或联系人手机号码 *
                 </ion-label>
                 
                 <ion-input type="number" minlength="11" maxlength="11"  name="fieldUsername" required  [(ngModel)]="pmc.username" 
@@ -80,7 +80,7 @@
             <ion-item >
                 <ion-label floating>
                     <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
-                    停车价格 
+                    停车价格 * 
                 </ion-label>
                 <ion-input type="number" name="fieldPrice" min="0" max="1000" required 
                 [(ngModel)]="pmc.community_ID.price" #fieldPrice="ngModel" (ionBlur)="on_price_Blur($event)"></ion-input>
@@ -97,7 +97,7 @@
             <ion-item >
                 <ion-label floating>
                     <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
-                    价格单位
+                    价格单位 *
                 </ion-label>
                 <!--  okText="确定" cancelText="取消"-->
                 <ion-select name="priceUnit" required [(ngModel)]="pmc.community_ID.priceUnit" #priceUnit="ngModel" interface="popover" > 
@@ -117,7 +117,7 @@
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="code-download" item-start class="text-primary"></ion-icon>
-                    验证码
+                    验证码 *
                 </ion-label>
                 <ion-input type="password" minlength="6" maxlength="6" name="verifycode" required  [(ngModel)]="pmc.password"
                    #fieldverifycode="ngModel" (ionBlur) ="on_verifyCodeBlur($event)" ></ion-input>
@@ -131,7 +131,10 @@
                 </div> 
             </div> 
             <sms-code [cellPhoneNumber] ="this.pmc.username"></sms-code>
-           
+            <div class="text-danger-padding" *ngIf="showPMCExistError">
+                该小区入驻的物业已经注册，请再次核实小区名称，如若无误请使用物业负责人或联系人手机号码直接登录，或者重新输入并选择小区名称。
+            </div> 
+    
         </form>
 
         <div margin-top> 

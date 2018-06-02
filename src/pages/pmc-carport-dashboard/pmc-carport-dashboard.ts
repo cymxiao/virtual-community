@@ -21,11 +21,11 @@ import { BasePage } from '../base/base';
   templateUrl: 'pmc-carport-dashboard.html',
 })
 export class PmcCarportDashboardPage extends BasePage {
-  appliedLeisureParks : IUILeisurePark[];
-  //currentCommunity: ICommunity;
+  appliedLeisureParks : IUILeisurePark[]; 
   currentComId: string;
   inputComId: string;
   activeMenu: string;
+  pendingOnVerify:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public menuCtrl: MenuController,
@@ -36,7 +36,9 @@ export class PmcCarportDashboardPage extends BasePage {
   }
 
  
-  ionViewDidLoad() {
+  ionViewDidLoad() { 
+    super.ionViewDidLoad();
+    this.pendingOnVerify = this.pendingStatus; 
     this.currentComId = AppSettings.getCurrentCommunityID(); 
     if(!this.currentComId && AppSettings.getCurrentUser() && AppSettings.getCurrentUser().community_ID ){
       this.currentComId = AppSettings.getCurrentUser().community_ID._id;
