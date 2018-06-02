@@ -55,9 +55,9 @@ export class PmcCarportDashboardPage extends BasePage {
       status: 'paid'  
     }; 
       this.apiService.updateleisurePark(leisurePark._id, updateBody).then(lp => {
-        if (lp) {
-          //Amin: todo ,  should be credit += credit.
-          this.apiService.updateAccount(leisurePark.user_ID, { credit : 0.5 * leisurePark.price }).then( suc => {
+        if (lp && leisurePark.applied_UserID && leisurePark.applied_UserID._id) { 
+          //console.log(leisurePark.applied_UserID);
+          this.apiService.updateAccount(leisurePark.applied_UserID._id, { credit : 0.5 * leisurePark.price }).then( suc => {
             if (suc ){
                //Fresh page.
               this.getLeisureParkbyApplier();

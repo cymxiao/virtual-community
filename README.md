@@ -59,3 +59,10 @@ since I use cellphone to do regeister and login on one page, how to avoid if a u
 
 # Pending on improve
 1. On PMC register, it's better to prompt 'pmc regeisted error'  when user select a community.
+
+
+# Todo
+1. license prompt. The benefit rule .
+2. advertise
+3. add my account menu item
+4. add An admin page to check pending PMC
