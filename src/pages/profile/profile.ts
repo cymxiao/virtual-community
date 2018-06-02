@@ -42,7 +42,7 @@ export class ProfilePage extends BasePage {
     if (this.isPMCUser) {
       //PMC user would have empty community_ID when go to profile page first time. 
       //console.log(this.user.community_ID instanceof ObjectId);
-      if (this.user.community_ID  && !this.user.community_ID._id && AppSettings.getCurrentCommunityID()) {
+      if (this.user.community_ID && !this.user.community_ID._id && AppSettings.getCurrentCommunityID()) {
         this.service.getCommunity(AppSettings.getCurrentCommunityID()).then((com: any) => {
           if (com) {
             this.user.community_ID = com;
@@ -70,9 +70,19 @@ export class ProfilePage extends BasePage {
       carPlate: this.user.carPlate
     };
     this.service.updateUser(this.user._id, udpateContent).then((uptUser: any) => {
-      localStorage.setItem('user', JSON.stringify(uptUser));
-      //this.redirctPage(usr);
-      this.presentAlert();
+      if (this.isPMCUser) {
+        this.service.updateCommunity(this.user.community_ID._id, { price: this.user.community_ID.price, priceUnit: this.user.community_ID.priceUnit }).then(c => {
+          if (c) {
+            uptUser.community_ID = c;
+            localStorage.setItem('user', JSON.stringify(uptUser));
+            //this.redirctPage(usr);
+            this.presentAlert();
+          }
+        });
+      }
+
+
+
     });
   }
 
@@ -99,12 +109,12 @@ export class ProfilePage extends BasePage {
           username: '',
           password: '',
           community_ID: emptyCommunity,
-          account_ID:'',
+          account_ID: '',
           role: '',
           phoneNo: '',
           address: '',
           lastLoginDate: null,
-          status:'',
+          status: '',
           carPlate: '',
           name: ''
         };
