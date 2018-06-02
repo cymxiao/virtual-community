@@ -5,6 +5,7 @@ export interface IAccount  {
     credit: string;
     user_ID: string;
    
-    timestamp: string; 
+    timestamp: string;
+    obsoleteTime: string; 
     status:string;
   }

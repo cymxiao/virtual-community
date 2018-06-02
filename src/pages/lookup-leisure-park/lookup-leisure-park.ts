@@ -42,7 +42,7 @@ export class LookupLeisureParkPage extends BasePage {
     public actionSheetCtrl: ActionSheetController,
     //private alipay: Alipay,
     public apiService: RestServiceProvider) {
-    super(navCtrl, alertCtrl, navParams);
+    super(navCtrl, navParams);
 
     this.inputComId = navParams.get('comId');
     this.plt.ready().then(x => {

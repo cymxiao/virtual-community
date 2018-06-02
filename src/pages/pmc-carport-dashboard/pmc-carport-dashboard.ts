@@ -31,7 +31,7 @@ export class PmcCarportDashboardPage extends BasePage {
     public menuCtrl: MenuController,
     public alertCtrl: AlertController,
     public apiService: RestServiceProvider) { 
-      super(navCtrl,alertCtrl,navParams);
+      super(navCtrl, navParams);
       this.activeMenu = super.menuPMCActive(menuCtrl);
   }
 
@@ -57,7 +57,7 @@ export class PmcCarportDashboardPage extends BasePage {
       this.apiService.updateleisurePark(leisurePark._id, updateBody).then(lp => {
         if (lp && leisurePark.applied_UserID && leisurePark.applied_UserID._id) { 
           //console.log(leisurePark.applied_UserID);
-          this.apiService.updateAccount(leisurePark.applied_UserID._id, { credit : 0.5 * leisurePark.price }).then( suc => {
+          this.apiService.updateAccountCredit(leisurePark.applied_UserID._id, { credit : 0.5 * leisurePark.price }).then( suc => {
             if (suc ){
                //Fresh page.
               this.getLeisureParkbyApplier();

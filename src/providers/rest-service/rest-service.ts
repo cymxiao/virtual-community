@@ -286,9 +286,20 @@ export class RestServiceProvider {
     });
   }
 
-  updateAccount(userId, data) {
+  updateAccountCredit(userId, data) {
     return new Promise((resolve, reject) => {
       this.http.post(this.apiUrl + '/account/' + userId, JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          throw err;
+        });
+    });
+  }
+
+  updateAccount(userId, data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/updateaccount/' + userId, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {

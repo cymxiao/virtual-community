@@ -25,7 +25,7 @@ export class BasePage {
   public pendingStatus: boolean;
 
   constructor(public navCtrl: NavController,
-    public alertCtrl: AlertController,
+    //public alertCtrl: AlertController,
     public navParams: NavParams) {
   }
 
@@ -69,8 +69,8 @@ export class BasePage {
     } 
   }
 
-  presentAlert() {
-    let alert = this.alertCtrl.create({
+  presentAlert( alertCtrl: AlertController) {
+    let alert = alertCtrl.create({
       title: '保存成功',
       subTitle: '您的信息已经保存成功。'
     });

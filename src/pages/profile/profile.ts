@@ -30,7 +30,7 @@ export class ProfilePage extends BasePage {
     public menuCtrl: MenuController,
     public navParams: NavParams,
     public menu: MenuController) {
-    super(navCtrl, alertCtrl, navParams);
+    super(navCtrl, navParams);
   }
 
   ionViewDidLoad() {
@@ -76,7 +76,7 @@ export class ProfilePage extends BasePage {
             uptUser.community_ID = c;
             localStorage.setItem('user', JSON.stringify(uptUser));
             //this.redirctPage(usr);
-            this.presentAlert();
+            this.presentAlert(this.alertCtrl);
           }
         });
       }

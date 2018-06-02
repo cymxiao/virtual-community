@@ -22,8 +22,8 @@ import { MyordersPageModule } from '../pages/myorders/myorders.module';
 import { PmcCarportDashboardPageModule } from '../pages/pmc-carport-dashboard/pmc-carport-dashboard.module';
 import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
-import { BasePageModule } from '../pages/base/base.module';
-import { ErrorHandlerPageModule } from '../pages/error-handler/error-handler.module';
+import { MyCreditPageModule } from '../pages/my-credit/my-credit.module';
+import { BasePageModule } from '../pages/base/base.module'; 
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { SMS } from '@ionic-native/sms';
@@ -55,7 +55,7 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     ProfilePageModule,
     CarportPageModule,
     PmcCarportDashboardPageModule,
-    ErrorHandlerPageModule,
+    MyCreditPageModule,
   
     BasePageModule,
     IonicModule.forRoot(MyApp,{

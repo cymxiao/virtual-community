@@ -48,7 +48,7 @@ export class SelectCommunityModalPage extends BasePage {
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public service: RestServiceProvider) {
-    super(navCtrl, alertCtrl ,navParams);
+    super(navCtrl, navParams);
     //super();
     this.comReadOnly =  this.navParams.get("comReadOnly");
     this.source = this.navParams.get("source");

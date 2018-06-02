@@ -70,7 +70,7 @@
         <ion-input type="text" name="姓名" [(ngModel)]="user.name"> </ion-input>
       </ion-item>
 
-      <ion-item >
+      <ion-item *ngIf="isPMCUser">
         <ion-label floating>
           <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
           停车价格
@@ -87,7 +87,7 @@
         价格应当介于0-500之间
       </div>
 
-      <ion-item >
+      <ion-item *ngIf="isPMCUser">
         <ion-label floating>
           <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
           价格单位
