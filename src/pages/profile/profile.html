@@ -65,10 +65,47 @@
       <ion-item *ngIf="isPMCUser">
         <ion-label floating>
           <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
-          联系人名称
+          负责人或联系人名称
         </ion-label>
         <ion-input type="text" name="姓名" [(ngModel)]="user.name"> </ion-input>
       </ion-item>
+
+      <ion-item >
+        <ion-label floating>
+          <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
+          停车价格
+        </ion-label>
+        <ion-input type="number" name="fieldPrice" min="0" max="500" required [(ngModel)]="user.community_ID.price" #fieldPrice="ngModel"
+          (ionBlur)="on_price_Blur($event)"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="isPMCUser && fieldPrice.invalid && (fieldPrice.dirty || fieldPrice.touched)">
+        <div class="text-danger" *ngIf="fieldPrice.errors.required">
+          请输入价格信息
+        </div>
+      </ion-item>
+      <div class="text-danger-padding" *ngIf="wrongPrice">
+        价格应当介于0-500之间
+      </div>
+
+      <ion-item >
+        <ion-label floating>
+          <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
+          价格单位
+        </ion-label>
+        <!--  okText="确定" cancelText="取消"-->
+        <ion-select name="priceUnit" required [(ngModel)]="user.community_ID.priceUnit" #priceUnit="ngModel" interface="popover">
+          <!-- okText="Okay" cancelText="Dismiss" -->
+          <ion-option value="hour">小时</ion-option>
+          <ion-option value="day" selected="true">次</ion-option>
+          <ion-option value="month">月</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item no-lines *ngIf="isPMCUser && priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
+        <div class="text-danger" *ngIf="priceUnit.errors.required">
+          请选择价格单位
+        </div>
+      </ion-item>
+
     </ion-card-content>
   </ion-card>
   <div class="padding-xs"></div>

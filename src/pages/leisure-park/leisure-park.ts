@@ -74,6 +74,9 @@ export class LeisureParkPage {
       position: '',
       mapid: '',
       city_ID: '',
+      PMC:'',
+      price:'',
+      priceUnit:'',
       address: ''
     }
 

@@ -20,9 +20,10 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 export class ProfilePage extends BasePage {
 
   //map: any;
-  user: IUser; 
+  user: IUser;
   currentCarport: ICarport;
   activeMenu: string;
+  wrongPrice: boolean;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,
     private service: RestServiceProvider,
     public alertCtrl: AlertController,
@@ -33,17 +34,36 @@ export class ProfilePage extends BasePage {
   }
 
   ionViewDidLoad() {
-    super.ionViewDidLoad(); 
+    super.ionViewDidLoad();
     this.user = this.currentUser;
+    //console.dir(this.user);
     this.currentCarport = AppSettings.getCurrentCarport();
     this.initVariables();
-    if(this.isPMCUser){
+    if (this.isPMCUser) {
+      //PMC user would have empty community_ID when go to profile page first time. 
+      //console.log(this.user.community_ID instanceof ObjectId);
+      if (this.user.community_ID  && !this.user.community_ID._id && AppSettings.getCurrentCommunityID()) {
+        this.service.getCommunity(AppSettings.getCurrentCommunityID()).then((com: any) => {
+          if (com) {
+            this.user.community_ID = com;
+          }
+        });
+      }
       super.menuPMCActive(this.menuCtrl);
     } else {
       super.menuActive(this.menuCtrl);
     }
   }
+  on_price_Blur(item) {
+    if (item && item.value) {
+      if (Number(item.value) < 0 || Number(item.value) > 1000) {
+        this.wrongPrice = true;
 
+      } else {
+        this.wrongPrice = false;
+      }
+    }
+  }
 
   save() {
     const udpateContent = {
@@ -58,23 +78,27 @@ export class ProfilePage extends BasePage {
 
 
 
-  initVariables() { 
+  initVariables() {
+    const emptyCommunity = {
+      _id: '',
+      id: '',
+      __v: '',
+      name: '',
+      position: '',
+      mapid: '',
+      city_ID: '',
+      PMC: '',
+      price: '',
+      priceUnit: '',
+      address: ''
+    };
     if (!this.user || !this.user.community_ID) {
       if (!this.user) {
         this.user = {
           _id: '',
           username: '',
           password: '',
-          community_ID: {
-            _id: '',
-            id: '',
-            __v: '',
-            name: '',
-            position: '',
-            mapid: '',
-            city_ID: '',
-            address: ''
-          },
+          community_ID: emptyCommunity,
           role: '',
           phoneNo: '',
           address: '',
@@ -85,16 +109,7 @@ export class ProfilePage extends BasePage {
       }
 
       if (!this.user.community_ID) {
-        this.user.community_ID = {
-          _id: '',
-          id: '',
-          __v: '',
-          name: '',
-          position: '',
-          mapid: '',
-          city_ID: '',
-          address: ''
-        }
+        this.user.community_ID = emptyCommunity;
       }
     }
 

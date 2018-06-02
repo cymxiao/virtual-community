@@ -54,22 +54,11 @@
                 <div class="text-danger" *ngIf="fieldPMC.errors.required">
                     请输入物业公司名称
                 </div>  
-            </div> 
-
-            <ion-item>
-                <ion-label floating>
-                    <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
-                    联系人姓名
-                </ion-label>
-                
-                <ion-input type="text" name="fieldName" required [(ngModel)]="pmc.name" #fieldPMC="ngModel" ></ion-input>
-                    
-            </ion-item>
-            <!-- #templateForm="ngForm" -->
+            </div>  
             <ion-item>
                 <ion-label floating>
                     <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
-                    手机号码
+                    负责人或联系人手机号码
                 </ion-label>
                 
                 <ion-input type="number" minlength="11" maxlength="11"  name="fieldUsername" required  [(ngModel)]="pmc.username" 
@@ -87,6 +76,42 @@
             <div class="text-danger" *ngIf="showDuplicateUserNameError">
                 该手机号已被注册
             </div> 
+
+            <ion-item >
+                <ion-label floating>
+                    <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
+                    停车价格 
+                </ion-label>
+                <ion-input type="number" name="fieldPrice" min="0" max="1000" required 
+                [(ngModel)]="pmc.community_ID.price" #fieldPrice="ngModel" (ionBlur)="on_price_Blur($event)"></ion-input>
+            </ion-item>
+            <ion-item no-lines *ngIf="fieldPrice.invalid && (fieldPrice.dirty || fieldPrice.touched)">
+                <div class="text-danger" *ngIf="fieldPrice.errors.required">
+                    请输入价格信息
+                </div> 
+            </ion-item> 
+            <div class="text-danger-padding" *ngIf="wrongPrice">
+                    价格应当介于0-1000之间
+                </div> 
+        
+            <ion-item >
+                <ion-label floating>
+                    <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
+                    价格单位
+                </ion-label>
+                <!--  okText="确定" cancelText="取消"-->
+                <ion-select name="priceUnit" required [(ngModel)]="pmc.community_ID.priceUnit" #priceUnit="ngModel" interface="popover" > 
+                    <!-- okText="Okay" cancelText="Dismiss" -->
+                    <ion-option value="hour">小时</ion-option>
+                    <ion-option value="day" selected="true" >次</ion-option>
+                    <ion-option value="month">月</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item no-lines *ngIf="priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
+                <div class="text-danger" *ngIf="priceUnit.errors.required">
+                    请选择价格单位
+                </div>
+            </ion-item>
            
 
             <ion-item>
