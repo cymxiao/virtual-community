@@ -19,7 +19,8 @@ import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 })
 export class MyCreditPage extends BasePage {
 
-  myCredit: string;
+  myCredit: number;
+  enableCleanCredit: boolean;
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
     public apiService: RestServiceProvider, public navParams: NavParams) {
@@ -36,9 +37,10 @@ export class MyCreditPage extends BasePage {
     //Amin: another solution is: populate the account_ID and define account_ID as IAccount in FE model class IUser.ts.
     if (this.currentUser && this.currentUser._id) {
       this.apiService.getAccount(this.currentUser._id).then((account: IAccount) => {
-        if (account) {
-          //console.log(account.credit);
-          this.myCredit = !account.credit ? '0' : account.credit;
+        if (account) { 
+          this.myCredit = !account.credit ? 0 : account.credit;
+          //Amin: check the reason  of this.myCredit.length is always undefined.
+          this.enableCleanCredit = (this.myCredit > 99);
         }
       });
     }

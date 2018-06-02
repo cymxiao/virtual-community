@@ -2,7 +2,7 @@
 export interface IAccount  {
     _id: string;
    
-    credit: string;
+    credit: number;
     user_ID: string;
    
     timestamp: string;

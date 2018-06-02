@@ -66,6 +66,7 @@ export class ProfilePage extends BasePage {
   }
 
   save() {
+    //console.dir(this.user);
     const udpateContent = {
       carPlate: this.user.carPlate
     };
@@ -73,15 +74,22 @@ export class ProfilePage extends BasePage {
       if (this.isPMCUser) {
         this.service.updateCommunity(this.user.community_ID._id, { price: this.user.community_ID.price, priceUnit: this.user.community_ID.priceUnit }).then(c => {
           if (c) {
-            uptUser.community_ID = c;
+            //console.dir(c);
+            uptUser.community_ID = c; 
             localStorage.setItem('user', JSON.stringify(uptUser));
-            //this.redirctPage(usr);
             this.presentAlert(this.alertCtrl);
+            
           }
         });
+      } else if(uptUser) {
+        localStorage.setItem('user', JSON.stringify(uptUser));
+        this.presentAlert(this.alertCtrl);
       }
 
-
+      //it's async function, it's possible that uptUser.community_ID has been update but it save to localstorage.
+      // if(uptUser){
+      //   localStorage.setItem('user', JSON.stringify(uptUser));
+      // }
 
     });
   }

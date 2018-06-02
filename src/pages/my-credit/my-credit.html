@@ -22,12 +22,13 @@
     </ion-card-header>
     <ion-card-content>
       <ion-label>
-        账户余额： {{ myCredit }}
+        账户余额(当余额大于99时，可以清零)： {{ myCredit }}
       </ion-label>
 
-      <button ion-button icon-end round color="secondary" class="pull-right" tappable (click)="showConfirm();" >
+      <button ion-button icon-end round color="secondary" class="pull-right" 
+      tappable (click)="showConfirm();" [disabled]="!enableCleanCredit" title="yu">
           <ion-icon name="bookmark"></ion-icon>  
-          &nbsp;&nbsp;已抵扣停车费，清零
+          &nbsp;&nbsp;已抵扣停车费，点此清零
       </button>
     </ion-card-content>
   </ion-card>
