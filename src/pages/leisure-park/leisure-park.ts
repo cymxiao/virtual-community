@@ -85,6 +85,7 @@ export class LeisureParkPage {
       username: '',
       password: '',
       community_ID: this.currentCommunity,
+      account_ID:'',
       role: '',
       phoneNo: '',
       address: '',

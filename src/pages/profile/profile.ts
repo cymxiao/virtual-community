@@ -99,6 +99,7 @@ export class ProfilePage extends BasePage {
           username: '',
           password: '',
           community_ID: emptyCommunity,
+          account_ID:'',
           role: '',
           phoneNo: '',
           address: '',

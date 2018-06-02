@@ -263,6 +263,44 @@ export class RestServiceProvider {
 
 
 
+  /* start account api */
+  addAccount(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/accounts', JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          throw err;
+        });
+    });
+  }
+
+  getAccount(userId) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/account/' + userId).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        throw err;
+      });
+    });
+  }
+
+  updateAccount(userId, data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/account/' + userId, JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          throw err;
+        });
+    });
+  }
+  /* end account api */
+  
+
+
+
 
   getMap() {
     return new Promise(resolve => {

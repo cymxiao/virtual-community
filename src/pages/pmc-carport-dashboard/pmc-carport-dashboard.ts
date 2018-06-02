@@ -56,8 +56,13 @@ export class PmcCarportDashboardPage extends BasePage {
     }; 
       this.apiService.updateleisurePark(leisurePark._id, updateBody).then(lp => {
         if (lp) {
-          //Fresh page.
-          this.getLeisureParkbyApplier();
+          //Amin: todo ,  should be credit += credit.
+          this.apiService.updateAccount(leisurePark.user_ID, { credit : 0.5 * leisurePark.price }).then( suc => {
+            if (suc ){
+               //Fresh page.
+              this.getLeisureParkbyApplier();
+            }
+          }); 
         }
       }); 
   }

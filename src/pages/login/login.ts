@@ -6,6 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
 import { UserPortalPage } from "../user-portal/user-portal";
 import { IUser } from '../../model/user';
+import { IAccount } from '../../model/account';
 import { ICarport } from 'model/carport';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
@@ -37,6 +38,7 @@ export class LoginPage {
   wrongUsrorPwd: boolean = false;
   cellPhoneError: boolean = false;
   currentCarport: ICarport;
+  //isPMCUser: boolean;
   @ViewChild(SmsCodeComponent) smsCom: SmsCodeComponent;
 
   verifyCode: any = {
@@ -56,7 +58,7 @@ export class LoginPage {
     if (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username) {
       const usr: IUser = AppSettings.getCurrentUser();
       this.redirctPage(usr);
-    }
+    }  
   }
 
   // go to register page
@@ -77,23 +79,30 @@ export class LoginPage {
         //   console.log('Save to localstorage for PMC user');
         //   localStorage.setItem('user', JSON.stringify(usr));
         // }
-        const udpateContent = {
-          lastLoginDate: new Date()
-        };
-        this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
-          //console.log(uptUser);
-          localStorage.setItem('user', JSON.stringify(uptUser));
-          this.service.getCarportListByOwnerId(usr._id).then((carp: any) => {
-            if (carp && carp.length > 0) {
-              let filterResult: any = carp.filter((f: any) => { return f.isCurrent === true });
-              if (filterResult && filterResult.length > 0) {
-                this.currentCarport = filterResult[0];
-              }
-              localStorage.setItem('carport', JSON.stringify(this.currentCarport));
-            }
-          }); 
-          this.redirctPage(usr);
-        });
+
+        //create user account for pmc user and normal user.
+        this.service.addAccount({ user_ID: usr._id, credit: 0 }).then( (account: IAccount) => {
+          if(account){
+            const udpateContent = {
+              lastLoginDate: new Date(),
+              account_ID: account._id
+            };
+            this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
+              //console.log(uptUser);
+              localStorage.setItem('user', JSON.stringify(uptUser));
+              this.service.getCarportListByOwnerId(usr._id).then((carp: any) => {
+                if (carp && carp.length > 0) {
+                  let filterResult: any = carp.filter((f: any) => { return f.isCurrent === true });
+                  if (filterResult && filterResult.length > 0) {
+                    this.currentCarport = filterResult[0];
+                  }
+                  localStorage.setItem('carport', JSON.stringify(this.currentCarport));
+                }
+              }); 
+              this.redirctPage(usr);
+            });
+          }
+        }); 
       } else { 
         this.wrongUsrorPwd = true;
         //console.log('wrong username or password');
@@ -128,5 +137,12 @@ export class LoginPage {
       localStorage.setItem('user', JSON.stringify(usr));
       this.navCtrl.setRoot(PmcCarportDashboardPage,{ "refresh": "true" });
     }
+  }
+
+  isPMCUser(usr:IUser){
+     if(usr.role && usr.role[0] === UserRoleEnum.PMCUser) { 
+       return true;
+     }
+     return false;
   }
 }

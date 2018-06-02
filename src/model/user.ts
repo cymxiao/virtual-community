@@ -6,6 +6,7 @@ export interface IUser  {
     username: string;
     password: string;
     community_ID: ICommunity;
+    account_ID: string;
     role: string;
     phoneNo: string;
     address: string; 
