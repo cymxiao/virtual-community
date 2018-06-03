@@ -8,6 +8,7 @@ import { UserPortalPage } from "../user-portal/user-portal";
 import { IUser } from '../../model/user';
 import { IAccount } from '../../model/account';
 import { ICarport } from 'model/carport';
+import { AdminDashboardPage  } from '../admin-dashboard/admin-dashboard';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { Logger } from "angular2-logger/core";
@@ -128,10 +129,12 @@ export class LoginPage {
 
   redirctPage(usr:IUser){
     if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) { 
-      if (usr.username !== AppSettings.PHONE1) {
-        this.navCtrl.setRoot(TabsPage);
+      if (usr.username === AppSettings.PHONE1) {
+        this.navToMemberPage(); 
+      } else if (usr.username === AppSettings.PHONE_ADMIN) {
+        this.navCtrl.setRoot(AdminDashboardPage);
       } else {
-        this.navToMemberPage();
+        this.navCtrl.setRoot(TabsPage);
       }
     } else {
       localStorage.setItem('user', JSON.stringify(usr));

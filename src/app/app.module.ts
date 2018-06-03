@@ -23,6 +23,7 @@ import { PmcCarportDashboardPageModule } from '../pages/pmc-carport-dashboard/pm
 import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { MyCreditPageModule } from '../pages/my-credit/my-credit.module';
+import { AdminDashboardPageModule } from '../pages/admin-dashboard/admin-dashboard.module';
 import { BasePageModule } from '../pages/base/base.module'; 
 
 import { Geolocation } from '@ionic-native/geolocation';
@@ -56,7 +57,7 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     CarportPageModule,
     PmcCarportDashboardPageModule,
     MyCreditPageModule,
-  
+    AdminDashboardPageModule,
     BasePageModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: '返回',

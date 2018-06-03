@@ -18,9 +18,9 @@ export class RestServiceProvider {
     this.apiUrl = AppSettings.getAPIServiceURL();
   }
 
-  getUsers() {
+  getPMCUsers(status) {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/users').subscribe(data => {
+      this.http.get(this.apiUrl + '/pmcusers/' + status).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);

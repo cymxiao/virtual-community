@@ -47,5 +47,5 @@ export interface ILeisurePark  {
     priceUnitDisplayText: string;
     avaibleHours: number;
     timestamp: Date;
-    showPMCButton:Boolean;
+    showPMCButton: boolean;
   }

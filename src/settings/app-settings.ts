@@ -8,7 +8,7 @@ export class AppSettings{
     
     //Amin: todo: temp code
     public static PHONE1='10000100001';
-
+    public static PHONE_ADMIN='99999099999';
 
     public static getAPIServiceURL() {
        //console.log('ENV in appsettings is : ' + ENV.mode );
