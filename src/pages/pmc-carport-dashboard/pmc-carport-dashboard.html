@@ -17,7 +17,7 @@
 
 <ion-content padding>
   <div *ngIf="!pendingOnVerify && !appliedLeisureParks"> 贵小区暂未查询有共享车位，请后续关注 </div>
-  <div *ngIf="pendingOnVerify">贵公司的注册资料尚未通过审核，我们的客服会在2个工作日之内完成审核，请耐心等待。</div>
+  <div *ngIf="pendingOnVerify">我们已收到贵司的注册资，我们的客服会在2个工作日之内完成审核，请耐心等待。</div>
   <ion-card *ngFor="let lp of appliedLeisureParks"> 
       <ion-card-header>
       </ion-card-header> 

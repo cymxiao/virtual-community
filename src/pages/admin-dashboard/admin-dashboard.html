@@ -14,7 +14,10 @@
 
 
 <ion-content padding>
-  <ion-grid class="grid" *ngIf ="pendingPMCUser">
+  <p padding>
+    待审核的小区物业
+  </p>
+  <ion-grid class="grid" *ngIf="pendingPMCUser">
     <ion-row class="light-bg">
       <ion-col> 管辖小区名称
       </ion-col>
@@ -24,13 +27,53 @@
       </ion-col>
       <ion-col> 联系电话
       </ion-col>
-      <ion-col> 
+      <ion-col> 停车价格
+      </ion-col>
+      <ion-col>
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let pu of pendingPMCUser">
       <ion-col> {{pu.community_ID.name}}
       </ion-col>
-      <ion-col> {{pu.community_ID.pmc}}
+      <ion-col> {{pu.community_ID.PMC}}
+      </ion-col>
+      <ion-col> {{pu.name}}
+      </ion-col>
+      <ion-col> {{pu.username}}
+      </ion-col>
+      <ion-col> {{pu.community_ID.price}} / {{pu.priceUnitDisplayText}}
+      </ion-col>
+      <ion-col>
+          <button ion-button clear ion-end color="secondary" tappable (click)="updatePMCStatus(pu._id)">
+              <ion-icon name="create"></ion-icon>
+               通过审核
+            </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <br/>
+  <br/>
+  <p padding>
+    通过审核的小区物业
+  </p>
+  <ion-grid class="grid" *ngIf="approvedPMCUser">
+    <ion-row class="light-bg">
+      <ion-col> 管辖小区名称
+      </ion-col>
+      <ion-col> 物业公司名称
+      </ion-col>
+      <ion-col> 联系人姓名
+      </ion-col>
+      <ion-col> 联系电话
+      </ion-col>
+      <ion-col> 停车价格
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let pu of approvedPMCUser">
+      <ion-col> {{pu.community_ID.name}}
+      </ion-col>
+      <ion-col> {{pu.community_ID.PMC}}
       </ion-col>
       <ion-col> {{pu.name}}
       </ion-col>
@@ -41,33 +84,14 @@
     </ion-row>
   </ion-grid>
 
- <br/>
- <br/>
-
- <ion-grid class="grid" *ngIf ="approvedPMCUser">
-  <ion-row class="light-bg">
-    <ion-col> 管辖小区名称
-    </ion-col>
-    <ion-col> 物业公司名称
-    </ion-col>
-    <ion-col> 联系人姓名
-    </ion-col>
-    <ion-col> 联系电话
-    </ion-col>
-    <ion-col> 
-    </ion-col>
-  </ion-row>
-  <ion-row *ngFor="let pu of approvedPMCUser">
-    <ion-col> {{pu.community_ID.name}}
-    </ion-col>
-    <ion-col> {{pu.community_ID.pmc}}
-    </ion-col>
-    <ion-col> {{pu.name}}
-    </ion-col>
-    <ion-col> {{pu.username}}
-    </ion-col>
-    <ion-col> {{pu.community_ID.price}} / {{pu.priceUnitDisplayText}}
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-fab left bottom>
+    <button ion-fab color="dark">
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="logout();">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

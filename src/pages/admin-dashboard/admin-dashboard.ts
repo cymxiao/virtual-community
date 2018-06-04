@@ -31,7 +31,6 @@ export class AdminDashboardPage extends BasePage {
 
   ionViewDidLoad() {
     super.ionViewDidLoad();
-    //console.log('ionViewDidLoad AdminDashboardPage');
     this.initData();
   }
 
@@ -39,20 +38,38 @@ export class AdminDashboardPage extends BasePage {
     this.apiService.getPMCUsers(UserStatusEnum.pendingOnVerify).then((pus: any) => {
       if (pus) {
         pus.forEach(x => {
-          x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict); 
+          if (x.community_ID) {
+            x.priceUnitDisplayText = AppSettings.getDisplayText(x.community_ID.priceUnit, AppSettings.priceUnitDict);
+          }
         });
         this.pendingPMCUser = pus;
+        //console.dir(this.pendingPMCUser);
       }
     });
 
     this.apiService.getPMCUsers(UserStatusEnum.active).then((pus: any) => {
       if (pus) {
         pus.forEach(x => {
-          x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict); 
+          if (x.community_ID) {
+            x.priceUnitDisplayText = AppSettings.getDisplayText(x.community_ID.priceUnit, AppSettings.priceUnitDict);
+          }
         });
         this.approvedPMCUser = pus;
-      } 
+      }
     });
   }
 
+  logout() {
+    localStorage.clear();
+    location.reload();
+  }
+
+  updatePMCStatus(userId) {
+    if (userId)
+      this.apiService.updateUser(userId, { status: 'active' }).then(usr => {
+        if (usr) {
+          super.refresh();
+        }
+      });
+  }
 }

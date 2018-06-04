@@ -3,7 +3,6 @@ import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angu
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { IAccount } from '../../model/account';
 import { BasePage } from '../base/base';
-import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 
 /**
  * Generated class for the MyCreditPage page.

@@ -38,15 +38,13 @@ export class PmcCarportDashboardPage extends BasePage {
  
   ionViewDidLoad() { 
     super.ionViewDidLoad();
+    super.checkifPMCUserPendingOnVerify();
     this.pendingOnVerify = this.pendingStatus; 
     this.currentComId = AppSettings.getCurrentCommunityID(); 
     if(!this.currentComId && AppSettings.getCurrentUser() && AppSettings.getCurrentUser().community_ID ){
       this.currentComId = AppSettings.getCurrentUser().community_ID._id;
-    }
-    //console.log('ionViewDidLoad MyOrdersPage');
-    this.getLeisureParkbyApplier();
-   
-    
+    } 
+    this.getLeisureParkbyApplier(); 
   }
 
 

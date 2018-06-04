@@ -8,7 +8,7 @@ import { LoginPage } from "../login/login";
 import { CommunitySelectComponent } from '../../components/community-select/community-select';
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { AppSettings, UserRoleEnum ,UserStatusEnum } from '../../settings/app-settings';
+import { UserRoleEnum ,UserStatusEnum } from '../../settings/app-settings';
 import { ICommunity } from 'model/community';
 
 /**

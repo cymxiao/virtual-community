@@ -8,13 +8,14 @@ import { UserPortalPage } from "../user-portal/user-portal";
 import { IUser } from '../../model/user';
 import { IAccount } from '../../model/account';
 import { ICarport } from 'model/carport';
-import { AdminDashboardPage  } from '../admin-dashboard/admin-dashboard';
+import { AdminDashboardPage } from '../admin-dashboard/admin-dashboard';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { Logger } from "angular2-logger/core";
 
 import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
+import { BasePage } from '../base/base';
 
 
 /**
@@ -29,7 +30,7 @@ import { SmsCodeComponent } from '../../components/sms-code/sms-code';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage extends BasePage {
 
 
   isLogin: string = "login";
@@ -39,7 +40,6 @@ export class LoginPage {
   wrongUsrorPwd: boolean = false;
   cellPhoneError: boolean = false;
   currentCarport: ICarport;
-  //isPMCUser: boolean;
   @ViewChild(SmsCodeComponent) smsCom: SmsCodeComponent;
 
   verifyCode: any = {
@@ -51,15 +51,13 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private logger: Logger,
     public service: RestServiceProvider) {
-    this.user = { phone: '', pwd: '' };
-    //this.verifyCode.countdown = 1;
+    super(navCtrl, navParams);
+    this.user = { phone: '', pwd: '' }; 
   }
 
   ionViewDidLoad() {
-    if (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username) {
-      const usr: IUser = AppSettings.getCurrentUser();
-      this.redirctPage(usr);
-    }  
+    super.ionViewDidLoad(); 
+    this.redirctPage(this.currentUser); 
   }
 
   // go to register page
@@ -75,15 +73,9 @@ export class LoginPage {
     }).then((usr: IUser) => {
       if (usr) {
         //If lastLoginDate is null in mongo db, it means , there may be no verify code send to this user's cellphone.
-        // if( usr.role && usr.role[0] === UserRoleEnum.PMCUser ){
-        //   //Save to localstorage for PMC user
-        //   console.log('Save to localstorage for PMC user');
-        //   localStorage.setItem('user', JSON.stringify(usr));
-        // }
-
         //create user account for pmc user and normal user.
-        this.service.addAccount({ user_ID: usr._id, credit: 0 }).then( (account: IAccount) => {
-          if(account){
+        this.service.addAccount({ user_ID: usr._id, credit: 0 }).then((account: IAccount) => {
+          if (account) {
             const udpateContent = {
               lastLoginDate: new Date(),
               account_ID: account._id
@@ -99,12 +91,12 @@ export class LoginPage {
                   }
                   localStorage.setItem('carport', JSON.stringify(this.currentCarport));
                 }
-              }); 
+              });
               this.redirctPage(usr);
             });
           }
-        }); 
-      } else { 
+        });
+      } else {
         this.wrongUsrorPwd = true;
         //console.log('wrong username or password');
         this.logger.error('wrong username or password.');
@@ -127,10 +119,10 @@ export class LoginPage {
     this.navCtrl.push(UserPortalPage);
   }
 
-  redirctPage(usr:IUser){
-    if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) { 
+  redirctPage(usr: IUser) {
+    if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) {
       if (usr.username === AppSettings.PHONE1) {
-        this.navToMemberPage(); 
+        this.navToMemberPage();
       } else if (usr.username === AppSettings.PHONE_ADMIN) {
         this.navCtrl.setRoot(AdminDashboardPage);
       } else {
@@ -138,14 +130,7 @@ export class LoginPage {
       }
     } else {
       localStorage.setItem('user', JSON.stringify(usr));
-      this.navCtrl.setRoot(PmcCarportDashboardPage,{ "refresh": "true" });
+      this.navCtrl.setRoot(PmcCarportDashboardPage, { "refresh": "true" });
     }
-  }
-
-  isPMCUser(usr:IUser){
-     if(usr.role && usr.role[0] === UserRoleEnum.PMCUser) { 
-       return true;
-     }
-     return false;
-  }
+  } 
 }

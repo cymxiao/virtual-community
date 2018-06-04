@@ -168,11 +168,10 @@ export enum LeisureParkStatus {
     invalid  = 'invalid', 
   }
 
-  export enum UserRoleEnum {
-    //'PMCUser','proprietor', 'externalUser'
+  export enum UserRoleEnum { 
     PMCUser = 'PMCUser' ,
-    proprietor  = 'proprietor',
-    externalUser  = 'externalUser' 
+    AdminUser  = 'superAdministator',
+    ExternalUser  = 'externalUser' 
   }
 
   export enum UserStatusEnum {

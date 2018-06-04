@@ -21,6 +21,7 @@ export class BasePage {
 
   //all varaibles in base should be public ,otherwise it's can't be accessed by inherit sub class.
   public isPMCUser: boolean;
+  public isAdminUser: boolean;
   public currentUser: IUser;
   public pendingStatus: boolean;
 
@@ -33,7 +34,7 @@ export class BasePage {
   ionViewDidLoad() { 
     this.initCurrentUser();
     this.checkPMCUser();
-    this.checkifPMCUserPendingOnVerify();
+    //this.checkifPMCUserPendingOnVerify();
   }
 
   goBackHome() {
@@ -62,11 +63,17 @@ export class BasePage {
     } 
   }
 
+  checkAdminUser(){
+    if (this.currentUser && this.currentUser.role && this.currentUser.role[0] === UserRoleEnum.AdminUser) {
+      this.isAdminUser = true;
+    } 
+  }
+
 
   checkifPMCUserPendingOnVerify(){  
     if (this.currentUser && this.currentUser.status && this.currentUser.status[0] === UserStatusEnum.pendingOnVerify) {
       this.pendingStatus = true;
-    } 
+    }
   }
 
   presentAlert( alertCtrl: AlertController) {

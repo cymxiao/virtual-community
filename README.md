@@ -56,9 +56,11 @@ since I use cellphone to do regeister and login on one page, how to avoid if a u
 
 3. Community auto complete control has a pending issue: 输入 '金丰'， 金丰蓝庭小区未显示。
 
+4. How to use async and await in this project.
+
 
 # Pending on improve
-1. On PMC register, it's better to prompt 'pmc regeisted error'  when user select a community.
+1. On PMC register, it's better to prompt 'pmc has been regeisted error'  when user select a community.
 
 
 # Todo
