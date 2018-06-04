@@ -19,22 +19,22 @@ export interface IUser  {
 
 
   //Amin: todo: can use Interface inherit?
-  export interface IAdminUser  {
-    _id: string;
+  // export interface IAdminUser  {
+  //   _id: string;
    
-    username: string;
-    password: string;
-    community_ID: ICommunity;
-    account_ID: string;
-    role: string;
-    phoneNo: string;
-    address: string; 
-    name:string;
-    priceUnitDisplayText:string;
-    carPlate: string; 
-    lastLoginDate:Date;
-    status:string;
-  }
+  //   username: string;
+  //   password: string;
+  //   community_ID: ICommunity;
+  //   account_ID: string;
+  //   role: string;
+  //   phoneNo: string;
+  //   address: string; 
+  //   name:string;
+  //   priceUnitDisplayText:string;
+  //   carPlate: string; 
+  //   lastLoginDate:Date;
+  //   status:string;
+  // }
 
 
   // export interface IPopulateUser  {

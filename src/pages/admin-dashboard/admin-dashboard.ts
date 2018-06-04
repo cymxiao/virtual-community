@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppSettings, UserStatusEnum } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { BasePage } from '../base/base';
-import { IAdminUser } from 'model/user';
+import { IUser } from 'model/user';
 
 /**
  * Generated class for the AdminDashboardPage page.
@@ -20,8 +20,8 @@ import { IAdminUser } from 'model/user';
 })
 export class AdminDashboardPage extends BasePage {
 
-  pendingPMCUser: IAdminUser[];
-  approvedPMCUser: IAdminUser[];
+  pendingPMCUser: IUser[];
+  approvedPMCUser: IUser[];
 
   constructor(public navCtrl: NavController,
     public apiService: RestServiceProvider,
@@ -36,24 +36,14 @@ export class AdminDashboardPage extends BasePage {
 
   initData() {
     this.apiService.getPMCUsers(UserStatusEnum.pendingOnVerify).then((pus: any) => {
-      if (pus) {
-        pus.forEach(x => {
-          if (x.community_ID) {
-            x.priceUnitDisplayText = AppSettings.getDisplayText(x.community_ID.priceUnit, AppSettings.priceUnitDict);
-          }
-        });
+      if (pus) { 
         this.pendingPMCUser = pus;
         //console.dir(this.pendingPMCUser);
       }
     });
 
     this.apiService.getPMCUsers(UserStatusEnum.active).then((pus: any) => {
-      if (pus) {
-        pus.forEach(x => {
-          if (x.community_ID) {
-            x.priceUnitDisplayText = AppSettings.getDisplayText(x.community_ID.priceUnit, AppSettings.priceUnitDict);
-          }
-        });
+      if (pus) { 
         this.approvedPMCUser = pus;
       }
     });

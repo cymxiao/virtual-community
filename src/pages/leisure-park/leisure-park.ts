@@ -63,7 +63,7 @@ export class LeisureParkPage {
       shared_UserID: '',
       price: '',
       timestamp: null,
-      priceUnit: 'day'
+      priceUnit: '次'
     }
 
     this.currentCommunity = {
@@ -174,7 +174,11 @@ export class LeisureParkPage {
           this.showAddContent = true;
 
         });
+        this.leisurePark.price = this.currentUser.community_ID.price ;
+        this.leisurePark.priceUnit = this.currentUser.community_ID.priceUnit ;
     }
+
+  
     // //Amin: IMP.  +8 display as local timezone .
     // this.leisurePark.startTime = this.getGoodTime().add(8, 'hours').toISOString();
     // //Amin: IMP. I can't direct use add(8, 'hours'), otherwise when validate endTime, 

@@ -43,6 +43,9 @@
                 <ion-label>
                     车位编号：{{currentCarport.parkingNumber}}
                 </ion-label>
+                <ion-label>
+                    停车价格：{{currentUser.community_ID.price}} / {{currentUser.community_ID.priceUnit }}
+                </ion-label>
             </ion-card-content>
 
         </ion-card>
@@ -115,9 +118,9 @@
             <!--  okText="确定" cancelText="取消"-->
             <ion-select name="priceUnit" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover" > 
                 <!-- okText="Okay" cancelText="Dismiss" -->
-                <ion-option value="hour">小时</ion-option>
-                <ion-option value="day" selected="true" >次</ion-option>
-                <ion-option value="month">月</ion-option>
+                <ion-option value="小时">小时</ion-option>
+                <ion-option value="次" selected="true" >次</ion-option>
+                <ion-option value="月">月</ion-option>
             </ion-select>
         </ion-item>
         <ion-item no-lines *ngIf="priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">

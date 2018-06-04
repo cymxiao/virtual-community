@@ -56,7 +56,7 @@ export class RegisterPage {
       city_ID: '',
       PMC:'',
       price:'',
-      priceUnit: 'day',
+      priceUnit: '次',
       address: ''
     }
     this.pmc = {
