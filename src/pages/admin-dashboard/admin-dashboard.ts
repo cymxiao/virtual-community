@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { AppSettings, UserStatusEnum } from '../../settings/app-settings';
+import { UserStatusEnum } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { BasePage } from '../base/base';
 import { IUser } from 'model/user';

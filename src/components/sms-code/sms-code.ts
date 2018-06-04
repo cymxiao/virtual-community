@@ -8,6 +8,7 @@ import { UserStatusEnum } from '../../settings/app-settings';
  *
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
+ * Amin:Pending issue: 输入 '金丰'， 金丰蓝庭小区未显示。
  */
 @Component({
   selector: 'sms-code',
