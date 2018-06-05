@@ -9,7 +9,7 @@ import { ICommunity } from '../../model/community';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
-import { SmsCodeComponent } from '../../components/sms-code/sms-code';
+
 
 
 declare var BMap;
@@ -47,11 +47,10 @@ export class TestPage {
   source: string;
 
   @ViewChild('map') map_container: ElementRef;
-  @ViewChild(SmsCodeComponent) smsCom: SmsCodeComponent;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public APIService: RestServiceProvider, private geolocation: Geolocation) {
-    this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(30, 30));
+    this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(60, 60));
     this.source = "map";
   }
 
@@ -114,7 +113,7 @@ export class TestPage {
       //'<div  click ="this.checkDetail(community._id,community.name)" >  <a>查看详情</a> </div>' +
 
       '<div > 空闲车位数量：' + sharedCarportNumber + '</div> </br>' +
-      '<div class="text-secondary"> 你可在最上方搜索区域输入该小区名称，即可查看或申请停车  </div>' ;
+      '<div class="text-secondary">在上方搜索区域输入该小区名称,可查看或申请停车 </div>' ;
      
  
 
@@ -132,6 +131,7 @@ export class TestPage {
         // BMAPLIB_TAB_FROM_HERE //从这里出发
       ]
     });
+    
     let marker = new BMap.Marker(point); //创建marker对象
     //marker.enableDragging(); //marker可拖拽
     marker.addEventListener("click", function (e) {

@@ -10,7 +10,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      个人中心
+      我的资料
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -19,10 +19,10 @@
 <ion-content padding *ngIf="user">
   <!--Amin: tocheck : why use two times for class padding-xs -->
   <div class="padding-xs"></div>
-  <div class="padding-xs"></div>
   <ion-card>
-    <ion-card-header>
-      不可修改部分。车位修改路径：我的资料->车位登记
+    <ion-card-header  class="text-primary">
+      不可修改部分。<br />
+      车位修改路径：个人中心>车位登记
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -52,7 +52,7 @@
 
   <form class="list-form" novalidate #profileForm="ngForm">
   <ion-card>
-    <ion-card-header>
+    <ion-card-header  class="text-primary">
       可以修改部分。
     </ion-card-header>
     <ion-card-content *ngIf="!isPMCUser">
@@ -108,9 +108,9 @@
         <!--  okText="确定" cancelText="取消"-->
         <ion-select name="priceUnit" required [(ngModel)]="user.community_ID.priceUnit" #priceUnit="ngModel" interface="popover">
           <!-- okText="Okay" cancelText="Dismiss" -->
-          <ion-option value="hour">小时</ion-option>
-          <ion-option value="day" selected="true">次</ion-option>
-          <ion-option value="month">月</ion-option>
+          <ion-option value="小时">小时</ion-option>
+          <ion-option value="次" selected="true">次</ion-option>
+          <ion-option value="月">月</ion-option>
         </ion-select>
       </ion-item>
       <ion-item no-lines *ngIf=" priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">

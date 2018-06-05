@@ -76,7 +76,7 @@ export class LeisureParkPage {
       city_ID: '',
       PMC:'',
       price:'',
-      priceUnit:'',
+      priceUnit:'次',
       address: ''
     }
 
@@ -239,7 +239,7 @@ export class LeisureParkPage {
       if (lpark) {
         this.myLeisureParks = lpark;
         this.myLeisureParks.forEach(x => {
-          x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
+          //x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
           x.statusDisplayText = AppSettings.getDisplayText(x.status, AppSettings.leisureParkStatusDict);
         })
       }

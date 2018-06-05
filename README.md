@@ -40,6 +40,9 @@ ionic cordova run android --prod --release
 # or
 ionic cordova build android --prod --release
 
+
+ionic cordova build ios --prod
+
 https://ionicframework.com/docs/intro/deploying/
 
 
@@ -57,6 +60,8 @@ since I use cellphone to do regeister and login on one page, how to avoid if a u
 3. Community auto complete control has a pending issue: 输入 '金丰'， 金丰蓝庭小区未显示。
 
 4. How to use async and await in this project.
+
+5. Avoid 非上海的用户使用
 
 
 # Pending on improve

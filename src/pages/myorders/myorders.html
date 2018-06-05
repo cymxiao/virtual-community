@@ -16,9 +16,12 @@
 
 
 <ion-content padding>
+
+    <div *ngIf="!appliedLeisureParks"> 您还没有订单记录。请点击菜单中的返回主页，申请停车即可。 </div>
     <ion-card *ngFor="let lp of appliedLeisureParks">
 
-        <ion-card-header>
+        <ion-card-header class="text-primary">
+            订单历史记录
         </ion-card-header>
 
         <ion-card-content>

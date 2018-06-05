@@ -139,15 +139,10 @@
         </div>
     </form>
 </div>
-        <!-- <ion-list >
-            <ion-item *ngFor="let user of users">
-              <h2>{{user.username}}</h2>
-              <p>{{user.password}}</p>
-            </ion-item>
-          </ion-list> -->
+        <p padding class="text-primary">我发布的共享车位记录</p>
         <ion-card *ngFor="let lp of myLeisureParks">
 
-            <ion-card-header> 
+            <ion-card-header>  
             </ion-card-header>
 
             <ion-card-content>
@@ -166,7 +161,7 @@
                     车位编号：   {{lp.carport_ID.parkingNumber}}
                 </ion-label>
                 <ion-label>
-                      价格：    {{lp.price }} / {{lp.priceUnitDisplayText}}
+                      价格：    {{lp.price }} / {{lp.priceUnit}}
                   </ion-label>
             </ion-card-content>
 
