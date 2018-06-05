@@ -52,12 +52,12 @@ export class LoginPage extends BasePage {
     private logger: Logger,
     public service: RestServiceProvider) {
     super(navCtrl, navParams);
-    this.user = { phone: '', pwd: '' }; 
+    this.user = { phone: '', pwd: '' };
   }
 
   ionViewDidLoad() {
-    super.ionViewDidLoad(); 
-    this.redirctPage(this.currentUser); 
+    super.ionViewDidLoad();
+    this.redirctPage(this.currentUser);
   }
 
   // go to register page
@@ -92,6 +92,7 @@ export class LoginPage extends BasePage {
                   localStorage.setItem('carport', JSON.stringify(this.currentCarport));
                 }
               });
+              //console.dir(usr);
               this.redirctPage(usr);
             });
           }
@@ -119,18 +120,21 @@ export class LoginPage extends BasePage {
     this.navCtrl.push(UserPortalPage);
   }
 
-  redirctPage(usr: IUser) {
-    if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) {
-      if (usr.username === AppSettings.PHONE1) {
-        this.navToMemberPage();
-      } else if (usr.username === AppSettings.PHONE_ADMIN) {
-        this.navCtrl.setRoot(AdminDashboardPage);
+  redirctPage(usr: IUser) { 
+    if (usr) { 
+      if ( usr.role && usr.role[0] === UserRoleEnum.PMCUser ) {
+
+        localStorage.setItem('user', JSON.stringify(usr));
+        this.navCtrl.setRoot(PmcCarportDashboardPage, { "refresh": "true" });
       } else {
-        this.navCtrl.setRoot(TabsPage);
-      }
-    } else {
-      localStorage.setItem('user', JSON.stringify(usr));
-      this.navCtrl.setRoot(PmcCarportDashboardPage, { "refresh": "true" });
+        if (usr.username === AppSettings.PHONE1) {
+          this.navToMemberPage();
+        } else if (usr.username === AppSettings.PHONE_ADMIN) {
+          this.navCtrl.setRoot(AdminDashboardPage);
+        } else {
+          this.navCtrl.setRoot(TabsPage);
+        }
+      }  
     }
-  } 
+  }
 }
