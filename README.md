@@ -41,7 +41,11 @@ ionic cordova run android --prod --release
 ionic cordova build android --prod --release
 
 
-ionic cordova build ios --prod
+# white screen debug
+ionic cordova run ios -l -c
+
+
+ionic cordova build ios --prod --livereload --consolelogs
 
 https://ionicframework.com/docs/intro/deploying/
 
