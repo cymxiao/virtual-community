@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, MenuController } from 'ionic-angular';
 import * as moment from 'moment';
 //import  * as mz from 'moment-timezone';
 
@@ -11,6 +11,7 @@ import { SelectCommunityModalPage } from '../select-community-modal/select-commu
 import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { BasePage } from '../base/base';
 
 /**
  * Generated class for the LeisureParkPage page.
@@ -24,7 +25,7 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
   selector: 'page-leisure-park',
   templateUrl: 'leisure-park.html',
 })
-export class LeisureParkPage {
+export class LeisureParkPage extends BasePage{
 
 
   leisurePark: ILeisurePark;
@@ -48,9 +49,11 @@ export class LeisureParkPage {
   constructor(public navCtrl: NavController,
     public params: NavParams,
     public service: RestServiceProvider,
+    public menuCtrl: MenuController,
     //public monent: Moment,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController) {
+      super(navCtrl,params);
     //this.failedForValidation = this.wrongStartTime || this.wrongEndTime || this.wrongPrice;
     this.leisurePark = {
       id: '',
@@ -108,8 +111,7 @@ export class LeisureParkPage {
   }
 
   ionViewDidLoad() {
-    //console.log(this.moment.toLocaleString());
-    //this.minDate =  new Date().toISOString();
+    super.menuActive(this.menuCtrl);
     this.minDate = this.getGoodTime().add(8, 'hours').toISOString();
     this.minDateforEndTime = this.getGoodTime().add(12, 'hours').toISOString();
     this.currentUser = AppSettings.getCurrentUser();

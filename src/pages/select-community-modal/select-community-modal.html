@@ -31,7 +31,7 @@
         <ion-item *ngIf="showCarportList">
             <ion-label floating>
                 <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
-                车位绑定
+                共享车位编号
             </ion-label>
             <!-- required works for formvalidation.  --> 
             <ion-select [(ngModel)]="currentCarportId" #fieldcarport="ngModel" required name="fieldcarport" interface="popover" multiple="false">
@@ -54,7 +54,7 @@
         <button ion-button icon-start block round color="secondary" tappable (click)="save()" 
         [disabled]="communityModalForm.form.invalid ||!showCarportList">
             <ion-icon name="checkbox"></ion-icon>
-            保存设置
+            保存
         </button>
     </form>
     <!-- <button ion-button icon-end class="pull-right" color="primary" tappable (click)="goBackHome()" >

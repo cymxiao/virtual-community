@@ -93,6 +93,7 @@ export class SelectCommunityModalPage extends BasePage {
         community_ID: this.selectedComunityID
       }
       this.service.updateUser(this.user._id, udpateContent).then((usr: any) => {
+        //console.log(usr);
         if (usr && this.currentCarportId) {
 
           const updateToFalseForALLCarportsforOwner = {
@@ -101,9 +102,9 @@ export class SelectCommunityModalPage extends BasePage {
             // community_ID: this.selectedComunityID
           }
           //Amin: Imp! param sequence is very important
-          this.service.updateManyCarports(this.selectedComunityID, this.user._id, updateToFalseForALLCarportsforOwner).then(
+          this.service.updateManyCarports(this.selectedComunityID, this.user._id, updateToFalseForALLCarportsforOwner).then( 
             x => {
-              //add a carport
+              //console.dir(x);
               const carport = {
                 isCurrent: true
               }
@@ -119,6 +120,8 @@ export class SelectCommunityModalPage extends BasePage {
                   } else if(this.source === 'leisurepark'){
                     this.navCtrl.setRoot(LeisureParkPage);
                   }
+
+                   super.presentCustomAlert(this.alertCtrl,'保存成功','您的共享车位信息已经保存成功。');
                 }
               });
             }

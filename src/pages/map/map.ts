@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams , MenuController} from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 
@@ -9,6 +9,7 @@ import { ICommunity } from '../../model/community';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
+import { BasePage } from '../base/base';
 
 
 
@@ -25,10 +26,10 @@ declare var BMapLib;
 
 @IonicPage()
 @Component({
-  selector: 'page-test',
-  templateUrl: 'test.html',
+  selector: 'page-map',
+  templateUrl: 'map.html',
 })
-export class TestPage {
+export class MapPage extends BasePage {
 
   map: any;
   myGeo: any;
@@ -49,7 +50,9 @@ export class TestPage {
   @ViewChild('map') map_container: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
+    public menuCtrl: MenuController,
     public APIService: RestServiceProvider, private geolocation: Geolocation) {
+      super(navCtrl,navParams);
     this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(60, 60));
     this.source = "map";
   }
@@ -57,7 +60,7 @@ export class TestPage {
   ionViewDidLoad() {
     //Amin: !Important:map_container shoud be called here, it can't be inited in constructor, if called in constructor
  
-
+    super.menuActive(this.menuCtrl);
     this.map = new BMap.Map("map_container");
     this.map.centerAndZoom('上海', 13);
     this.map.enableScrollWheelZoom(true);
@@ -165,7 +168,7 @@ export class TestPage {
 
   getStatisticOfCarport() {
     //let addtmp;
-    this.APIService.getStatisticOfCarport().then((x: any) => {
+    this.APIService.getStatisticOfCarport().then((x: any) => { 
       this.avaiableComs = x;
       x.forEach(c => {
         if (c.community_info && c.community_info.length > 0) {

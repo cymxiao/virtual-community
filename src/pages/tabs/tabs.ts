@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { LeisureParkPage } from '../leisure-park/leisure-park';
 import { ProfilePage } from '../profile/profile';
-import { TestPage } from '../test/test';
+import { MapPage } from '../map/map';
 //import {  SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
 @Component({
   templateUrl: 'tabs.html'
@@ -10,8 +10,8 @@ import { TestPage } from '../test/test';
 export class TabsPage {
 
  
-  tab1Root = TestPage;
-  tab2Root = LeisureParkPage;
+  tab1Root = LeisureParkPage;
+  tab2Root = MapPage;
   tab3Root = ProfilePage;
 
   constructor() {

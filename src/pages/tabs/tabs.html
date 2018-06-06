@@ -1,5 +1,5 @@
-<ion-tabs color="primary">
-  <ion-tab [root]="tab1Root" tabTitle="发现车位" tabIcon="compass"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="我有车位" tabIcon="information-circle"></ion-tab>
+<ion-tabs color="primary" [selectedIndex]="1">
+  <ion-tab [root]="tab1Root" tabTitle="我有车位" tabIcon="information-circle"></ion-tab><!--index 0-->
+  <ion-tab [root]="tab2Root" tabTitle="发现车位" tabIcon="compass" selected></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="个人中心" tabIcon="contact"></ion-tab>
 </ion-tabs>

@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, MenuController, ModalController } from 'ionic-angular';
 
 import { IUser } from '../../model/user';
-import { ICarport } from '../../model/carport';
+import { ICarport } from '../../model/carport'; 
 import { AppSettings } from '../../settings/app-settings';
 import { BasePage } from '../base/base';
+import { SelectCommunityModalPage } from '../select-community-modal/select-community-modal';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 /**
  * Generated class for the ProfilePage page.
@@ -84,14 +85,12 @@ export class ProfilePage extends BasePage {
       } else if(uptUser) {
         localStorage.setItem('user', JSON.stringify(uptUser));
         this.presentAlert(this.alertCtrl);
-      }
-
-      //it's async function, it's possible that uptUser.community_ID has been update but it save to localstorage.
-      // if(uptUser){
-      //   localStorage.setItem('user', JSON.stringify(uptUser));
-      // }
-
+      } 
     });
+  }
+
+  updateSharedCarport(){
+    this.navCtrl.push(SelectCommunityModalPage);
   }
 
 

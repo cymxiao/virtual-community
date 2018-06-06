@@ -13,7 +13,7 @@ import { AutoCompleteServiceProvider } from '../providers/autocomplete-service/a
 import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
-import { TestPageModule } from '../pages/test/test.module';
+import { MapPageModule } from '../pages/map/map.module';
 import { CarportPageModule } from '../pages/carport/carport.module';
 import { LeisureParkPageModule } from '../pages/leisure-park/leisure-park.module';
 import { SelectCommunityModalPageModule } from '../pages/select-community-modal/select-community-modal.module';
@@ -47,7 +47,7 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     LoginPageModule,
     RegisterPageModule,
     ContactPageModule,
-    TestPageModule,
+    MapPageModule,
     LeisureParkPageModule,
     SelectCommunityModalPageModule,
     LookupLeisureParkPageModule,

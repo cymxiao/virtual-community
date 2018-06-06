@@ -21,8 +21,7 @@
   <div class="padding-xs"></div>
   <ion-card>
     <ion-card-header  class="text-primary">
-      不可修改部分。<br />
-      车位修改路径：个人中心>车位登记
+      不可修改部分。 
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -39,13 +38,7 @@
         </ion-label>
         <ion-input type="text" name="community" disabled="true" [(ngModel)]="user.community_ID.name"> </ion-input>
       </ion-item>
-      <ion-item *ngIf="!isPMCUser">
-        <ion-label floating>
-          <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
-          车位编号
-        </ion-label>
-        <ion-input type="text" name="carport" disabled="true" [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
-      </ion-item>
+     
     </ion-card-content>
   </ion-card>
 
@@ -56,6 +49,7 @@
       可以修改部分。
     </ion-card-header>
     <ion-card-content *ngIf="!isPMCUser">
+   
       <ion-item>
         <ion-label floating>
           <ion-icon name="card" item-start class="text-primary"></ion-icon>
@@ -68,6 +62,16 @@
           请输入车牌号码
         </div>
       </ion-item>
+      <ion-item >
+          <ion-label floating>
+            <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
+            共享车位编号
+          </ion-label>
+          <ion-input type="text" name="carport" disabled="true" [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
+      </ion-item>
+      <button class="updateSharedCarport" ion-button clear ion-end color="secondary" tappable (click)="updateSharedCarport();" > 
+          &nbsp;&nbsp;更改共享车位编号
+        </button> 
     </ion-card-content>
 
     <ion-card-content *ngIf="isPMCUser">
