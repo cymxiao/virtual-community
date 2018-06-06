@@ -63,7 +63,7 @@ export class LeisureParkPage {
       shared_UserID: '',
       price: '',
       timestamp: null,
-      priceUnit: '次'
+      priceUnit: '天'
     }
 
     this.currentCommunity = {
@@ -76,7 +76,7 @@ export class LeisureParkPage {
       city_ID: '',
       PMC:'',
       price:'',
-      priceUnit:'次',
+      priceUnit:'天',
       address: ''
     }
 

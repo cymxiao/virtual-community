@@ -142,7 +142,7 @@ public static Decrypt(word) {
       
     public static priceUnitDict = [
         { text: '小时', value: 'hour' },
-        { text: '次', value: 'day' },
+        { text: '天', value: 'day' },
         { text: '月', value: 'month' }, 
       ];
 
