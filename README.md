@@ -10,6 +10,9 @@ npm install --save @ionic-native/sms
 npm install --save @ionic-native/local-notifications
 npm install --save @ionic-native/alipay
 
+cordova plugin remove cordova-plugin-statusbar
+
+
 
 Run
 ionic serve
@@ -45,7 +48,11 @@ ionic cordova build android --prod --release
 ionic cordova run ios -l -c
 
 
-ionic cordova build ios --prod --livereload --consolelogs
+ionic cordova build ios --prod --release 
+
+ionic cordova build ios --prod --release --livereload --consolelogs
+
+ionic cordova run ios --prod --release
 
 https://ionicframework.com/docs/intro/deploying/
 
@@ -80,3 +87,4 @@ since I use cellphone to do regeister and login on one page, how to avoid if a u
 5. add a clear credit function by PMC company and normal user. ( Todo: I need to avoid no credit clean once it has been used to pay.) Now the account_ID in user table is wrong.
 6. add carPlate field for leisurepark record. 
 7. default price and priceTage value as the value in community when add a new leisurepark 
+8. white screen issue when app load.
