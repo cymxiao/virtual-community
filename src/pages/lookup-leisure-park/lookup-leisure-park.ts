@@ -13,8 +13,6 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 
 import * as moment from 'moment';
 
-import { ENV } from '@app/env';
-//import { Action } from 'rxjs/scheduler/Action';
 /**
  * Generated class for the LookupLeisureParkPage page.
  *
@@ -83,7 +81,7 @@ export class LookupLeisureParkPage extends BasePage {
       applied_UserID: this.currentUser._id
     };
 
-    if (ENV && ENV.mode !== 'test') {
+ 
       this.apiService.getLeisureParkforApplier(this.currentUser._id).then((lpk: any) => {
 
         if (lpk && lpk.length > 0) {
@@ -103,7 +101,7 @@ export class LookupLeisureParkPage extends BasePage {
           this.presentAlert();
         }
       });
-    }
+    
   }
 
   scheduleNotification() {

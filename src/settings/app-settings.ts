@@ -1,4 +1,4 @@
-import { ENV } from '@app/env';
+
 import CryptoJS from 'crypto-js';
 //import CryptoBrowserify from 'crypto-browserify';
 
@@ -7,7 +7,7 @@ export class AppSettings{
     public static ENCRYPTION_KEY = "ApP2018!-123211";
     
     //Amin: todo: temp code
-    public static PHONE1='10000100001';
+    
     public static PHONE_ADMIN='99999099999';
 
     public static getAPIServiceURL() {

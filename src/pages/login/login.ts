@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
-import { UserPortalPage } from "../user-portal/user-portal";
 import { IUser } from '../../model/user';
 import { IAccount } from '../../model/account';
 import { ICarport } from 'model/carport';
@@ -114,11 +113,7 @@ export class LoginPage extends BasePage {
   on_passwordBlur(target) {
     this.passwordBlur = true;
   }
-
-  navToMemberPage() {
-    //console.log('haha this');
-    this.navCtrl.push(UserPortalPage);
-  }
+ 
 
   redirctPage(usr: IUser) { 
     if (usr) { 
@@ -127,9 +122,7 @@ export class LoginPage extends BasePage {
         localStorage.setItem('user', JSON.stringify(usr));
         this.navCtrl.setRoot(PmcCarportDashboardPage, { "refresh": "true" });
       } else {
-        if (usr.username === AppSettings.PHONE1) {
-          this.navToMemberPage();
-        } else if (usr.username === AppSettings.PHONE_ADMIN) {
+        if (usr.username === AppSettings.PHONE_ADMIN) {
           this.navCtrl.setRoot(AdminDashboardPage);
         } else {
           this.navCtrl.setRoot(TabsPage);

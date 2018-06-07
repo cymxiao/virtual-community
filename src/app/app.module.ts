@@ -20,7 +20,6 @@ import { SelectCommunityModalPageModule } from '../pages/select-community-modal/
 import { LookupLeisureParkPageModule } from '../pages/lookup-leisure-park/lookup-leisure-park.module';
 import { MyordersPageModule } from '../pages/myorders/myorders.module';
 import { PmcCarportDashboardPageModule } from '../pages/pmc-carport-dashboard/pmc-carport-dashboard.module';
-import { UserPortalPageModule } from '../pages/user-portal/user-portal.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { MyCreditPageModule } from '../pages/my-credit/my-credit.module';
 import { AdminDashboardPageModule } from '../pages/admin-dashboard/admin-dashboard.module';
@@ -52,7 +51,6 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     SelectCommunityModalPageModule,
     LookupLeisureParkPageModule,
     MyordersPageModule,
-    UserPortalPageModule,
     ProfilePageModule,
     CarportPageModule,
     PmcCarportDashboardPageModule,
