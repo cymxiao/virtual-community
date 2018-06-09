@@ -13,7 +13,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { MyCreditPage } from '../pages/my-credit/my-credit';
 import { TabsPage } from '../pages/tabs/tabs';
 
-//import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +31,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide(); 
-      //timer(1000).subscribe(() => this.showSplash = false);  
+      timer(1000).subscribe(() => this.showSplash = false);  
     });
   }
 
