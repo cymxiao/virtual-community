@@ -116,7 +116,7 @@ export class LoginPage extends BasePage {
  
 
   redirctPage(usr: IUser) { 
-    if (usr) { 
+    if (usr && usr._id) { 
       if ( usr.role && usr.role[0] === UserRoleEnum.PMCUser ) {
 
         localStorage.setItem('user', JSON.stringify(usr));
