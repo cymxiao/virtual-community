@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserStatusEnum } from '../../settings/app-settings';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { BasePage } from '../base/base';
-import { IUser } from 'model/user';
+import { IUser } from '../../model/user';
 
 /**
  * Generated class for the AdminDashboardPage page.

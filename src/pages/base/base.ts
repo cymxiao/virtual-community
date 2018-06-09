@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
-import { IUser } from 'model/user';
+import { IUser } from '../../model/user';
 import { AppSettings , UserRoleEnum , UserStatusEnum } from '../../settings/app-settings';
 
 /**

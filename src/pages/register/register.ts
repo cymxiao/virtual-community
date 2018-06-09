@@ -9,7 +9,7 @@ import { CommunitySelectComponent } from '../../components/community-select/comm
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { UserRoleEnum ,UserStatusEnum } from '../../settings/app-settings';
-import { ICommunity } from 'model/community';
+import { ICommunity } from '../../model/community';
 
 /**
  * Generated class for the RegisterPage page.

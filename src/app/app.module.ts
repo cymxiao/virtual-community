@@ -8,11 +8,8 @@ import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { HttpClientModule } from '@angular/common/http';
-import { RestServiceProvider } from '../providers/rest-service/rest-service';
-import { AutoCompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
-import { ContactPageModule } from '../pages/contact/contact.module';
 import { MapPageModule } from '../pages/map/map.module';
 import { CarportPageModule } from '../pages/carport/carport.module';
 import { LeisureParkPageModule } from '../pages/leisure-park/leisure-park.module';
@@ -24,6 +21,11 @@ import { ProfilePageModule } from '../pages/profile/profile.module';
 import { MyCreditPageModule } from '../pages/my-credit/my-credit.module';
 import { AdminDashboardPageModule } from '../pages/admin-dashboard/admin-dashboard.module';
 import { BasePageModule } from '../pages/base/base.module'; 
+
+
+import { RestServiceProvider } from '../providers/rest-service/rest-service';
+import { AutoCompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
+
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { SMS } from '@ionic-native/sms';
@@ -45,7 +47,6 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     HttpClientModule,
     LoginPageModule,
     RegisterPageModule,
-    ContactPageModule,
     MapPageModule,
     LeisureParkPageModule,
     SelectCommunityModalPageModule,

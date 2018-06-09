@@ -6,7 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
 import { IUser } from '../../model/user';
 import { IAccount } from '../../model/account';
-import { ICarport } from 'model/carport';
+import { ICarport } from '../../model/carport';
 import { AdminDashboardPage } from '../admin-dashboard/admin-dashboard';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';

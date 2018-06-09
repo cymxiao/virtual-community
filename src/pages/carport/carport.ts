@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 
-import { ICarport } from 'model/carport';
+import { ICarport } from '../../model/carport';
 import { AppSettings } from '../../settings/app-settings';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';

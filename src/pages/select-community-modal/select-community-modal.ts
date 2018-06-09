@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
-import { ICarport } from 'model/carport';
+import { ICarport } from '../../model/carport';
 import { CarportPage } from '../carport/carport';
 import { ProfilePage } from '../profile/profile';
 import { BasePage } from '../base/base';

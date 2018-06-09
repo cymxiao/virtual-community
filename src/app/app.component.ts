@@ -13,13 +13,13 @@ import { ProfilePage } from '../pages/profile/profile';
 import { MyCreditPage } from '../pages/my-credit/my-credit';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { timer } from 'rxjs/observable/timer';
+//import { timer } from 'rxjs/observable/timer';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any = TabsPage ;
   @ViewChild(Nav) nav: Nav;
   //@ViewChild(Refresher) refresher: Refresher;
   currentUser: IUser;
