@@ -19,7 +19,7 @@ import { TabsPage } from '../pages/tabs/tabs';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = TabsPage ;
+  rootPage: any = LoginPage ;
   @ViewChild(Nav) nav: Nav;
   //@ViewChild(Refresher) refresher: Refresher;
   currentUser: IUser;

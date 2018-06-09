@@ -30,8 +30,12 @@ export class AppSettings{
     //     }
     }
 
-    public static getCurrentUser(){
-        return JSON.parse(localStorage.getItem('user'));
+    public static getCurrentUser() {
+        if (localStorage.getItem('user')) {
+            return JSON.parse(localStorage.getItem('user'));
+        } else {
+            return {};
+        }
     }
 
     // public static getCurrentCommunity(){
@@ -42,8 +46,12 @@ export class AppSettings{
         return localStorage.getItem('comId');
     }
 
-    public static getCurrentCarport(){
-        return JSON.parse(localStorage.getItem('carport'));
+    public static getCurrentCarport() {
+        if (localStorage.getItem('carport')) {
+            return JSON.parse(localStorage.getItem('carport'));
+        } else {
+            return {};
+        }
     }
 
     public static getDisplayText(input: any, dict: any) {

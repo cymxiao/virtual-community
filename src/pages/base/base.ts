@@ -33,8 +33,7 @@ export class BasePage {
   //Amin: IMP,  this ionViewDidLoad would be manually called in the same method of sub class
   ionViewDidLoad() { 
     this.initCurrentUser();
-    this.checkPMCUser();
-    //this.checkifPMCUserPendingOnVerify();
+    this.checkPMCUser(); 
   }
 
   goBackHome() {
