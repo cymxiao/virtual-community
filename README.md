@@ -88,3 +88,5 @@ since I use cellphone to do regeister and login on one page, how to avoid if a u
 6. add carPlate field for leisurepark record. 
 7. default price and priceTage value as the value in community when add a new leisurepark 
 8. white screen issue when app load.  use (ionic cordova build ios --prod --release --livereload ) , temp resolved.
+    finally, angular2-logger caused white screen issue. use "npm uninstall angular2-logger" to fix the issue.
+

@@ -10,8 +10,7 @@ import { ICarport } from '../../model/carport';
 import { AdminDashboardPage } from '../admin-dashboard/admin-dashboard';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { Logger } from "angular2-logger/core";
-
+ 
 import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
 import { BasePage } from '../base/base';
@@ -48,7 +47,6 @@ export class LoginPage extends BasePage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private logger: Logger,
     public service: RestServiceProvider) {
     super(navCtrl, navParams);
     this.user = { phone: '', pwd: '' };
@@ -99,7 +97,7 @@ export class LoginPage extends BasePage {
       } else {
         this.wrongUsrorPwd = true;
         //console.log('wrong username or password');
-        this.logger.error('wrong username or password.');
+        //this.logger.error('wrong username or password.');
       }
     });
   }

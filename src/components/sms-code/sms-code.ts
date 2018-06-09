@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Logger } from "angular2-logger/core";
+ 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { UserStatusEnum } from '../../settings/app-settings';
 
@@ -26,8 +26,7 @@ export class SmsCodeComponent {
     countdown: 60,
     disable: true
   }
-  constructor(private logger: Logger,
-    public service: RestServiceProvider) {
+  constructor(  public service: RestServiceProvider) {
     
   }
 
@@ -97,18 +96,18 @@ export class SmsCodeComponent {
                 console.log('update user password suc when user exist on login page.');
               } else {
                 //console.log('update user failed suc when user exist on login page.');
-                this.logger.error('update user failed suc when user exist on login page.');
+                //this.logger.error('update user failed suc when user exist on login page.');
               }
             });
           }
         }
       }).catch(e => {
         console.log(e);
-        this.logger.error('Register user (add a new user to db) failed');
+        //this.logger.error('Register user (add a new user to db) failed');
       });
       this.service.sendSMS(this.cellPhoneNumber, verifyCode).then(x => {
         //console.dir(x);
-        this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
+        //this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
       });
     } else {
       this.cellPhoneError = true;

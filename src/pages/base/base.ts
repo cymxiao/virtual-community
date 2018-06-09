@@ -36,17 +36,17 @@ export class BasePage {
     this.checkPMCUser(); 
   }
 
-  goBackHome() {
-    this.navCtrl.setRoot(TabsPage);
-  }
+  // goBackHome() {
+  //   this.navCtrl.setRoot(TabsPage);
+  // }
 
-  goBackHomeWithParam(data) {
-    this.navCtrl.setRoot(TabsPage, data);
-  }
+  // goBackHomeWithParam(data) {
+  //   this.navCtrl.setRoot(TabsPage, data);
+  // }
 
-  goBackHomeRefresh() {
-    this.navCtrl.setRoot(TabsPage, { "refresh": "true" });
-  }
+  // goBackHomeRefresh() {
+  //   this.navCtrl.setRoot(TabsPage, { "refresh": "true" });
+  // }
 
   refresh() { 
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
