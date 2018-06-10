@@ -38,11 +38,11 @@
             <ion-input type="text" name="fieldNewRoute" placeholder="例如：从小区南大门进入后右转，直行50米左右，方便他人定位" [(ngModel)]="carport.route" #fieldNewRoute="ngModel"></ion-input>
         </ion-item>
         <ion-item>
-            <button ion-button icon-start round tappable (click)="btnCancel()">
-                <ion-icon name="done-all"></ion-icon>
+            <button ion-button color="secondary" icon-start round tappable (click)="btnCancel()">
+                <ion-icon name="arrow-round-back"></ion-icon>
                 &nbsp;&nbsp;取消
             </button>
-            <button ion-button icon-end  round color="primary" tappable (click)="btnSaveCarport()" [disabled]="carportForm.form.invalid" >
+            <button ion-button color="secondary" icon-end  round  tappable (click)="btnSaveCarport()" [disabled]="carportForm.form.invalid" >
                 <ion-icon name="done-all"></ion-icon>
                 &nbsp;&nbsp;保存车位
             </button>
