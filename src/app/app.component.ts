@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { IUser } from '../model/user';
 
+import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { SelectCommunityModalPage } from '../pages/select-community-modal/select-community-modal';
 import { PmcCarportDashboardPage } from '../pages/pmc-carport-dashboard/pmc-carport-dashboard';
@@ -23,12 +24,23 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   //@ViewChild(Refresher) refresher: Refresher;
   currentUser: IUser;
-  showSplash = true;
+  showSplash = false;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) { //,auth:Auth) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+
+
+      if (localStorage.getItem('firstIn') === 'true') {
+        this.rootPage = LoginPage;
+      } else {
+        localStorage.setItem('firstIn', 'true');
+        this.rootPage = WelcomePage;
+      } 
+    
+
       statusBar.styleDefault();
       splashScreen.hide(); 
       timer(1000).subscribe(() => this.showSplash = false);  
@@ -61,19 +73,11 @@ export class MyApp {
     this.nav.setRoot(TabsPage);
   }
 
-  logout() {
+  logout() {  
+    const firstIn = localStorage.getItem('firstIn') ;
     localStorage.clear();
+    localStorage.setItem('firstIn',firstIn);
     location.reload();
   }
-
-
-
-  // doRefresh(refresher) {
-  //   //console.log('Begin async operation', refresher);
-  //   this.initApp();
-  //   setTimeout(() => {
-  //     console.log('Async operation has ended');
-  //     refresher.complete();
-  //   }, 200);
-  // }
+ 
 }

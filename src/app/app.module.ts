@@ -20,6 +20,7 @@ import { PmcCarportDashboardPageModule } from '../pages/pmc-carport-dashboard/pm
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { MyCreditPageModule } from '../pages/my-credit/my-credit.module';
 import { AdminDashboardPageModule } from '../pages/admin-dashboard/admin-dashboard.module';
+import { WelcomePageModule } from '../pages/welcome/welcome.module';
 import { BasePageModule } from '../pages/base/base.module'; 
 
 
@@ -57,6 +58,7 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     PmcCarportDashboardPageModule,
     MyCreditPageModule,
     AdminDashboardPageModule,
+    WelcomePageModule,
     BasePageModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: '返回',
