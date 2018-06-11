@@ -24,7 +24,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   //@ViewChild(Refresher) refresher: Refresher;
   currentUser: IUser;
-  showSplash = false;
+  showSplash = true;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) { //,auth:Auth) {
     platform.ready().then(() => {
