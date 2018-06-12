@@ -16,120 +16,119 @@
 </ion-header>
 
 
-<ion-content padding *ngIf="user">
-  <!--Amin: tocheck : why use two times for class padding-xs -->
-  <div class="padding-xs"></div>
-  <ion-card>
-    <ion-card-header  class="text-primary">
-      不可修改部分。 
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
-          手机号码
-        </ion-label>
-        <ion-input type="number" name="username" [(ngModel)]="user.username" disabled="true"> </ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="flag" item-start class="text-primary"></ion-icon>
-          所在小区
-        </ion-label>
-        <ion-input type="text" name="community" disabled="true" [(ngModel)]="user.community_ID.name"> </ion-input>
-      </ion-item>
-     
-    </ion-card-content>
-  </ion-card>
-
-
-  <form class="list-form" novalidate #profileForm="ngForm">
-  <ion-card>
-    <ion-card-header  class="text-primary">
-      可以修改部分。
-    </ion-card-header>
-    <ion-card-content *ngIf="!isPMCUser">
-   
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="card" item-start class="text-primary"></ion-icon>
-          车牌号码 *
-        </ion-label>
-        <ion-input type="text" name="carPlate" required [(ngModel)]="user.carPlate" #fieldcarPlate="ngModel"  > </ion-input>
-      </ion-item>
-      <ion-item no-lines *ngIf="fieldcarPlate.invalid && (fieldcarPlate.dirty || fieldcarPlate.touched)">
-        <div class="text-danger" *ngIf="fieldcarPlate.errors.required">
-          请输入车牌号码
-        </div>
-      </ion-item>
-      <ion-item >
+<ion-content padding *ngIf="user" class="auth-page">
+  <div class="login-content">
+    <ion-card>
+      <ion-card-header class="text-primary">
+        不可修改部分。
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
           <ion-label floating>
-            <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
-            共享车位编号
+            <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
+            手机号码
           </ion-label>
-          <ion-input type="text" name="carport" disabled="true" [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
-      </ion-item>
-      <button class="updateSharedCarport" ion-button clear ion-end color="secondary" tappable (click)="updateSharedCarport();" > 
-          &nbsp;&nbsp;更改共享车位编号
-        </button> 
-    </ion-card-content>
+          <ion-input type="number" name="username" [(ngModel)]="user.username" disabled="true"> </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="flag" item-start class="text-primary"></ion-icon>
+            所在小区
+          </ion-label>
+          <ion-input type="text" name="community" disabled="true" [(ngModel)]="user.community_ID.name"> </ion-input>
+        </ion-item>
 
-    <ion-card-content *ngIf="isPMCUser">
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
-          负责人或联系人名称
-        </ion-label>
-        <ion-input type="text" name="姓名" [(ngModel)]="user.name"> </ion-input>
-      </ion-item>
+      </ion-card-content>
+    </ion-card>
 
 
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
-          停车价格 *
-        </ion-label>
+    <form class="list-form" novalidate #profileForm="ngForm">
+      <ion-card>
+        <ion-card-header class="text-primary">
+          可以修改部分。
+        </ion-card-header>
+        <ion-card-content *ngIf="!isPMCUser">
 
-        <ion-input type="number" name="fieldPrice" min="0" max="500" required [(ngModel)]="user.community_ID.price"
-         #fieldPrice="ngModel" (ionBlur)="on_price_Blur($event)"></ion-input>
-      </ion-item>
-      <ion-item no-lines *ngIf=" fieldPrice.invalid && (fieldPrice.dirty || fieldPrice.touched)">
-        <div class="text-danger" *ngIf="fieldPrice.errors.required">
-          请输入价格信息
-        </div>
-      </ion-item>
-      <div class="text-danger-padding" *ngIf="wrongPrice">
-        价格应当介于0-500之间
-      </div>
+          <ion-item>
+            <ion-label floating>
+              <ion-icon name="card" item-start class="text-primary"></ion-icon>
+              车牌号码 *
+            </ion-label>
+            <ion-input type="text" name="carPlate" required [(ngModel)]="user.carPlate" #fieldcarPlate="ngModel"> </ion-input>
+          </ion-item>
+          <ion-item no-lines *ngIf="fieldcarPlate.invalid && (fieldcarPlate.dirty || fieldcarPlate.touched)">
+            <div class="text-danger" *ngIf="fieldcarPlate.errors.required">
+              请输入车牌号码
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>
+              <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
+              共享车位编号
+            </ion-label>
+            <ion-input type="text" name="carport" disabled="true" [(ngModel)]="currentCarport.parkingNumber"> </ion-input>
+          </ion-item>
+          <button class="updateSharedCarport" ion-button clear ion-end color="secondary" tappable (click)="updateSharedCarport();">
+            &nbsp;&nbsp;编号更新
+          </button>
+        </ion-card-content>
+
+        <ion-card-content *ngIf="isPMCUser">
+          <ion-item>
+            <ion-label floating>
+              <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
+              负责人或联系人名称
+            </ion-label>
+            <ion-input type="text" name="姓名" [(ngModel)]="user.name"> </ion-input>
+          </ion-item>
 
 
-      <ion-item>
-        <ion-label floating>
-          <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
-          价格单位 *
-        </ion-label>
+          <ion-item>
+            <ion-label floating>
+              <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
+              停车价格 *
+            </ion-label>
 
-        <!--  okText="确定" cancelText="取消"-->
-        <ion-select name="priceUnit" required [(ngModel)]="user.community_ID.priceUnit" #priceUnit="ngModel" interface="popover">
-          <!-- okText="Okay" cancelText="Dismiss" -->
-          <ion-option value="小时">小时</ion-option>
-          <ion-option value="天" selected="true">天</ion-option>
-          <ion-option value="月">月</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item no-lines *ngIf=" priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
-        <div class="text-danger" *ngIf="priceUnit.errors.required">
-          请选择价格单位
-        </div>
-      </ion-item>
+            <ion-input type="number" name="fieldPrice" min="0" max="500" required [(ngModel)]="user.community_ID.price" #fieldPrice="ngModel"
+              (ionBlur)="on_price_Blur($event)"></ion-input>
+          </ion-item>
+          <ion-item no-lines *ngIf=" fieldPrice.invalid && (fieldPrice.dirty || fieldPrice.touched)">
+            <div class="text-danger" *ngIf="fieldPrice.errors.required">
+              请输入价格信息
+            </div>
+          </ion-item>
+          <div class="text-danger-padding" *ngIf="wrongPrice">
+            价格应当介于0-500之间
+          </div>
 
-    </ion-card-content>
-  </ion-card>
-  </form>
-  <div class="padding-xs"></div>
-  <button class="pull-right" ion-button icon-start block round color="secondary" 
-  tappable (click)="save()"  [disabled]="wrongPrice || !profileForm.form.valid">
-    <ion-icon name="checkbox"></ion-icon>
-    &nbsp;&nbsp;保存
-  </button>
+
+          <ion-item>
+            <ion-label floating>
+              <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
+              价格单位 *
+            </ion-label>
+
+            <!--  okText="确定" cancelText="取消"-->
+            <ion-select name="priceUnit" required [(ngModel)]="user.community_ID.priceUnit" #priceUnit="ngModel" interface="popover">
+              <!-- okText="Okay" cancelText="Dismiss" -->
+              <ion-option value="小时">小时</ion-option>
+              <ion-option value="天" selected="true">天</ion-option>
+              <ion-option value="月">月</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item no-lines *ngIf=" priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
+            <div class="text-danger" *ngIf="priceUnit.errors.required">
+              请选择价格单位
+            </div>
+          </ion-item>
+
+        </ion-card-content>
+      </ion-card>
+    </form>
+    <div class="padding-xs"></div>
+    <button class="pull-right" ion-button icon-start block round color="secondary" tappable (click)="save()" [disabled]="wrongPrice || !profileForm.form.valid">
+      <ion-icon name="checkbox"></ion-icon>
+      &nbsp;&nbsp;保存
+    </button>
+  </div>
 </ion-content>

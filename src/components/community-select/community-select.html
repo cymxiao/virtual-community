@@ -1,12 +1,12 @@
 <!-- Generated template for the CommunitySelectComponent component -->
 <form class="list-form" #myForm="ngForm">
   <!--Amin: Tocheck: how to disable ion-searchbar-->
-    <ion-searchbar (ionInput)="searchTextChange($event)" placeholder="请输入小区名称" 
+    <ion-searchbar (ionInput)="searchTextChange($event)" [placeholder]="promptmsg" 
     name="searchQuery" [(ngModel)]="searchQuery" #fieldsearch="ngModel" required >
     </ion-searchbar>
     <ion-item no-lines *ngIf="this.source!=='map' && fieldsearch.invalid && (fieldsearch.dirty || fieldsearch.touched)">
       <div class="text-danger" *ngIf="fieldsearch.errors.required">
-        请输入小区名称
+        {{promptmsg}}
       </div>
     </ion-item>
     <ion-scroll scrollY="true" [class]="scrollClass" >  

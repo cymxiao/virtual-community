@@ -9,165 +9,164 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    <div>
+<ion-content padding class="auth-page">
+    <div class="login-content">
+        <div>
             <!-- {{loginForm.form.valid}} -->
-            <button  *ngIf="!showAddContent" ion-button icon-start block round color="secondary" tappable  (click)="addButtonClick()">
+            <button *ngIf="!showAddContent" ion-button icon-start block round color="secondary" tappable (click)="addButtonClick()">
                 <ion-icon name="add-circle"></ion-icon>
                 我要共享车位
             </button>
-            <button *ngIf="showAddContent" ion-button icon-start block round color="secondary" tappable  (click)="cancelButtonClick()">
+            <button *ngIf="showAddContent" ion-button icon-start block round color="secondary" tappable (click)="cancelButtonClick()">
                 <ion-icon name="close-circle"></ion-icon>
                 取消
             </button>
 
-    </div>
-    <!-- <ion-item>
-        <ion-label>Simple TimePicker</ion-label>
-        <ion-multi-picker item-content cancelText ="取消" doneText="确定" type="date" ></ion-multi-picker>
-    </ion-item> -->
+        </div>
 
-    <div *ngIf="showAddContent">
-    <form class="list-form" novalidate #leisureParkForm="ngForm">
-        <ion-card>
+
+        <div *ngIf="showAddContent">
+            <form class="list-form" novalidate #leisureParkForm="ngForm">
+                <ion-card>
+
+                    <ion-card-header>
+
+                    </ion-card-header>
+
+                    <ion-card-content>
+                        <ion-label>
+                            小区名称： {{currentUser.community_ID.name}}
+                        </ion-label>
+
+                        <ion-label>
+                            小区地址：{{currentUser.community_ID.address}}
+                        </ion-label>
+                        <ion-label>
+                            车位编号：{{currentCarport.parkingNumber}}
+                        </ion-label>
+                        <ion-label>
+                            停车价格：{{currentUser.community_ID.price}} / {{currentUser.community_ID.priceUnit }}
+                        </ion-label>
+                    </ion-card-content>
+
+                </ion-card>
+
+                <ion-item>
+                    <ion-label floating>
+                        <ion-icon name="time" item-start class="text-primary"></ion-icon>
+                        开始时间
+                    </ion-label>
+                    <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime" (ionBlur)="on_startTime_Blur($event)"
+                        (ionChange)="changeText(true)" #fieldStartTime="ngModel" name="fieldStartTime" [min]="minDate" cancelText="取消"
+                        doneText="确定"></ion-datetime>
+                    <!--Amin:IMP. #fieldphone in v1 dupliate with price field, that result empty default value for the startTime date field.-->
+                </ion-item>
+                <div *ngIf="fieldStartTime.invalid && (fieldStartTime.dirty || fieldStartTime.touched)">
+                    <div class="text-danger" *ngIf="fieldStartTime.errors.required">
+                        请选择开始时间
+                    </div>
+                </div>
+                <div class="text-danger-padding" *ngIf="wrongStartTime">
+                    开始时间无效，请检查是否与现有共享车位发布记录所覆盖。
+                </div>
+
+                <ion-item>
+                    <ion-label floating>
+                        <ion-icon name="timer" item-start class="text-primary"></ion-icon>
+                        结束时间
+                    </ion-label>
+                    <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.endTime" (ionBlur)="on_endTime_Blur($event)"
+                        (ionChange)="changeText(false)" #fieldEndTime="ngModel" name="fieldEndTime" [min]="minDate" cancelText="取消"
+                        doneText="确定"></ion-datetime>
+                </ion-item>
+                <div *ngIf="fieldEndTime.invalid && (fieldEndTime.dirty || fieldEndTime.touched)">
+                    <div class="text-danger" *ngIf="fieldEndTime.errors.required">
+                        请选择结束时间
+                    </div>
+                </div>
+                <div class="text-danger-padding" *ngIf="wrongEndTime">
+                    结束·时间无效，请检查是否与现有共享车位发布记录所覆盖。
+                </div>
+                <div class="text-danger-padding" *ngIf="endTimeshouldGreaterThanStart">
+                    结束时间应晚于开始时间。
+                </div>
+                <div class="text-danger-padding" *ngIf="fourHoursError">
+                    结束时间至少是开始时间的4个小时之后。
+                </div>
+
+                <ion-item>
+                    <ion-label stacked>
+                        <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
+                        价格（请以贵小区物业定的停车价格为准）
+                    </ion-label>
+                    <ion-input type="number" name="fieldPrice" min="0" max="500" required [(ngModel)]="leisurePark.price" #fieldPrice="ngModel"
+                        (ionBlur)="on_price_Blur($event)"></ion-input>
+                </ion-item>
+                <ion-item no-lines *ngIf="fieldPrice.invalid && (fieldPrice.dirty || fieldPrice.touched)">
+                    <div class="text-danger" *ngIf="fieldPrice.errors.required">
+                        请输入价格信息
+                    </div>
+                </ion-item>
+                <div class="text-danger-padding" *ngIf="wrongPrice">
+                    价格应当介于0-500之间
+                </div>
+
+                <ion-item>
+                    <ion-label floating>
+                        <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
+                        价格单位
+                    </ion-label>
+                    <!--  okText="确定" cancelText="取消"-->
+                    <ion-select name="priceUnit" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover">
+                        <!-- okText="Okay" cancelText="Dismiss" -->
+                        <ion-option value="小时">小时</ion-option>
+                        <ion-option value="天" selected="true">天</ion-option>
+                        <ion-option value="月">月</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item no-lines *ngIf="priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
+                    <div class="text-danger" *ngIf="priceUnit.errors.required">
+                        请选择价格单位
+                    </div>
+                </ion-item>
+
+                <div>
+                    <!-- {{loginForm.form.valid}} -->
+                    <button ion-button icon-start block round color="secondary" tappable [disabled]="!leisureParkForm.form.valid || failedForValidation"
+                        (click)="saveLeisurePark()">
+                        <ion-icon name="checkbox"></ion-icon>
+                        提交
+                    </button>
+
+                </div>
+            </form>
+        </div>
+        <p padding class="text-primary">我发布的共享车位记录</p>
+        <ion-card *ngFor="let lp of myLeisureParks">
 
             <ion-card-header>
-
             </ion-card-header>
 
             <ion-card-content>
                 <ion-label>
-                    小区名称： {{currentUser.community_ID.name}}
-                </ion-label>
-
-                <ion-label>
-                    小区地址：{{currentUser.community_ID.address}}
+                    开始时间： {{lp.startTime |date:'yyyy年MM月dd日, HH:mm' }}
+                    <!-- Todo: Amin !IMP. Ionic timezone setup. | date:'MM-DD-YYYY HH:mm' | amDateFormat:'lll'}} -->
                 </ion-label>
                 <ion-label>
-                    车位编号：{{currentCarport.parkingNumber}}
+                    结束时间： {{lp.endTime |date:'yyyy年MM月dd日, HH:mm' }}
+                    <!-- date:'MM-dd-yyyy HH:mm'}} -->
                 </ion-label>
                 <ion-label>
-                    停车价格：{{currentUser.community_ID.price}} / {{currentUser.community_ID.priceUnit }}
+                    状态： {{lp.statusDisplayText}}
+                </ion-label>
+                <ion-label>
+                    车位编号： {{lp.carport_ID.parkingNumber}}
+                </ion-label>
+                <ion-label>
+                    价格： {{lp.price }} / {{lp.priceUnit}}
                 </ion-label>
             </ion-card-content>
 
         </ion-card>
-          
-        <ion-item>
-            <ion-label floating>
-                <ion-icon name="time" item-start class="text-primary"></ion-icon>
-                开始时间
-            </ion-label>
-            <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.startTime"  
-            (ionBlur) = "on_startTime_Blur($event)" (ionChange)="changeText(true)"
-            #fieldStartTime="ngModel" name="fieldStartTime" [min]="minDate" cancelText ="取消" doneText="确定"></ion-datetime>
-            <!--Amin:IMP. #fieldphone in v1 dupliate with price field, that result empty default value for the startTime date field.-->
-        </ion-item>
-        <div *ngIf="fieldStartTime.invalid && (fieldStartTime.dirty || fieldStartTime.touched)">
-            <div class="text-danger" *ngIf="fieldStartTime.errors.required">
-                请选择开始时间
-            </div> 
-        </div>
-        <div class="text-danger-padding" *ngIf="wrongStartTime">
-            开始时间无效，请检查是否与现有共享车位发布记录所覆盖。
-        </div>  
-
-        <ion-item>
-            <ion-label floating>
-                <ion-icon name="timer" item-start class="text-primary"></ion-icon>
-                结束时间
-            </ion-label>
-            <ion-datetime required displayFormat="MM-DD-YYYY HH:mm" [(ngModel)]="leisurePark.endTime" 
-            (ionBlur) = "on_endTime_Blur($event)"  (ionChange)="changeText(false)" 
-            #fieldEndTime="ngModel" name="fieldEndTime" [min]="minDate" cancelText ="取消" doneText="确定"></ion-datetime>
-        </ion-item>
-        <div *ngIf="fieldEndTime.invalid && (fieldEndTime.dirty || fieldEndTime.touched)">
-            <div class="text-danger" *ngIf="fieldEndTime.errors.required">
-                请选择结束时间
-            </div> 
-        </div>
-        <div class="text-danger-padding" *ngIf="wrongEndTime">
-            结束·时间无效，请检查是否与现有共享车位发布记录所覆盖。
-        </div> 
-        <div class="text-danger-padding" *ngIf="endTimeshouldGreaterThanStart">
-            结束时间应晚于开始时间。
-        </div>
-        <div class="text-danger-padding" *ngIf="fourHoursError">
-            结束时间至少是开始时间的4个小时之后。
-        </div> 
-
-        <ion-item>
-            <ion-label stacked>
-                <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
-                价格（请以贵小区物业定的停车价格为准）
-            </ion-label>
-            <ion-input type="number" name="fieldPrice" min="0" max="500" required 
-            [(ngModel)]="leisurePark.price" #fieldPrice="ngModel" (ionBlur)="on_price_Blur($event)"></ion-input>
-        </ion-item>
-        <ion-item no-lines *ngIf="fieldPrice.invalid && (fieldPrice.dirty || fieldPrice.touched)">
-            <div class="text-danger" *ngIf="fieldPrice.errors.required">
-                请输入价格信息
-            </div> 
-        </ion-item> 
-        <div class="text-danger-padding" *ngIf="wrongPrice">
-                价格应当介于0-500之间
-            </div> 
-
-        <ion-item>
-            <ion-label floating>
-                <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
-                价格单位
-            </ion-label>
-            <!--  okText="确定" cancelText="取消"-->
-            <ion-select name="priceUnit" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover" > 
-                <!-- okText="Okay" cancelText="Dismiss" -->
-                <ion-option value="小时">小时</ion-option>
-                <ion-option value="天" selected="true" >天</ion-option>
-                <ion-option value="月">月</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item no-lines *ngIf="priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
-            <div class="text-danger" *ngIf="priceUnit.errors.required">
-                请选择价格单位
-            </div>
-        </ion-item>
-
-        <div>
-            <!-- {{loginForm.form.valid}} -->
-            <button ion-button icon-start block round color="secondary" tappable [disabled]="!leisureParkForm.form.valid || failedForValidation" (click)="saveLeisurePark()">
-                <ion-icon name="checkbox"></ion-icon>
-                提交
-            </button>
-
-        </div>
-    </form>
-</div>
-        <p padding class="text-primary">我发布的共享车位记录</p>
-        <ion-card *ngFor="let lp of myLeisureParks">
-
-            <ion-card-header>  
-            </ion-card-header>
-
-            <ion-card-content>
-                <ion-label>
-                    开始时间：  {{lp.startTime |date:'yyyy年MM月dd日, HH:mm' }} 
-                         <!-- Todo: Amin !IMP. Ionic timezone setup. | date:'MM-DD-YYYY HH:mm' | amDateFormat:'lll'}} -->
-                </ion-label> 
-                <ion-label>
-                    结束时间：  {{lp.endTime |date:'yyyy年MM月dd日, HH:mm' }} 
-                    <!-- date:'MM-dd-yyyy HH:mm'}} -->
-                </ion-label>
-                <ion-label>
-                       状态：   {{lp.statusDisplayText}}
-                </ion-label>
-                <ion-label>
-                    车位编号：   {{lp.carport_ID.parkingNumber}}
-                </ion-label>
-                <ion-label>
-                      价格：    {{lp.price }} / {{lp.priceUnit}}
-                  </ion-label>
-            </ion-card-content>
-
-        </ion-card>   
-  
+    </div>
 </ion-content>
