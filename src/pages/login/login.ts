@@ -57,12 +57,20 @@ export class LoginPage extends BasePage {
     this.redirctPage(this.currentUser);
   }
 
-  // go to register page
-  register() {
+   // go to login page
+   navToLoginPage() {
+    this.navCtrl.setRoot(LoginPage);
+  }
+
+  navToRegisterPage() {
     this.navCtrl.setRoot(RegisterPage);
   }
+
   // login and go to home page
   login() {
+    if(!this.user.phone  || !this.user.pwd ){
+      return false;
+    }
     this.service.loginUser({
       username: this.user.phone,
       //password: AppSettings.Encrypt(this.user.pwd)

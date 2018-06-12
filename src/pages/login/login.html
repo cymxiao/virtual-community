@@ -28,10 +28,10 @@
 
         <div padding>
             <ion-segment [(ngModel)]="isLogin">
-                <ion-segment-button value="login" (click)="login()" class="primary-bg">
+                <ion-segment-button value="login" (click)="navToLoginPage()" class="primary-bg">
                     登陆
                 </ion-segment-button>
-                <ion-segment-button value="register" (click)="register()" class="third-bg">
+                <ion-segment-button value="register" (click)="navToRegisterPage()" class="third-bg">
                     物业注册
                 </ion-segment-button>
             </ion-segment>

@@ -14,7 +14,7 @@
 
 
 <!-- -->
-<ion-content padding class="auth-page">
+<ion-content padding class="register-page">
     <div class="login-content">
 
         <!-- Logo -->
@@ -27,10 +27,10 @@
 
         <div padding>
             <ion-segment [(ngModel)]="isLogin">
-                <ion-segment-button value="login" (click)="login()" class="third-bg">
+                <ion-segment-button value="login" (click)="navToLoginPage()" class="third-bg">
                     登陆
                 </ion-segment-button>
-                <ion-segment-button value="register" (click)="register()" class="primary-bg">
+                <ion-segment-button value="register" (click)="navToRegisterPage()" class="primary-bg">
                     物业注册
                 </ion-segment-button>
             </ion-segment>
@@ -38,7 +38,7 @@
 
 
         <!-- Register form -->
-        <form class="list-form" #myForm="ngForm">
+        <form class="list-form" #myForm="ngForm" novalidate>
             <ion-item>
                 <community-select></community-select> 
             </ion-item>

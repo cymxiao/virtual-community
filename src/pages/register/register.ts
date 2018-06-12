@@ -80,7 +80,9 @@ export class RegisterPage {
     // const encryptPwd = AppSettings.Encrypt(this.pwd);
     // console.log(AppSettings.Decrypt(encryptPwd));
     //step 1 :update community with property management compamy
-
+    if(!this.pmc   || !this.pmc.PMC || !this.pmc.community_ID ){
+      return false;
+    }
     if (this.csCom.pmc) {
       this.showPMCExistError = true;
       console.log('this community already has pmc ' + this.showPMCExistError);
@@ -153,8 +155,12 @@ export class RegisterPage {
   }
 
   // go to login page
-  login() {
+  navToLoginPage() {
     this.navCtrl.setRoot(LoginPage);
+  }
+
+  navToRegisterPage() {
+    this.navCtrl.setRoot(RegisterPage);
   }
 
   on_passwordBlur(target) {
