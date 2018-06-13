@@ -23,7 +23,7 @@ export class WelcomePage {
     //console.log('ionViewDidLoad WelcomePage');
   }
 
-  goHome(){
+  getStart(){
     this.navCtrl.setRoot(LoginPage);
   }
 }
