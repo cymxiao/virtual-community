@@ -1,16 +1,20 @@
-import { Component ,ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from "../register/register";
 import { IUser } from '../../model/user';
+import { IAccount } from '../../model/account';
+import { ICarport } from '../../model/carport';
+import { AdminDashboardPage } from '../admin-dashboard/admin-dashboard';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { Logger } from "angular2-logger/core"; 
-
-import { AppSettings, UserRoleEnum, UserStatusEnum } from '../../settings/app-settings';
+ 
+import { AppSettings, UserRoleEnum } from '../../settings/app-settings';
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
+import { BasePage } from '../base/base';
+
 
 /**
  * Generated class for the LoginPage page.
@@ -24,7 +28,7 @@ import { SmsCodeComponent } from '../../components/sms-code/sms-code';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage extends BasePage {
 
 
   isLogin: string = "login";
@@ -33,6 +37,7 @@ export class LoginPage {
   passwordBlur: boolean;
   wrongUsrorPwd: boolean = false;
   cellPhoneError: boolean = false;
+  currentCarport: ICarport;
   @ViewChild(SmsCodeComponent) smsCom: SmsCodeComponent;
 
   verifyCode: any = {
@@ -42,66 +47,93 @@ export class LoginPage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private logger: Logger,
     public service: RestServiceProvider) {
+    super(navCtrl, navParams);
     this.user = { phone: '', pwd: '' };
-    //this.verifyCode.countdown = 1;
   }
 
   ionViewDidLoad() {
-    if (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).username) {
-      const usr: IUser = AppSettings.getCurrentUser();
-      if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) {
-        this.navCtrl.setRoot(TabsPage);
-      } else {
-        this.navCtrl.setRoot(PmcCarportDashboardPage);
-      }
-    }
+    super.ionViewDidLoad();
+    this.redirctPage(this.currentUser);
   }
 
-  // go to register page
-  register() {
+   // go to login page
+   navToLoginPage() {
+    this.navCtrl.setRoot(LoginPage);
+  }
+
+  navToRegisterPage() {
     this.navCtrl.setRoot(RegisterPage);
   }
+
   // login and go to home page
   login() {
+    if(!this.user.phone  || !this.user.pwd ){
+      return false;
+    }
     this.service.loginUser({
       username: this.user.phone,
       //password: AppSettings.Encrypt(this.user.pwd)
       password: this.user.pwd
     }).then((usr: IUser) => {
       if (usr) {
-        //update user status to valid
-        const udpateContent = {
-          status: UserStatusEnum.active
-        };
-        this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
-          //console.log(uptUser);
-          localStorage.setItem('user', JSON.stringify(uptUser));
-          if (!usr.role || (usr.role && usr.role[0] !== UserRoleEnum.PMCUser)) {
-            this.navCtrl.setRoot(TabsPage);
-          } else {
-            this.navCtrl.setRoot(PmcCarportDashboardPage);
+        //If lastLoginDate is null in mongo db, it means , there may be no verify code send to this user's cellphone.
+        //create user account for pmc user and normal user.
+        this.service.addAccount({ user_ID: usr._id, credit: 0 }).then((account: IAccount) => {
+          if (account) {
+            const udpateContent = {
+              lastLoginDate: new Date(),
+              account_ID: account._id
+            };
+            this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
+              //console.log(uptUser);
+              localStorage.setItem('user', JSON.stringify(uptUser));
+              this.service.getCarportListByOwnerId(usr._id).then((carp: any) => {
+                if (carp && carp.length > 0) {
+                  let filterResult: any = carp.filter((f: any) => { return f.isCurrent === true });
+                  if (filterResult && filterResult.length > 0) {
+                    this.currentCarport = filterResult[0];
+                  }
+                  localStorage.setItem('carport', JSON.stringify(this.currentCarport));
+                }
+              });
+              //console.dir(usr);
+              this.redirctPage(usr);
+            });
           }
         });
       } else {
         this.wrongUsrorPwd = true;
         //console.log('wrong username or password');
-        this.logger.error('wrong username or password.');
+        //this.logger.error('wrong username or password.');
       }
-    }).catch(x => {
-      console.log(x);
-    })
+    });
   }
- 
+
   on_usernameBlur(target) {
     //console.log('username on blur');
-    this.usernameBlur = true; 
+    this.usernameBlur = true;
     this.smsCom.disabled();
   }
 
   on_passwordBlur(target) {
     this.passwordBlur = true;
-  } 
+  }
+ 
 
+  redirctPage(usr: IUser) { 
+    if (usr && usr._id) { 
+      if ( usr.role && usr.role[0] === UserRoleEnum.PMCUser ) {
+
+        localStorage.setItem('user', JSON.stringify(usr));
+        this.navCtrl.setRoot(PmcCarportDashboardPage, { "refresh": "true" });
+      } else {
+        if (usr.username === AppSettings.PHONE_ADMIN) {
+          this.navCtrl.setRoot(AdminDashboardPage);
+        } else {
+          this.navCtrl.setRoot(TabsPage);
+        }
+      }  
+    }
+  }
 }

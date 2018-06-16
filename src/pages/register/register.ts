@@ -1,17 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { SMS } from '@ionic-native/sms';
+
 
 import { IPMC } from '../../model/pmc';
-//import { TabsPage } from '../tabs/tabs';
 import { PmcCarportDashboardPage } from '../pmc-carport-dashboard/pmc-carport-dashboard';
 import { LoginPage } from "../login/login";
 import { CommunitySelectComponent } from '../../components/community-select/community-select';
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { AppSettings, UserRoleEnum ,UserStatusEnum } from '../../settings/app-settings';
-
-
+import { UserRoleEnum ,UserStatusEnum } from '../../settings/app-settings';
+import { ICommunity } from '../../model/community';
 
 /**
  * Generated class for the RegisterPage page.
@@ -44,10 +42,23 @@ export class RegisterPage {
 
   selectedComId: string;
   pmc: IPMC;
- 
+  community: ICommunity;
+  wrongPrice: boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public apiService: RestServiceProvider) {
-    //this.user = { phone: '', pwd: '' };
+    this.community={
+      _id: '',
+      id: '',
+      __v: '',
+      name: '',
+      position: '',
+      mapid: '',
+      city_ID: '',
+      PMC:'',
+      price:'',
+      priceUnit: '天',
+      address: ''
+    }
     this.pmc = {
       _id: '',
       id: '',
@@ -55,16 +66,13 @@ export class RegisterPage {
       PMC: '',
       username: '',
       password: '',
-      community_ID: '',
+      community_ID: this.community,
       role: '',
       name: ''
     }
   }
 
-  ionViewDidLoad() {
-    //console.log(UserRoleEnum.PMCUser);
-    //console.log('send message');
-    //this.sms.send('13816873730', 'Hello world!');
+  ionViewDidLoad() { 
   }
 
   register() {
@@ -72,20 +80,20 @@ export class RegisterPage {
     // const encryptPwd = AppSettings.Encrypt(this.pwd);
     // console.log(AppSettings.Decrypt(encryptPwd));
     //step 1 :update community with property management compamy
-
-
-    //console.log(this.csCom.selectedComunityID);
+    if(!this.pmc   || !this.pmc.PMC || !this.pmc.community_ID ){
+      return false;
+    }
     if (this.csCom.pmc) {
       this.showPMCExistError = true;
       console.log('this community already has pmc ' + this.showPMCExistError);
     } else {
-      this.apiService.updateCommunity(this.csCom.selectedComunityID, { PMC: this.pmc.PMC }).then(c => {
+      this.apiService.updateCommunity(this.csCom.selectedComunityID, { PMC: this.pmc.PMC , price: this.pmc.community_ID.price, priceUnit: this.pmc.community_ID.priceUnit }).then(c => {
         if (c) {
-          localStorage.setItem('comId', this.csCom.selectedComunityID); //or c._id
+          localStorage.setItem('comId', this.csCom.selectedComunityID); 
           this.apiService.addUser(
             {
               username: this.pmc.username,
-              password: AppSettings.Encrypt(this.pmc.password),
+              password: this.pmc.password,
               name: this.pmc.name,
               community_ID: this.csCom.selectedComunityID,
               role: UserRoleEnum.PMCUser,
@@ -134,9 +142,25 @@ export class RegisterPage {
     }
     this.smsCom.disabled();    
   }
+
+  on_price_Blur(item) {
+    if (item && item.value) {
+      if (Number(item.value) < 0 || Number(item.value) > 1000) {
+        this.wrongPrice = true;
+
+      } else {
+        this.wrongPrice = false;
+      }
+    }  
+  }
+
   // go to login page
-  login() {
+  navToLoginPage() {
     this.navCtrl.setRoot(LoginPage);
+  }
+
+  navToRegisterPage() {
+    this.navCtrl.setRoot(RegisterPage);
   }
 
   on_passwordBlur(target) {

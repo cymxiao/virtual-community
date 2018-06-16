@@ -6,31 +6,31 @@
 -->
 <ion-header>
 
-    <ion-navbar>
+    <!-- <ion-navbar color="primary">
         <ion-title>物业注册</ion-title>
-    </ion-navbar>
+    </ion-navbar> -->
 
 </ion-header>
 
 
 <!-- -->
-<ion-content padding class="auth-page">
+<ion-content padding class="register-page">
     <div class="login-content">
 
         <!-- Logo -->
         <div padding text-center>
             <div class="logo"></div>
-            <h2 ion-text class="text-primary">
+            <h2 ion-text class="text-secondary">
                 <strong>享停就停</strong> 
             </h2>
         </div>
 
         <div padding>
             <ion-segment [(ngModel)]="isLogin">
-                <ion-segment-button value="login" (click)="login()" class="third-bg">
+                <ion-segment-button value="login" (click)="navToLoginPage()" class="third-bg">
                     登陆
                 </ion-segment-button>
-                <ion-segment-button value="register" (click)="register()" class="primary-bg">
+                <ion-segment-button value="register" (click)="navToRegisterPage()" class="primary-bg">
                     物业注册
                 </ion-segment-button>
             </ion-segment>
@@ -38,15 +38,15 @@
 
 
         <!-- Register form -->
-        <form class="list-form" #myForm="ngForm">
+        <form class="list-form" #myForm="ngForm" novalidate>
             <ion-item>
-                <community-select></community-select> 
+                <community-select promptmsg="请输入所管辖的小区名称"></community-select> 
             </ion-item>
 
             <ion-item>
-                <ion-label floating>
+                <ion-label stacked>
                     <ion-icon name="construct" item-start class="text-primary"></ion-icon>
-                    物业公司名称
+                    物业公司名称 *
                 </ion-label>
                 <ion-input type="text" name="fieldPMC" required [(ngModel)]="pmc.PMC" #fieldPMC="ngModel"> </ion-input>
             </ion-item>
@@ -54,22 +54,11 @@
                 <div class="text-danger" *ngIf="fieldPMC.errors.required">
                     请输入物业公司名称
                 </div>  
-            </div> 
-
+            </div>  
             <ion-item>
-                <ion-label floating>
-                    <ion-icon name="contacts" item-start class="text-primary"></ion-icon>
-                    联系人姓名
-                </ion-label>
-                
-                <ion-input type="text" name="fieldName" required [(ngModel)]="pmc.name" #fieldPMC="ngModel" ></ion-input>
-                    
-            </ion-item>
-            <!-- #templateForm="ngForm" -->
-            <ion-item>
-                <ion-label floating>
+                <ion-label stacked>
                     <ion-icon name="phone-portrait" item-start class="text-primary"></ion-icon>
-                    手机号码
+                    负责人或联系人手机号码 *
                 </ion-label>
                 
                 <ion-input type="number" minlength="11" maxlength="11"  name="fieldUsername" required  [(ngModel)]="pmc.username" 
@@ -87,12 +76,48 @@
             <div class="text-danger" *ngIf="showDuplicateUserNameError">
                 该手机号已被注册
             </div> 
+
+            <ion-item >
+                <ion-label stacked>
+                    <ion-icon name="logo-yen" item-start class="text-primary"></ion-icon>
+                    停车价格 * 
+                </ion-label>
+                <ion-input type="number" name="fieldPrice" min="0" max="1000" required 
+                [(ngModel)]="pmc.community_ID.price" #fieldPrice="ngModel" (ionBlur)="on_price_Blur($event)"></ion-input>
+            </ion-item>
+            <ion-item no-lines *ngIf="fieldPrice.invalid && (fieldPrice.dirty || fieldPrice.touched)">
+                <div class="text-danger" *ngIf="fieldPrice.errors.required">
+                    请输入价格信息
+                </div> 
+            </ion-item> 
+            <div class="text-danger-padding" *ngIf="wrongPrice">
+                    价格应当介于0-1000之间
+                </div> 
+        
+            <ion-item >
+                <ion-label stacked>
+                    <ion-icon name="pricetag" item-start class="text-primary"></ion-icon>
+                    价格单位 *
+                </ion-label>
+                <!--  okText="确定" cancelText="取消"-->
+                <ion-select name="priceUnit" required [(ngModel)]="pmc.community_ID.priceUnit" #priceUnit="ngModel" interface="popover" > 
+                    <!-- okText="Okay" cancelText="Dismiss" -->
+                    <ion-option value="小时">小时</ion-option>
+                    <ion-option value="天" selected="true" >天</ion-option>
+                    <ion-option value="月">月</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item no-lines *ngIf="priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
+                <div class="text-danger" *ngIf="priceUnit.errors.required">
+                    请选择价格单位
+                </div>
+            </ion-item>
            
 
             <ion-item>
-                <ion-label floating>
+                <ion-label stacked>
                     <ion-icon name="code-download" item-start class="text-primary"></ion-icon>
-                    验证码
+                    验证码 *
                 </ion-label>
                 <ion-input type="password" minlength="6" maxlength="6" name="verifycode" required  [(ngModel)]="pmc.password"
                    #fieldverifycode="ngModel" (ionBlur) ="on_verifyCodeBlur($event)" ></ion-input>
@@ -106,7 +131,10 @@
                 </div> 
             </div> 
             <sms-code [cellPhoneNumber] ="this.pmc.username"></sms-code>
-           
+            <div class="text-danger-padding" *ngIf="showPMCExistError">
+                该小区入驻的物业已经注册，请再次核实小区名称，如若无误请使用物业负责人或联系人手机号码直接登录，或者重新输入并选择小区名称。
+            </div> 
+    
         </form>
 
         <div margin-top> 

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams , MenuController} from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 
@@ -9,7 +9,8 @@ import { ICommunity } from '../../model/community';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
-import { SmsCodeComponent } from '../../components/sms-code/sms-code';
+import { BasePage } from '../base/base';
+
 
 
 declare var BMap;
@@ -25,10 +26,10 @@ declare var BMapLib;
 
 @IonicPage()
 @Component({
-  selector: 'page-test',
-  templateUrl: 'test.html',
+  selector: 'page-map',
+  templateUrl: 'map.html',
 })
-export class TestPage {
+export class MapPage extends BasePage {
 
   map: any;
   myGeo: any;
@@ -47,18 +48,19 @@ export class TestPage {
   source: string;
 
   @ViewChild('map') map_container: ElementRef;
-  @ViewChild(SmsCodeComponent) smsCom: SmsCodeComponent;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
+    public menuCtrl: MenuController,
     public APIService: RestServiceProvider, private geolocation: Geolocation) {
-    this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(30, 30));
+      super(navCtrl,navParams);
+    this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(60, 60));
     this.source = "map";
   }
 
   ionViewDidLoad() {
     //Amin: !Important:map_container shoud be called here, it can't be inited in constructor, if called in constructor
  
-
+    super.menuActive(this.menuCtrl);
     this.map = new BMap.Map("map_container");
     this.map.centerAndZoom('上海', 13);
     this.map.enableScrollWheelZoom(true);
@@ -114,7 +116,7 @@ export class TestPage {
       //'<div  click ="this.checkDetail(community._id,community.name)" >  <a>查看详情</a> </div>' +
 
       '<div > 空闲车位数量：' + sharedCarportNumber + '</div> </br>' +
-      '<div class="text-secondary"> 你可在最上方搜索区域输入该小区名称，即可查看或申请停车  </div>' ;
+      '<div class="text-secondary">在上方搜索区域输入该小区名称,可查看或申请停车 </div>' ;
      
  
 
@@ -132,6 +134,7 @@ export class TestPage {
         // BMAPLIB_TAB_FROM_HERE //从这里出发
       ]
     });
+    
     let marker = new BMap.Marker(point); //创建marker对象
     //marker.enableDragging(); //marker可拖拽
     marker.addEventListener("click", function (e) {
@@ -165,7 +168,7 @@ export class TestPage {
 
   getStatisticOfCarport() {
     //let addtmp;
-    this.APIService.getStatisticOfCarport().then((x: any) => {
+    this.APIService.getStatisticOfCarport().then((x: any) => { 
       this.avaiableComs = x;
       x.forEach(c => {
         if (c.community_info && c.community_info.length > 0) {

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ProfilePage } from '../profile/profile';
-
+import { LoginPage } from "../login/login";
 /**
- * Generated class for the UserPortalPage page.
+ * Generated class for the WelcomePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,18 +11,19 @@ import { ProfilePage } from '../profile/profile';
 
 @IonicPage()
 @Component({
-  selector: 'page-user-portal',
-  templateUrl: 'user-portal.html',
+  selector: 'page-welcome',
+  templateUrl: 'welcome.html',
 })
-export class UserPortalPage {
+export class WelcomePage {
 
-  rootPage : any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.rootPage = ProfilePage;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserPortalPage');
+    //console.log('ionViewDidLoad WelcomePage');
   }
 
+  getStart(){
+    this.navCtrl.setRoot(LoginPage);
+  }
 }

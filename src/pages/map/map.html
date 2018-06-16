@@ -1,5 +1,5 @@
 <!--
-  Generated template for the TestPage page.
+  Generated template for the MapPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -8,6 +8,9 @@
 <ion-header>
 
   <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
     <ion-title>发现车位</ion-title> 
   </ion-navbar>
 
@@ -15,7 +18,7 @@
 
 <ion-content>
     <div id="search_bar">
-       <community-select [source]="source"></community-select> 
+       <community-select [source]="source" promptmsg="请输入您要泊车的小区名称"></community-select> 
     </div>
     <div class="align-bottom" #map id="map_container"></div>
    

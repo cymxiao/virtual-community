@@ -1,3 +1,5 @@
+import { ICommunity } from './community';
+
 export interface IPMC  {
     _id: string;
     id: string;
@@ -5,7 +7,7 @@ export interface IPMC  {
     PMC: string;
     username: string;
     password: string;
-    community_ID: string;
+    community_ID: ICommunity;
     role: string;
     name:string;
   }

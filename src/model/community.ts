@@ -7,4 +7,7 @@ export interface ICommunity  {
     mapid: string;
     city_ID: string;
     address: string;
+    PMC: string; 
+    price: string;
+    priceUnit:string;
   }

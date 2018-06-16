@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 
-import { ICarport } from 'model/carport';
+import { ICarport } from '../../model/carport';
 import { AppSettings } from '../../settings/app-settings';
 
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
+import { BasePage } from '../base/base';
 
 /**
  * Generated class for the CarportPage page.
@@ -18,7 +19,7 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
   selector: 'page-carport',
   templateUrl: 'carport.html',
 })
-export class CarportPage {
+export class CarportPage extends BasePage {
   user: any;
   carport: ICarport;
   pathdescription: string;
@@ -26,7 +27,9 @@ export class CarportPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
+    //public alertCtrl: AlertController,
     public service: RestServiceProvider) {
+      super(navCtrl,navParams);
     this.carport = {
       _id: '',
       id: '',
@@ -61,9 +64,7 @@ export class CarportPage {
             this.errorInfo = '单个用户最多可以拥有3个车位';
           } else if (cp._id) {
             this.dismiss({ "data": cp });
-          }
-          // this.viewCtrl.dismiss();
-          // this.navCtrl.getRootNav().push(SecondPage);
+          } 
         }
       });
     }

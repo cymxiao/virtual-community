@@ -14,10 +14,10 @@
 
 <ion-content padding> 
    
-    <button ion-button icon-end round color="primary" tappable (click)="openPayActionSheet({})" >
+    <!-- <button ion-button icon-end round color="primary" tappable (click)="openPayActionSheet({})" >
         <ion-icon name="bookmark"></ion-icon>  
         &nbsp;&nbsp;测试支付
-    </button>
+    </button> -->
       <ion-card *ngFor="let lp of sharedLeisureParks">
 
           <ion-card-header> 
@@ -40,10 +40,13 @@
                 车位编号：      {{lp.carport_ID.parkingNumber}}
               </ion-label>
               <ion-label>
+                车位路线指引：      {{lp.carport_ID.route}}
+              </ion-label>
+              <ion-label>
                 价格：      {{lp.price }} / {{lp.priceUnitDisplayText}}
               </ion-label>
              
-              <button ion-button icon-end round color="primary" tappable (click)="apply(lp)" >
+              <button ion-button icon-end round color="secondary" class="pull-right" tappable (click)="apply(lp)" >
                 <ion-icon name="bookmark"></ion-icon>  
                 &nbsp;&nbsp;申请使用
             </button>

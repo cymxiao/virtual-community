@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
-import { ICarport } from 'model/carport';
+import { ICarport } from '../../model/carport';
 import { CarportPage } from '../carport/carport';
 import { ProfilePage } from '../profile/profile';
 import { BasePage } from '../base/base';
@@ -46,6 +46,7 @@ export class SelectCommunityModalPage extends BasePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
     public service: RestServiceProvider) {
     super(navCtrl, navParams);
     //super();
@@ -92,6 +93,7 @@ export class SelectCommunityModalPage extends BasePage {
         community_ID: this.selectedComunityID
       }
       this.service.updateUser(this.user._id, udpateContent).then((usr: any) => {
+        //console.log(usr);
         if (usr && this.currentCarportId) {
 
           const updateToFalseForALLCarportsforOwner = {
@@ -100,9 +102,9 @@ export class SelectCommunityModalPage extends BasePage {
             // community_ID: this.selectedComunityID
           }
           //Amin: Imp! param sequence is very important
-          this.service.updateManyCarports(this.selectedComunityID, this.user._id, updateToFalseForALLCarportsforOwner).then(
+          this.service.updateManyCarports(this.selectedComunityID, this.user._id, updateToFalseForALLCarportsforOwner).then( 
             x => {
-              //add a carport
+              //console.dir(x);
               const carport = {
                 isCurrent: true
               }
@@ -118,6 +120,8 @@ export class SelectCommunityModalPage extends BasePage {
                   } else if(this.source === 'leisurepark'){
                     this.navCtrl.setRoot(LeisureParkPage);
                   }
+
+                   super.presentCustomAlert(this.alertCtrl,'保存成功','您的共享车位信息已经保存成功。');
                 }
               });
             }

@@ -1,12 +1,14 @@
-import { ENV } from '@app/env';
+
 import CryptoJS from 'crypto-js';
 //import CryptoBrowserify from 'crypto-browserify';
 
 
 export class AppSettings{
     public static ENCRYPTION_KEY = "ApP2018!-123211";
-
-
+    
+    //Amin: todo: temp code
+    
+    public static PHONE_ADMIN='99999099999';
 
     public static getAPIServiceURL() {
        //console.log('ENV in appsettings is : ' + ENV.mode );
@@ -14,22 +16,26 @@ export class AppSettings{
        //Amin:Todo: why the mode doesn't works well. it's always dev mode. 
        //Amin:Important. Please make sure if deploy to server, the url should be an IP or internet url, 'localhost' is wrong, when user 
        //access this , if use localhost, it would try to connect localhost on user's device.
-       
-       if (ENV.mode === 'Production') {
-            return "http://localhost:3000";
-        } else if (ENV.mode === 'Development') {
-            return "http://localhost:3000";
-        } else if (ENV.mode === 'Home') {
-            return "http://192.168.1.4:3000";
-        } else if (ENV.mode === 'aliyun') {
-            return "http://106.14.132.131:3000";
-        }else {
-            return "http://localhost:3000";
-        }
+       return "http://106.14.132.131:3000";
+    //    if (ENV.mode === 'Production') {
+    //         return "http://106.14.132.131:3000";
+    //     } else if (ENV.mode === 'Development') {
+    //         return "http://localhost:3000";
+    //     } else if (ENV.mode === 'Home') {
+    //         return "http://192.168.1.4:3000";
+    //     } else if (ENV.mode === 'aliyun') {
+    //         return "http://106.14.132.131:3000";
+    //     }else {
+    //         return "http://106.14.132.131:3000";
+    //     }
     }
 
-    public static getCurrentUser(){
-        return JSON.parse(localStorage.getItem('user'));
+    public static getCurrentUser() {
+        if (localStorage.getItem('user')) {
+            return JSON.parse(localStorage.getItem('user'));
+        } else {
+            return {};
+        }
     }
 
     // public static getCurrentCommunity(){
@@ -40,8 +46,12 @@ export class AppSettings{
         return localStorage.getItem('comId');
     }
 
-    public static getCurrentCarport(){
-        return JSON.parse(localStorage.getItem('carport'));
+    public static getCurrentCarport() {
+        if (localStorage.getItem('carport')) {
+            return JSON.parse(localStorage.getItem('carport'));
+        } else {
+            return {};
+        }
     }
 
     public static getDisplayText(input: any, dict: any) {
@@ -140,7 +150,7 @@ public static Decrypt(word) {
       
     public static priceUnitDict = [
         { text: '小时', value: 'hour' },
-        { text: '次', value: 'day' },
+        { text: '天', value: 'day' },
         { text: '月', value: 'month' }, 
       ];
 
@@ -166,11 +176,10 @@ export enum LeisureParkStatus {
     invalid  = 'invalid', 
   }
 
-  export enum UserRoleEnum {
-    //'PMCUser','proprietor', 'externalUser'
+  export enum UserRoleEnum { 
     PMCUser = 'PMCUser' ,
-    proprietor  = 'proprietor',
-    externalUser  = 'externalUser' 
+    AdminUser  = 'superAdministator',
+    ExternalUser  = 'externalUser' 
   }
 
   export enum UserStatusEnum {

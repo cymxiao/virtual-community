@@ -4,61 +4,58 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header> 
+<ion-header>
     <ion-navbar color="primary">
         <button ion-button menuToggle icon-only>
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>小区及车位设置</ion-title>
-    </ion-navbar> 
+    </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-    <form class="list-form" novalidate #communityModalForm="ngForm">
-        <ion-item *ngIf="!comReadOnly">
-            <community-select [searchQuery]="searchQuery"></community-select> 
-        </ion-item>
+<ion-content padding class="auth-page">
+    <div class="login-content">
+        <form class="list-form" novalidate #communityModalForm="ngForm">
+            <ion-item *ngIf="!comReadOnly">
+                <community-select [searchQuery]="searchQuery"></community-select>
+            </ion-item>
 
-        <ion-item *ngIf="comReadOnly">
-            <ion-label floating>
-              <ion-icon name="flag" item-start class="text-primary"></ion-icon>
-              所在小区
-            </ion-label>
-            <ion-input type="text" name="community" disabled="true" [ngModel]="searchQuery"> </ion-input> 
-          </ion-item>
+            <ion-item *ngIf="comReadOnly">
+                <ion-label floating>
+                    <ion-icon name="flag" item-start class="text-primary"></ion-icon>
+                    所在小区
+                </ion-label>
+                <ion-input type="text" name="community" disabled="true" [ngModel]="searchQuery"> </ion-input>
+            </ion-item>
 
-        <ion-item *ngIf="showCarportList">
-            <ion-label floating>
-                <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
-                车位绑定
-            </ion-label>
-            <!-- required works for formvalidation.  --> 
-            <ion-select [(ngModel)]="currentCarportId" #fieldcarport="ngModel" required name="fieldcarport" interface="popover" multiple="false">
-                <ion-option *ngFor="let cp of carportArray" [value]="cp._id" >{{cp.parkingNumber}}</ion-option>
-            </ion-select>
+            <ion-item *ngIf="showCarportList">
+                <ion-label floating>
+                    <ion-icon name="umbrella" item-start class="text-primary"></ion-icon>
+                    共享车位编号
+                </ion-label>
+                <!-- required works for formvalidation.  -->
+                <ion-select [(ngModel)]="currentCarportId" #fieldcarport="ngModel" required name="fieldcarport" interface="popover" multiple="false">
+                    <ion-option *ngFor="let cp of carportArray" [value]="cp._id">{{cp.parkingNumber}}</ion-option>
+                </ion-select>
 
-        </ion-item>
-        <!-- <ion-item no-lines *ngIf="showCarportList && fieldcarport.invalid && (fieldcarport.dirty || fieldcarport.touched)">
+            </ion-item>
+            <!-- <ion-item no-lines *ngIf="showCarportList && fieldcarport.invalid && (fieldcarport.dirty || fieldcarport.touched)">
             <div class="text-danger" *ngIf="fieldcarport.errors.required">
                 请输入您的车位号
             </div>
         </ion-item> -->
-        <ion-item>
-            <button  ion-button icon-end color="secondary" tappable (click)="btnAdd()">
-                <ion-icon name="add-circle"></ion-icon>
-                &nbsp;&nbsp;新增车位
+            <ion-item>
+                <button ion-button icon-end color="secondary" tappable (click)="btnAdd()">
+                    <ion-icon name="add-circle"></ion-icon>
+                    &nbsp;&nbsp;新增车位
+                </button>
+            </ion-item>
+            <!-- {{communityModalForm.form.invalid}} -->
+            <button ion-button icon-start block round color="secondary" tappable (click)="save()" [disabled]="communityModalForm.form.invalid ||!showCarportList">
+                <ion-icon name="checkbox"></ion-icon>
+                保存
             </button>
-        </ion-item> 
- <!-- {{communityModalForm.form.invalid}} -->
-        <button ion-button icon-start block round color="secondary" tappable (click)="save()" 
-        [disabled]="communityModalForm.form.invalid ||!showCarportList">
-            <ion-icon name="checkbox"></ion-icon>
-            保存设置
-        </button>
-    </form>
-    <!-- <button ion-button icon-end class="pull-right" color="primary" tappable (click)="goBackHome()" >
-            <ion-icon name="arrow-back"></ion-icon>  
-            &nbsp;&nbsp;返回主页
-    </button> -->
+        </form>
+    </div>
 </ion-content>

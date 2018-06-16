@@ -17,6 +17,7 @@ export class CommunitySelectComponent {
  
   @Input() searchQuery: string = '';
   @Input() source: string = '';
+  @Input() promptmsg: string = '请输入小区名称';
   hideList: boolean;
   coms: any;
   selectedComunityID: string;
