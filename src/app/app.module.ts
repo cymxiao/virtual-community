@@ -62,6 +62,10 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     BasePageModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: '返回',
+      //Prevent Ionic Form goes up when keyboard shows
+      scrollPadding: false,
+      scrollAssist: true,
+      autoFocusAssist: false
     })
   ],
   bootstrap: [IonicApp],
