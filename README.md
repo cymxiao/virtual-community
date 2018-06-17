@@ -1,4 +1,4 @@
-# virtual-community
+# iparking
 
 ionic cordova plugin add cordova-plugin-geolocation
 ionic cordova plugin add cordova-sms-plugin
