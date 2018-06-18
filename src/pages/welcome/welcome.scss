@@ -4,8 +4,8 @@ page-welcome {
     }
      
     ion-slide img {
-        height: 100vh !important;
-        width: auto !important;
+        height: 100vh; /*!important;  */
+        width: 100vw; /*!important;  */
     }
 
     .start-button{ 

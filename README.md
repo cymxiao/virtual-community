@@ -24,6 +24,7 @@ ionic cordova run browser
 
 
 generate resource:
+ionic cordova resources android
 ionic cordova resources ios
 
 Deploy: 
