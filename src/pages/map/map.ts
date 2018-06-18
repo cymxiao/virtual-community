@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams , MenuController} from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, MenuController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 
@@ -35,6 +35,7 @@ export class MapPage extends BasePage {
   myGeo: any;
   index = 0;
   myIcon: any;
+  makerIcon: any;
 
   avaiableComs: IStatisticCarport[];
   adds: string[] = [];
@@ -51,15 +52,17 @@ export class MapPage extends BasePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public menuCtrl: MenuController,
+    public alertCtrl: AlertController,
     public APIService: RestServiceProvider, private geolocation: Geolocation) {
-      super(navCtrl,navParams);
-    this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(60, 60));
-    this.source = "map"; 
+    super(navCtrl, navParams);
+    this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(32, 32));
+    this.makerIcon = new BMap.Icon("assets/icon/park.png", new BMap.Size(32, 32));
+    this.source = "map";
   }
 
   ionViewDidLoad() {
     //Amin: !Important:map_container shoud be called here, it can't be inited in constructor, if called in constructor
- 
+
     super.menuActive(this.menuCtrl);
     this.map = new BMap.Map("map_container");
     this.map.centerAndZoom('上海', 13);
@@ -69,7 +72,7 @@ export class MapPage extends BasePage {
     this.map.addControl(geolocationControl);
     this.getStatisticOfCarport();
 
-    this.getLocation(); 
+    this.getLocation();
   }
 
 
@@ -93,7 +96,7 @@ export class MapPage extends BasePage {
   //   }
   //   //this.index++;
   // }
-  geocodeSearch(community :ICommunity, sharedCarportNumber) {
+  geocodeSearch(community: ICommunity, sharedCarportNumber) {
     this.myGeo.getPoint(community.address, x => { this.callBackEvent(x, community, sharedCarportNumber); }, "上海市");
   }
   // 编写自定义函数,创建标注
@@ -103,7 +106,7 @@ export class MapPage extends BasePage {
     marker.setLabel(label);
   }
 
-  callBackEvent(point, community:ICommunity, sharedCarportNumber) {
+  callBackEvent(point, community: ICommunity, sharedCarportNumber) {
     if (point) {
       //this.addMarker(point, new BMap.Label( add , { offset: new BMap.Size(20, -10) }));
       this.addInfoWindow(point, community, sharedCarportNumber);
@@ -116,9 +119,9 @@ export class MapPage extends BasePage {
       //'<div  click ="this.checkDetail(community._id,community.name)" >  <a>查看详情</a> </div>' +
 
       '<div > 空闲车位数量：' + sharedCarportNumber + '</div> </br>' +
-      '<div class="text-secondary">在上方搜索区域输入该小区名称,可查看或申请停车 </div>' ;
-     
- 
+      '<div class="text-secondary">在上方搜索区域输入该小区名称,可查看或申请停车 </div>';
+
+
 
     //创建检索信息窗口对象
     let searchInfoWindow = null;
@@ -134,8 +137,8 @@ export class MapPage extends BasePage {
         // BMAPLIB_TAB_FROM_HERE //从这里出发
       ]
     });
-    
-    let marker = new BMap.Marker(point); //创建marker对象
+
+    let marker = new BMap.Marker(point, { icon: this.makerIcon }); //创建marker对象
     //marker.enableDragging(); //marker可拖拽
     marker.addEventListener("click", function (e) {
       searchInfoWindow.open(marker);
@@ -162,21 +165,25 @@ export class MapPage extends BasePage {
         console.log('GPS定位：您的位置是 ' + resp.coords.longitude + ',' + resp.coords.latitude);
       }
     }).catch(e => {
-      console.log(e); 
+      console.log(e);
     });;
   }
 
   getStatisticOfCarport() {
     //let addtmp;
-    this.APIService.getStatisticOfCarport().then((x: any) => { 
-      this.avaiableComs = x;
-      x.forEach(c => {
-        if (c.community_info && c.community_info.length > 0) {
-          //addtmp = c.community_info[0].address;
-          this.adds.push(c.community_info[0].address);
-          this.geocodeSearch(c.community_info[0], c.count);
-        }
-      });
+    this.APIService.getStatisticOfCarport().then((x: any) => {
+      if (x && x.length > 0) {
+        this.avaiableComs = x;
+        x.forEach(c => {
+          if (c.community_info && c.community_info.length > 0) {
+            //addtmp = c.community_info[0].address;
+            this.adds.push(c.community_info[0].address);
+            this.geocodeSearch(c.community_info[0], c.count);
+          }
+        });
+      } else {
+        super.presentCustomAlert(this.alertCtrl, '无共享车位', '当前城市无共享车位，请耐心等待');
+      }
       //console.dir(this.adds);
     });
   }
@@ -187,7 +194,7 @@ export class MapPage extends BasePage {
     this.map.addControl(geolocationControl);
   }
 
-  checkDetail(commmunityId,community_name) {
+  checkDetail(commmunityId, community_name) {
     //console.log('haha this');
     this.navCtrl.push(LookupLeisureParkPage, {
       comId: commmunityId,
@@ -195,9 +202,9 @@ export class MapPage extends BasePage {
     });
   }
 
- 
 
- 
+
+
   searchClicked() {
     // push another page onto the navigation stack
     // causing the nav controller to transition to the new page
