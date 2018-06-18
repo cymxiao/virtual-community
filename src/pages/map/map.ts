@@ -54,7 +54,7 @@ export class MapPage extends BasePage {
     public APIService: RestServiceProvider, private geolocation: Geolocation) {
       super(navCtrl,navParams);
     this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(60, 60));
-    this.source = "map";
+    this.source = "map"; 
   }
 
   ionViewDidLoad() {

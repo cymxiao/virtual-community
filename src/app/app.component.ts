@@ -50,28 +50,29 @@ export class MyApp {
   
 
   mgrCarports() {
-    this.nav.setRoot(PmcCarportDashboardPage);
+    this.nav.push(PmcCarportDashboardPage);
   }
 
   myCarports() {
-    this.nav.setRoot(SelectCommunityModalPage , { "comReadOnly": "true" });
+    this.nav.push(SelectCommunityModalPage , { "comReadOnly": "true" });
   }
 
   myOrders() {
-    this.nav.setRoot(MyOrdersPage);
+    this.nav.push(MyOrdersPage);
   }
 
   myProfile() {
-    this.nav.setRoot(ProfilePage);
+    this.nav.push(ProfilePage);
   }
 
   myCredit() {
-    this.nav.setRoot(MyCreditPage);
+    this.nav.push(MyCreditPage);
   } 
 
-  goBackHome() {
-    this.nav.setRoot(TabsPage);
-  }
+  //Amin:Todo: Not sure why the map page is always empty.
+  // goBackHome() {
+  //   this.nav.setRoot(TabsPage);
+  // }
 
   logout() {  
     const firstIn = localStorage.getItem('firstIn') ;
