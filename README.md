@@ -1,4 +1,4 @@
-# virtual-community
+# iparking
 
 ionic cordova plugin add cordova-plugin-geolocation
 ionic cordova plugin add cordova-sms-plugin
@@ -23,13 +23,18 @@ ionic cordova run browser
 
 
 
+generate resource:
+ionic cordova resources android
+ionic cordova resources ios
 
 Deploy: 
 ionic cordova platform remove android
-ionic cordova platform add android@6.4.0
+ionic cordova platform add android     @6.4.0
 ionic cordova platform remove ios
-ionic cordova platform add ios 
 
+
+ionic cordova platform add ios 
+ionic cordova platform add android 
 
 
 
