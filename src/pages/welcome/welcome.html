@@ -5,15 +5,15 @@
   Ionic pages and navigation.
 -->
   
-<ion-content padding>
+<ion-content>
   <ion-slides pager>
  
     <ion-slide>
-      <img src="assets/imgs/ionic3-ico.png" />
+      <img src="assets/imgs/slide1.png" />
     </ion-slide>
    
     <ion-slide>
-      <img src="assets/imgs/logo2.png" />
+      <img src="assets/imgs/slide2.png" />
     </ion-slide>
    
     <!-- <ion-slide>
@@ -23,12 +23,13 @@
     <ion-slide>
       <ion-row>
           <ion-col>
-              <img src="assets/imgs/logo.png" />
+              <img src="assets/imgs/slide3.png" />
           </ion-col>
       </ion-row>
-      <ion-row>
-          <ion-col>
-              <button class="start-button text-secondary text-2x" light (click)="getStart()">开始体验</button>
+      <ion-row >
+          <ion-col> 
+            <!--Amin:Todo  how to adjust the button to the center of the page.-->
+              <button ion-button class="start-button text-secondary"  round outline (click)="getStart()">开始体验</button>  
           </ion-col>
       </ion-row>
     </ion-slide>

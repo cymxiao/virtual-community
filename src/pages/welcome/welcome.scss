@@ -4,13 +4,17 @@ page-welcome {
     }
      
     ion-slide img {
-        height: 70vh !important;
+        height: 100vh !important;
         width: auto !important;
     }
 
     .start-button{ 
-        position: relative;
-     
-        top:-300px;
+        position: absolute; 
+        bottom:230px;
+        left:30vw;
     }
+
+    .center{
+        text-align:center;
+   }
 }

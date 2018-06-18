@@ -23,6 +23,8 @@ ionic cordova run browser
 
 
 
+generate resource:
+ionic cordova resources ios
 
 Deploy: 
 ionic cordova platform remove android
