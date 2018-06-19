@@ -69,7 +69,7 @@ export class LeisureParkPage extends BasePage{
       applied_UserID: '',
       shared_UserID: '',
       price: '',
-      ServiceTime: '',
+      serviceTime: '',
       timestamp: null,
       priceUnit: '天'
     }
@@ -234,7 +234,6 @@ export class LeisureParkPage extends BasePage{
       if (lpark) {
         this.myLeisureParks = lpark;
         this.myLeisureParks.forEach(x => {
-          //x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
           x.statusDisplayText = AppSettings.getDisplayText(x.status, AppSettings.leisureParkStatusDict);
         })
       }

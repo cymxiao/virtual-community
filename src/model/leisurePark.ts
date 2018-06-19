@@ -12,27 +12,11 @@ export interface ILeisurePark  {
     shared_UserID:string;
     price: string;
     priceUnit:string;
-    ServiceTime: string;
+    serviceTime: string;
     timestamp : Date;
   }
 
-
-  // export interface ILeisurePark  {
-  //   id: string; 
-  //   startTime: Date;
-  //   endTime: Date;
-  //   status: string;
-  //   carport_ID: string; 
-  //   community_ID:string;
-  //   applied_UserID: string;
-  //   shared_UserID:string;
-  //   price: string;
-  //   priceUnit:string;
-  //   timestamp : Date;
-  // }
-
-
-
+ 
   export interface IUILeisurePark  {
     id: string; 
     startTime: Date;
@@ -45,8 +29,9 @@ export interface ILeisurePark  {
     shared_UserID:string;
     price: string;
     priceUnit:string; 
-    priceUnitDisplayText: string;
+    //priceUnitDisplayText: string;
     avaibleHours: number;
+    ServiceTime: string;
     timestamp: Date;
     showPMCButton: boolean;
   }

@@ -42,8 +42,7 @@ export class MyOrdersPage {
     this.apiService.getLeisureParkforApplier( this.currentUser._id).then((lpark: any) => {
       if (lpark && lpark.length>0) {
         this.appliedLeisureParks = lpark;
-        this.appliedLeisureParks.forEach(x => {
-          x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
+        this.appliedLeisureParks.forEach(x => { 
           x.statusDisplayText = AppSettings.getDisplayText( x.status , AppSettings.leisureParkStatusDict); 
         }) 
       }

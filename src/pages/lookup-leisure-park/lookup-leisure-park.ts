@@ -120,8 +120,7 @@ export class LookupLeisureParkPage extends BasePage {
     this.apiService.getLeisureParkbyCommunity(this.inputComId, this.currentUser._id).then((lpark: any) => {
       if (lpark && lpark.length > 0) {
         this.sharedLeisureParks = lpark;
-        this.sharedLeisureParks.forEach(x => {
-          x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
+        this.sharedLeisureParks.forEach(x => {  
           x.statusDisplayText = AppSettings.getDisplayText(x.status, AppSettings.leisureParkStatusDict);
           x.avaibleHours = this.getHoursNumber(x.startTime, x.endTime);
         })

@@ -42,7 +42,7 @@
         </ion-col>
         <ion-col> {{pu.username}}
         </ion-col>
-        <ion-col> {{pu.community_ID.price}} / {{pu.priceUnitDisplayText}}
+        <ion-col> {{pu.community_ID.price}} / {{pu.priceUnit}}
         </ion-col>
         <ion-col>
           <button ion-button clear ion-end color="secondary" tappable (click)="updatePMCStatus(pu._id)">
@@ -80,7 +80,7 @@
         </ion-col>
         <ion-col> {{pu.username}}
         </ion-col>
-        <ion-col> {{pu.community_ID.price}} / {{pu.priceUnitDisplayText}}
+        <ion-col> {{pu.community_ID.price}} / {{pu.priceUnit}}
         </ion-col>
       </ion-row>
     </ion-grid>

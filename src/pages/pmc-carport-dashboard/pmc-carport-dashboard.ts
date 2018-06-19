@@ -73,7 +73,7 @@ export class PmcCarportDashboardPage extends BasePage {
 
         this.appliedLeisureParks = lpark;
         this.appliedLeisureParks.forEach(x => {
-          x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
+          //x.priceUnitDisplayText = AppSettings.getDisplayText(x.priceUnit, AppSettings.priceUnitDict);
           x.statusDisplayText = AppSettings.getDisplayText( x.status , AppSettings.leisureParkStatusDict); 
 
           if(x.status && x.status[0] === 'applied' && x.applied_UserID && x.applied_UserID.carPlate){
