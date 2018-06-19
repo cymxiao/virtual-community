@@ -131,11 +131,14 @@
                     </div>
                 </ion-item>
 
-                <ion-item *ngIf="showServiceTime">
-                    <ion-list radio-group [(ngModel)]="ServiceTime">
+                
+                    <ion-list *ngIf="showServiceTime" radio-group [(ngModel)]="leisurePark.serviceTime" name="serviceTimeList" #serviceTimeList="ngModel" >
+                        <ion-list-header>
+                            服务时间
+                        </ion-list-header>
                         <ion-item>
                           <ion-label>9:00 - 18:00 </ion-label>
-                          <ion-radio value="918" checked></ion-radio>
+                          <ion-radio value="918" checked="true"></ion-radio>
                         </ion-item>
                         <ion-item>
                           <ion-label>全天24小时</ion-label>
@@ -143,7 +146,7 @@
                         </ion-item>
 
                       </ion-list>
-                </ion-item>
+                
 
                 <div>
                     <!-- {{loginForm.form.valid}} -->
@@ -163,25 +166,27 @@
             </ion-card-header>
 
             <ion-card-content>
-                <ion-label>
+               
+                <ion-label *ngIf="!lp.showServiceTime">
                     开始时间： {{lp.startTime |date:'yyyy年MM月dd日, HH:mm' }}
                     <!-- Todo: Amin !IMP. Ionic timezone setup. | date:'MM-DD-YYYY HH:mm' | amDateFormat:'lll'}} -->
                 </ion-label>
-                <ion-label>
+                <ion-label *ngIf="!lp.showServiceTime">
                     结束时间： {{lp.endTime |date:'yyyy年MM月dd日, HH:mm' }}
                     <!-- date:'MM-dd-yyyy HH:mm'}} -->
                 </ion-label>
+          
                 <ion-label>
                     状态： {{lp.statusDisplayText}}
                 </ion-label>
                 <ion-label>
-                    车位编号： {{lp.carport_ID.parkingNumber}}
+                    车位编号： {{lp.parkingNumberDisplayText}}
                 </ion-label>
                 <ion-label>
                     价格： {{lp.price }} / {{lp.priceUnit}}
                 </ion-label>
-                <ion-label *ngIf="lp.priceUnit==='月'">
-                    服务时间： {{lp.serviceTime}}
+                <ion-label *ngIf="lp.showServiceTime" >  
+                    服务时间： {{lp.serviceTimeDisplayText}}
                 </ion-label>
             </ion-card-content>
 

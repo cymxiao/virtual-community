@@ -46,7 +46,6 @@ export class LeisureParkPage extends BasePage{
   minDate: string;
   minDateforEndTime: string;
 
-  ServiceTime: string;
   showServiceTime: boolean;
 
   //moment: Moment = new Mome;
@@ -69,7 +68,7 @@ export class LeisureParkPage extends BasePage{
       applied_UserID: '',
       shared_UserID: '',
       price: '',
-      serviceTime: '',
+      serviceTime: '918',
       timestamp: null,
       priceUnit: '天'
     }
@@ -142,6 +141,8 @@ export class LeisureParkPage extends BasePage{
       }
     }
     this.getLeisureParkforOwner();  
+
+    //console.log(this.currentCarport._id);
   }
 
 
@@ -207,10 +208,14 @@ export class LeisureParkPage extends BasePage{
 
     //Amin: IMP. -8, Save as ISO date
     //when save to momgo db, remove miniseconds 
-    const re = /.\d{3}Z/i;
-    this.leisurePark.startTime = moment(this.leisurePark.startTime).add(-8, 'hours').toISOString().replace(re, '.000Z');;
-    this.leisurePark.endTime = moment(this.leisurePark.endTime).add(-8, 'hours').toISOString().replace(re, '.000Z');
-
+    if(this.leisurePark.priceUnit !== '月') {
+      const re = /.\d{3}Z/i;
+      this.leisurePark.startTime = moment(this.leisurePark.startTime).add(-8, 'hours').toISOString().replace(re, '.000Z');;
+      this.leisurePark.endTime = moment(this.leisurePark.endTime).add(-8, 'hours').toISOString().replace(re, '.000Z');
+    } else {
+      //delete this.leisurePark.startTime ;
+      //delete this.leisurePark.endTime ;
+    }
     if (!this.leisurePark.community_ID) {
       //console.log('saveLeisurePark' + 'delete empty community_ID');
       delete this.leisurePark.community_ID;
@@ -219,7 +224,9 @@ export class LeisureParkPage extends BasePage{
     //the timestamp should be delete, otherwise it would save null to db.
     delete this.leisurePark.timestamp;
     //delete this.leisurePark._id;
-    delete this.leisurePark.status;
+    delete this.leisurePark.status; 
+   
+    //console.dir(this.leisurePark);
     this.service.addLeisurePark(this.leisurePark).then((lp: any) => {
       if (lp) { 
         this.showAddContent = false;  
@@ -235,6 +242,16 @@ export class LeisureParkPage extends BasePage{
         this.myLeisureParks = lpark;
         this.myLeisureParks.forEach(x => {
           x.statusDisplayText = AppSettings.getDisplayText(x.status, AppSettings.leisureParkStatusDict);
+          x.parkingNumberDisplayText = x.carport_ID? x.carport_ID.parkingNumber : '';
+          if(x.priceUnit && x.priceUnit[0]  === '月'){
+            x.showServiceTime = true ;
+            if(x.serviceTime === '724'){
+              x.serviceTimeDisplayText = '全天24小时';
+            } else {
+              x.serviceTimeDisplayText = '9:00 - 18:00';
+            }
+          } 
+          //console.dir(x);
         })
       }
     });
@@ -318,7 +335,7 @@ export class LeisureParkPage extends BasePage{
     }
   }
 
-  checkServiceTime(){
+  checkServiceTime(){  
     this.showServiceTime = (this.leisurePark.priceUnit === '月');
   }
 

@@ -29,9 +29,11 @@ export interface ILeisurePark  {
     shared_UserID:string;
     price: string;
     priceUnit:string; 
-    //priceUnitDisplayText: string;
     avaibleHours: number;
-    ServiceTime: string;
+    serviceTime: string;
     timestamp: Date;
     showPMCButton: boolean;
+    showServiceTime: boolean;
+    serviceTimeDisplayText: string;
+    parkingNumberDisplayText: string;
   }
