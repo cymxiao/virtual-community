@@ -12,6 +12,7 @@ export interface ILeisurePark  {
     shared_UserID:string;
     price: string;
     priceUnit:string;
+    ServiceTime: string;
     timestamp : Date;
   }
 

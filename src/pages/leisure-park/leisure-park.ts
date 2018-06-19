@@ -45,6 +45,10 @@ export class LeisureParkPage extends BasePage{
   fourHoursError: boolean;
   minDate: string;
   minDateforEndTime: string;
+
+  ServiceTime: string;
+  showServiceTime: boolean;
+
   //moment: Moment = new Mome;
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -65,6 +69,7 @@ export class LeisureParkPage extends BasePage{
       applied_UserID: '',
       shared_UserID: '',
       price: '',
+      ServiceTime: '',
       timestamp: null,
       priceUnit: '天'
     }
@@ -136,7 +141,7 @@ export class LeisureParkPage extends BasePage{
         this.currentCarport = AppSettings.getCurrentCarport();
       }
     }
-    this.getLeisureParkforOwner();
+    this.getLeisureParkforOwner();  
   }
 
 
@@ -178,16 +183,7 @@ export class LeisureParkPage extends BasePage{
         });
         this.leisurePark.price = this.currentUser.community_ID.price ;
         this.leisurePark.priceUnit = this.currentUser.community_ID.priceUnit ;
-    }
-
-  
-    // //Amin: IMP.  +8 display as local timezone .
-    // this.leisurePark.startTime = this.getGoodTime().add(8, 'hours').toISOString();
-    // //Amin: IMP. I can't direct use add(8, 'hours'), otherwise when validate endTime, 
-    // //it would prompt the endTime can't be convet to ISO string, due moment issue.
-    // this.leisurePark.endTime = this.getGoodTime().add(1, 'days').add(-8,'hours').toISOString();
-    // //this.leisurePark.endTime = this.getGoodTime().add(8, 'hours').toISOString();
-    // this.showAddContent = true;
+    } 
   }
 
   getGoodTime() {
@@ -225,11 +221,8 @@ export class LeisureParkPage extends BasePage{
     //delete this.leisurePark._id;
     delete this.leisurePark.status;
     this.service.addLeisurePark(this.leisurePark).then((lp: any) => {
-      if (lp) {
-        //this.showAlert();
-        this.showAddContent = false;
-        //Todo: how to refresh current page.
-        //this.navCtrl.push(LeisureParkPage);
+      if (lp) { 
+        this.showAddContent = false;  
         this.refresh();
       }
     });
@@ -324,6 +317,10 @@ export class LeisureParkPage extends BasePage{
         this.wrongEndTime = false;
       }
     }
+  }
+
+  checkServiceTime(){
+    this.showServiceTime = (this.leisurePark.priceUnit === '月');
   }
 
   refresh() {

@@ -117,7 +117,8 @@
                         价格单位
                     </ion-label>
                     <!--  okText="确定" cancelText="取消"-->
-                    <ion-select name="priceUnit" required [(ngModel)]="leisurePark.priceUnit" #priceUnit="ngModel" interface="popover">
+                    <ion-select name="priceUnit" required [(ngModel)]="leisurePark.priceUnit" 
+                    #priceUnit="ngModel" interface="popover" (ionChange)="checkServiceTime()">
                         <!-- okText="Okay" cancelText="Dismiss" -->
                         <ion-option value="小时">小时</ion-option>
                         <ion-option value="天" selected="true">天</ion-option>
@@ -128,6 +129,20 @@
                     <div class="text-danger" *ngIf="priceUnit.errors.required">
                         请选择价格单位
                     </div>
+                </ion-item>
+
+                <ion-item *ngIf="showServiceTime">
+                    <ion-list radio-group [(ngModel)]="ServiceTime">
+                        <ion-item>
+                          <ion-label>9:00 - 18:00 </ion-label>
+                          <ion-radio value="918" checked></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                          <ion-label>全天24小时</ion-label>
+                          <ion-radio value="724"></ion-radio>
+                        </ion-item>
+
+                      </ion-list>
                 </ion-item>
 
                 <div>
