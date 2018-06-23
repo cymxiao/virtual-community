@@ -24,6 +24,7 @@ export class GlobalErrorHandler extends ErrorHandler {
     if (error) {
       if (error.status === 0 && error.name === 'HttpErrorResponse' && error.statusText === 'Unknown Error') {
         this.showAlert('你好，我们的后台服务遇到了问题，目前正在积极修复中，请稍后片刻后再访问，给您带来不便，我们深表歉意。');
+        //Amin: Todo , it's better to add this to a log file.  2.  if the api  url address not exist, it would not show alert.
       }
     }
   }

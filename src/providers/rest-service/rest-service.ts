@@ -29,6 +29,17 @@ export class RestServiceProvider {
     });
   }
 
+  getActivePMCUser(communityId) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + '/activePMCusers/' + communityId).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        throw err;
+      });
+    });
+  }
+
   addUser(data) {
     return new Promise((resolve, reject) => {
 
