@@ -3,10 +3,12 @@ page-map {
 }
 
 #search_bar{
-    width: 100%;
-    height: 5%;
-    position: absolute;
+    width: 95%;
+    height: 80%;
+    //position: absolute;
     //top: 500;
+    padding: 0 5vw;
+    text-align: center;
     z-index: 1;
 }
 

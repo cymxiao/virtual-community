@@ -165,7 +165,7 @@ export class MapPage extends BasePage {
         console.log('GPS定位：您的位置是 ' + resp.coords.longitude + ',' + resp.coords.latitude);
       }
     }).catch(e => {
-      console.log(e);
+      console.log('Error happened when get current position.');
     });;
   }
 

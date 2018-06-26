@@ -42,7 +42,7 @@ export class MyApp {
 
       statusBar.styleDefault();
       splashScreen.hide(); 
-      timer(1000).subscribe(() => this.showSplash = false);  
+      //timer(1000).subscribe(() => this.showSplash = false);  
     });
   }
 
