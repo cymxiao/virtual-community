@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams, HttpRequest, HttpHandler, HttpInterceptor, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders , HttpRequest, HttpHandler, HttpInterceptor, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AppSettings } from '../../settings/app-settings';
@@ -44,7 +44,8 @@ export class RestServiceProvider {
     return new Promise((resolve, reject) => {
 
       //const cheaders: any = new HttpHeaders().append('Content-Type', 'application/json');
-      this.http.post(this.apiUrl + '/users', JSON.stringify(data))
+      const cheaders: any = new HttpHeaders().append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+      this.http.post(this.apiUrl + '/users', JSON.stringify(data) , { headers: cheaders })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
