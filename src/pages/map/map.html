@@ -11,15 +11,15 @@
       <button ion-button menuToggle>
           <ion-icon name="contact"></ion-icon>
         </button>
-        <div id="search_bar">
-          <community-select [source]="source" promptmsg="请输入您要泊车的小区名称"></community-select> 
-       </div>
+        <ion-title>发现车位</ion-title> 
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  
+    <div id="search_bar">
+      <community-select [source]="source" promptmsg="请输入您要泊车的小区名称"></community-select> 
+    </div>
     <div class="align-bottom" #map id="map_container"></div>
    
 </ion-content>

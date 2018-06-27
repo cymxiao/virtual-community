@@ -55,7 +55,7 @@ export class MapPage extends BasePage {
     public alertCtrl: AlertController,
     public APIService: RestServiceProvider, private geolocation: Geolocation) {
     super(navCtrl, navParams);
-    this.myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(32, 32));
+    this.myIcon = new BMap.Icon("assets/icon/position.png", new BMap.Size(32, 32));
     this.makerIcon = new BMap.Icon("assets/icon/park.png", new BMap.Size(32, 32));
     this.source = "map";
   }
@@ -74,28 +74,8 @@ export class MapPage extends BasePage {
 
     this.getLocation();
   }
-
-
-
-  addMark() {
-    //var map = new BMap.Map('container');
-    // 创建地图实例
-    var point = new BMap.Point(121.479447, 31.238806);
-    // 创建点坐标
-    this.map.centerAndZoom(point, 11);
-    // 初始化地图， 设置中心点坐标和地图级别
-    var marker = new BMap.Marker(point);
-    this.map.addOverlay(marker);
-
-  }
-
-  // bdGEO() {
-  //   console.dir(this.adds);
-  //   if (this.adds) {
-  //     this.adds.forEach(add => { this.geocodeSearch(add); });
-  //   }
-  //   //this.index++;
-  // }
+ 
+ 
   geocodeSearch(community: ICommunity, sharedCarportNumber) {
     this.myGeo.getPoint(community.address, x => { this.callBackEvent(x, community, sharedCarportNumber); }, "上海市");
   }
@@ -166,7 +146,7 @@ export class MapPage extends BasePage {
       }
     }).catch(e => {
       console.log('Error happened when get current position.');
-    });;
+    });
   }
 
   getStatisticOfCarport() {
@@ -193,12 +173,7 @@ export class MapPage extends BasePage {
     });
   }
 
-  addLocaltion() {
-    var geolocationControl = new BMap.GeolocationControl();
-
-    this.map.addControl(geolocationControl);
-  }
-
+ 
   checkDetail(commmunityId, community_name) {
     //console.log('haha this');
     this.navCtrl.push(LookupLeisureParkPage, {
