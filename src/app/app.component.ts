@@ -13,7 +13,7 @@ import { MyOrdersPage } from '../pages/myorders/myorders';
 import { ProfilePage } from '../pages/profile/profile';
 import { MyCreditPage } from '../pages/my-credit/my-credit';
 
-import { timer } from 'rxjs/observable/timer';
+//import { timer } from 'rxjs/observable/timer';
 
 @Component({
   templateUrl: 'app.html'
