@@ -13,7 +13,7 @@ import { MyOrdersPage } from '../pages/myorders/myorders';
 import { ProfilePage } from '../pages/profile/profile';
 import { MyCreditPage } from '../pages/my-credit/my-credit';
 
-//import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   templateUrl: 'app.html'
@@ -42,7 +42,7 @@ export class MyApp {
 
       statusBar.styleDefault();
       splashScreen.hide(); 
-      //timer(1000).subscribe(() => this.showSplash = false);  
+      timer(1000).subscribe(() => this.showSplash = false);  
     });
   }
 
