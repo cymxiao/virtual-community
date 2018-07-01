@@ -13,7 +13,7 @@ import { MyOrdersPage } from '../pages/myorders/myorders';
 import { ProfilePage } from '../pages/profile/profile';
 import { MyCreditPage } from '../pages/my-credit/my-credit';
 
-import { timer } from 'rxjs/observable/timer';
+//import { timer } from 'rxjs/observable/timer';
 
 @Component({
   templateUrl: 'app.html'
@@ -29,9 +29,6 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-
-
-
       if (localStorage.getItem('firstIn') === 'true') {
         this.rootPage = LoginPage;
       } else {
@@ -39,10 +36,13 @@ export class MyApp {
         this.rootPage = WelcomePage;
       } 
     
-
       statusBar.styleDefault();
-      splashScreen.hide(); 
-      timer(1000).subscribe(() => this.showSplash = false);  
+      //延迟隐藏闪屏 防止有白屏
+      setTimeout(() => {
+        splashScreen.hide();
+      }, 500);
+      //splashScreen.hide(); 
+      //timer(1000).subscribe(() => this.showSplash = false);  
     });
   }
 
