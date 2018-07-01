@@ -139,9 +139,8 @@ export class LoginPage extends BasePage {
 
 
   redirctPage(usr: IUser) {
-    if (usr && usr._id) {
-      if (usr.role && usr.role[0] === UserRoleEnum.PMCUser) {
-
+    if (usr && usr._id && usr.agreedLicense) {
+      if (usr.role && usr.role[0] === UserRoleEnum.PMCUser ) { 
         localStorage.setItem('user', JSON.stringify(usr));
         this.navCtrl.setRoot(PmcCarportDashboardPage, { "refresh": "true" });
       } else {
