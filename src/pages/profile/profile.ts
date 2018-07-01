@@ -121,6 +121,7 @@ export class ProfilePage extends BasePage {
           phoneNo: '',
           address: '',
           lastLoginDate: null,
+          agreedLicense: null,
           status: '',
           carPlate: '',
           name: ''

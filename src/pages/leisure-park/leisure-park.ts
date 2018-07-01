@@ -97,6 +97,7 @@ export class LeisureParkPage extends BasePage{
       phoneNo: '',
       address: '',
       lastLoginDate: null,
+      agreedLicense: null,
       carPlate:'',
       status:'',
       name: ''

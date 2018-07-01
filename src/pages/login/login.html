@@ -80,39 +80,23 @@
             <div class="text-danger" *ngIf="wrongUsrorPwd">
                 用户名或者验证码错误
             </div>
-            <!-- <button class="verifyCode" ion-button clear ion-end color="secondary" tappable (click)="sendSMS();settime()" [disabled]="verifyCode.disable">
-                <ion-icon name="code-download"></ion-icon>
-                &nbsp;&nbsp;{{verifyCode.verifyCodeTips}}
-            </button>  -->
+            
             <sms-code [cellPhoneNumber] ="this.user.phone" [source]="isLogin"></sms-code>
+
+            <div class="license" >
+                <!-- <ion-checkbox name="fieldLicense"  [(ngModel)]="this.user.agreedLicense" color="secondary"></ion-checkbox> -->
+                <ion-label color="primary" (click)="agreeLicenseConfirmAlert()">首次登录请阅读并同意隐私条款</ion-label>
+            </div>
+            <div class="text-danger" *ngIf="showPrivacyError">
+                请同意隐私条款
+            </div>
             <div> 
-                <button ion-button icon-start block round color="secondary" tappable [disabled]=" !loginForm.form.valid" (click)="login()">
+                <button ion-button icon-start block round color="secondary" tappable [disabled]="!loginForm.form.valid" (click)="login()"> <!--!loginForm.form.valid || licenseRejected-->
                     <ion-icon name="log-in"></ion-icon>
                     登陆
                 </button>
 
-                <!-- <p text-center ion-text color="primary">第三方账号登陆:</p>
-
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-4>
-                        <button ion-button icon-only block class="btn-facebook">
-                            <ion-icon name="logo-facebook"></ion-icon>
-                        </button>
-                    </ion-col>
-                    <ion-col col-4>
-                        <button ion-button icon-only block class="btn-twitter">
-                            <ion-icon name="logo-twitter"></ion-icon>
-                        </button>
-                    </ion-col>
-                    <ion-col col-4>
-                        <button ion-button icon-only block class="btn-gplus">
-                            <ion-icon name="logo-googleplus"></ion-icon>
-                        </button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid> -->
-
+                
             </div>
         </form>
     </div>

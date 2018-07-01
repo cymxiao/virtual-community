@@ -14,6 +14,7 @@ export interface IUser  {
     //Amin: limitation . One user can only has one carPlate
     carPlate: string; 
     lastLoginDate:Date;
+    agreedLicense: boolean;
     status:string;
   }
 
