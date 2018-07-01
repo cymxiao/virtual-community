@@ -130,11 +130,13 @@
                     请确认输入6位手机验证码
                 </div> 
             </div> 
-            <sms-code [cellPhoneNumber] ="this.pmc.username"></sms-code>
+            <sms-code [cellPhoneNumber] ="this.pmc.username" [source]="isLogin"></sms-code>
             <div class="text-danger-padding" *ngIf="showPMCExistError">
                 该小区入驻的物业已经注册，请再次核实小区名称，如若无误请使用物业负责人或联系人手机号码直接登录，或者重新输入并选择小区名称。
             </div> 
-    
+            <div class="text-danger" *ngIf="wrongUsrorPwd">
+                手机号码或者验证码错误
+            </div>
         </form>
 
         <div margin-top> 

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
  
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { UserStatusEnum } from '../../settings/app-settings';
+import { UserStatusEnum ,UserRoleEnum } from '../../settings/app-settings';
 
 /**
  * Generated class for the SmsCodeComponent component.
@@ -19,7 +19,8 @@ export class SmsCodeComponent {
   @Input() cellPhoneNumber: string;
   @Input() source: string = '';
   cellPhoneError: boolean;
-  userStatus:string;
+  // userStatus:string;
+  // userRole:string;
   
   verifyCode: any = {
     verifyCodeTips: "获取验证码",
@@ -69,20 +70,25 @@ export class SmsCodeComponent {
       let verifyCode = randomNumber < 100000 ? randomNumber + 100000 : randomNumber ;
       console.log(verifyCode);
 
-      this.userStatus   = UserStatusEnum.pendingOnVerify;
+      let newUser = {};
       if(this.source === 'login') {
-        this.userStatus = UserStatusEnum.active;
-      }
-
-      //register this user
-      this.service.addUser(
-        {
+        newUser = {
           username: this.cellPhoneNumber,
           //password: AppSettings.Encrypt(verifyCode),
           password: verifyCode,
-          status: this.userStatus
-        }
-      ).then((usr: any) => {
+          status: UserStatusEnum.active
+        } ;
+      } else if(this.source === 'register'){
+        newUser = {
+          username: this.cellPhoneNumber, 
+          password: verifyCode,
+          role: UserRoleEnum.PMCUser,
+          status: UserStatusEnum.pendingOnVerify
+        } ;
+      }
+
+      //register this user
+      this.service.addUser(newUser).then((usr: any) => {
         if (usr) {
           //console.dir(usr);
           if (usr.duplicateUsername === true) {

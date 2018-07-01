@@ -8,7 +8,7 @@ import { LoginPage } from "../login/login";
 import { CommunitySelectComponent } from '../../components/community-select/community-select';
 import { SmsCodeComponent } from '../../components/sms-code/sms-code';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
-import { UserRoleEnum ,UserStatusEnum } from '../../settings/app-settings';
+//import { UserRoleEnum ,UserStatusEnum } from '../../settings/app-settings';
 import { ICommunity } from '../../model/community';
 
 /**
@@ -44,9 +44,11 @@ export class RegisterPage {
   pmc: IPMC;
   community: ICommunity;
   wrongPrice: boolean;
+  wrongUsrorPwd: boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public apiService: RestServiceProvider) {
-    this.community={
+    this.community = {
       _id: '',
       id: '',
       __v: '',
@@ -54,8 +56,8 @@ export class RegisterPage {
       position: '',
       mapid: '',
       city_ID: '',
-      PMC:'',
-      price:'',
+      PMC: '',
+      price: '',
       priceUnit: '天',
       address: ''
     }
@@ -72,7 +74,7 @@ export class RegisterPage {
     }
   }
 
-  ionViewDidLoad() { 
+  ionViewDidLoad() {
   }
 
   register() {
@@ -80,41 +82,43 @@ export class RegisterPage {
     // const encryptPwd = AppSettings.Encrypt(this.pwd);
     // console.log(AppSettings.Decrypt(encryptPwd));
     //step 1 :update community with property management compamy
-    if(!this.pmc   || !this.pmc.PMC || !this.pmc.community_ID ){
+    if (!this.pmc || !this.pmc.PMC || !this.pmc.community_ID) {
       return false;
     }
     if (this.csCom.pmc) {
       this.showPMCExistError = true;
       console.log('this community already has pmc ' + this.showPMCExistError);
     } else {
-      this.apiService.updateCommunity(this.csCom.selectedComunityID, { PMC: this.pmc.PMC , price: this.pmc.community_ID.price, priceUnit: this.pmc.community_ID.priceUnit }).then(c => {
-        if (c) {
-          localStorage.setItem('comId', this.csCom.selectedComunityID); 
-          this.apiService.addUser(
-            {
-              username: this.pmc.username,
-              password: this.pmc.password,
-              name: this.pmc.name,
-              community_ID: this.csCom.selectedComunityID,
-              role: UserRoleEnum.PMCUser,
-              status: UserStatusEnum.pendingOnVerify
+      this.apiService.loginUser({
+        username: this.pmc.username,
+        //password: AppSettings.Encrypt(this.user.pwd)
+        password: this.pmc.password
+      }).then((usr: IPMC) => {
+        if (usr) {
+          this.apiService.updateCommunity(this.csCom.selectedComunityID, { PMC: this.pmc.PMC, price: this.pmc.community_ID.price, priceUnit: this.pmc.community_ID.priceUnit }).then(c => {
+            if (c && usr._id) {
+              localStorage.setItem('comId', this.csCom.selectedComunityID);
+              this.apiService.updateUser(usr._id,
+                {
+                  name: this.pmc.name,
+                  community_ID: this.csCom.selectedComunityID,
+                  price: this.pmc.community_ID.price,
+                  priceUnit: this.pmc.community_ID.priceUnit
+                }
+              ).then((usr: any) => {
+                if (usr) {
+                  localStorage.setItem('user', JSON.stringify(usr));
+                  this.navCtrl.setRoot(PmcCarportDashboardPage);
+                }
+              }).catch(e => {
+                console.log(e);
+              });
+            } else {
+              console.log('updateCommunity failed!');
             }
-          ).then((usr: any) => {
-            if (usr) {
-              //console.dir(usr);
-              if (usr.duplicateUsername === true) {
-                this.showDuplicateUserNameError = true;
-                //console.log(this.showDuplicateUserNameError);
-              } else {
-                localStorage.setItem('user', JSON.stringify(usr));
-                this.navCtrl.setRoot(PmcCarportDashboardPage);
-              }
-            }
-          }).catch(e => {
-            console.log(e);
           });
         } else {
-          console.log('updateCommunity failed!');
+          this.wrongUsrorPwd = true;
         }
       });
     }
@@ -140,7 +144,7 @@ export class RegisterPage {
         }
       });
     }
-    this.smsCom.disabled();    
+    this.smsCom.disabled();
   }
 
   on_price_Blur(item) {
@@ -151,7 +155,7 @@ export class RegisterPage {
       } else {
         this.wrongPrice = false;
       }
-    }  
+    }
   }
 
   // go to login page
@@ -169,5 +173,5 @@ export class RegisterPage {
 
   on_verifyCodeBlur(target) {
     this.verifyCodeBlur = true;
-  } 
+  }
 }
