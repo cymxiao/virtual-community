@@ -673,3 +673,10 @@ $segment-button-ios-text-color: #fff;
 .longText{
     white-space: normal;
 }
+
+ //Amin:  Todo  Imp. Overwrite the css in ios device,   how to affect only privacy alert
+.alert-message {
+    text-align: left !important;
+}
+
+ 

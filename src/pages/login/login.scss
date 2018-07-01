@@ -2,6 +2,17 @@ page-login {
     
     .license{
         padding: 5px 0px;
-        text-decoration: underline;
+        width:100%;
+        text-decoration: underline; 
     }
+    .licenseLabel{
+        width: 80%;
+    }
+
+    //Amin:Imp. Overwrite the css in ios device, it dosn't works 
+    // .alert-message {
+    //     text-align: left !important;
+    // }
+
+    
 }
