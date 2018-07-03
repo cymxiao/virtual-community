@@ -83,14 +83,17 @@ export class LoginPage extends BasePage {
         //If lastLoginDate is null in mongo db, it means , there may be no verify code send to this user's cellphone.
         //create user account for pmc user and normal user.
         if (!usr.agreedLicense) {
-          if (!(this.user.agreedLicense === 'Agreed')) {
+          if (!(this.user.agreedLicense === 'Agreed')) { 
             this.showPrivacyError = true;
             return;
-          } else {
+          } else { 
+            this.showPrivacyError = false;
             this.addAccountandUpdateUser(usr);
           }
         } else {
-          this.addAccountandUpdateUser(usr);
+          if(!this.showPrivacyError){
+            this.addAccountandUpdateUser(usr);
+          }
         }
       } else {
         this.wrongUsrorPwd = true;
@@ -108,8 +111,7 @@ export class LoginPage extends BasePage {
           agreedLicense: true,
           account_ID: account._id
         };
-        this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => {
-          //console.log(uptUser);
+        this.service.updateUser(usr._id, udpateContent).then((uptUser: any) => { 
           localStorage.setItem('user', JSON.stringify(uptUser));
           this.service.getCarportListByOwnerId(usr._id).then((carp: any) => {
             if (carp && carp.length > 0) {
@@ -119,11 +121,10 @@ export class LoginPage extends BasePage {
               }
               localStorage.setItem('carport', JSON.stringify(this.currentCarport));
             }
-          });
-          //console.dir(usr);
-          this.redirctPage(usr);
+          }); 
+          this.redirctPage(uptUser);
         });
-      }
+      }  
     });
   }
 
@@ -138,7 +139,7 @@ export class LoginPage extends BasePage {
   }
 
 
-  redirctPage(usr: IUser) {
+  redirctPage(usr: IUser) { 
     if (usr && usr._id && usr.agreedLicense) {
       if (usr.role && usr.role[0] === UserRoleEnum.PMCUser ) { 
         localStorage.setItem('user', JSON.stringify(usr));
@@ -193,17 +194,17 @@ export class LoginPage extends BasePage {
         {
           text: '拒绝',
           handler: () => {
-            console.log('Disagree clicked');
+            //console.log('Disagree clicked');
             this.user.agreedLicense = 'Rejected';
-            //this.licenseRejected = true;
+            this.showPrivacyError = true;
             //console.log(this.licenseRejected);
           }
         },
         {
           text: '同意',
           handler: () => {
-            console.log('Agree clicked');
-            //this.licenseRejected = false;
+            //console.log('Agree clicked');
+            this.showPrivacyError = false;
             this.user.agreedLicense = 'Agreed';
           }
         }
