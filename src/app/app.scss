@@ -341,7 +341,8 @@ ion-navbar.no-border {
         justify-content: center;
         //background: rgba(50, 10, 92, .4);
         .login-page-content {
-            width: 86%; 
+            width: 92%;
+            height: 75%; //height should be defined, it is important 
             .logo {
                 width: 60px;
                 height: 60px;
@@ -395,12 +396,12 @@ ion-navbar.no-border {
         align-items: center;
         justify-content: center;
         //background: rgba(50, 10, 92, .4);
-        .login-content {
-            width: 86%;
-            position: absolute;
-            top: 5vh;
-            //Amin: Todo: if use padding, the UI looks weired. cause? 
-            //padding: 0 0 2vh 0;
+        .login-content { 
+            width: auto;
+            position:absolute;
+            top:10px;
+            left: 30px;
+            right: 30px; //right should be defined ,it's quite important 
             .logo {
                 width: 60px;
                 height: 60px;

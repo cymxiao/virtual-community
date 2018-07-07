@@ -95,3 +95,6 @@ since I use cellphone to do regeister and login on one page, how to avoid if a u
 8. white screen issue when app load.  use (ionic cordova build ios --prod --release --livereload ) , temp resolved.
     finally, angular2-logger caused white screen issue. use "npm uninstall angular2-logger" to fix the issue.
 
+
+9. sometime, the UI style works well from browser to device simulator, however, it doesn't work fine in real device. I suggest to use XCode directly to change the css to check the real device issue.
+
