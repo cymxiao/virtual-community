@@ -399,7 +399,8 @@ ion-navbar.no-border {
             width: 86%;
             position: absolute;
             top: 5vh;
-            padding: 0 0 2vh 0;
+            //Amin: Todo: if use padding, the UI looks weired. cause? 
+            //padding: 0 0 2vh 0;
             .logo {
                 width: 60px;
                 height: 60px;
