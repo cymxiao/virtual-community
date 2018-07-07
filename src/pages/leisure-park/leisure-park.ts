@@ -116,10 +116,21 @@ export class LeisureParkPage extends BasePage{
    
   }
 
-  ionViewWillEnter(){
-    if(!this.checkCity(this.alertCtrl)){
+  ionViewWillEnter() {
+    if (!this.checkCity(this.alertCtrl)) {
       this.disableShareFunction = true;
-    } 
+    }
+
+    if (this.navParams.get('checkPMC') && this.navParams.get('checkPMC') === true) {
+      //Amin: todo: add PMC user status check in future. 
+      if (this.currentCarport && this.currentUser && !this.currentUser.community_ID.PMC) {
+        this.presentCustomAlert(this.alertCtrl, '我们收到您共享车位的申请了。', '贵小区物业尚未注册，我们将尽快与其沟通协调（5个工作日内），待小区物业通过认证后，您即可发布有效共享车位。');
+        // this.service.sendSMS(AppSettings, verifyCode).then(x => {
+        //   //console.dir(x);
+        //   //this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
+        // });
+      }
+    }
   }
 
   ionViewDidLoad() { 
@@ -191,7 +202,8 @@ export class LeisureParkPage extends BasePage{
 
         });
         this.leisurePark.price = this.currentUser.community_ID.price ;
-        this.leisurePark.priceUnit = this.currentUser.community_ID.priceUnit ;
+        this.leisurePark.priceUnit = this.currentUser.community_ID.priceUnit ; 
+          
     } 
   }
 
@@ -237,8 +249,8 @@ export class LeisureParkPage extends BasePage{
     //console.dir(this.leisurePark);
     this.service.addLeisurePark(this.leisurePark).then((lp: any) => {
       if (lp) { 
-        this.showAddContent = false;  
-        this.refresh();
+        this.showAddContent = false;   
+        this.refreshPage();
       }
     });
   }
@@ -347,9 +359,11 @@ export class LeisureParkPage extends BasePage{
     this.showServiceTime = (this.leisurePark.priceUnit === '月');
   }
 
-  refresh() {
+  refreshPage() {
     //location.reload();
-    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    this.navCtrl.setRoot(this.navCtrl.getActive().component, {
+      checkPMC: true
+    });
   }
 
 }
