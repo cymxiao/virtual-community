@@ -129,6 +129,8 @@ export class LeisureParkPage extends BasePage{
         //   //console.dir(x);
         //   //this.logger.info('User Registed:' + this.cellPhoneNumber + 'has registered, and would get verifycode by SMS.')
         // });
+        //Amin: todo , is there anyway to remove the navParams. 
+        this.refresh();
       }
     }
   }

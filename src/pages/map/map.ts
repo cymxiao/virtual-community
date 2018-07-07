@@ -188,12 +188,12 @@ export class MapPage extends BasePage {
     this.APIService.getStatisticOfCarport().then((x: any) => {
       if (x && x.length > 0) {
         this.avaiableComs = x;
-        console.dir(x);
+        //console.dir(x);
         x.forEach(c => {
           if (c.community_info && c.community_info.length > 0) {
             //addtmp = c.community_info[0].address;
             this.APIService.getActivePMCUser(c.community_info[0]._id).then((ap: any) => {
-              console.dir(ap);
+              //console.dir(ap);
               if (ap && ap._id) {
                 this.adds.push(c.community_info[0].address);
                 this.geocodeSearch(c.community_info[0], c.count);
