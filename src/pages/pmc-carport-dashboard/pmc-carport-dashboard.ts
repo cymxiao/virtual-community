@@ -80,6 +80,15 @@ export class PmcCarportDashboardPage extends BasePage {
             x.showPMCButton = true;
             x.statusDisplayText  = '车牌号为：' + x.applied_UserID.carPlate + ' 的车辆' +  x.statusDisplayText;
           }
+          x.parkingNumberDisplayText = x.carport_ID? x.carport_ID.parkingNumber : '';
+          if(x.priceUnit && x.priceUnit[0]  === '月'){
+            x.showServiceTime = true ;
+            if(x.serviceTime === '724'){
+              x.serviceTimeDisplayText = '全天24小时';
+            } else {
+              x.serviceTimeDisplayText = '9:00 - 18:00';
+            }
+          } 
         }) 
       }
     });

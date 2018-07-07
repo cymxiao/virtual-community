@@ -23,11 +23,15 @@
             <ion-card-header>
             </ion-card-header>
             <ion-card-content>
-                <ion-label>
+                <ion-label *ngIf="!lp.showServiceTime">
                     开始时间： {{lp.startTime |date:'yyyy年MM月dd日, HH:mm' }}
                 </ion-label>
-                <ion-label>
+                <ion-label *ngIf="!lp.showServiceTime">
                     结束时间： {{lp.endTime |date:'yyyy年MM月dd日, HH:mm' }}
+                </ion-label>
+                <ion-label *ngIf="lp.showServiceTime">
+                    发布时间： {{lp.timestamp |date:'yyyy年MM月dd日, HH:mm' }}
+                    <!-- date:'MM-dd-yyyy HH:mm'}} -->
                 </ion-label>
                 <ion-label>
                     状态： {{lp.statusDisplayText}}
