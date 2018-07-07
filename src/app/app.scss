@@ -678,15 +678,19 @@ $segment-button-ios-text-color: #fff;
 .longText{
     white-space: normal;
 }
-
+.individualCenterDiv {
+    height: 10vh;
+    padding: 3vh;
+}
  //Amin:  Todo  Imp. Overwrite the css in ios device,   how to affect only privacy alert
 .alert-message {
     text-align: left !important;
 }
 
-.individualCenterDiv {
-    height: 10vh;
-    padding: 3vh;
+.searchbar-md .searchbar-input{
+    font-size: 1.4rem;
 }
+
+
 
  
