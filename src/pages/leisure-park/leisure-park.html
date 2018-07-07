@@ -13,7 +13,7 @@
     <div class="login-content">
         <div>
             <!-- {{loginForm.form.valid}} -->
-            <button *ngIf="!showAddContent" ion-button icon-start block round color="secondary" tappable (click)="addButtonClick()">
+            <button *ngIf="!showAddContent" ion-button icon-start block round color="secondary" tappable (click)="addButtonClick()" [disabled]="disableShareFunction">
                 <ion-icon name="add-circle"></ion-icon>
                 我要共享车位
             </button>

@@ -48,7 +48,7 @@ export class MapPage extends BasePage {
   coms: any;
   hideList: boolean;
   source: string;
-  localCityName: any;
+  localCityName: string;
   //pageRefreshed: boolean;
 
   @ViewChild('map') map_container: ElementRef;
@@ -56,101 +56,58 @@ export class MapPage extends BasePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public menuCtrl: MenuController,
     public alertCtrl: AlertController,
-    public APIService: RestServiceProvider, private geolocation: Geolocation) {
+    public APIService: RestServiceProvider,
+    private geolocation: Geolocation) {
     super(navCtrl, navParams);
     this.myIcon = new BMap.Icon("assets/icon/position.png", new BMap.Size(32, 32));
     this.makerIcon = new BMap.Icon("assets/icon/park.png", new BMap.Size(32, 32));
     this.source = "map";
-   
+
   }
 
 
- 
-   ionViewDidLoad() {
+
+  ionViewDidLoad() {
     //Amin: !Important:map_container shoud be called here, it can't be inited in constructor, if called in constructor
 
     super.menuActive(this.menuCtrl);
     this.map = new BMap.Map("map_container");
-    this.map.centerAndZoom('上海', 13);
-    this.map.enableScrollWheelZoom(true);
     this.myGeo = new BMap.Geocoder();
-    var geolocationControl = new BMap.GeolocationControl();
-
+    this.map.centerAndZoom('上海市', 13);
+    this.map.enableScrollWheelZoom(true);
     var myCity = new BMap.LocalCity();
-      //myCity.get(this.getCity);
+    myCity.get(function (result) {
+      var cityName = result.name;
+      //cityName = '北京市';
+      localStorage.setItem('currentCity', cityName);
+      return cityName;
+    });
 
-   //this.localCityName =   myCity.get(function (result ) {
-    myCity.get(function (result ) {
-    //this.localCityName = function (result ) {
-        var cityName = result.name;
-        //cityName = '北京市';
-        console.log("当前定位城市:" + cityName);
-        localStorage.setItem('currentCity', cityName);
-        return cityName;
-        // return () => {
-        //   this.localCityName = cityName;
-        //   console.log('return ()');
-        // }
-      });
-
-      //console.log('localCityName is :' +  this.localCityName);
-
-   
-    //console.log(AppSettings.getLocalStorageItem('currentCity'));
-    //console.log(this.localCityName);
-    // //Refresh one time to get current city name
-    // if(!this.localCityName && !this.pageRefreshed){
-    //   this.pageRefreshed = true;
-    //   setTimeout(() => {
-    //     console.log('refresh'); 
-    //     this.refresh();
-    //   }, 1000);
-    // }
+    var geolocationControl = new BMap.GeolocationControl();
     this.map.addControl(geolocationControl);
-    this.localCityName = localStorage.getItem('currentCity');
-    if (this.localCityName && this.localCityName !== '上海市') {
-      this.presentCustomAlert(this.alertCtrl, '当前城市尚未开通', '很抱歉的通知您，贵城市尚未开通，给您带来不便，我们深表歉意！')
-    } else {
-      this.getStatisticOfCarport(); 
-      this.getLocation();
-    }
+
+    setTimeout(() => {
+      this.localCityName = localStorage.getItem('currentCity');
+      if (this.localCityName && this.localCityName !== '上海市') {
+        this.presentCustomAlert(this.alertCtrl, '当前城市尚未开通', '很抱歉的通知您，目前仅开通上海市，贵城市尚未开通，给您带来不便，我们深表歉意！');
+      } else {
+        this.getStatisticOfCarport();
+        this.getLocation();
+      }
+    }, 1000);
+
+
 
   }
 
-// ionViewWillEnter(){
-//   console.log('ionViewWillEnter');
-//   if (this.localCityName && this.localCityName !== '上海市') {
-//     this.presentCustomAlert(this.alertCtrl, '当前城市尚未开通', '很抱歉的通知您，贵城市尚未开通，给您带来不便，我们深表歉意！')
-//   }
-// }
 
-
-  //   getCity(result) {
-  //   var cityName = result.name;
-  //   //cityName = '北京市';
-  //     localStorage.setItem('currentCity', cityName);
-  //   console.log("当前定位城市:" + cityName);
+  // ionViewWillEnter() {
+  //   setTimeout(() => { 
+  //     if (this.localCityName && this.localCityName !== '上海市') {
+  //       this.presentCustomAlert(this.alertCtrl, '当前城市尚未开通', '很抱歉的通知您，目前仅开通上海市，贵城市尚未开通，给您带来不便，我们深表歉意！');
+  //     }  
+  //   }, 1000);
   // }
-
-  // fun1 = {
-  //   _localCityName: '',
-  //   getCity: function (result) {
-  //     var cityName = result.name;
-  //     //Amin:Todo: this.map is undefined here, how to call it.
-  //     //this.map.setCenter(cityName);
-  //     //console.log("当前定位城市:" +  cityName);
-  //     //localStorage.removeItem('currentCity');
-  //     //AppSettings.setLocalStorageItem('currentCity', cityName);
-  //     localStorage.setItem('currentCity', cityName);
-  //     //localStorage.setItem('currentCity', '北京市');
-  //     // return () => {
-  //     //   this._localCityName = cityName;
-  //     //   console.log("当前定位城市 2:"  );
-  //     //   return this._localCityName;
-  //     // }
-  //   }
-  // }
-
 
 
   geocodeSearch(community: ICommunity, sharedCarportNumber) {
@@ -204,7 +161,7 @@ export class MapPage extends BasePage {
   }
 
   getLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {  
+    this.geolocation.getCurrentPosition().then((resp) => {
       if (resp && resp.coords) {
         let locationPoint = new BMap.Point(resp.coords.longitude, resp.coords.latitude);
         let convertor = new BMap.Convertor();

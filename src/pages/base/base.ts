@@ -51,6 +51,14 @@ export class BasePage {
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
+  checkCity(alertCtrl){
+    if(localStorage.getItem('currentCity') && localStorage.getItem('currentCity')!=='上海市'){
+      this.presentCustomAlert(alertCtrl, '当前城市尚未开通', '很抱歉的通知您，目前仅开通上海市，贵城市尚未开通，给您带来不便，我们深表歉意！');
+      return false;
+    }
+    return true;
+  }
+
   initCurrentUser(){
     this.currentUser = AppSettings.getCurrentUser();  
   }

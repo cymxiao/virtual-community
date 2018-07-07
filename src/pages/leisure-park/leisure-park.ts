@@ -47,7 +47,7 @@ export class LeisureParkPage extends BasePage{
   minDateforEndTime: string;
 
   showServiceTime: boolean;
-
+  disableShareFunction: boolean;
   //moment: Moment = new Mome;
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -113,9 +113,16 @@ export class LeisureParkPage extends BasePage{
       route: '',
       owner_user_ID: ''
     }
+   
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter(){
+    if(!this.checkCity(this.alertCtrl)){
+      this.disableShareFunction = true;
+    } 
+  }
+
+  ionViewDidLoad() { 
     super.menuActive(this.menuCtrl);
     this.minDate = this.getGoodTime().add(8, 'hours').toISOString();
     this.minDateforEndTime = this.getGoodTime().add(12, 'hours').toISOString();

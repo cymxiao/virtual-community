@@ -39,6 +39,14 @@ export class AppSettings{
         }
     }
 
+    public static setLocalStorageItem(key, value) {
+        localStorage.setItem(key, value);
+    }
+
+    public static getLocalStorageItem(key) {
+        return localStorage.getItem(key);
+    }
+
     // public static getCurrentCommunity(){
     //     return JSON.parse(localStorage.getItem('community'));
     // }
