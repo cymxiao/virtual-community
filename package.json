@@ -1,6 +1,6 @@
 {
   "name": "iparking",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "caiyaming",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -23,7 +23,6 @@
     "@ionic-native/alipay": "^4.7.0",
     "@ionic-native/core": "4.4.0",
     "@ionic-native/geolocation": "^4.7.0",
-    "@ionic-native/local-notifications": "^4.7.0",
     "@ionic-native/sms": "^4.7.0",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",
@@ -59,7 +58,7 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-geolocation": {
-        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+        "GEOLOCATION_USAGE_DESCRIPTION": "定位您所在位置临近的小区的空闲车位，请允许应用在使用时定位您的位置"
       },
       "cordova-plugin-statusbar": {}
     },

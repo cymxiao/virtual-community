@@ -32,7 +32,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { SMS } from '@ionic-native/sms';
 import { Alipay } from '@ionic-native/alipay';
 //It's quite important to delcare in provider
-import { LocalNotifications } from '@ionic-native/local-notifications';
+//import { LocalNotifications } from '@ionic-native/local-notifications';
 //import { Logger } from "angular2-logger/core";
 import { GlobalErrorHandler } from '../providers/global-error-handler/global-error-handler'; 
 
@@ -80,7 +80,7 @@ import { GlobalErrorHandler } from '../providers/global-error-handler/global-err
     RestServiceProvider,
     AutoCompleteServiceProvider,
     SMS,
-    LocalNotifications,
+    //LocalNotifications,
     Alipay,
     //Logger,
     //Amin: IMP. GlobalErrorHandler should be here, otherwise it would not be triggerred.

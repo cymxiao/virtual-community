@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, Platform, ActionSheetController } from 'ionic-angular';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+//import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { IUILeisurePark, ILeisurePark } from '../../model/leisurePark';
 import { IUser } from '../../model/user';
@@ -35,7 +35,8 @@ export class LookupLeisureParkPage extends BasePage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private localNotifications: LocalNotifications, public alertCtrl: AlertController,
+    //private localNotifications: LocalNotifications,
+    public alertCtrl: AlertController,
     public plt: Platform,
     public actionSheetCtrl: ActionSheetController,
     //private alipay: Alipay,
@@ -43,22 +44,22 @@ export class LookupLeisureParkPage extends BasePage {
     super(navCtrl, navParams);
 
     this.inputComId = navParams.get('comId');
-    this.plt.ready().then(x => {
+    // this.plt.ready().then(x => {
 
-      if (!this.plt.is('core')) {
-        this.localNotifications.on('click').subscribe(notification => {
-          //console.log('click');
+    //   if (!this.plt.is('core')) {
+    //     this.localNotifications.on('click').subscribe(notification => {
+    //       //console.log('click');
 
-          let json = JSON.parse(notification.data);
+    //       let json = JSON.parse(notification.data);
 
-          let alert = alertCtrl.create({
-            title: notification.title,
-            subTitle: json.mydata
-          });
-          alert.present();
-        });
-      }
-    });
+    //       let alert = alertCtrl.create({
+    //         title: notification.title,
+    //         subTitle: json.mydata
+    //       });
+    //       alert.present();
+    //     });
+    //   }
+    // });
   }
 
   ionViewDidLoad() {
@@ -104,14 +105,14 @@ export class LookupLeisureParkPage extends BasePage {
     
   }
 
-  scheduleNotification() {
-    this.localNotifications.schedule({
-      id: 1,
-      title: '注意',
-      text: '您的共享车位已被申请',
-      data: { mydata: 'My hidden message this is' }
-    });
-  }
+  // scheduleNotification() {
+  //   this.localNotifications.schedule({
+  //     id: 1,
+  //     title: '注意',
+  //     text: '您的共享车位已被申请',
+  //     data: { mydata: 'My hidden message this is' }
+  //   });
+  // }
 
   getLeisureParkbyCommunity() {
     if (!this.inputComId) {
