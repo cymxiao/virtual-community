@@ -113,6 +113,20 @@
                 </div>
             </ion-item>
            
+            <ion-list *ngIf="showServiceTime" radio-group [(ngModel)]="pmc.community_ID.isInternalSharing" name="serviceTimeList" #serviceTimeList="ngModel" >
+                <ion-list-header>
+                    小区内部共享
+                </ion-list-header>
+                <ion-item>
+                  <ion-label>是 </ion-label>
+                  <ion-radio value="True" checked="true"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>否 </ion-label>
+                  <ion-radio value="False"></ion-radio>
+                </ion-item> 
+            </ion-list>
+        
 
             <ion-item>
                 <ion-label stacked>
