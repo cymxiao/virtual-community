@@ -14,6 +14,8 @@
 
 <ion-content padding> 
    
+    <div *ngIf="isInteralSharingCommunity" class="longText"> 该小区共享车位仅供内部居民共享，不对外开放 </div>
+    <div *ngIf="!isInteralSharingCommunity && !hasData" class="longText"> 该小区暂未有可供申请的共享车位。 </div>
     <!-- <button ion-button icon-end round color="primary" tappable (click)="openPayActionSheet({})" >
         <ion-icon name="bookmark"></ion-icon>  
         &nbsp;&nbsp;测试支付
@@ -43,10 +45,10 @@
                 车位路线指引：      {{lp.carport_ID.route}}
               </ion-label>
               <ion-label>
-                价格：      {{lp.price }} / {{lp.priceUnit}}
+                价格：      {{lp.price }} / {{lp.priceUnit}}  {{lp.disableApplyButton}}
               </ion-label>
              
-              <button ion-button icon-end round color="secondary" class="pull-right" tappable (click)="apply(lp)" >
+              <button ion-button icon-end round color="secondary" class="pull-right" tappable (click)="apply(lp)" [disabled]="lp.disableApplyButton" >
                 <ion-icon name="bookmark"></ion-icon>  
                 &nbsp;&nbsp;申请使用
             </button>

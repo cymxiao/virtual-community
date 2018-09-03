@@ -192,6 +192,11 @@
                 <ion-label *ngIf="lp.showServiceTime" >  
                     服务时间： {{lp.serviceTimeDisplayText}}
                 </ion-label>
+
+                <button ion-button icon-end round color="secondary" class="pull-right" tappable (click)="updateStatusToInvalid(lp)" [disabled]="lp.disableDeleteButton"  >
+                    <ion-icon name="trash"></ion-icon>  
+                    &nbsp;&nbsp;删除
+                </button>
             </ion-card-content>
 
         </ion-card>

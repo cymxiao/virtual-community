@@ -84,6 +84,7 @@ export class LeisureParkPage extends BasePage{
       PMC:'',
       price:'',
       priceUnit:'天',
+      isInternalSharing: false,
       address: ''
     }
 
@@ -252,11 +253,25 @@ export class LeisureParkPage extends BasePage{
     this.service.addLeisurePark(this.leisurePark).then((lp: any) => {
       if (lp) { 
         this.showAddContent = false;   
-        this.refreshPage();
+        //this.refreshPage();
+        super.presentCustomAlertandRefresh(this.alertCtrl, '保存记录', '发布共享车位成功');
       }
     });
   }
 
+
+  updateStatusToInvalid(lp: IUILeisurePark) {
+    const updateBody = {
+      status: 'invalid'
+    };
+    if (lp) {
+      this.service.updateleisurePark(lp._id, updateBody).then(lp => {
+        if (lp) {
+          super.presentCustomAlertandRefresh(this.alertCtrl, '删除记录', '删除成功');
+        }
+      });
+    } 
+  }
 
   getLeisureParkforOwner() {
     this.service.getLeisureParkforOwner(this.currentUser._id).then((lpark: any) => {
@@ -265,6 +280,7 @@ export class LeisureParkPage extends BasePage{
         this.myLeisureParks.forEach(x => {
           x.statusDisplayText = AppSettings.getDisplayText(x.status, AppSettings.leisureParkStatusDict);
           x.parkingNumberDisplayText = x.carport_ID? x.carport_ID.parkingNumber : '';
+          x.disableDeleteButton =  ( x.status && x.status[0] &&  x.status[0] !== 'active' );
           if(x.priceUnit && x.priceUnit[0]  === '月'){
             x.showServiceTime = true ;
             if(x.serviceTime === '724'){

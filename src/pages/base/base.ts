@@ -101,6 +101,16 @@ export class BasePage {
     alert.present();
   }
 
+  presentCustomAlertandRefresh( alertCtrl: AlertController , title, subTitle) {
+    const alert = alertCtrl.create({
+      title: title,
+      subTitle: subTitle  
+    }); 
+    alert.present().then(x => {
+      this.refresh();
+    });
+  }
+
   menuActive(menuCtrl) {
     menuCtrl.enable(true, 'menu');
     menuCtrl.enable(false, 'menuPMC');

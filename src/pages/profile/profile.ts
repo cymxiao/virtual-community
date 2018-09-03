@@ -73,7 +73,11 @@ export class ProfilePage extends BasePage {
     };
     this.service.updateUser(this.user._id, udpateContent).then((uptUser: any) => {
       if (this.isPMCUser) {
-        this.service.updateCommunity(this.user.community_ID._id, { price: this.user.community_ID.price, priceUnit: this.user.community_ID.priceUnit }).then(c => {
+        this.service.updateCommunity(this.user.community_ID._id, { 
+          price: this.user.community_ID.price, 
+          priceUnit: this.user.community_ID.priceUnit ,
+          isInternalSharing: this.user.community_ID.isInternalSharing
+        }).then(c => {
           if (c) {
             //console.dir(c);
             uptUser.community_ID = c; 
@@ -107,6 +111,7 @@ export class ProfilePage extends BasePage {
       PMC: '',
       price: '',
       priceUnit: '',
+      isInternalSharing: false,
       address: ''
     };
     if (!this.user || !this.user.community_ID) {

@@ -3,6 +3,7 @@ import { IonicPage, NavController, AlertController, NavParams, Platform, ActionS
 //import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { IUILeisurePark, ILeisurePark } from '../../model/leisurePark';
+import { ICommunity } from '../../model/community';
 import { IUser } from '../../model/user';
 import { MyOrdersPage } from '../myorders/myorders';
 import { BasePage } from '../base/base';
@@ -31,6 +32,8 @@ export class LookupLeisureParkPage extends BasePage {
   currentUser: IUser;
   inputComId: string;
   canApply: boolean = true;
+  hasData: boolean = false;
+  isInteralSharingCommunity: boolean = false;
 
 
 
@@ -82,27 +85,27 @@ export class LookupLeisureParkPage extends BasePage {
       applied_UserID: this.currentUser._id
     };
 
- 
-      this.apiService.getLeisureParkforApplier(this.currentUser._id).then((lpk: any) => {
 
-        if (lpk && lpk.length > 0) {
-          lpk.forEach(x => {
-            if (x && x.status && x.status.length > 0 && x.status[0] === 'applied') {
-              this.canApply = false;
-            }
-          })
-        }
-        if (this.canApply) {
-          this.apiService.updateleisurePark(leiPk._id, updateBody).then(lp => {
-            if (lp) {
-              this.navCtrl.setRoot(MyOrdersPage);
-            }
-          });
-        } else {
-          this.presentAlert();
-        }
-      });
-    
+    this.apiService.getLeisureParkforApplier(this.currentUser._id).then((lpk: any) => {
+
+      if (lpk && lpk.length > 0) {
+        lpk.forEach(x => {
+          if (x && x.status && x.status.length > 0 && x.status[0] === 'applied') {
+            this.canApply = false;
+          }
+        })
+      }
+      if (this.canApply) {
+        this.apiService.updateleisurePark(leiPk._id, updateBody).then(lp => {
+          if (lp) {
+            this.navCtrl.setRoot(MyOrdersPage);
+          }
+        });
+      } else {
+        this.presentAlert();
+      }
+    });
+
   }
 
   // scheduleNotification() {
@@ -118,15 +121,30 @@ export class LookupLeisureParkPage extends BasePage {
     if (!this.inputComId) {
       this.inputComId = this.navParams.get('comId');
     }
-    this.apiService.getLeisureParkbyCommunity(this.inputComId, this.currentUser._id).then((lpark: any) => {
-      if (lpark && lpark.length > 0) {
-        this.sharedLeisureParks = lpark;
-        this.sharedLeisureParks.forEach(x => {  
-          x.statusDisplayText = AppSettings.getDisplayText(x.status, AppSettings.leisureParkStatusDict);
-          x.avaibleHours = this.getHoursNumber(x.startTime, x.endTime);
-        })
+    this.apiService.getCommunity(this.inputComId).then((data: ICommunity) => { 
+      if (data) {  
+        if ( data.isInternalSharing && this.currentUser.community_ID && this.currentUser.community_ID._id !== data._id) {
+          this.isInteralSharingCommunity = true;
+        } else {
+          this.apiService.getLeisureParkbyCommunity(this.inputComId, this.currentUser._id).then((lpark: any) => {
+            if (lpark && lpark.length > 0) {
+              this.hasData = true;
+              this.sharedLeisureParks = lpark;
+              this.sharedLeisureParks.forEach(x => {
+                x.statusDisplayText = AppSettings.getDisplayText(x.status, AppSettings.leisureParkStatusDict);
+                x.avaibleHours = this.getHoursNumber(x.startTime, x.endTime);
+                if (x.shared_UserID && x.shared_UserID._id) {
+                  x.disableApplyButton = (x.shared_UserID._id === this.currentUser._id)
+                }
+              })
+            } else {
+              this.hasData = false;
+            }
+          });
+        }
       }
     });
+     
   }
 
   getHoursNumber(startTime, endTime) {

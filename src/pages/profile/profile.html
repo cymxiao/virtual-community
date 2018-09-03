@@ -119,8 +119,22 @@
           <ion-item no-lines *ngIf=" priceUnit.invalid && (priceUnit.dirty || priceUnit.touched)">
             <div class="text-danger" *ngIf="priceUnit.errors.required">
               请选择价格单位
-            </div>
+            </div> 
           </ion-item>
+
+          <ion-list radio-group [(ngModel)]="user.community_ID.isInternalSharing" name="isInternalSharing" #isInternalSharing="ngModel" >
+            <ion-list-header>
+                是否对非本小区居民开放
+            </ion-list-header>
+            <ion-item no-lines>
+              <ion-label>是 </ion-label>
+              <ion-radio value="false" checked="true"></ion-radio>
+            </ion-item>
+            <ion-item no-lines>
+              <ion-label>否 </ion-label>
+              <ion-radio value="true"></ion-radio>
+            </ion-item> 
+        </ion-list>
 
         </ion-card-content>
       </ion-card>

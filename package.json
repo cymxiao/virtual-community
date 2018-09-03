@@ -58,7 +58,7 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-geolocation": {
-        "GEOLOCATION_USAGE_DESCRIPTION": "定位您所在位置临近的小区的空闲车位，请允许应用在使用时定位您的位置"
+        "GEOLOCATION_USAGE_DESCRIPTION": "需要定位您所在位置临近的小区的空闲车位，是否允许使用该应用时定位您的位置"
       },
       "cordova-plugin-statusbar": {}
     },

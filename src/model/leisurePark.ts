@@ -18,6 +18,7 @@ export interface ILeisurePark  {
 
  
   export interface IUILeisurePark  {
+    _id: string;
     id: string; 
     startTime: Date;
     endTime: Date;
@@ -26,7 +27,7 @@ export interface ILeisurePark  {
     carport_ID: ICarport; 
     community_ID:string;
     applied_UserID: IUser;
-    shared_UserID:string;
+    shared_UserID:IUser;
     price: string;
     priceUnit:string; 
     avaibleHours: number;
@@ -36,4 +37,6 @@ export interface ILeisurePark  {
     showServiceTime: boolean;
     serviceTimeDisplayText: string;
     parkingNumberDisplayText: string;
+    disableApplyButton: boolean;
+    disableDeleteButton: boolean;
   }

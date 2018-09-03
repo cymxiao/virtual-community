@@ -59,6 +59,7 @@ export class RegisterPage {
       PMC: '',
       price: '',
       priceUnit: '天',
+      isInternalSharing: false,
       address: ''
     }
     this.pmc = {
@@ -95,7 +96,12 @@ export class RegisterPage {
         password: this.pmc.password
       }).then((usr: IPMC) => {
         if (usr) {
-          this.apiService.updateCommunity(this.csCom.selectedComunityID, { PMC: this.pmc.PMC, price: this.pmc.community_ID.price, priceUnit: this.pmc.community_ID.priceUnit }).then(c => {
+          this.apiService.updateCommunity(this.csCom.selectedComunityID, { 
+            PMC: this.pmc.PMC, 
+            price: this.pmc.community_ID.price, 
+            isInternalSharing: this.pmc.community_ID.isInternalSharing,
+            priceUnit: this.pmc.community_ID.priceUnit }
+          ).then(c => {
             if (c && usr._id) {
               localStorage.setItem('comId', this.csCom.selectedComunityID);
               this.apiService.updateUser(usr._id,

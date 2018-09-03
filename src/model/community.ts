@@ -10,4 +10,5 @@ export interface ICommunity  {
     PMC: string; 
     price: string;
     priceUnit:string;
+    isInternalSharing: boolean;
   }

@@ -113,18 +113,18 @@
                 </div>
             </ion-item>
            
-            <ion-list *ngIf="showServiceTime" radio-group [(ngModel)]="pmc.community_ID.isInternalSharing" name="serviceTimeList" #serviceTimeList="ngModel" >
+            <ion-list radio-group [(ngModel)]="!pmc.community_ID.isInternalSharing" name="isInternalSharing" #isInternalSharing="ngModel" >
                 <ion-list-header>
-                    小区内部共享
+                    是否对非本小区居民开放
                 </ion-list-header>
-                <ion-item>
-                  <ion-label>是 </ion-label>
-                  <ion-radio value="True" checked="true"></ion-radio>
-                </ion-item>
-                <ion-item>
-                  <ion-label>否 </ion-label>
-                  <ion-radio value="False"></ion-radio>
-                </ion-item> 
+                <ion-item no-lines>
+                    <ion-label>是 </ion-label>
+                    <ion-radio value="false" checked="true"></ion-radio>
+                  </ion-item>
+                  <ion-item no-lines>
+                    <ion-label>否 </ion-label>
+                    <ion-radio value="true"></ion-radio>
+                  </ion-item> 
             </ion-list>
         
 
@@ -158,32 +158,7 @@
             <button ion-button block round color="secondary" tappable  (click)="register()" [disabled]="!myForm.form.valid">
                 <ion-icon name="create"></ion-icon>
                 &nbsp;&nbsp;物业注册
-      </button>
-
-            <!-- <p text-center ion-text color="primary">第三方账号登陆:</p>
-
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-4>
-                        <button ion-button icon-only block class="btn-facebook">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </button>
-                    </ion-col>
-                    <ion-col col-4>
-                        <button ion-button icon-only block class="btn-twitter">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </button>
-                    </ion-col>
-                    <ion-col col-4>
-                        <button ion-button icon-only block class="btn-gplus">
-              <ion-icon name="logo-googleplus"></ion-icon>
-            </button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid> -->
-        </div>
-
-    
-
+      </button> 
+    </div> 
     </div>
 </ion-content>
