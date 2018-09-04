@@ -11,7 +11,12 @@
       <button ion-button menuToggle>
           <ion-icon name="contact"></ion-icon>
         </button>
-        <ion-title class="rightFloat" >您所在的城市: {{localCityName}}</ion-title>  
+
+        
+        <button ion-button  class="rightFloat" (click)="selectOpenedCity()"> <!--!loginForm.form.valid || licenseRejected-->
+          <ion-icon name="arrow-down"></ion-icon> 
+          点此手动定位&nbsp;&nbsp;{{localCityName}}
+        </button> 
         <!-- <div class = "rightFloat"></div> -->
   </ion-navbar>
 

@@ -10,6 +10,7 @@ import { ICommunity } from '../../model/community';
 import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
 import { BasePage } from '../base/base';
+import { AlertInputOptions } from 'ionic-angular/umd/components/alert/alert-options';
 
 
 
@@ -50,6 +51,8 @@ export class MapPage extends BasePage {
   source: string;
   localCityName: string;
   //pageRefreshed: boolean;
+  radioOpen = false;
+  radioResult: any;
 
   @ViewChild('map') map_container: ElementRef;
 
@@ -73,8 +76,7 @@ export class MapPage extends BasePage {
     super.menuActive(this.menuCtrl);
     this.map = new BMap.Map("map_container");
     this.myGeo = new BMap.Geocoder();
-    this.map.centerAndZoom('上海市', 13);
-    this.map.enableScrollWheelZoom(true);
+
     var myCity = new BMap.LocalCity();
     myCity.get(function (result) {
       var cityName = result.name;
@@ -89,14 +91,15 @@ export class MapPage extends BasePage {
     setTimeout(() => {
       this.localCityName = localStorage.getItem('currentCity');
       if (this.localCityName && this.localCityName !== '上海市') {
-        this.presentCustomAlert(this.alertCtrl, '当前城市尚未开通', '很抱歉的通知您，目前仅开通上海市，贵城市尚未开通，给您带来不便，我们深表歉意！');
+        this.presentCustomAlert(this.alertCtrl, '当前城市尚未开通', '很抱歉的通知您，目前仅开通上海市,天津市，贵城市尚未开通，给您带来不便，我们深表歉意！');
       } else {
         this.getStatisticOfCarport();
         this.getLocation();
       }
     }, 1000);
 
-
+    this.map.centerAndZoom(this.localCityName, 13);
+    this.map.enableScrollWheelZoom(true);
 
   }
 
@@ -227,5 +230,41 @@ export class MapPage extends BasePage {
       comId: this.selectedComId,
       comName: this.searchQuery
     });
+  }
+
+  selectOpenedCity() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('已开通城市列表');
+
+    const iptSH: AlertInputOptions = {
+      type: 'radio',
+      label: '上海市',
+      value: '上海市'
+      //checked: true 
+    }
+    iptSH.checked = (iptSH.value === this.localCityName);
+    alert.addInput(iptSH);
+
+    const iptTJ: AlertInputOptions = {
+      type: 'radio',
+      label: '天津市',
+      value: '天津市'
+    }
+    iptTJ.checked = (iptTJ.value === this.localCityName);
+    alert.addInput(iptTJ);
+ 
+    alert.addButton('取消');
+    alert.addButton({
+      text: '确定',
+      handler: (data: any) => {
+        //console.log('Radio data:', data);
+        this.radioOpen = false;
+        this.radioResult = data;
+        this.localCityName = data;
+        this.map.centerAndZoom(this.localCityName, 13);
+      }
+    });
+
+    alert.present();
   }
 }
