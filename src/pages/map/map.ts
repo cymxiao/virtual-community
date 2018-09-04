@@ -11,6 +11,7 @@ import { RestServiceProvider } from '../../providers/rest-service/rest-service';
 import { LookupLeisureParkPage } from '../lookup-leisure-park/lookup-leisure-park';
 import { BasePage } from '../base/base';
 import { AlertInputOptions } from 'ionic-angular/umd/components/alert/alert-options';
+import { AppSettings } from '../../settings/app-settings';
 
 
 
@@ -47,12 +48,12 @@ export class MapPage extends BasePage {
   //selectedComName: string;
   searchQuery: string = '';
   coms: any;
-  hideList: boolean;
+  showMyCommunityButton: boolean;
   source: string;
   localCityName: string;
   //pageRefreshed: boolean;
   radioOpen = false;
-  radioResult: any;
+  radioResult: any; 
 
   @ViewChild('map') map_container: ElementRef;
 
@@ -72,7 +73,11 @@ export class MapPage extends BasePage {
 
   ionViewDidLoad() {
     //Amin: !Important:map_container shoud be called here, it can't be inited in constructor, if called in constructor
-
+    this.user = AppSettings.getCurrentUser();
+    if (this.user && this.user.community_ID && this.user.community_ID.isInternalSharing){
+      this.showMyCommunityButton = true;
+    }
+    
     super.menuActive(this.menuCtrl);
     this.map = new BMap.Map("map_container");
     this.myGeo = new BMap.Geocoder();
@@ -93,26 +98,15 @@ export class MapPage extends BasePage {
       if (this.localCityName && this.localCityName !== '上海市') {
         this.presentCustomAlert(this.alertCtrl, '当前城市尚未开通', '很抱歉的通知您，目前仅开通上海市,天津市，贵城市尚未开通，给您带来不便，我们深表歉意！');
       } else {
+        this.map.centerAndZoom(this.localCityName, 13);
+        this.map.enableScrollWheelZoom(true);
         this.getStatisticOfCarport();
         this.getLocation();
       }
-    }, 1000);
-
-    this.map.centerAndZoom(this.localCityName, 13);
-    this.map.enableScrollWheelZoom(true);
-
+    }, 1000); 
   }
 
-
-  // ionViewWillEnter() {
-  //   setTimeout(() => { 
-  //     if (this.localCityName && this.localCityName !== '上海市') {
-  //       this.presentCustomAlert(this.alertCtrl, '当前城市尚未开通', '很抱歉的通知您，目前仅开通上海市，贵城市尚未开通，给您带来不便，我们深表歉意！');
-  //     }  
-  //   }, 1000);
-  // }
-
-
+ 
   geocodeSearch(community: ICommunity, sharedCarportNumber) {
     this.myGeo.getPoint(community.address, x => { this.callBackEvent(x, community, sharedCarportNumber); }, "上海市");
   }
@@ -124,17 +118,14 @@ export class MapPage extends BasePage {
   }
 
   callBackEvent(point, community: ICommunity, sharedCarportNumber) {
-    if (point) {
-      //this.addMarker(point, new BMap.Label( add , { offset: new BMap.Size(20, -10) }));
+    if (point) {  
       this.addInfoWindow(point, community, sharedCarportNumber);
     }
   }
 
 
   addInfoWindow(point, community, sharedCarportNumber) {
-    const content = '<div >' + community.address + '</div>' +
-      //'<div  click ="this.checkDetail(community._id,community.name)" >  <a>查看详情</a> </div>' +
-
+    const content = '<div >' + community.address + '</div>' +  
       '<div > 空闲车位数量：' + sharedCarportNumber + '</div> </br>' +
       '<div class="text-secondary">在上方搜索区域输入该小区名称,可查看或申请停车 </div>';
 
@@ -266,5 +257,14 @@ export class MapPage extends BasePage {
     });
 
     alert.present();
+  }
+
+  goToMyCommunity() { 
+    if (this.user && this.user.community_ID && this.user.community_ID._id) {
+      this.navCtrl.push(LookupLeisureParkPage, {
+        comId: this.user.community_ID._id,
+        comName: ''
+      });
+    }
   }
 }

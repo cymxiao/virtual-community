@@ -12,6 +12,16 @@ page-map {
     z-index: 1;
 }
 
+#viewLeisurePark{
+    width: 100%;
+    height: 5%;
+    position: absolute;
+    bottom: 2vh;
+    padding: 0 5vw;
+    text-align: center;
+    z-index: 1;
+}
+
 
 #map_container{
     width: 100%;
@@ -21,4 +31,12 @@ page-map {
 .rightFloat{
     float: right;
     padding-right: 10px;
+}
+
+.BMapLib_sendToPhone{
+    display: none;
+}
+
+.Map_noprint, .anchorBL{
+    display: none;
 }

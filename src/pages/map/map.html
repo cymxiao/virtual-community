@@ -26,6 +26,12 @@
     <div id="search_bar">
       <community-select [source]="source" promptmsg="请输入您要泊车的小区名称"></community-select> 
     </div>
+    <div id="viewLeisurePark">
+      <button *ngIf="showMyCommunityButton" ion-button icon-start round color="secondary" tappable (click)="goToMyCommunity()" >
+        <ion-icon name="appstore"></ion-icon>
+        查看您所在小区的共享车位
+    </button>
+    </div>
     <div class="align-bottom" #map id="map_container"></div>
    
 </ion-content>
