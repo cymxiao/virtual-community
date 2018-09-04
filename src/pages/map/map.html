@@ -8,30 +8,36 @@
 <ion-header>
 
   <ion-navbar color="primary">
-      <button ion-button menuToggle>
-          <ion-icon name="contact"></ion-icon>
-        </button>
+    <button ion-button menuToggle>
+      <ion-icon name="contact"></ion-icon>
+    </button>
 
-        
-        <button ion-button  class="rightFloat" (click)="selectOpenedCity()"> <!--!loginForm.form.valid || licenseRejected-->
-          <ion-icon name="arrow-down"></ion-icon> 
-          点此手动定位&nbsp;&nbsp;{{localCityName}}
-        </button> 
-        <!-- <div class = "rightFloat"></div> -->
+
+    <button ion-button class="rightFloat" (click)="selectOpenedCity()">
+      <!--!loginForm.form.valid || licenseRejected-->
+      <ion-icon name="arrow-down"></ion-icon>
+      点此手动定位&nbsp;&nbsp;{{localCityName}}
+    </button>
+    <!-- <div class = "rightFloat"></div> -->
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-    <div id="search_bar">
-      <community-select [source]="source" promptmsg="请输入您要泊车的小区名称"></community-select> 
-    </div>
-    <div id="viewLeisurePark">
-      <button *ngIf="showMyCommunityButton" ion-button icon-start round color="secondary" tappable (click)="goToMyCommunity()" >
-        <ion-icon name="appstore"></ion-icon>
-        查看您所在小区的共享车位
+  <div id="search_bar">
+    <community-select [source]="source" promptmsg="请输入您要泊车的小区名称"></community-select>
+  </div>
+  <div id="divCurrentLocation">
+    
+      <ion-img width="32" height="32" src="../../assets/imgs/current-location.png" (click)="getLocation()"></ion-img>
+    
+  </div>
+  <div id="viewLeisurePark">
+    <button *ngIf="showMyCommunityButton" ion-button icon-start round color="secondary" tappable (click)="goToMyCommunity()">
+      <ion-icon name="appstore"></ion-icon>
+      查看您所在小区的共享车位
     </button>
-    </div>
-    <div class="align-bottom" #map id="map_container"></div>
-   
+  </div>
+  <div class="align-bottom" #map id="map_container"></div>
+
 </ion-content>
