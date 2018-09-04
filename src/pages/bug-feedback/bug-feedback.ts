@@ -19,7 +19,7 @@ export class BugFeedbackPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BugFeedbackPage');
+    //console.log('ionViewDidLoad BugFeedbackPage');
   }
 
 }
