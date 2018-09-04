@@ -113,16 +113,16 @@
                 </div>
             </ion-item>
            
-            <ion-list radio-group [(ngModel)]="!pmc.community_ID.isInternalSharing" name="isInternalSharing" #isInternalSharing="ngModel" >
+            <ion-list radio-group [(ngModel)]="pmc.community_ID.isInternalSharing" name="isInternalSharing" #isInternalSharing="ngModel" >
                 <ion-list-header>
-                    是否对非本小区居民开放
+                        <div class="text-primary">是否对社会车辆开放共享车位? *</div>
                 </ion-list-header>
                 <ion-item no-lines>
-                    <ion-label>是 </ion-label>
+                    <ion-label>是 (对社会车辆开放共享车位)</ion-label>
                     <ion-radio value="false" checked="true"></ion-radio>
                   </ion-item>
                   <ion-item no-lines>
-                    <ion-label>否 </ion-label>
+                    <ion-label>否 (只对本小区居民开放共享车位)</ion-label>
                     <ion-radio value="true"></ion-radio>
                   </ion-item> 
             </ion-list>

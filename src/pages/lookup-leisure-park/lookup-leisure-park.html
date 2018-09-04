@@ -14,8 +14,8 @@
 
 <ion-content padding> 
    
-    <div *ngIf="isInteralSharingCommunity" class="longText"> 该小区共享车位仅供内部居民共享，不对外开放 </div>
-    <div *ngIf="!isInteralSharingCommunity && !hasData" class="longText"> 该小区暂未有可供申请的共享车位。 </div>
+    <div *ngIf="isInteralSharingCommunity" class="longText" text-wrap> 该小区共享车位仅供内部居民共享，不对外开放   </div>
+    <div *ngIf="!isInteralSharingCommunity && !hasData" class="longText" text-wrap>  该小区暂未有可供申请的共享车位。  </div>
     <!-- <button ion-button icon-end round color="primary" tappable (click)="openPayActionSheet({})" >
         <ion-icon name="bookmark"></ion-icon>  
         &nbsp;&nbsp;测试支付

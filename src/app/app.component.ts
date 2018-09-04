@@ -12,7 +12,7 @@ import { PmcCarportDashboardPage } from '../pages/pmc-carport-dashboard/pmc-carp
 import { MyOrdersPage } from '../pages/myorders/myorders';
 import { ProfilePage } from '../pages/profile/profile';
 import { MyCreditPage } from '../pages/my-credit/my-credit';
-
+import { BugFeedbackPage } from '../pages/bug-feedback/bug-feedback';
 //import { timer } from 'rxjs/observable/timer';
 
 @Component({
@@ -67,6 +67,11 @@ export class MyApp {
   myCredit() {
     this.nav.push(MyCreditPage);
   } 
+
+  bugFeedback() {
+    this.nav.push(BugFeedbackPage);
+  } 
+
 
   //Amin:Todo: Not sure why the map page is always empty.
   // goBackHome() {
